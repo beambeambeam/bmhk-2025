@@ -1,27 +1,38 @@
 stages:
-  - lint
-  - test
+  - prepare
   - build
 
-variables:
-  PNPM_HOME: "$HOME/.pnpm"
-  PATH: "$PNPM_HOME:$PATH"
+image: node:latest
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
 
 before_script:
   - corepack enable
   - corepack prepare pnpm@latest --activate
   - pnpm install --frozen-lockfile
 
-lint:
-  stage: lint
+eslint:
+  stage: prepare
+  cache:
+    paths:
+      - node_modules/
+    policy: pull
   script:
     - pnpm lint
-  rules:
-    - if: "$CI_MERGE_REQUEST_ID"
+  artifacts:
+    reports:
+      codequality: gl-codequality.json
 
 build:
   stage: build
+  cache:
+    paths:
+      - node_modules/
+    policy: pull
+  dependencies:
+    - eslint
   script:
     - pnpm build
-  rules:
-    - if: "$CI_MERGE_REQUEST_ID"
