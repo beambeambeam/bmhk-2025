@@ -1,0 +1,27 @@
+stages:
+  - lint
+  - test
+  - build
+
+variables:
+  PNPM_HOME: "$HOME/.pnpm"
+  PATH: "$PNPM_HOME:$PATH"
+
+before_script:
+  - corepack enable
+  - corepack prepare pnpm@latest --activate
+  - pnpm install --frozen-lockfile
+
+lint:
+  stage: lint
+  script:
+    - pnpm lint
+  rules:
+    - if: "$CI_MERGE_REQUEST_ID"
+
+build:
+  stage: build
+  script:
+    - pnpm build
+  rules:
+    - if: "$CI_MERGE_REQUEST_ID"
