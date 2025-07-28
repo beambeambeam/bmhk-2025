@@ -1,18 +1,24 @@
 import js from "@eslint/js"
+import tseslint from "@typescript-eslint/eslint-plugin"
+import parser from "@typescript-eslint/parser"
 import eslintConfigPrettier from "eslint-config-prettier"
-import tseslint from "typescript-eslint"
 
 export default [
   js.configs.recommended,
-  eslintConfigPrettier,
-  ...tseslint.configs.recommended,
   {
+    files: ["src/**/*.ts", "apps/**/*.ts", "packages/**/*.ts", "test/**/*.ts"],
     languageOptions: {
-      parser: tseslint.parser,
+      parser,
       parserOptions: {
         project: true,
       },
     },
-    ignores: ["eslint.config.js", "apps/**/eslint.config.js", "packages/**/eslint.config.js"],
+    plugins: {
+      "@typescript-eslint": tseslint,
+    },
+    rules: {
+      ...tseslint.configs.recommended.rules,
+    },
   },
+  eslintConfigPrettier,
 ]

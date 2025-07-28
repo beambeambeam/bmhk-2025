@@ -7,6 +7,16 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8.24.1
+        version: 8.24.1(@typescript-eslint/parser@8.24.1(eslint@9.31.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.31.0(jiti@2.4.2))(typescript@5.7.3)
+      '@typescript-eslint/parser':
+        specifier: ^8.24.1
+        version: 8.24.1(eslint@9.31.0(jiti@2.4.2))(typescript@5.7.3)
+      eslint-config-prettier:
+        specifier: ^9.1.0
+        version: 9.1.0(eslint@9.31.0(jiti@2.4.2))
     devDependencies:
       '@commitlint/cli':
         specifier: ^19.8.1
