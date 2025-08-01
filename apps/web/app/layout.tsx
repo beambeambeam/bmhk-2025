@@ -1,14 +1,17 @@
 import "@workspace/ui/globals.css"
-import { Geist, Geist_Mono } from "next/font/google"
+import { cn } from "@workspace/ui/lib/utils"
+import { Bai_Jamjuree, Prompt } from "next/font/google"
 
-const fontSans = Geist({
-  subsets: ["latin"],
-  variable: "--font-sans",
+const fontPrompt = Prompt({
+  subsets: ["thai"],
+  variable: "--font-prompt",
+  weight: ["300", "400", "500", "600", "700", "800"],
 })
 
-const fontMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
+const fontBaiJamjuree = Bai_Jamjuree({
+  subsets: ["thai"],
+  variable: "--font-bai-jamjuree",
+  weight: ["300", "400", "500", "600", "700"],
 })
 
 export default function RootLayout({
@@ -18,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}>{children}</body>
+      <body className={cn("font-prompt antialiased", fontPrompt.variable, fontBaiJamjuree.variable)}>
+        {children}
+      </body>
     </html>
   )
 }
