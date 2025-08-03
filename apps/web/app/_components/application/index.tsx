@@ -45,30 +45,10 @@ const req: RequirementProps[] = [
   },
 ]
 
-/* function Application() {
-  return (
-    <div className="h-auto w-full flex flex-col gap-[60px]">
-      <h2 className="text-center text-5xl font-semibold leading-[67.2px]">
-        เอกสารในการสมัคร
-      </h2>
-      <div className="flex flex-wrap gap-10 justify-center">
-        {req.map(ea => (
-          <Requirement
-            key={ea.title}
-            title={ea.title}
-            items={ea.items}
-            imgSrc={ea.imgSrc}
-          />
-        ))}
-      </div>
-    </div>
-  );
-} */
-
 function Application() {
   return (
-    <section className="py-15 gap-15 relative inline-flex h-[1080px] flex-col items-center justify-center self-stretch px-40">
-      <h2 className="text-center text-5xl font-semibold leading-[67.2px]">เอกสารในการสมัคร</h2>
+    <section className="py-15 gap-15 relative inline-flex max-h-screen flex-col items-center justify-center self-stretch px-40">
+      <h2 className="leading-16 text-center text-5xl font-semibold">เอกสารในการสมัคร</h2>
       <div className="inline-flex items-start justify-start gap-10">
         {req.map((ea) => (
           <Requirement key={ea.title} title={ea.title} items={ea.items} imgSrc={ea.imgSrc} />
