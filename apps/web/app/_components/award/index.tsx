@@ -13,7 +13,7 @@ const AWARD_SLIDE: AwardSlideProps[] = [
   },
   {
     imageSrc: "https://placehold.co/300x300",
-    title: "รางวัลรองชะเลิศอันดับ 2",
+    title: "รางวัลรองชนะเลิศอันดับ 2",
     description: "เงินรางวัล 5,000 บาท พร้อมโล่เกียรติคุณ",
   },
   {
