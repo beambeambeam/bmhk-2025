@@ -6,33 +6,6 @@ interface RequirementProps {
   imgSrc: string
 }
 
-/* function Requirement({ title, items, imgSrc }: RequirementProps) {
-  return (
-    <div className="mx-auto flex w-[313px] flex-col gap-y-6 md:w-[437px] lg:w-[643px]">
-      <img
-        src={imgSrc}
-        height={378}
-        width={378}
-        alt={title}
-        className="md:size-65 mx-auto size-40 lg:size-[378px]"
-      />
-      <div className="relative w-full md:h-[269px] lg:h-[327px]">
-        <div className="liquid absolute inset-x-0 top-[48px] mx-auto flex h-[235px] w-full max-w-[643px] flex-col items-center rounded-[40px] border border-white/10 px-4 pb-6 pt-8 md:h-[233px] md:px-8 md:pt-12 lg:h-[326px] lg:pt-14">
-          <ul className="text-body-2 m-0 mx-auto flex flex-1 list-inside list-disc flex-col self-stretch">
-            {items.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="liquid absolute left-1/2 top-0 inline-flex -translate-x-1/2 transform flex-col items-center justify-center gap-10 rounded-[40px] px-8 py-6 outline-1 outline-offset-[-1px] outline-white/10">
-          <div className="text-subheader-1 whitespace-nowrap text-center">{title}</div>
-        </div>
-      </div>
-    </div>
-  )
-} */
-
 function Requirement({ title, items, imgSrc }: RequirementProps) {
   return (
     <div className="flex w-[313px] flex-col justify-center gap-y-6 md:w-[437px] lg:w-[643px]">
