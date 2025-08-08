@@ -61,7 +61,7 @@ export default function Award() {
     <section className="gap-15 inline-flex min-h-screen w-full flex-col items-center justify-center self-stretch lg:px-40">
       <div className="flex w-full items-center justify-center gap-x-8">
         <div className="h-px w-96 origin-top-left outline-1 outline-offset-[-0.50px]" />
-        <h2 className="leading-16 text-center text-5xl font-semibold">รางวัล</h2>
+        <h2 className="text-header-1 text-center">รางวัล</h2>
         <div className="h-px w-96 origin-top-left outline-1 outline-offset-[-0.50px]" />
       </div>
 

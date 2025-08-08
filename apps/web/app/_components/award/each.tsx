@@ -16,11 +16,9 @@ export function EachAwardForTopRow({ data }: EachAwardProps) {
         />
         <div className="flex flex-col gap-6">
           <div className="inline-flex flex-col items-center justify-center gap-10 rounded-[40px] px-8 py-6 outline-1 outline-offset-[-1px]">
-            <div className="justify-center self-stretch text-center text-3xl font-medium leading-10">
-              {data.title}
-            </div>
+            <div className="text-subheader-2 justify-center self-stretch text-center">{data.title}</div>
           </div>
-          <div className="justify-center text-center text-xl font-light">{data.description}</div>
+          <div className="text-body-3 justify-center text-center">{data.description}</div>
         </div>
       </div>
     )
@@ -35,11 +33,9 @@ export function EachAwardForTopRow({ data }: EachAwardProps) {
         />
         <div className="flex flex-col gap-6">
           <div className="inline-flex flex-col items-center justify-center gap-10 rounded-[40px] px-8 py-6 outline-1 outline-offset-[-1px]">
-            <div className="justify-center self-stretch text-center text-3xl font-medium leading-10">
-              {data.title}
-            </div>
+            <div className="text-subheader-2 justify-center self-stretch text-center">{data.title}</div>
           </div>
-          <div className="justify-center text-center text-xl font-light">{data.description}</div>
+          <div className="text-body-3 justify-center text-center">{data.description}</div>
         </div>
       </div>
     )
@@ -54,8 +50,8 @@ export function EachAwardForBottomRow({ data }: EachAwardProps) {
         alt={data.title}
       />
       <div className="flex flex-col gap-6">
-        <div className="text-3xl font-medium leading-10">{data.title}</div>
-        <div className="text-xl font-light leading-loose">{data.description}</div>
+        <div className="text-subheader-2">{data.title}</div>
+        <div className="text-body-2">{data.description}</div>
       </div>
     </div>
   )

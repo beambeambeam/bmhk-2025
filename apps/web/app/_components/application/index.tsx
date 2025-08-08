@@ -10,7 +10,7 @@ function Requirement({ title, items, imgSrc }: RequirementProps) {
       <img src={imgSrc} height={378} width={376} alt={title} className="mx-auto" />
       <div className="relative h-[327px] w-full">
         <div className="absolute inset-x-0 top-[48px] mx-auto flex h-80 w-full max-w-[643px] flex-col items-center rounded-[40px] px-8 pb-6 pt-12 outline-1 outline-offset-[-1px]">
-          <ul className="m-0 mx-auto flex flex-1 list-inside list-disc flex-col self-stretch text-2xl font-light leading-10">
+          <ul className="text-body-2 m-0 mx-auto flex flex-1 list-inside list-disc flex-col self-stretch">
             {items.map((item, i) => (
               <li key={i}>{item}</li>
             ))}
@@ -18,7 +18,7 @@ function Requirement({ title, items, imgSrc }: RequirementProps) {
         </div>
 
         <div className="absolute left-1/2 top-0 inline-flex -translate-x-1/2 transform flex-col items-center justify-center gap-10 rounded-[40px] bg-white px-8 py-6 outline-1 outline-offset-[-1px]">
-          <div className="whitespace-nowrap text-center text-3xl font-medium leading-10">{title}</div>
+          <div className="text-subheader-1 whitespace-nowrap text-center">{title}</div>
         </div>
       </div>
     </div>
@@ -50,7 +50,7 @@ function Application() {
     <section className="py-15 gap-15 relative inline-flex max-h-screen flex-col items-center justify-center self-stretch px-40">
       <div className="flex w-full items-center justify-center gap-x-8">
         <div className="h-px w-96 origin-top-left outline-1 outline-offset-[-0.50px]" />
-        <h2 className="leading-16 text-center text-5xl font-semibold">เอกสารในการสมัคร</h2>
+        <h2 className="text-header-1 text-center">เอกสารในการสมัคร</h2>
         <div className="h-px w-96 origin-top-left outline-1 outline-offset-[-0.50px]" />
       </div>
       <div className="inline-flex items-start justify-start gap-10">
