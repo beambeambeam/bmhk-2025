@@ -1,3 +1,5 @@
+import { Heading } from "@/components/heading"
+
 import { EachAwardForTopRow, EachAwardForBottomRow } from "./each"
 
 export interface AwardData {
@@ -58,12 +60,13 @@ const AWARDS_BOTTOMROW: AwardData[] = [
 
 export default function Award() {
   return (
-    <section className="gap-15 inline-flex min-h-screen w-full flex-col items-center justify-center self-stretch lg:px-40">
-      <div className="flex w-full items-center justify-center gap-x-8">
+    <section className="gap-15 inline-flex min-h-screen w-full flex-col items-center justify-center self-stretch text-white lg:px-40">
+      {/* <div className="flex w-full items-center justify-center gap-x-8">
         <div className="h-px w-96 origin-top-left outline-1 outline-offset-[-0.50px]" />
         <h2 className="text-header-1 text-center">รางวัล</h2>
         <div className="h-px w-96 origin-top-left outline-1 outline-offset-[-0.50px]" />
-      </div>
+      </div> */}
+      <Heading text="รางวัล" />
 
       <div className="hidden items-end px-[50px] lg:flex">
         {AWARDS_TOPROW.map((ea, i) => (

@@ -1,3 +1,5 @@
+import { Heading } from "@/components/heading"
+
 interface RequirementProps {
   title: string
   items: string[]
@@ -17,7 +19,7 @@ function Requirement({ title, items, imgSrc }: RequirementProps) {
           </ul>
         </div>
 
-        <div className="absolute left-1/2 top-0 inline-flex -translate-x-1/2 transform flex-col items-center justify-center gap-10 rounded-[40px] bg-white px-8 py-6 outline-1 outline-offset-[-1px]">
+        <div className="absolute left-1/2 top-0 inline-flex -translate-x-1/2 transform flex-col items-center justify-center gap-10 rounded-[40px] bg-black px-8 py-6 outline-1 outline-offset-[-1px]">
           <div className="text-subheader-1 whitespace-nowrap text-center">{title}</div>
         </div>
       </div>
@@ -47,12 +49,8 @@ const req: RequirementProps[] = [
 
 function Application() {
   return (
-    <section className="py-15 gap-15 relative inline-flex max-h-screen flex-col items-center justify-center self-stretch px-40">
-      <div className="flex w-full items-center justify-center gap-x-8">
-        <div className="h-px w-96 origin-top-left outline-1 outline-offset-[-0.50px]" />
-        <h2 className="text-header-1 text-center">เอกสารในการสมัคร</h2>
-        <div className="h-px w-96 origin-top-left outline-1 outline-offset-[-0.50px]" />
-      </div>
+    <section className="py-15 gap-15 relative inline-flex max-h-screen flex-col items-center justify-center self-stretch px-40 text-white">
+      <Heading text="เอกสารในการสมัคร" />
       <div className="inline-flex items-start justify-start gap-10">
         {req.map((ea) => (
           <Requirement key={ea.title} title={ea.title} items={ea.items} imgSrc={ea.imgSrc} />
