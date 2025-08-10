@@ -13,6 +13,7 @@ export function EachAwardForTopRow({ data }: EachAwardProps) {
           width={data.imageDimension.width}
           height={data.imageDimension.height}
           alt={data.title}
+          className="md:size-65 size-40 lg:size-[335px]"
         />
         <div className="flex flex-col gap-6">
           <div className="mx-auto inline-flex w-fit flex-col items-center justify-center gap-10 rounded-[40px] px-8 py-6 outline-1 outline-offset-[-1px]">
@@ -30,6 +31,7 @@ export function EachAwardForTopRow({ data }: EachAwardProps) {
           width={data.imageDimension.width}
           height={data.imageDimension.height}
           alt={data.title}
+          className="md:size-50 size-40 lg:size-[250px]"
         />
         <div className="flex flex-col gap-6">
           <div className="inline-flex flex-col items-center justify-center gap-10 rounded-[40px] px-8 py-6 outline-1 outline-offset-[-1px]">
@@ -48,6 +50,7 @@ export function EachAwardForBottomRow({ data }: EachAwardProps) {
         width={data.imageDimension.width}
         height={data.imageDimension.height}
         alt={data.title}
+        className="size-25 lg:size-35"
       />
       <div className="flex flex-col gap-6">
         <div className="text-subheader-2">{data.title}</div>

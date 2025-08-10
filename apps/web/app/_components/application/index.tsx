@@ -16,7 +16,7 @@ function Requirement({ title, items, imgSrc }: RequirementProps) {
         alt={title}
         className="md:size-65 mx-auto size-40 lg:size-[378px]"
       />
-      <div className="relative h-[327px] w-full">
+      <div className="relative h-[236px] w-full md:h-[269px] lg:h-[327px]">
         <div className="absolute inset-x-0 top-[48px] mx-auto flex h-80 w-full max-w-[643px] flex-col items-center rounded-[40px] px-4 pb-6 pt-12 outline-1 outline-offset-[-1px] md:px-8">
           <ul className="text-body-2 m-0 mx-auto flex flex-1 list-inside list-disc flex-col self-stretch">
             {items.map((item, i) => (

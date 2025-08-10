@@ -12,13 +12,13 @@ export interface AwardData {
 
 const AWARDS_TOPROW: AwardData[] = [
   {
-    imageSrc: "/static/awards/1.svg",
+    imageSrc: "/static/awards/2.svg",
     title: "รางวัลรองชนะเลิศอันดับ 1",
     description: "เงินรางวัล 15,000 บาท พร้อมโล่เกียรติคุณ",
     imageDimension: { width: 250, height: 250 },
   },
   {
-    imageSrc: "/static/awards/2.svg",
+    imageSrc: "/static/awards/1.svg",
     title: "รางวัลชนะเลิศ",
     description: "เงินรางวัล 30,000 บาท พร้อมโล่เกียรติคุณ",
     topRowIsMain: true,
@@ -47,13 +47,13 @@ const AWARDS_BOTTOMROW: AwardData[] = [
     imageSrc: "/static/awards/4.svg",
     title: "รางวัลชมเชย",
     description: "เงินรางวัล 2,000 บาท",
-    imageDimension: { width: 150, height: 150 },
+    imageDimension: { width: 140, height: 140 },
   },
   {
     imageSrc: "/static/awards/5.svg",
     title: "ประกาศนียบัตร",
     description: "สำหรับผู้เข้าร่วมการแข่งขันทุกคน",
-    imageDimension: { width: 150, height: 150 },
+    imageDimension: { width: 140, height: 140 },
   },
 ]
 
