@@ -46,7 +46,7 @@ build-and-push-web-image:
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   before_script:
-    - docker login ghcr.io -u "${GHCR_USR}" --password "${GHCR_PAT}"
+    - echo "${GHCR_PAT}" | docker login ghcr.io -u "${GHCR_USR}" --password-stdin
   script:
     - docker build -t ghcr.io/${GHCR_USR}/bmhk2025-web:latest -f apps/web/Dockerfile .
     - docker push ghcr.io/${GHCR_USR}/bmhk2025-web:latest
@@ -61,7 +61,7 @@ build-and-push-api-image:
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   before_script:
-    - docker login ghcr.io -u "${GHCR_USR}" --password "${GHCR_PAT}"
+    - echo "${GHCR_PAT}" | docker login ghcr.io -u "${GHCR_USR}" --password-stdin
   script:
     - docker build -t ghcr.io/${GHCR_USR}/bmhk2025-api:latest -f apps/api/Dockerfile .
     - docker push ghcr.io/${GHCR_USR}/bmhk2025-api:latest
