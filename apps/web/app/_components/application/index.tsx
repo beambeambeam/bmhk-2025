@@ -8,10 +8,16 @@ interface RequirementProps {
 
 function Requirement({ title, items, imgSrc }: RequirementProps) {
   return (
-    <div className="mx-auto flex w-[643px] flex-col gap-y-6">
-      <img src={imgSrc} height={378} width={376} alt={title} className="mx-auto" />
+    <div className="mx-auto flex w-[313px] flex-col gap-y-6 md:w-[437px] lg:w-[643px]">
+      <img
+        src={imgSrc}
+        height={378}
+        width={378}
+        alt={title}
+        className="md:size-65 mx-auto size-40 lg:size-[378px]"
+      />
       <div className="relative h-[327px] w-full">
-        <div className="absolute inset-x-0 top-[48px] mx-auto flex h-80 w-full max-w-[643px] flex-col items-center rounded-[40px] px-8 pb-6 pt-12 outline-1 outline-offset-[-1px]">
+        <div className="absolute inset-x-0 top-[48px] mx-auto flex h-80 w-full max-w-[643px] flex-col items-center rounded-[40px] px-4 pb-6 pt-12 outline-1 outline-offset-[-1px] md:px-8">
           <ul className="text-body-2 m-0 mx-auto flex flex-1 list-inside list-disc flex-col self-stretch">
             {items.map((item, i) => (
               <li key={i}>{item}</li>
@@ -35,7 +41,7 @@ const req: RequirementProps[] = [
       "สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริงของผู้เข้าแข่งขัน",
       "รูปถ่ายของนักเรียนผู้เข้าแข่งขัน",
     ],
-    imgSrc: "https://placehold.co/376x378",
+    imgSrc: "/static/required-docs/1.svg",
   },
   {
     title: "สำหรับอาจารย์ที่ปรึกษา",
@@ -43,15 +49,15 @@ const req: RequirementProps[] = [
       "สำเนาบัตรประชาชน หรือบัตรประจำตัวสำหรับบุคคลที่ไม่ใช่สัญชาติไทย (เฉพาะด้านหน้า)",
       "เอกสารแสดงสถานภาพการเป็นอาจารย์ประจำในสถานศึกษา เช่น บัตรประจำตัวอาจารย์, บัตรข้าราชการครู, หรือหนังสือรับรองจากสถานศึกษา",
     ],
-    imgSrc: "https://placehold.co/376x378",
+    imgSrc: "/static/required-docs/2.svg",
   },
 ]
 
-function Application() {
+export default function Application() {
   return (
-    <section className="py-15 gap-15 relative inline-flex max-h-screen flex-col items-center justify-center self-stretch px-40 text-white">
+    <section className="py-15 gap-15 relative inline-flex min-h-screen flex-col items-center justify-center self-stretch px-40 text-white">
       <Heading text="เอกสารในการสมัคร" />
-      <div className="inline-flex items-start justify-start gap-10">
+      <div className="flex flex-col items-start justify-start gap-10 md:flex-row">
         {req.map((ea) => (
           <Requirement key={ea.title} title={ea.title} items={ea.items} imgSrc={ea.imgSrc} />
         ))}
@@ -59,5 +65,3 @@ function Application() {
     </section>
   )
 }
-
-export default Application

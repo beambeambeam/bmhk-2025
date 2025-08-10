@@ -12,20 +12,20 @@ export interface AwardData {
 
 const AWARDS_TOPROW: AwardData[] = [
   {
-    imageSrc: "https://placehold.co/250x250",
+    imageSrc: "/static/awards/1.svg",
     title: "รางวัลรองชนะเลิศอันดับ 1",
     description: "เงินรางวัล 15,000 บาท พร้อมโล่เกียรติคุณ",
     imageDimension: { width: 250, height: 250 },
   },
   {
-    imageSrc: "https://placehold.co/335x335",
+    imageSrc: "/static/awards/2.svg",
     title: "รางวัลชนะเลิศ",
     description: "เงินรางวัล 30,000 บาท พร้อมโล่เกียรติคุณ",
     topRowIsMain: true,
     imageDimension: { width: 335, height: 335 },
   },
   {
-    imageSrc: "https://placehold.co/250x250",
+    imageSrc: "/static/awards/3.svg",
     title: "รางวัลรองชนะเลิศอันดับ 2",
     description: "เงินรางวัล 5,000 บาท พร้อมโล่เกียรติคุณ",
     imageDimension: { width: 250, height: 250 },
@@ -36,7 +36,6 @@ const AWARDS_TOPROW_MOBILE: AwardData[] = [
   {
     imageDimension: { width: 250, height: 250 },
     topRowIsMain: false,
-    imageSrc: "https://placehold.co/250x250", // wont be here in prod kub
     ...AWARDS_TOPROW[1],
   } as AwardData,
   AWARDS_TOPROW[0] as AwardData,
@@ -45,13 +44,13 @@ const AWARDS_TOPROW_MOBILE: AwardData[] = [
 
 const AWARDS_BOTTOMROW: AwardData[] = [
   {
-    imageSrc: "https://placehold.co/150x150",
+    imageSrc: "/static/awards/4.svg",
     title: "รางวัลชมเชย",
     description: "เงินรางวัล 2,000 บาท",
     imageDimension: { width: 150, height: 150 },
   },
   {
-    imageSrc: "https://placehold.co/150x150",
+    imageSrc: "/static/awards/5.svg",
     title: "ประกาศนียบัตร",
     description: "สำหรับผู้เข้าร่วมการแข่งขันทุกคน",
     imageDimension: { width: 150, height: 150 },
