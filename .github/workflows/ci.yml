@@ -20,6 +20,8 @@ jobs:
         run: corepack enable
       - name: Prepare pnpm
         run: corepack prepare pnpm@latest --activate
+      - name: Install corepack shims
+        run: corepack install
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Lint
@@ -39,6 +41,8 @@ jobs:
         run: corepack enable
       - name: Prepare pnpm
         run: corepack prepare pnpm@latest --activate
+      - name: Install corepack shims
+        run: corepack install
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build
