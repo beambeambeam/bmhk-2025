@@ -6,21 +6,27 @@ export interface AwardData {
   imageSrc: string
   title: string
   description: string
-  topRowIsMain?: boolean
   imageDimension: { width: number; height: number }
 }
 
-const AWARDS_TOPROW: AwardData[] = [
+export interface TopRowAwardData extends AwardData {
+  topRowIsMain?: boolean
+  lqClassName: string
+}
+
+const AWARDS_TOPROW: TopRowAwardData[] = [
   {
     imageSrc: "/static/awards/2.svg",
     title: "รางวัลรองชนะเลิศอันดับ 1",
     description: "เงินรางวัล 15,000 บาท พร้อมโล่เกียรติคุณ",
+    lqClassName: "liquid-award-second",
     imageDimension: { width: 250, height: 250 },
   },
   {
     imageSrc: "/static/awards/1.svg",
     title: "รางวัลชนะเลิศ",
     description: "เงินรางวัล 30,000 บาท พร้อมโล่เกียรติคุณ",
+    lqClassName: "liquid-award-first",
     topRowIsMain: true,
     imageDimension: { width: 335, height: 335 },
   },
@@ -28,18 +34,19 @@ const AWARDS_TOPROW: AwardData[] = [
     imageSrc: "/static/awards/3.svg",
     title: "รางวัลรองชนะเลิศอันดับ 2",
     description: "เงินรางวัล 5,000 บาท พร้อมโล่เกียรติคุณ",
+    lqClassName: "liquid-award-third",
     imageDimension: { width: 250, height: 250 },
   },
 ]
 
-const AWARDS_TOPROW_MOBILE: AwardData[] = [
+const AWARDS_TOPROW_MOBILE: TopRowAwardData[] = [
   {
     imageDimension: { width: 250, height: 250 },
     topRowIsMain: false,
     ...AWARDS_TOPROW[1],
-  } as AwardData,
-  AWARDS_TOPROW[0] as AwardData,
-  AWARDS_TOPROW[2] as AwardData,
+  } as TopRowAwardData,
+  AWARDS_TOPROW[0] as TopRowAwardData,
+  AWARDS_TOPROW[2] as TopRowAwardData,
 ]
 
 const AWARDS_BOTTOMROW: AwardData[] = [
