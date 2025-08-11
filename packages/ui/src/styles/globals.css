@@ -105,46 +105,69 @@
 @utility text-header-1 {
   @apply text-5xl font-medium leading-[1.4];
 }
+
 @utility text-header-2-medium {
   @apply text-4xl font-medium leading-[1.4];
 }
+
 @utility text-header-2-regular {
   @apply text-[32px] font-normal leading-[1.4];
 }
+
 @utility text-subheader-1 {
   @apply text-[32px] font-medium leading-[1.4];
 }
+
 @utility text-subheader-2 {
   @apply text-[28px] font-medium leading-[1.4];
 }
+
 @utility text-body-1 {
   @apply text-2xl font-normal leading-[1.6];
 }
+
 @utility text-body-2 {
   @apply text-2xl font-light leading-[1.6];
 }
+
 @utility text-body-3 {
   @apply text-xl font-light leading-[1.6];
 }
+
 @utility text-supporting-body-1 {
   @apply text-[28px] font-semibold leading-[1.4];
 }
+
 @utility text-label-1 {
   @apply text-2xl font-medium leading-[1.6];
 }
+
 @utility text-button-1 {
   @apply text-[32px] font-medium leading-[1.4];
 }
+
 @utility text-button-2 {
   @apply text-2xl font-medium leading-[1.4];
 }
+
 @utility text-nav-1-selected {
   @apply text-xl font-semibold leading-[1.4];
 }
+
 @utility text-nav-2 {
   @apply text-xl font-normal leading-[1.4];
 }
 
 @utility no-scrollbar {
   @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
+@layer component {
+  .liquid {
+    background:
+      radial-gradient(66.31% 84.48% at 52.63% 121.84%, rgba(255, 204, 247, 0.5) 0%, rgba(2, 6, 3, 0) 100%),
+      linear-gradient(106.52deg, rgba(255, 204, 247, 0.09) -2.48%, rgba(159, 131, 220, 0.09) 29.08%);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+  }
 }
