@@ -6,10 +6,11 @@ import LandingSection from "@/app/_components/landing"
 import QualificationSector from "@/app/_components/qualification"
 import Scope from "@/app/_components/scope"
 import Story from "@/app/_components/story"
+import Footer from "./_components/footer"
 
 export default function Page() {
   return (
-    <div className="no-scrollbar h-screen snap-y snap-always overflow-y-auto bg-black">
+    <div className="no-scrollbar h-screen flex flex-col gap-20 snap-y snap-always overflow-y-auto bg-black text-white">
       {/* spacec for navbar */}
       <div className="h-[94.45px]" />
 
@@ -37,6 +38,7 @@ export default function Page() {
       <div className="flex min-h-screen snap-start items-center justify-center">
         <Story />
       </div>
+      <Footer />
     </div>
   )
 }
