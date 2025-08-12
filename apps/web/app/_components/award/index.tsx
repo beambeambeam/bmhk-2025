@@ -66,7 +66,7 @@ const AWARDS_BOTTOMROW: AwardData[] = [
 
 export default function Award() {
   return (
-    <section className="gap-15 inline-flex min-h-screen w-full flex-col items-center justify-center self-stretch text-white lg:px-40">
+    <section className="gap-15 inline-flex h-full min-h-screen w-screen flex-col items-center justify-center self-stretch overflow-x-hidden text-white lg:px-40">
       <Heading text="รางวัล" />
 
       <div className="hidden items-end px-[50px] lg:flex">
