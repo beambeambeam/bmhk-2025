@@ -108,54 +108,67 @@
 
 @utility text-header-2-medium {
   @apply text-xl md:text-3xl lg:text-4xl font-medium leading-[1.4];
+  @apply text-xl md:text-3xl lg:text-4xl font-medium leading-[1.4];
 }
 
 @utility text-header-2-regular {
+  @apply text-lg md:text-2xl lg:text-[32px] font-normal leading-[1.4];
   @apply text-lg md:text-2xl lg:text-[32px] font-normal leading-[1.4];
 }
 
 @utility text-subheader-1 {
   @apply text-lg md:text-3xl lg:text-[32px] font-medium leading-[1.4];
+  @apply text-lg md:text-3xl lg:text-[32px] font-medium leading-[1.4];
 }
 
 @utility text-subheader-2 {
+  @apply text-lg md:text-2xl lg:text-[28px] font-medium leading-[1.4];
   @apply text-lg md:text-2xl lg:text-[28px] font-medium leading-[1.4];
 }
 
 @utility text-body-1 {
   @apply text-base md:text-xl lg:text-2xl font-normal lg:leading-[1.6];
+  @apply text-base md:text-xl lg:text-2xl font-normal lg:leading-[1.6];
 }
 
 @utility text-body-2 {
+  @apply text-base md:text-xl lg:text-2xl font-light leading-[1.6];
   @apply text-base md:text-xl lg:text-2xl font-light leading-[1.6];
 }
 
 @utility text-body-3 {
   @apply text-base md:text-lg lg:text-xl font-light leading-[1.6];
+  @apply text-base md:text-lg lg:text-xl font-light leading-[1.6];
 }
 
 @utility text-supporting-body-1 {
   @apply text-base md:text-2xl lg:text-[28px] font-semibold leading-[1.4];
+  @apply text-base md:text-2xl lg:text-[28px] font-semibold leading-[1.4];
 }
 
 @utility text-label-1 {
+  /* have not been used yet so no idea what size it should be in other screen size kub - jakka */
   /* have not been used yet so no idea what size it should be in other screen size kub - jakka */
   @apply text-2xl font-medium leading-[1.6];
 }
 
 @utility text-button-1 {
   @apply text-lg md:text-3xl lg:text-[32px] font-medium leading-[1.4];
+  @apply text-lg md:text-3xl lg:text-[32px] font-medium leading-[1.4];
 }
 
 @utility text-button-2 {
+  @apply text-base md:text-xl lg:text-2xl font-medium leading-[1.4];
   @apply text-base md:text-xl lg:text-2xl font-medium leading-[1.4];
 }
 
 @utility text-nav-1-selected {
   @apply text-base lg:text-xl font-semibold leading-[1.4];
+  @apply text-base lg:text-xl font-semibold leading-[1.4];
 }
 
 @utility text-nav-2 {
+  @apply text-base lg:text-xl font-normal leading-[1.4];
   @apply text-base lg:text-xl font-normal leading-[1.4];
 }
 
@@ -171,31 +184,6 @@
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     border-left: 1px solid rgba(255, 255, 255, 0.3);
   }
-  
-  .liquid-scope-purple {
-    background:
-      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #635BBB 0%, rgba(2, 6, 3, 0) 100%),
-      linear-gradient(106.52deg, rgba(255, 204, 247, 0.09) -2.48%, rgba(159, 131, 220, 0.09) 29.08%);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-    border-left: 1px solid rgba(255, 255, 255, 0.3);
-  }
-
-  .liquid-scope-pink {
-    background:
-      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #EDCCE8 0%, rgba(2, 6, 3, 0) 100%),
-      linear-gradient(106.52deg, rgba(255, 204, 247, 0.09) -2.48%, rgba(159, 131, 220, 0.09) 29.08%);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-    border-left: 1px solid rgba(255, 255, 255, 0.3);
-  }
-  
-  .liquid-scope-red {
-    background:
-      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #8C3061 0%, rgba(2, 6, 3, 0) 100%),
-      linear-gradient(106.52deg, rgba(255, 204, 247, 0.09) -2.48%, rgba(159, 131, 220, 0.09) 29.08%);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-    border-left: 1px solid rgba(255, 255, 255, 0.3);
-  }
-
 
   .liquid-scope-purple {
     background:
@@ -221,6 +209,29 @@
     border-left: 1px solid rgba(255, 255, 255, 0.3);
   }
 
+  .liquid-award-first {
+    background:
+      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #9f83dc 0%, rgba(2, 6, 3, 0) 100%),
+      linear-gradient(106.52deg, rgba(255, 204, 247, 0.09) -2.48%, rgba(159, 131, 220, 0.09) 29.08%);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .liquid-award-second {
+    background:
+      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #8c3061 0%, rgba(2, 6, 3, 0) 100%),
+      linear-gradient(106.52deg, rgba(255, 204, 247, 0.09) -2.48%, rgba(159, 131, 220, 0.09) 29.08%);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .liquid-award-third {
+    background:
+      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #c63c51 0%, rgba(2, 6, 3, 0) 100%),
+      linear-gradient(106.52deg, rgba(255, 204, 247, 0.09) -2.48%, rgba(159, 131, 220, 0.09) 29.08%);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+  }
 
   .liquid-gray {
     background:
