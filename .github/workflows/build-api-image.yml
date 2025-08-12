@@ -4,20 +4,20 @@ on:
   push:
     branches: [main]
     paths:
-      - 'apps/web/**/*'
+      - 'apps/api/**/*'
       - 'packages/**/*'
-      - '.github/workflows/build-web-image.yml'
+      - '.github/workflows/build-api-image.yml'
       - 'package.json'
       - 'pnpm-lock.yaml'
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/bmhk-2025-web
+  IMAGE_NAME: ${{ github.repository_owner }}/bmhk-2025-api
   CI: true
 
 jobs:
   build-api-image:
-    name: Build Web Docker image
+    name: Build API Docker image
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -46,7 +46,7 @@ jobs:
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
           context: .
-          file: apps/web/Dockerfile
+          file: apps/api/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
