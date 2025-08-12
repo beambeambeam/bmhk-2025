@@ -171,7 +171,7 @@
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     border-left: 1px solid rgba(255, 255, 255, 0.3);
   }
-  
+
   .liquid-scope-purple {
     background:
       radial-gradient(66.31% 84.48% at 52.63% 121.84%, #635BBB 0%, rgba(2, 6, 3, 0) 100%),
@@ -187,7 +187,7 @@
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     border-left: 1px solid rgba(255, 255, 255, 0.3);
   }
-  
+
   .liquid-scope-red {
     background:
       radial-gradient(66.31% 84.48% at 52.63% 121.84%, #8C3061 0%, rgba(2, 6, 3, 0) 100%),
@@ -195,7 +195,6 @@
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     border-left: 1px solid rgba(255, 255, 255, 0.3);
   }
-
 
   .liquid-scope-purple {
     background:
