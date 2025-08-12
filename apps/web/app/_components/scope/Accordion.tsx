@@ -19,7 +19,7 @@ export const Accordion: React.FC<AccordionProps> = ({ type = "single", collapsib
   }
 
   return (
-    <div className="flex flex-col gap-y-4">
+    <div className="flex flex-col gap-y-6 lg:gap-y-8 2xl:gap-y-10">
       {contentData.map((data) => {
         const isOpen = type === "single" ? openItem === data.id : openItems.includes(data.id)
         return (

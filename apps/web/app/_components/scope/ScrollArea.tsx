@@ -15,8 +15,14 @@ const ScrollArea: React.FC<ScrollAreaProps & { colorTheme: string }> = ({
           scrollbar-color: var(--thumb-color) var(--track-color);
         }
         .custom-scrollbar::-webkit-scrollbar {
-          width: 8px;
-          height: 8px;
+          width: 6px;
+          height: 6px;
+        }
+        @media (min-width: 1024px) {
+          .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+          }
         }
         .custom-scrollbar::-webkit-scrollbar-button {
           display: none;
