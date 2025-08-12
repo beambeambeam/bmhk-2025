@@ -6,7 +6,6 @@ import LandingSection from "@/app/_components/landing"
 import QualificationSector from "@/app/_components/qualification"
 import Scope from "@/app/_components/scope"
 import Story from "@/app/_components/story"
-
 import Footer from "./_components/footer"
 
 export default function Page() {
