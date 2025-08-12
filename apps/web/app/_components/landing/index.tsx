@@ -1,4 +1,4 @@
-function Stat({ title, description }: { title: string; description: string }) {
+function Stat({ title, description }: { title: string; description: string | React.ReactElement }) {
   return (
     <div className="max-w-[372.54px]">
       <div className="text-header-2-regular mb-2 text-white">{title}</div>
@@ -9,9 +9,9 @@ function Stat({ title, description }: { title: string; description: string }) {
 
 function LandingSection() {
   return (
-    <div className="relative flex h-[1080px] w-full items-center justify-center overflow-x-hidden">
+    <div className="relative flex h-[1080px] w-full items-center justify-center gap-[60px]">
       {/* perspective grid */}
-      <svg
+      {/* <svg
         width="1920"
         height="320"
         viewBox="0 0 1920 320"
@@ -48,12 +48,12 @@ function LandingSection() {
         <path d="M-10535.4 157.743H12455.3" stroke="white" strokeOpacity="0.1" />
         <path d="M-15430.6 225.674H17350.6" stroke="white" strokeOpacity="0.1" />
         <path d="M-22156 319H24076" stroke="white" strokeOpacity="0.1" />
-      </svg>
+      </svg> */}
 
       {/* shadow */}
       <div className="absolute left-[calc(50%-575px/2+0.5px)] top-[646.55px] h-[227px] w-[575px] rounded-[50%] bg-[rgba(126,97,255,0.4)] blur-[49.25px]" />
 
-      <div className="flex items-start gap-[60px]">
+      <div className="flex w-[494px] items-start gap-[60px]">
         <svg width="28" height="468" viewBox="0 0 28 468" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12.9834 14.3792L12.9834 204.5L12.9834 458.889" stroke="white" strokeOpacity="0.12" />
           <rect
@@ -112,27 +112,37 @@ function LandingSection() {
           <Stat title="ยังไม่เปิดรับสมัคร" description="จะเปิดรับสมัครในวันที่ 19 สิงหาคม 2025" />
           <Stat
             title="เขียนโปรแกรมภาษาซี"
-            description="ทั้งหมวดหมวดคณิตศาสตร์ วิทยาการคอมพิวเตอร์ และอัลกอริทึม"
+            description={
+              <>
+                ทั้งหมวดหมวดคณิตศาสตร์ <br />
+                วิทยาการคอมพิวเตอร์ และอัลกอริทึม
+              </>
+            }
           />
           <Stat title="30,000 บาท" description="เงินรางวัลสูงสุด พร้อมโล่เกียรติคุณ" />
         </div>
       </div>
 
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/static/hero/landing/logo.png" alt="logo" className="z-10" />
+      <div className="z-10 h-[679.1807861328125px] w-[563px] shrink-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/static/hero/landing/logo.png" alt="logo" className="h-full object-cover object-center" />
+      </div>
 
-      <div className="relative flex items-start justify-center gap-8">
+      <div className="relative flex w-[494px] items-start justify-center gap-8">
         <div className="mt-5 h-[2px] w-[30px] shrink-0 bg-white" />
 
-        <div className="flex max-w-[418px] flex-col items-start gap-8">
+        <div className="flex max-w-[432px] flex-col items-start gap-8">
           <div className="text-header-2-medium text-white">
             การแข่งขัน <br />
             เขียนโปรแกรมคอมพิวเตอร์ บางมดแฮกกาธอน 2025
           </div>
           <p className="text-body-2 text-gray-50">
             โครงการนี้เปิดโอกาสให้นักเรียนมัธยมต้น มัธยมปลาย และนักศึกษาอาชีวะระดับปวช. หรือเทียบเท่า
-            ได้เข้าร่วมการแข่งขัน เขียนโปรแกรมด้วยภาษาซีในรูปแบบทีม เพื่อเสริมสร้างทักษะการเขียนโปรแกรม
-            พร้อมทั้งฝึกการทำงานร่วมกัน และเก็บ เกี่ยวประสบการณ์ใหม่จากการลงสนามจริง
+            ได้เข้าร่วมการแข่งขัน
+            <br />
+            เขียนโปรแกรมด้วยภาษาซีในรูปแบบทีม <br />
+            เพื่อเสริมสร้างทักษะการเขียนโปรแกรม
+            <br /> พร้อมทั้งฝึกการทำงานร่วมกัน และเก็บ เกี่ยวประสบการณ์ใหม่จากการลงสนามจริง
           </p>
           <button className="text-button-1 bg-supporting-3 text-secondary-50 h-[87px] rounded-full px-12">
             ยังไม่เปิดรับสมัคร
