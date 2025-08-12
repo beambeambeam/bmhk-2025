@@ -9,7 +9,6 @@ services:
       - "--rolling-restart"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /etc/watchtower/config/config.json:/config.json
   reverse-proxy:
     image: traefik:v3.1
     command:
@@ -22,14 +21,14 @@ services:
       - web
       - api
     networks:
-      - main
+      - app_network
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   web:
-    image: ghcr.io/gxjakkap/bmhk-web:latest
+    image: ghcr.io/beambeambeam/bmhk-2025-web:main
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.web.rule=Host(`bangmodhackathon.com`)"
+      - "traefik.http.routers.web.rule=Host(`bmhk.dekcpe.link`)"
       - "traefik.http.services.web.loadbalancer.server.port=3000"
       - "com.centurylinklabs.watchtower.enable=true"
     env_file: ".env"
@@ -40,10 +39,10 @@ services:
     networks:
       - app_network
   api:
-    image: ghcr.io/gxjakkap/bmhk-api:latest
+    image: ghcr.io/beambeambeam/bmhk-2025-api:main
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.server.rule=Host(`api.bangmodhackathon.com`)"
+      - "traefik.http.routers.server.rule=Host(`bmhkapi.dekcpe.link`)"
       - "traefik.http.services.server.loadbalancer.server.port=3001"
       - "com.centurylinklabs.watchtower.enable=true"
     env_file: ".env"
