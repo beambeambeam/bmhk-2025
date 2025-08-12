@@ -16,8 +16,8 @@ function Requirement({ title, items, imgSrc }: RequirementProps) {
         alt={title}
         className="md:size-65 mx-auto size-40 lg:size-[378px]"
       />
-      <div className="relative h-[236px] w-full md:h-[269px] lg:h-[327px]">
-        <div className="liquid absolute inset-x-0 top-[48px] mx-auto flex h-80 w-full max-w-[643px] flex-col items-center rounded-[40px] border border-white/10 px-4 pb-6 pt-12 md:px-8">
+      <div className="relative h-[265px] w-full md:h-[269px] lg:h-[327px]">
+        <div className="liquid absolute inset-x-0 top-[48px] mx-auto flex h-[235px] w-full max-w-[643px] flex-col items-center rounded-[40px] border border-white/10 px-4 pb-6 pt-8 md:h-[233px] md:px-8 md:pt-12 lg:h-[326px] lg:pt-14">
           <ul className="text-body-2 m-0 mx-auto flex flex-1 list-inside list-disc flex-col self-stretch">
             {items.map((item, i) => (
               <li key={i}>{item}</li>
@@ -35,11 +35,11 @@ function Requirement({ title, items, imgSrc }: RequirementProps) {
 
 const req: RequirementProps[] = [
   {
-    title: "สำหรับนักเรียนผู้เข้าแข่งขัน",
+    title: "สำหรับผู้เข้าแข่งขันแต่ละคน",
     items: [
       "สำเนาบัตรประชาชน หรือบัตรประจำตัวสำหรับบุคคลที่ไม่ใช่สัญชาติไทย (เฉพาะด้านหน้า)",
       "สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริงของผู้เข้าแข่งขัน",
-      "รูปถ่ายของนักเรียนผู้เข้าแข่งขัน",
+      "รูปถ่าย 1.5 นิ้ว ชุดนักเรียนของนักเรียนผู้เข้าแข่งขัน",
     ],
     imgSrc: "/static/required-docs/1.svg",
   },
