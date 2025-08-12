@@ -6,23 +6,11 @@ import { registerDate, competitionDate } from "./content"
 
 function DateAndContest() {
   return (
-    <div className="space-y-50 flex h-[1080px] w-full flex-col items-center justify-center px-40">
+    <div className="gap-y-25 2xl:gap-y-50 flex h-auto w-full flex-col items-center justify-center px-6 lg:h-[834px] lg:px-20 2xl:h-[1080px] 2xl:px-40">
       {/* registeration */}
-      <Timeline
-        title="การรับสมัคร"
-        lineColor="#C63C51"
-        colorPercentage={50}
-        transparentPercentage={50}
-        data={registerDate}
-      />
+      <Timeline title="การรับสมัคร" colorPercentage={50} data={registerDate} />
       {/* competition */}
-      <Timeline
-        title="การแข่งขัน"
-        lineColor="#DFDFDF99"
-        colorPercentage={100}
-        transparentPercentage={0}
-        data={competitionDate}
-      />
+      <Timeline title="การแข่งขัน" colorPercentage={0} data={competitionDate} />
     </div>
   )
 }
