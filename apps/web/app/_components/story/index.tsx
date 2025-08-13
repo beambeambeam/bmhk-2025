@@ -19,7 +19,7 @@ function Story() {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % stories.length);
         setFade(true); // fade-in after change
       }, 200); // match fade-out duration
-    }, 5000); // auto switch every 5 seconds
+    }, 60000); // auto switch every 5 seconds
 
     return () => clearInterval(interval); // cleanup
   }, [stories.length]);
@@ -39,14 +39,14 @@ function Story() {
   return (
     <div className="w-full px-6 flex flex-col items-center justify-center content-center gap-8 lg:max-h-[834] sm:px-20 lg:gap-10 2xl:max-h-[1080] 2xl:px-40 2xl:gap-15">
       <div className='w-full flex flex-row justify-center items-center gap-0 lg:gap-8 2xl:gap-[100px] lg:flex-col 2xl:flex-row'>
-        <IconCircle className="cursor-pointer relative left-5 2xl:left-0 flex lg:hidden w-[40px] h-[40px] 2xl:flex 2xl:w-[90px] 2xl:h-[90px] flex-shrink-0" onClick={() => handleSelect((currentIndex - 1 + stories.length) % stories.length)}>
+        <IconCircle className="cursor-pointer relative left-5 2xl:left-[50px] flex lg:hidden w-[40px] h-[40px] 2xl:flex 2xl:w-[90px] 2xl:h-[90px] flex-shrink-0" onClick={() => handleSelect((currentIndex - 1 + stories.length) % stories.length)}>
           <img
             src="/static/icon/Left_arrow.svg"
             alt="Left Arrow Icon"
           />
         </IconCircle>
         <GlassCard
-          className='w-full p-4 lg:max-w-[1034px] lg:p-10 2xl:w-[1326px] 2xl:p-[80px 80px 40px 80px]'
+          className='w-full p-4 lg:max-w-[1034px] lg:p-10 2xl:max-w-[1326px] 2xl:p-[80px 80px 40px 80px]'
           style={{
             backgroundImage: `
               radial-gradient(
@@ -85,7 +85,7 @@ function Story() {
                 />
               )}
             </div>
-            <div className="flex flex-col justify-center items-start gap-4 lg:gap-7 2xl:gap-8 flex-[1_0_0] max-lg:text-center max-lg:items-center">
+            <div className="flex flex-col justify-center items-start gap-4 lg:gap-7 2xl:gap-8 flex-[1_0_0] max-lg:text-center max-lg:items-center 2xl:w-[842px]">
               <div className="text-header-2-regular text-[24px] lg:text-[32px] 2xl:text-[36px]">{currentStory.topic}</div>
               {/* <div className="flex items-center gap-8 self-stretch">
                 <div className="gradient-border-right w-[361px] h-[1px]" />
@@ -116,7 +116,7 @@ function Story() {
             <div className="gradient-border-right w-[200px] h-[1px]" />
           </div>
         </GlassCard>
-        <IconCircle className="cursor-pointer relative right-5 2xl:right-0 flex lg:hidden w-[40px] h-[40px] 2xl:flex 2xl:w-[90px] 2xl:h-[90px] flex-shrink-0" onClick={() => handleSelect((currentIndex + 1) % stories.length)}>
+        <IconCircle className="cursor-pointer relative right-5 2xl:right-[50px] flex lg:hidden w-[40px] h-[40px] 2xl:flex 2xl:w-[90px] 2xl:h-[90px] flex-shrink-0" onClick={() => handleSelect((currentIndex + 1) % stories.length)}>
           <img
             src="/static/icon/Right_arrow.svg"
             alt="Right Arrow Icon"
