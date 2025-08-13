@@ -9,7 +9,7 @@ function Stat({ title, description }: { title: string; description: string | Rea
 
 function LandingSection() {
   return (
-    <div className="relative flex h-[1080px] w-full items-center justify-center gap-[60px]">
+    <div className="relative flex h-[1080px] w-full flex-col items-center justify-center gap-8 md:gap-10 lg:flex-row lg:gap-[60px]">
       {/* perspective grid */}
       {/* <svg
         width="1920"
@@ -51,9 +51,9 @@ function LandingSection() {
       </svg> */}
 
       {/* shadow */}
-      <div className="absolute left-[calc(50%-575px/2+0.5px)] top-[646.55px] h-[227px] w-[575px] rounded-[50%] bg-[rgba(126,97,255,0.4)] blur-[49.25px]" />
+      {/* <div className="absolute left-[calc(50%-575px/2+0.5px)] top-[646.55px] h-[227px] w-[575px] rounded-[50%] bg-[rgba(126,97,255,0.4)] blur-[49.25px]" /> */}
 
-      <div className="flex w-[494px] items-start gap-[60px]">
+      <div className="not-lg:hidden flex w-[494px] items-start gap-[60px]">
         <svg width="28" height="468" viewBox="0 0 28 468" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12.9834 14.3792L12.9834 204.5L12.9834 458.889" stroke="white" strokeOpacity="0.12" />
           <rect
@@ -123,34 +123,40 @@ function LandingSection() {
         </div>
       </div>
 
-      <div className="z-10 h-[679.1807861328125px] w-[563px] shrink-0">
+      <div className="font-bai-jamjuree text-[32px] text-white lg:hidden">คุณฝันว่าอะไร..</div>
+
+      <div className="z-10 h-[312px] w-[340px] shrink-0 md:h-[420px] md:w-[477px] lg:h-[650px] lg:w-[563px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/static/hero/landing/logo.png" alt="logo" className="h-full object-cover object-center" />
+        <img
+          src="/static/hero/landing/logo.png"
+          alt="logo"
+          className="mx-auto h-full object-cover object-center"
+        />
       </div>
 
-      <div className="relative flex w-[494px] items-start justify-center gap-8">
-        <div className="mt-5 h-[2px] w-[30px] shrink-0 bg-white" />
+      <div className="relative flex w-full items-start justify-center gap-8 text-center lg:w-[494px] lg:text-left">
+        <div className="not-lg:hidden mt-5 h-[2px] w-[30px] shrink-0 bg-white" />
 
-        <div className="flex max-w-[432px] flex-col items-start gap-8">
+        <div className="flex max-w-full flex-col items-center gap-6 md:max-w-[971px] lg:max-w-[432px] lg:items-start lg:gap-8">
           <div className="text-header-2-medium text-white">
-            การแข่งขัน <br />
+            การแข่งขัน
+            <br className="not-lg:hidden" />
             เขียนโปรแกรมคอมพิวเตอร์ บางมดแฮกกาธอน 2025
           </div>
-          <p className="text-body-2 text-gray-50">
+          <p className="text-body-2 text-balance text-gray-50">
             โครงการนี้เปิดโอกาสให้นักเรียนมัธยมต้น มัธยมปลาย และนักศึกษาอาชีวะระดับปวช. หรือเทียบเท่า
-            ได้เข้าร่วมการแข่งขัน
-            <br />
-            เขียนโปรแกรมด้วยภาษาซีในรูปแบบทีม <br />
-            เพื่อเสริมสร้างทักษะการเขียนโปรแกรม
-            <br /> พร้อมทั้งฝึกการทำงานร่วมกัน และเก็บ เกี่ยวประสบการณ์ใหม่จากการลงสนามจริง
+            ได้เข้าร่วมการแข่งขันเขียนโปรแกรมด้วยภาษาซีในรูปแบบทีม เพื่อเสริมสร้างทักษะการเขียนโปรแกรม
+            พร้อมทั้งฝึกการทำงานร่วมกัน และเก็บเกี่ยวประสบการณ์ใหม่จากการลงสนามจริง
           </p>
-          <button className="text-button-1 bg-supporting-3 text-secondary-50 h-[87px] rounded-full px-12">
+          <button className="text-button-1 bg-supporting-3 text-secondary-50 h-[54px] rounded-full px-8 md:h-[76px] lg:h-[87px] lg:px-12">
             ยังไม่เปิดรับสมัคร
           </button>
         </div>
       </div>
 
-      <div className="font-bai-jamjuree absolute bottom-[110px] text-5xl text-white">คุณฝันว่าอะไร..</div>
+      <div className="font-bai-jamjuree not-lg:hidden absolute bottom-[110px] text-5xl text-white">
+        คุณฝันว่าอะไร..
+      </div>
     </div>
   )
 }
