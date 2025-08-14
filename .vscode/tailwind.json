@@ -52,6 +52,16 @@
       ]
     },
     {
+      "name": "@utility",
+      "description": "Use the @utility directive to add custom utilities to your project that work with variants like hover, focus and lg:",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#utility"
+        }
+      ]
+    },
+    {
       "name": "--spacing()",
       "description": "Use the `--spacing()` function to generate a spacing value based on your theme's `--spacing` variable, resolving to `calc(var(--spacing) * <n>)`.",
       "references": [
@@ -63,7 +73,7 @@
     },
     {
       "name": "--alpha()",
-      "description": "Use the `--alpha()` function to adjust a color’s opacity, which compiles to `color-mix()` internally.",
+      "description": "Use the `--alpha()` function to adjust a colors opacity, which compiles to `color-mix()` internally.",
       "references": [
         {
           "name": "Tailwind Documentation",
