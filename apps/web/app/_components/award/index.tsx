@@ -18,14 +18,14 @@ const AWARDS_TOPROW: TopRowAwardData[] = [
   {
     imageSrc: "/static/awards/2.svg",
     title: "รางวัลรองชนะเลิศอันดับ 1",
-    description: "เงินรางวัล 15,000 บาท พร้อมโล่เกียรติคุณ",
+    description: "เงินรางวัล 15,000 บาท",
     lqClassName: "liquid-award-second",
     imageDimension: { width: 250, height: 250 },
   },
   {
     imageSrc: "/static/awards/1.svg",
     title: "รางวัลชนะเลิศ",
-    description: "เงินรางวัล 30,000 บาท พร้อมโล่เกียรติคุณ",
+    description: "เงินรางวัล 30,000 บาท",
     lqClassName: "liquid-award-first",
     topRowIsMain: true,
     imageDimension: { width: 335, height: 335 },
@@ -33,7 +33,7 @@ const AWARDS_TOPROW: TopRowAwardData[] = [
   {
     imageSrc: "/static/awards/3.svg",
     title: "รางวัลรองชนะเลิศอันดับ 2",
-    description: "เงินรางวัล 5,000 บาท พร้อมโล่เกียรติคุณ",
+    description: "เงินรางวัล 5,000 บาท",
     lqClassName: "liquid-award-third",
     imageDimension: { width: 250, height: 250 },
   },
@@ -66,21 +66,20 @@ const AWARDS_BOTTOMROW: AwardData[] = [
 
 export default function Award() {
   return (
-    <section className="gap-15 inline-flex h-full min-h-screen w-screen flex-col items-center justify-center self-stretch overflow-x-hidden text-white lg:px-40">
+    <section className="xl:gap-y-15 mx-auto flex min-h-screen w-screen flex-col items-center justify-center gap-y-[21px] px-6 md:gap-y-10 md:px-20 xl:px-40">
       <Heading text="รางวัล" />
-
-      <div className="hidden items-end px-[50px] lg:flex">
+      <div className="hidden items-end px-[50px] md:flex">
         {AWARDS_TOPROW.map((ea, i) => (
           <EachAwardForTopRow data={ea} key={i} />
         ))}
       </div>
-      <div className="flex flex-col px-[50px] lg:hidden">
+      <div className="flex flex-col gap-y-6 md:hidden">
         {AWARDS_TOPROW_MOBILE.map((ea, i) => (
           <EachAwardForTopRow data={ea} key={i} />
         ))}
       </div>
 
-      <div className="flex flex-col gap-x-12 gap-y-10 lg:flex-row">
+      <div className="flex flex-col gap-y-10 md:flex-row md:gap-x-8 xl:gap-x-10">
         {AWARDS_BOTTOMROW.map((ea, i) => (
           <EachAwardForBottomRow data={ea} key={i} />
         ))}
