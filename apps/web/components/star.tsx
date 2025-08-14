@@ -8,7 +8,7 @@ export const StarLarge: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = (p
 
   return (
     <img
-      src="/static/icon/Star_Bright.svg"
+      src="/static/icon/Star_bright.svg"
       alt="Bright Star Icon"
       {...props}
     />
