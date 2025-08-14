@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import GlassCard from '@/components/glassCard';
 import IconCircle from '@/components/iconCircle';
 import { Star, StarLarge } from '@/components/star';
@@ -8,20 +8,28 @@ import storyData from '../../../public/static/story/story.json';
 function Story() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fade, setFade] = useState(true);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const stories = storyData.story;
 
   const currentStory = stories[currentIndex];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
+  const startInterval = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+
+    intervalRef.current = setInterval(() => {
       setFade(false); // trigger fade-out
       setTimeout(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % stories.length);
         setFade(true); // fade-in after change
       }, 200); // match fade-out duration
-    }, 60000); // auto switch every 5 seconds
+    }, 60000); // auto switch every 1 minute
+  };
 
-    return () => clearInterval(interval); // cleanup
+  useEffect(() => {
+    startInterval();
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, [stories.length]);
 
   const handleSelect = (index: number) => {
@@ -29,6 +37,7 @@ function Story() {
     setTimeout(() => {
       setCurrentIndex(index);
       setFade(true); // trigger fade-in
+      startInterval(); // restart interval after manual change
     }, 200); // match fade-out duration
   };
 
