@@ -123,7 +123,7 @@ function LandingSection() {
         </div>
       </div>
 
-      <div className="font-bai-jamjuree text-[32px] text-white lg:hidden">คุณฝันว่าอะไร..</div>
+      <div className="font-bai-jamjuree text-[24px] text-white md:text-[32px] lg:hidden">คุณฝันว่าอะไร..</div>
 
       <div className="z-10 h-[312px] w-[340px] shrink-0 md:h-[420px] md:w-[477px] lg:h-[650px] lg:w-[563px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
