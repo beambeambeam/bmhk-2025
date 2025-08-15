@@ -52,7 +52,7 @@ function Requirement({ title, items, imgSrc }: RequirementProps) {
           </ul>
         </div>
 
-        <div className="liquid absolute left-1/2 top-0 inline-flex -translate-x-1/2 transform flex-col items-center justify-center gap-10 rounded-[40px] px-8 py-6 outline-1 outline-offset-[-1px] outline-white/10">
+        <div className="liquid absolute left-1/2 top-0 inline-flex -translate-x-1/2 transform flex-col items-center justify-center gap-10 rounded-[40px] !bg-black px-8 py-6 outline-1 outline-offset-[-1px] outline-white/10">
           <div className="text-subheader-1 whitespace-nowrap text-center">{title}</div>
         </div>
       </div>
