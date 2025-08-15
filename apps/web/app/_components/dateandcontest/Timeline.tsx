@@ -4,7 +4,7 @@ import type { TimelineProps } from "./types"
 
 function Timeline({ title, colorPercentage = 100, data }: TimelineProps) {
   return (
-    <div className="z-10 w-full max-w-[393px] lg:max-w-[1034px] 2xl:max-w-[1600px]">
+    <div className="z-10 w-full max-w-[393px] snap-start lg:max-w-[1034px] 2xl:max-w-[1600px]">
       {/* Title with lines */}
       <Heading text={title} className="2xl:mb-15 mb-8 lg:mb-10" />
 
@@ -15,9 +15,9 @@ function Timeline({ title, colorPercentage = 100, data }: TimelineProps) {
           className="absolute left-1/2 hidden h-2 w-[70%] -translate-x-1/2 lg:top-8 lg:block 2xl:top-10"
           style={{
             background: `linear-gradient(
-                          to right, 
-                          #C63C51 ${colorPercentage}%, 
-                          #DFDFDF40 ${colorPercentage}%, 
+                          to right,
+                          #C63C51 ${colorPercentage}%,
+                          #DFDFDF40 ${colorPercentage}%,
                           #DFDFDF40 100%
                         )`,
           }}
@@ -28,9 +28,9 @@ function Timeline({ title, colorPercentage = 100, data }: TimelineProps) {
           className="absolute left-1/2 top-10 h-[70%] w-2 -translate-x-1/2 lg:top-8 lg:hidden 2xl:top-10"
           style={{
             background: `linear-gradient(
-                  to bottom, 
-                  #C63C51 ${colorPercentage}%, 
-                  #DFDFDF40 ${colorPercentage}%, 
+                  to bottom,
+                  #C63C51 ${colorPercentage}%,
+                  #DFDFDF40 ${colorPercentage}%,
                   #DFDFDF40 100%
                 )`,
           }}
