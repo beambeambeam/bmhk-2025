@@ -59,13 +59,13 @@ function Footer() {
               <div className="flex items-center gap-6 2xl:hidden">
                 {" "}
                 {/* Social Media */}
-                <a href="https://www.facebook.com/cpe.kmutt" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.facebook.com/BangmodHackathon" target="_blank" rel="noopener noreferrer">
                   <IconCircle className="h-[60px] w-[60px] flex-shrink-0 lg:h-[70px] lg:w-[70px] 2xl:h-[80px] 2xl:w-[80px]">
                     <img src="/static/icon/Facebook.svg" alt="Facebook Icon" />
                   </IconCircle>
                 </a>
                 <a
-                  href="https://www.instagram.com/cpe_studentunion"
+                  href="https://www.instagram.com/bangmodhack.kmutt"
                   target="_blank"
                   rel="noopener noreferrer">
                   <IconCircle className="h-[60px] w-[60px] flex-shrink-0 lg:h-[70px] lg:w-[70px] 2xl:h-[80px] 2xl:w-[80px]">
@@ -97,7 +97,7 @@ function Footer() {
             </div>
             <div className="flex flex-col items-start gap-6 self-stretch max-lg:items-center">
               <div className="text-body-1 text-[var(--color-gray-50)] max-2xl:text-[20px] max-lg:text-center max-lg:text-[18px]">
-                การแข่งขัน เขียนโปรแกรมคอมพิวเตอร์ บางมดแฮกกาธอน
+                การแข่งขันเขียนโปรแกรมคอมพิวเตอร์ บางมดแฮกกาธอน
               </div>
               <div className="flex flex-col items-start gap-3 self-stretch">
                 <div className="text-body-3 text-[var(--color-gray-100)] max-lg:text-center max-lg:text-[14px]">
@@ -150,12 +150,12 @@ function Footer() {
         </div>
         <div className="flex items-center justify-between self-stretch max-lg:justify-center">
           <div className="flex items-center gap-6 lg:hidden 2xl:flex">
-            <a href="https://www.facebook.com/cpe.kmutt" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.facebook.com/BangmodHackathon" target="_blank" rel="noopener noreferrer">
               <IconCircle className="h-[60px] w-[60px] flex-shrink-0 2xl:h-[80px] 2xl:w-[80px]">
                 <img src="/static/icon/Facebook.svg" alt="Facebook Icon" />
               </IconCircle>
             </a>
-            <a href="https://www.instagram.com/cpe_studentunion" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com/bangmodhack.kmutt" target="_blank" rel="noopener noreferrer">
               <IconCircle className="h-[60px] w-[60px] flex-shrink-0 2xl:h-[80px] 2xl:w-[80px]">
                 <img src="/static/icon/Instagram.svg" alt="Instagram Icon" />
               </IconCircle>
