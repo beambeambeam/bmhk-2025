@@ -44,8 +44,8 @@ function Requirement({ title, items, imgSrc }: RequirementProps) {
         className="md:size-65 mx-auto size-40 lg:size-[378px]"
       />
       <div className="relative min-h-[265px] w-full md:min-h-[269px] lg:min-h-[374px]">
-        <div className="liquid absolute inset-x-0 top-[48px] mx-auto flex h-[235px] w-full max-w-[643px] flex-col items-center rounded-[40px] border border-white/10 px-4 pb-6 pt-8 md:h-[233px] md:px-8 md:pt-12 lg:h-[326px] lg:pt-14">
-          <ul className="text-body-2 m-0 mx-auto flex flex-1 list-inside list-disc flex-col">
+        <div className="liquid absolute inset-x-0 top-[48px] mx-auto flex !h-fit !min-h-[235px] w-full max-w-[643px] flex-col items-center rounded-[40px] border border-white/10 px-4 pb-6 pt-8 md:h-[233px] md:px-8 md:pt-12 lg:h-[326px] lg:pt-14">
+          <ul className="text-body-2 m-0 mx-auto flex h-full flex-1 list-inside list-disc flex-col">
             {items.map((item, i) => (
               <li key={i}>{item}</li>
             ))}
@@ -84,7 +84,7 @@ export default function Application() {
   return (
     <section className="gap-y-15 my-12 flex w-screen flex-col justify-start px-6 md:px-20 lg:px-40">
       <Heading text="เอกสารในการสมัคร" />
-      <div className="mx-auto flex flex-col items-start justify-start gap-10 md:flex-row">
+      <div className="flex flex-col items-center justify-center gap-10 md:flex-row">
         {req.map((ea) => (
           <Requirement key={ea.title} title={ea.title} items={ea.items} imgSrc={ea.imgSrc} />
         ))}
