@@ -1,0 +1,85 @@
+{
+  "version": 1.2,
+  "atDirectives": [
+    {
+      "name": "@apply",
+      "description": "Use the `@apply` directive to inline any existing utility classes into your own custom CSS.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#apply"
+        }
+      ]
+    },
+    {
+      "name": "@variant",
+      "description": "Use the `@variant` directive to apply a Tailwind variant (like `hover`, `focus`, `dark`, etc.) to styles in your CSS.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#variant"
+        }
+      ]
+    },
+    {
+      "name": "@custom-variant",
+      "description": "Use the `@custom-variant` directive to define your own custom variant (e.g. theme-based), enabling utilities like `theme-midnight:bg-black`.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#custom-variant"
+        }
+      ]
+    },
+    {
+      "name": "@config",
+      "description": "Use the `@config` directive to load a legacy JavaScript-based Tailwind config file within a CSS context.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#config"
+        }
+      ]
+    },
+    {
+      "name": "@plugin",
+      "description": "Use the `@plugin` directive to load a legacy JavaScript-based Tailwind plugin (e.g. `@tailwindcss/typography`).",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#plugin"
+        }
+      ]
+    },
+    {
+      "name": "@utility",
+      "description": "Use the @utility directive to add custom utilities to your project that work with variants like hover, focus and lg:",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#utility"
+        }
+      ]
+    },
+    {
+      "name": "--spacing()",
+      "description": "Use the `--spacing()` function to generate a spacing value based on your theme's `--spacing` variable, resolving to `calc(var(--spacing) * <n>)`.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#spacing-function"
+        }
+      ]
+    },
+    {
+      "name": "--alpha()",
+      "description": "Use the `--alpha()` function to adjust a colors opacity, which compiles to `color-mix()` internally.",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#alpha-function"
+        }
+      ]
+    }
+  ]
+}

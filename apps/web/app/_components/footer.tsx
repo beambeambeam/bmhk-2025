@@ -1,24 +1,23 @@
-'use client';
+"use client"
 
-import GlassCard from "@/components/glassCard";
-import IconCircle from "@/components/iconCircle";
-
-import { useRouter } from 'next/navigation';
+import GlassCard from "@/components/glassCard"
+import IconCircle from "@/components/iconCircle"
+import { useRouter } from "next/navigation"
 
 function Footer() {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <GlassCard
-      className="p-6 lg:py-15 lg:px-20 2xl:py-[90px] 2xl:px-[120px]"
+      className="lg:py-15 p-6 lg:px-20 2xl:px-[120px] 2xl:py-[90px]"
       style={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
         gap: 40,
-        alignSelf: 'stretch',
-        borderRadius: '60px 60px 0 0',
+        alignSelf: "stretch",
+        borderRadius: "60px 60px 0 0",
         background: `
           radial-gradient(
             66.31% 84.48% at 52.63% -21.84%, 
@@ -31,126 +30,164 @@ function Footer() {
             rgba(159, 131, 220, 0.09) 29.08%
           )
         `,
-        borderTop: 'none',
-        borderLeft: 'none',
-      }}
-    >
-      <div className="flex flex-col pb-10 justify-center items-center gap-10 self-stretch border-b-[0.5px] border-solid border-[#666]">
+        borderTop: "none",
+        borderLeft: "none",
+      }}>
+      <div className="flex flex-col items-center justify-center gap-10 self-stretch border-b-[0.5px] border-solid border-[#666] pb-10">
         <div className="flex flex-col items-start gap-10 self-stretch 2xl:flex-row">
-          <div className="flex flex-col items-start gap-10 flex-[1_0_0]">
-            <div className="hidden lg:flex justify-between items-center w-full">
-              <div className="flex h-[70px] 2xl:h-[75px] items-center gap-10"> {/* Icon */}
+          <div className="flex flex-[1_0_0] flex-col items-start gap-10">
+            <div className="hidden w-full items-center justify-between lg:flex">
+              <div className="flex h-[70px] items-center gap-10 2xl:h-[75px]">
+                {" "}
+                {/* Icon */}
                 <img
                   src="/static/logo/Logo.png"
                   alt="Bangmod Hackathon Logo"
-                  className="max-w-[220px] max-h-[72px] object-contain"
+                  className="max-h-[72px] max-w-[220px] object-contain"
                 />
                 <img
                   src="/static/logo/CPE.png"
                   alt="CPE Logo"
-                  className="max-w-[220px] max-h-[72px] object-contain"
+                  className="max-h-[72px] max-w-[220px] object-contain"
                 />
                 <img
                   src="/static/logo/KMUTT.png"
                   alt="KMUTT Logo"
-                  className="max-w-[220px] max-h-[72px] object-contain"
+                  className="max-h-[72px] max-w-[220px] object-contain"
                 />
               </div>
-              <div className="flex items-center gap-6 2xl:hidden">  {/* Social Media */}
+              <div className="flex items-center gap-6 2xl:hidden">
+                {" "}
+                {/* Social Media */}
                 <a href="https://www.facebook.com/cpe.kmutt" target="_blank" rel="noopener noreferrer">
-                  <IconCircle className='w-[60px] h-[60px] lg:w-[70px] lg:h-[70px] 2xl:w-[80px] 2xl:h-[80px] flex-shrink-0'>
-                    <img
-                      src="/static/icon/Facebook.svg"
-                      alt="Facebook Icon"
-                    />
+                  <IconCircle className="h-[60px] w-[60px] flex-shrink-0 lg:h-[70px] lg:w-[70px] 2xl:h-[80px] 2xl:w-[80px]">
+                    <img src="/static/icon/Facebook.svg" alt="Facebook Icon" />
                   </IconCircle>
                 </a>
-                <a href="https://www.instagram.com/cpe_studentunion" target="_blank" rel="noopener noreferrer">
-                  <IconCircle className='w-[60px] h-[60px] lg:w-[70px] lg:h-[70px] 2xl:w-[80px] 2xl:h-[80px] flex-shrink-0'>
-                    <img
-                      src="/static/icon/Instagram.svg"
-                      alt="Instagram Icon"
-                    />
+                <a
+                  href="https://www.instagram.com/cpe_studentunion"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  <IconCircle className="h-[60px] w-[60px] flex-shrink-0 lg:h-[70px] lg:w-[70px] 2xl:h-[80px] 2xl:w-[80px]">
+                    <img src="/static/icon/Instagram.svg" alt="Instagram Icon" />
                   </IconCircle>
                 </a>
               </div>
             </div>
-            <div className="flex lg:hidden flex-col justify-center items-center gap-6 w-full">   {/* Logo Mobile */}
+            <div className="flex w-full flex-col items-center justify-center gap-6 lg:hidden">
+              {" "}
+              {/* Logo Mobile */}
               <img
-                  src="/static/logo/Logo.png"
-                  alt="Bangmod Hackathon Logo"
-                  className="max-w-[220px] h-[60px] object-contain"
+                src="/static/logo/Logo.png"
+                alt="Bangmod Hackathon Logo"
+                className="h-[60px] max-w-[220px] object-contain"
+              />
+              <div className="flex h-10 gap-4">
+                <img
+                  src="/static/logo/CPE.png"
+                  alt="CPE Logo"
+                  className="max-h-[72px] max-w-[220px] object-contain"
                 />
-                <div className="flex h-10 gap-4">
-                  <img
-                    src="/static/logo/CPE.png"
-                    alt="CPE Logo"
-                    className="max-w-[220px] max-h-[72px] object-contain"
-                    />
-                  <img
-                    src="/static/logo/KMUTT.png"
-                    alt="KMUTT Logo"
-                    className="max-w-[220px] max-h-[72px] object-contain"
-                  />
-                </div>
+                <img
+                  src="/static/logo/KMUTT.png"
+                  alt="KMUTT Logo"
+                  className="max-h-[72px] max-w-[220px] object-contain"
+                />
+              </div>
             </div>
             <div className="flex flex-col items-start gap-6 self-stretch max-lg:items-center">
-              <div className="text-body-1 max-lg:text-[18px] max-2xl:text-[20px] text-[var(--color-gray-50)] max-lg:text-center">การแข่งขัน เขียนโปรแกรมคอมพิวเตอร์ บางมดแฮกกาธอน</div>
+              <div className="text-body-1 text-[var(--color-gray-50)] max-2xl:text-[20px] max-lg:text-center max-lg:text-[18px]">
+                การแข่งขัน เขียนโปรแกรมคอมพิวเตอร์ บางมดแฮกกาธอน
+              </div>
               <div className="flex flex-col items-start gap-3 self-stretch">
-                <div className="text-body-3 max-lg:text-[14px] text-[var(--color-gray-100)] max-lg:text-center">ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี อาคารวิศววัฒนะ ชั้น 10 เลขที่ 126 ถ.ประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพฯ 10140</div>
+                <div className="text-body-3 text-[var(--color-gray-100)] max-lg:text-center max-lg:text-[14px]">
+                  ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี
+                  อาคารวิศววัฒนะ ชั้น 10 เลขที่ 126 ถ.ประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพฯ 10140
+                </div>
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-end gap-10 flex-[1_0_0] self-stretch"> {/* Sponsor */}
-            <div className="flex flex-col items-start gap-7 flex-[1_0_0] self-stretch max-lg:items-center">
-              <div className="text-body-1 max-lg:text-[18px] max-2xl:text-[20px] text-[var(--color-gray-50)]">สนับสนุนโดย</div>
-              <div className="flex flex-wrap items-center gap-6 self-stretch max-lg:justify-center">
-                <GlassCard className="w-15 h-15 2xl:w-20 2xl:h-20" style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }} />
-                <GlassCard className="w-15 h-15 2xl:w-20 2xl:h-20" style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }} />
-                <GlassCard className="w-15 h-15 2xl:w-20 2xl:h-20" style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }} />
-                <GlassCard className="w-15 h-15 2xl:w-20 2xl:h-20" style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }} />
-                <GlassCard className="w-15 h-15 2xl:w-20 2xl:h-20" style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }} />
-                <GlassCard className="w-15 h-15 2xl:w-20 2xl:h-20" style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }} />
+          <div className="flex flex-[1_0_0] flex-col items-end gap-10 self-stretch">
+            {" "}
+            {/* Sponsor */}
+            <div className="flex flex-[1_0_0] flex-col items-start gap-7 self-stretch max-lg:items-center">
+              <div className="text-body-1 text-[var(--color-gray-50)] max-2xl:text-[20px] max-lg:text-[18px]">
+                สนับสนุนโดย
               </div>
-              <div className="hidden 2xl:flex flex-col items-start gap-3 self-stretch">
-                <div className="text-body-3 text-[var(--color-gray-50)]">เราขอขอบคุณ สปอนเซอร์ 1, สปอนเซอร์ 2, สปอนเซอร์ 3, สปอนเซอร์ 4, สปอนเซอร์ 5, 
-สปอนเซอร์ 6</div>
+              <div className="flex flex-wrap items-center gap-6 self-stretch max-lg:justify-center">
+                <GlassCard
+                  className="w-15 h-15 2xl:h-20 2xl:w-20"
+                  style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}
+                />
+                <GlassCard
+                  className="w-15 h-15 2xl:h-20 2xl:w-20"
+                  style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}
+                />
+                <GlassCard
+                  className="w-15 h-15 2xl:h-20 2xl:w-20"
+                  style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}
+                />
+                <GlassCard
+                  className="w-15 h-15 2xl:h-20 2xl:w-20"
+                  style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}
+                />
+                <GlassCard
+                  className="w-15 h-15 2xl:h-20 2xl:w-20"
+                  style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}
+                />
+                <GlassCard
+                  className="w-15 h-15 2xl:h-20 2xl:w-20"
+                  style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}
+                />
+              </div>
+              <div className="hidden flex-col items-start gap-3 self-stretch 2xl:flex">
+                <div className="text-body-3 text-[var(--color-gray-50)]">
+                  เราขอขอบคุณ สปอนเซอร์ 1, สปอนเซอร์ 2, สปอนเซอร์ 3, สปอนเซอร์ 4, สปอนเซอร์ 5, สปอนเซอร์ 6
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="flex justify-between items-center self-stretch max-lg:justify-center">
-          <div className="flex lg:hidden 2xl:flex items-center gap-6">
+        <div className="flex items-center justify-between self-stretch max-lg:justify-center">
+          <div className="flex items-center gap-6 lg:hidden 2xl:flex">
             <a href="https://www.facebook.com/cpe.kmutt" target="_blank" rel="noopener noreferrer">
-              <IconCircle className='w-[60px] h-[60px] 2xl:w-[80px] 2xl:h-[80px] flex-shrink-0'>
-                <img
-                  src="/static/icon/Facebook.svg"
-                  alt="Facebook Icon"
-                />
+              <IconCircle className="h-[60px] w-[60px] flex-shrink-0 2xl:h-[80px] 2xl:w-[80px]">
+                <img src="/static/icon/Facebook.svg" alt="Facebook Icon" />
               </IconCircle>
             </a>
             <a href="https://www.instagram.com/cpe_studentunion" target="_blank" rel="noopener noreferrer">
-              <IconCircle className='w-[60px] h-[60px] 2xl:w-[80px] 2xl:h-[80px] flex-shrink-0'>
-                <img
-                  src="/static/icon/Instagram.svg"
-                  alt="Instagram Icon"
-                />
+              <IconCircle className="h-[60px] w-[60px] flex-shrink-0 2xl:h-[80px] 2xl:w-[80px]">
+                <img src="/static/icon/Instagram.svg" alt="Instagram Icon" />
               </IconCircle>
             </a>
           </div>
-          <div className="hidden lg:flex lg:w-full 2xl:w-[820px] justify-between items-center">
-            <div className="text-nav-2" onClick={() => router.push('/landing')}>รายละเอียด</div>
-            <div className="text-nav-2" onClick={() => router.push('/qualification')}>คุณสมบัติ</div>
-            <div className="text-nav-2" onClick={() => router.push('/award')}>รางวัล</div>
-            <div className="text-nav-2" onClick={() => router.push('/dateandcontest')}>กำหนดการ</div>
-            <div className="text-nav-2" onClick={() => router.push('/contact')}>ติดต่อทีมงาน</div>
-            <div className="text-nav-2" onClick={() => router.push('/')}>นโยบายความเป็นส่วนตัว</div>
+          <div className="hidden items-center justify-between lg:flex lg:w-full 2xl:w-[820px]">
+            <div className="text-nav-2" onClick={() => router.push("/landing")}>
+              รายละเอียด
+            </div>
+            <div className="text-nav-2" onClick={() => router.push("/qualification")}>
+              คุณสมบัติ
+            </div>
+            <div className="text-nav-2" onClick={() => router.push("/award")}>
+              รางวัล
+            </div>
+            <div className="text-nav-2" onClick={() => router.push("/dateandcontest")}>
+              กำหนดการ
+            </div>
+            <div className="text-nav-2" onClick={() => router.push("/contact")}>
+              ติดต่อทีมงาน
+            </div>
+            <div className="text-nav-2" onClick={() => router.push("/")}>
+              นโยบายความเป็นส่วนตัว
+            </div>
           </div>
         </div>
       </div>
-      <div className="text-body-3 text-[16px] max-lg:text-[10px] text-center">© 2025 Bangmod Hackathon, Department of Computer Engineering. All rights reserved.</div>
+      <div className="text-body-3 text-center text-[16px] max-lg:text-[10px]">
+        © 2025 Bangmod Hackathon, Department of Computer Engineering. All rights reserved.
+      </div>
     </GlassCard>
-  );
+  )
 }
 
-export default Footer;
+export default Footer
