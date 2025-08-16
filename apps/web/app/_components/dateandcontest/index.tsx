@@ -1,16 +1,38 @@
 "use client"
 
-import Timeline from "@/app/_components/dateandcontest/Timeline"
-
-import { registerDate, competitionDate } from "./content"
+import content from "../../../public/static/dateandcontest/dateandcontest.json"
+import Timeline from "./Timeline"
+import { SectionItem } from "./Timeline"
 
 function DateAndContest() {
+  // Helper to create a date without time (year, month index, day)
+  const mkDate = (d: number, m: number, y: number) => new Date(y, m - 1, d)
+
+  const today = new Date()
+
+  let timelineKey = "timeline-registration-1"
+
+  if (today < mkDate(12, 9, 2025)) {
+    timelineKey = "timeline-registration-1"
+  } else if (today >= mkDate(12, 9, 2025) && today < mkDate(20, 9, 2025)) {
+    timelineKey = "timeline-registration-2"
+  } else if (today.getTime() === mkDate(20, 9, 2025).getTime()) {
+    timelineKey = "timeline-competition-1"
+  } else if (today > mkDate(20, 9, 2025) && today < mkDate(25, 9, 2025)) {
+    timelineKey = "timeline-competition-2"
+  } else if (today >= mkDate(25, 9, 2025) && today < mkDate(11, 10, 2025)) {
+    timelineKey = "timeline-competition-3"
+  } else if (today.getTime() === mkDate(11, 10, 2025).getTime()) {
+    timelineKey = "timeline-competition-4"
+  } else {
+    timelineKey = "timeline-competition-5"
+  }
+
+  const timelineData: SectionItem[] = content[timelineKey as keyof typeof content] as SectionItem[]
+
   return (
-    <div className="gap-y-25 2xl:gap-y-50 flex h-auto w-full flex-col items-center justify-center px-6 lg:h-[834px] lg:px-20 2xl:h-[1080px] 2xl:px-40">
-      {/* registeration */}
-      <Timeline title="การรับสมัคร" colorPercentage={50} data={registerDate} />
-      {/* competition */}
-      <Timeline title="การแข่งขัน" colorPercentage={0} data={competitionDate} />
+    <div className="w-full px-6 lg:max-h-[834px] lg:px-20 2xl:max-h-[1080px] 2xl:px-40">
+      <Timeline data={timelineData} />
     </div>
   )
 }
