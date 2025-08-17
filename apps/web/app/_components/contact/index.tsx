@@ -36,9 +36,9 @@ function Contact() {
                   </IconCircle>
                   <div className='text-[var(--color-gray-50)] text-body-1 text-[18px] lg:text-[20px] 2xl:text-[24px]'>คำถามด้านวิชาการ</div>
                 </div>
-                <div className='text-body-1 text-[16px] lg:text-[20px] 2xl:text-[24px]'>ชญานิษฐ์ กันตนฤมิตรกุล (ชิชา)</div>
-                <div className='text-body-1 text-[18px] lg:text-[20px] 2xl:text-[24px]'>000 000 0000</div>
-                <div className='text-body-1 text-[18px] lg:text-[20px] 2xl:text-[24px] break-words whitespace-normal'>cpe@kmutt.ac.th</div>
+                <div className='text-body-1 text-[16px] lg:text-[20px] 2xl:text-[24px]'>ภูริณัฐ พลอาสา (นาโน)</div>
+                <div className='text-body-1 text-[18px] lg:text-[20px] 2xl:text-[24px]'>081 837 0772</div>
+                <div className='text-body-1 text-[18px] lg:text-[20px] 2xl:text-[24px] break-words whitespace-normal'>phurinat.pola@kmutt.ac.th</div>
               </div>
             </div>
             <div className='flex flex-col gap-4'> {/* Contact */}
@@ -55,7 +55,7 @@ function Contact() {
               <div className='text-body-1 text-[16px] lg:text-[20px] 2xl:text-[24px]'>อาคารวิศววัฒนะ ชั้น 10 เลขที่ 126 ถ.ประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพฯ 10140</div>
             </div>
             <div className='flex gap-6'>
-              <a href="https://www.facebook.com/cpe.kmutt" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.facebook.com/share/1C8QtziqPh/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
                 <IconCircle className='w-[60px] h-[60px] lg:w-[70px] lg:h-[70px] 2xl:w-[90px] 2xl:h-[90px] flex-shrink-0'>
                   <img
                     src="/static/icon/Facebook.svg"
@@ -63,7 +63,7 @@ function Contact() {
                   />
                 </IconCircle>
               </a>
-              <a href="https://www.instagram.com/cpe_studentunion" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.instagram.com/bangmodhack.kmutt?igsh=Y2RncmFyODY3YThk&utm_source=qr" target="_blank" rel="noopener noreferrer">
                 <IconCircle className='w-[60px] h-[60px] lg:w-[70px] lg:h-[70px] 2xl:w-[90px] 2xl:h-[90px] flex-shrink-0'>
                   <img
                     src="/static/icon/Instagram.svg"
