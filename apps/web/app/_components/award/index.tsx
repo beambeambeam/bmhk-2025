@@ -7,6 +7,7 @@ export interface AwardData {
   title: string
   description: string
   imageDimension: { width: number; height: number }
+  glowColor: string
 }
 
 export interface TopRowAwardData extends AwardData {
@@ -21,6 +22,7 @@ const AWARDS_TOPROW: TopRowAwardData[] = [
     description: "เงินรางวัล 15,000 บาท",
     lqClassName: "liquid-award-second",
     imageDimension: { width: 250, height: 250 },
+    glowColor: "#8c3061",
   },
   {
     imageSrc: "/static/awards/1.svg",
@@ -29,6 +31,7 @@ const AWARDS_TOPROW: TopRowAwardData[] = [
     lqClassName: "liquid-award-first",
     topRowIsMain: true,
     imageDimension: { width: 335, height: 335 },
+    glowColor: "#9f83dc",
   },
   {
     imageSrc: "/static/awards/3.svg",
@@ -36,6 +39,7 @@ const AWARDS_TOPROW: TopRowAwardData[] = [
     description: "เงินรางวัล 5,000 บาท",
     lqClassName: "liquid-award-third",
     imageDimension: { width: 250, height: 250 },
+    glowColor: "#c63c51",
   },
 ]
 
@@ -55,12 +59,14 @@ const AWARDS_BOTTOMROW: AwardData[] = [
     title: "รางวัลชมเชย",
     description: "เงินรางวัล 2,000 บาท",
     imageDimension: { width: 140, height: 140 },
+    glowColor: "#ffffff",
   },
   {
     imageSrc: "/static/awards/5.svg",
     title: "ประกาศนียบัตร",
     description: "สำหรับผู้เข้าร่วมการแข่งขันทุกคน",
     imageDimension: { width: 140, height: 140 },
+    glowColor: "#edcce8",
   },
 ]
 
