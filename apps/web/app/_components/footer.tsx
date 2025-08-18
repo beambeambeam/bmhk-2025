@@ -43,10 +43,10 @@ function Footer() {
                 <img
                   src="/static/logo/Logo.png"
                   alt="Bangmod Hackathon Logo"
-                  className="max-h-[72px] max-w-[220px] object-contain"
+                  className="h-[100px] ml-[-24px] 2xl:h-[140px] 2xl:ml-[-32px]"
                 />
                 <img
-                  src="/static/logo/CPE.png"
+                  src="/static/logo/CPE.svg"
                   alt="CPE Logo"
                   className="max-h-[72px] max-w-[220px] object-contain"
                 />
@@ -80,11 +80,11 @@ function Footer() {
               <img
                 src="/static/logo/Logo.png"
                 alt="Bangmod Hackathon Logo"
-                className="h-[60px] max-w-[220px] object-contain"
+                className="h-[100px] ml-[-24px]"
               />
               <div className="flex h-10 gap-4">
                 <img
-                  src="/static/logo/CPE.png"
+                  src="/static/logo/CPE.svg"
                   alt="CPE Logo"
                   className="max-h-[72px] max-w-[220px] object-contain"
                 />
