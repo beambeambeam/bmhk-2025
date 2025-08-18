@@ -97,7 +97,7 @@ function Footer() {
             </div>
             <div className="flex flex-col items-start gap-6 self-stretch max-lg:items-center">
               <div className="text-body-1 text-[var(--color-gray-50)] max-2xl:text-[20px] max-lg:text-center max-lg:text-[18px]">
-                การแข่งขัน เขียนโปรแกรมคอมพิวเตอร์ บางมดแฮกกาธอน
+                การแข่งขันเขียนโปรแกรมคอมพิวเตอร์ บางมดแฮกกาธอน
               </div>
               <div className="flex flex-col items-start gap-3 self-stretch">
                 <div className="text-body-3 text-[var(--color-gray-100)] max-lg:text-center max-lg:text-[14px]">
