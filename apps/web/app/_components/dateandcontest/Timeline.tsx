@@ -39,9 +39,11 @@ export default function Timeline({ data }: TimelineProps) {
                 key={contentIndex}
                 className="relative flex flex-1 flex-col gap-y-4 lg:gap-y-8 2xl:gap-y-10">
                 <div
-                  className={`flex items-center ${section.content.length > 1 ? "gap-6 lg:gap-0" : "gap-0"
-                    } lg:justify-center ${sectionIndex % 2 ? "flex-row-reverse" : ""} ${section.content.length > 1 ? "justify-start" : "justify-center"
-                    }`}>
+                  className={`flex items-center ${
+                    section.content.length > 1 ? "gap-6 lg:gap-0" : "gap-0"
+                  } lg:justify-center ${sectionIndex % 2 ? "flex-row-reverse" : ""} ${
+                    section.content.length > 1 ? "justify-start" : "justify-center"
+                  }`}>
                   {/* Dot + line container */}
                   <div className="relative flex justify-center lg:hidden">
                     {/* vertical line behind dot */}
@@ -147,8 +149,9 @@ export default function Timeline({ data }: TimelineProps) {
                   {/* Label */}
                   <div className="flex flex-col items-center justify-center gap-y-3 lg:gap-y-4">
                     <div
-                      className={`text-center text-[1.125rem] font-medium text-white lg:px-0 lg:text-[1.5rem] 2xl:text-[2rem] ${section.content.length > 1 ? (sectionIndex % 2 ? "pr-14" : "pl-14") : "px-0"
-                        }`}
+                      className={`text-center text-[1.125rem] font-medium text-white lg:px-0 lg:text-[1.5rem] 2xl:text-[2rem] ${
+                        section.content.length > 1 ? (sectionIndex % 2 ? "pr-14" : "pl-14") : "px-0"
+                      }`}
                       style={{ color: content.label.textColor }}
                       dangerouslySetInnerHTML={{ __html: content.label.text }}
                     />
