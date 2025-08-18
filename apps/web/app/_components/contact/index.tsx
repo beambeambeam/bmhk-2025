@@ -63,7 +63,7 @@ function Contact() {
                   />
                 </IconCircle>
               </a>
-              <a href="https://www.instagram.com/bangmodhack.kmut?igsh=Y2RncmFyODY3YThk&utm_source=qr" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.instagram.com/bangmodhack.kmutt" target="_blank" rel="noopener noreferrer">
                 <IconCircle className='w-[60px] h-[60px] lg:w-[70px] lg:h-[70px] 2xl:w-[90px] 2xl:h-[90px] flex-shrink-0'>
                   <img
                     src="/static/icon/Instagram.svg"
