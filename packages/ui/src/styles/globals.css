@@ -195,4 +195,42 @@
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     border-left: 1px solid rgba(255, 255, 255, 0.3);
   }
+  
+  .liquid-award-first {
+    background:
+      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #9f83dc 0%, rgba(2, 6, 3, 0) 100%),
+      linear-gradient(106.52deg, rgba(255, 204, 247, 0.09) -2.48%, rgba(159, 131, 220, 0.09) 29.08%);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .liquid-award-second {
+    background:
+      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #8c3061 0%, rgba(2, 6, 3, 0) 100%),
+      linear-gradient(106.52deg, rgba(255, 204, 247, 0.09) -2.48%, rgba(159, 131, 220, 0.09) 29.08%);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .liquid-award-third {
+    background:
+      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #c63c51 0%, rgba(2, 6, 3, 0) 100%),
+      linear-gradient(106.52deg, rgba(255, 204, 247, 0.09) -2.48%, rgba(159, 131, 220, 0.09) 29.08%);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .liquid-gray {
+    background:
+      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #DFDFDF 0%, rgba(2, 6, 3, 0) 70%),
+      linear-gradient(106.52deg, rgba(255, 204, 247, 0.09) -2.48%, rgba(159, 131, 220, 0.09) 29.08%);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .group::before {
+    background: radial-gradient(80% 80% at 50% 50%,
+        var(--glow-color, rgba(159, 131, 220, 0.5)) 0%,
+        transparent 70%);
+  }
 }
