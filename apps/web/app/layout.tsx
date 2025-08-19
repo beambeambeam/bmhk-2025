@@ -1,3 +1,4 @@
+import { BreakpointIndicator } from "@workspace/ui/components/breakpoint-indicator"
 import "@workspace/ui/globals.css"
 import { cn } from "@workspace/ui/lib/utils"
 import { Bai_Jamjuree, Prompt } from "next/font/google"
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={cn("font-prompt antialiased", fontPrompt.variable, fontBaiJamjuree.variable)}>
         {children}
+        <BreakpointIndicator />
       </body>
     </html>
   )

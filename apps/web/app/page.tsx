@@ -24,10 +24,10 @@ export default function Page() {
       <div className="flex min-h-screen snap-start items-center justify-center">
         <Application />
       </div>
-      <div className="flex min-h-screen snap-start items-center justify-center">
+      <div className="flex snap-start items-center justify-center">
         <Award />
       </div>
-      <div className="flex min-h-screen snap-start items-center justify-center">
+      <div className="flex items-center justify-center">
         <DateAndContest />
       </div>
       <div className="flex min-h-screen snap-start items-center justify-center">
