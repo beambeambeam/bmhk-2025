@@ -11,11 +11,14 @@ import {
 } from "react"
 
 export type FileMetadata = {
+  id: string
+  upload_by: string
+  resource_type: string // TEAM_IMAGE DOCUMENTS
+  upload_at: Date
   name: string
   size: number
-  type: string
+  type: string // MIME type
   url: string
-  id: string
 }
 
 export type FileWithPreview = {
