@@ -20,7 +20,7 @@ const qualificationData = [
 
 function QualificationSector() {
   return (
-    <div className="flex h-[1080px] w-full flex-col gap-8 px-6 md:gap-10 md:px-20 lg:gap-[60px] lg:px-[160px]">
+    <div className="flex h-[1080px] w-full flex-col justify-center gap-8 px-6 md:gap-10 md:px-20 lg:gap-[60px] lg:px-[160px]">
       <Heading text="คุณสมบัติผู้สมัคร" />
       <div className="flex flex-col items-center justify-center gap-6 md:flex-row md:gap-8 lg:gap-10">
         {qualificationData.map((item) => (

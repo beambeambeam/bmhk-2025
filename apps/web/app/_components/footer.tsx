@@ -20,13 +20,13 @@ function Footer() {
         borderRadius: "60px 60px 0 0",
         background: `
           radial-gradient(
-            66.31% 84.48% at 52.63% -21.84%, 
-            rgba(255, 204, 247, 0.5) 0%, 
+            66.31% 84.48% at 52.63% -21.84%,
+            rgba(255, 204, 247, 0.5) 0%,
             rgba(2, 6, 3, 0) 100%
           ),
           linear-gradient(
-            -106.52deg, 
-            rgba(255, 204, 247, 0.09) -2.48%, 
+            -106.52deg,
+            rgba(255, 204, 247, 0.09) -2.48%,
             rgba(159, 131, 220, 0.09) 29.08%
           )
         `,
@@ -43,7 +43,7 @@ function Footer() {
                 <img
                   src="/static/logo/Logo.png"
                   alt="Bangmod Hackathon Logo"
-                  className="h-[100px] ml-[-24px] 2xl:h-[140px] 2xl:ml-[-32px]"
+                  className="ml-[-24px] h-[100px] 2xl:ml-[-32px] 2xl:h-[140px]"
                 />
                 <img
                   src="/static/logo/CPE.svg"
@@ -80,7 +80,7 @@ function Footer() {
               <img
                 src="/static/logo/Logo.png"
                 alt="Bangmod Hackathon Logo"
-                className="h-[100px] ml-[-24px]"
+                className="ml-[-24px] h-[100px]"
               />
               <div className="flex h-10 gap-4">
                 <img
@@ -162,22 +162,22 @@ function Footer() {
             </a>
           </div>
           <div className="hidden items-center justify-between lg:flex lg:w-full 2xl:w-[820px]">
-            <div className="text-nav-2" onClick={() => router.push("/landing")}>
+            <div className="text-nav-2" onClick={() => (window.location.hash = "#landing")}>
               รายละเอียด
             </div>
-            <div className="text-nav-2" onClick={() => router.push("/qualification")}>
+            <div className="text-nav-2" onClick={() => (window.location.hash = "#qualification")}>
               คุณสมบัติ
             </div>
-            <div className="text-nav-2" onClick={() => router.push("/award")}>
+            <div className="text-nav-2" onClick={() => (window.location.hash = "#award")}>
               รางวัล
             </div>
-            <div className="text-nav-2" onClick={() => router.push("/dateandcontest")}>
+            <div className="text-nav-2" onClick={() => (window.location.hash = "#dateandcontest")}>
               กำหนดการ
             </div>
-            <div className="text-nav-2" onClick={() => router.push("/contact")}>
+            <div className="text-nav-2" onClick={() => (window.location.hash = "#contact")}>
               ติดต่อทีมงาน
             </div>
-            <div className="text-nav-2" onClick={() => router.push("/")}>
+            <div className="text-nav-2" onClick={() => (window.location.hash = "#privacy")}>
               นโยบายความเป็นส่วนตัว
             </div>
           </div>

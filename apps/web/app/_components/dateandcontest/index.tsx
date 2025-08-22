@@ -1,8 +1,8 @@
 "use client"
 
-import content from "../../../public/static/dateandcontest/dateandcontest.json"
 import Timeline from "./Timeline"
 import { SectionItem } from "./Timeline"
+import { dateAndContestData } from "./dateAndContest"
 
 function DateAndContest() {
   // Helper to create a date without time (year, month index, day)
@@ -12,10 +12,12 @@ function DateAndContest() {
 
   let timelineKey = "timeline-registration-1"
 
-  if (today < mkDate(12, 9, 2025)) {
+  if (today < mkDate(27, 8, 2025)) {
     timelineKey = "timeline-registration-1"
-  } else if (today >= mkDate(12, 9, 2025) && today < mkDate(20, 9, 2025)) {
+  } else if (today >= mkDate(15, 9, 2025) && today < mkDate(18, 9, 2025)) {
     timelineKey = "timeline-registration-2"
+  } else if (today >= mkDate(18, 9, 2025) && today < mkDate(20, 9, 2025)) {
+    timelineKey = "timeline-registration-3"
   } else if (today.getTime() === mkDate(20, 9, 2025).getTime()) {
     timelineKey = "timeline-competition-1"
   } else if (today > mkDate(20, 9, 2025) && today < mkDate(25, 9, 2025)) {
@@ -28,7 +30,9 @@ function DateAndContest() {
     timelineKey = "timeline-competition-5"
   }
 
-  const timelineData: SectionItem[] = content[timelineKey as keyof typeof content] as SectionItem[]
+  const timelineData: SectionItem[] = dateAndContestData[
+    timelineKey as keyof typeof dateAndContestData
+  ] as SectionItem[]
 
   return (
     <div className="w-full px-6 lg:max-h-[834px] lg:px-20 2xl:max-h-[1080px] 2xl:px-40">

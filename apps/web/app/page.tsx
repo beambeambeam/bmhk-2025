@@ -11,35 +11,37 @@ import Footer from "./_components/footer"
 
 export default function Page() {
   return (
-    <div className="no-scrollbar flex h-screen snap-y snap-always flex-col gap-20 overflow-y-auto bg-black text-white">
+    <div
+      className="no-scrollbar bg-home flex min-h-screen w-full snap-y snap-always flex-col gap-20 overflow-hidden overflow-y-hidden text-white"
+      style={{ scrollBehavior: "smooth" }}>
       {/* spacec for navbar */}
       <div className="h-[94.45px]" />
 
-      <div className="flex min-h-screen snap-start items-center justify-center">
+      <div id="landing" className="flex min-h-screen items-center justify-center">
         <LandingSection />
       </div>
-      <div className="flex min-h-screen snap-start items-center justify-center">
+      <div id="qualification" className="flex min-h-screen items-center justify-center">
         <QualificationSector />
       </div>
-      <div className="flex min-h-screen snap-start items-center justify-center">
+      <div id="application" className="flex min-h-screen items-center justify-center">
         <Application />
       </div>
-      <div className="flex snap-start items-center justify-center">
+      <div id="award" className="flex items-center justify-center">
         <Award />
       </div>
-      <div className="flex items-center justify-center">
+      <div id="dateandcontest" className="flex items-center justify-center">
         <DateAndContest />
       </div>
-      <div className="flex min-h-screen snap-start items-center justify-center">
+      <div id="scope" className="flex min-h-screen items-center justify-center">
         <Scope />
       </div>
-      <div className="flex min-h-screen snap-start items-center justify-center">
+      <div id="contact" className="flex min-h-screen items-center justify-center">
         <Contact />
       </div>
-      <div className="flex min-h-screen snap-start items-center justify-center">
+      <div id="story" className="flex min-h-screen items-center justify-center">
         <Story />
       </div>
-      <div className="flex snap-start items-center justify-center">
+      <div className="flex items-center justify-center">
         <Footer />
       </div>
     </div>
