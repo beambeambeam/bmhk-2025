@@ -1,7 +1,5 @@
 import { Heading } from "@/components/heading"
 
-import sparkle from "./sparkle.svg"
-
 interface RequirementProps {
   title: string
   items: string[]
@@ -11,6 +9,7 @@ interface RequirementProps {
 function Requirement({ title, items, imgSrc }: RequirementProps) {
   return (
     <div className="group relative isolate flex w-[313px] flex-col justify-center gap-y-6 before:absolute before:-inset-10 before:-z-10 before:rounded-[48px] before:bg-[radial-gradient(80%_80%_at_50%_40%,rgba(159,131,220,0.55)_0%,rgba(159,131,220,0.25)_40%,transparent_70%)] before:opacity-0 before:blur-3xl before:transition before:duration-500 before:ease-out before:content-[''] hover:before:scale-105 hover:before:opacity-100 md:w-[437px] lg:w-[643px]">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={imgSrc}
         height={378}
@@ -38,7 +37,7 @@ function Requirement({ title, items, imgSrc }: RequirementProps) {
 
 const req: RequirementProps[] = [
   {
-    title: "สำหรับผู้เข้าแข่งขันแต่ละคน",
+    title: "สำหรับนักเรียนผู้เข้าแข่งขัน",
     items: [
       "สำเนาบัตรประชาชน หรือบัตรประจำตัวสำหรับบุคคลที่ไม่ใช่สัญชาติไทย (เฉพาะด้านหน้า)",
       "สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริงของผู้เข้าแข่งขัน",
