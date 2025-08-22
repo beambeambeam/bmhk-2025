@@ -109,7 +109,15 @@ function LandingSection() {
         </svg>
 
         <div className="flex flex-col gap-[118px]">
-          <Stat title="ยังไม่เปิดรับสมัคร" description="จะเปิดรับสมัครในวันที่ 19 สิงหาคม 2025" />
+          <Stat
+            title="เปิดรับสมัครแล้ว"
+            description={
+              <>
+                ระยะเวลาการรับสมัคร
+                <br /> 27 สิงหาคม - 15 กันยายน 2568
+              </>
+            }
+          />
           <Stat
             title="เขียนโปรแกรมภาษาซี"
             description={
@@ -119,11 +127,22 @@ function LandingSection() {
               </>
             }
           />
-          <Stat title="30,000 บาท" description="เงินรางวัลสูงสุด พร้อมโล่เกียรติคุณ" />
+          <Stat
+            title="54,000 บาท"
+            description={
+              <>
+                เข้าแข่งขันเพื่อชิงเงินรางวัล
+                <br />
+                พร้อมรับประกาศนียบัตร
+              </>
+            }
+          />
         </div>
       </div>
 
-      <div className="font-bai-jamjuree text-[24px] text-white md:text-[32px] lg:hidden">คุณฝันว่าอะไร..</div>
+      <div className="font-bai-jamjuree text-[24px] text-white md:text-[32px] lg:hidden">
+        คุณฝันว่าอะไร...
+      </div>
 
       <div className="z-10 h-[312px] w-[340px] shrink-0 md:h-[420px] md:w-[477px] lg:h-[650px] lg:w-[563px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -137,16 +156,16 @@ function LandingSection() {
       <div className="relative flex w-full items-start justify-center gap-8 text-center lg:w-[494px] lg:text-left">
         <div className="not-lg:hidden mt-5 h-[2px] w-[30px] shrink-0 bg-white" />
 
-        <div className="flex max-w-full flex-col items-center gap-6 md:max-w-[971px] lg:max-w-[432px] lg:items-start lg:gap-8">
+        <div className="flex max-w-full flex-col items-center gap-6 md:max-w-[971px] lg:max-w-[466px] lg:items-start lg:gap-8">
           <div className="text-header-2-medium text-white">
             การแข่งขัน
             <br className="not-lg:hidden" />
-            เขียนโปรแกรมคอมพิวเตอร์ บางมดแฮกกาธอน 2025
+            เขียนโปรแกรมคอมพิวเตอร์ BangMod Hackathon 2025
           </div>
           <p className="text-body-2 text-balance text-gray-50">
-            โครงการนี้เปิดโอกาสให้นักเรียนมัธยมต้น มัธยมปลาย และนักศึกษาอาชีวะระดับปวช. หรือเทียบเท่า
-            ได้เข้าร่วมการแข่งขันเขียนโปรแกรมด้วยภาษาซีในรูปแบบทีม เพื่อเสริมสร้างทักษะการเขียนโปรแกรม
-            พร้อมทั้งฝึกการทำงานร่วมกัน และเก็บเกี่ยวประสบการณ์ใหม่จากการลงสนามจริง
+            โครงการนี้เปิดโอกาสให้นักเรียนมัธยมปลาย และนักศึกษาอาชีวะระดับปวช. หรือเทียบเท่า
+            ได้เข้าร่วมการแข่งขัน เขียนโปรแกรมด้วย ภาษา C/C++ ในรูปแบบทีม เพื่อเสริมสร้าง ทักษะการเขียนโปรแกรม
+            พร้อมทั้งฝึกการทำงานร่วมกัน และเก็บเกี่ยวประสบการณ์ จากการลงสนามจริง
           </p>
           <button className="text-button-1 bg-supporting-3 text-secondary-50 h-[54px] rounded-full px-8 md:h-[76px] lg:h-[87px] lg:px-12">
             ยังไม่เปิดรับสมัคร
