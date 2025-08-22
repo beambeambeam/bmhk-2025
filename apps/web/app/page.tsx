@@ -12,7 +12,7 @@ import Footer from "./_components/footer"
 export default function Page() {
   return (
     <div
-      className="no-scrollbar flex h-screen snap-y snap-always flex-col gap-20 overflow-y-auto bg-black text-white"
+      className="no-scrollbar bg-home flex min-h-screen w-screen snap-y snap-always flex-col gap-20 overflow-hidden overflow-y-hidden text-white"
       style={{ scrollBehavior: "smooth" }}>
       {/* spacec for navbar */}
       <div className="h-[94.45px]" />
