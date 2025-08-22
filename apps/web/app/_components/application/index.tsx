@@ -57,7 +57,7 @@ const req: RequirementProps[] = [
 
 export default function Application() {
   return (
-    <section className="gap-y-15 my-12 flex w-screen flex-col justify-start px-6 md:px-20 lg:px-40">
+    <section className="gap-y-15 my-12 flex w-full flex-col justify-start px-6 md:px-20 lg:px-40">
       <Heading text="เอกสารในการสมัคร" />
       <div className="flex flex-col items-center justify-center gap-10 md:flex-row">
         {req.map((ea) => (
