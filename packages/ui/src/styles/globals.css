@@ -103,39 +103,39 @@
 }
 
 @utility text-header-1 {
-  @apply text-2xl md:text-3xl lg:text-5xl font-medium leading-[1.4];
+  @apply text-2xl font-medium leading-[1.4] md:text-3xl lg:text-5xl;
 }
 
 @utility text-header-2-medium {
-  @apply text-xl md:text-3xl lg:text-4xl font-medium leading-[1.4];
+  @apply text-xl font-medium leading-[1.4] md:text-3xl lg:text-4xl;
 }
 
 @utility text-header-2-regular {
-  @apply text-lg md:text-2xl lg:text-[32px] font-normal leading-[1.4];
+  @apply text-lg font-normal leading-[1.4] md:text-2xl lg:text-[32px];
 }
 
 @utility text-subheader-1 {
-  @apply text-lg md:text-3xl lg:text-[32px] font-medium leading-[1.4];
+  @apply text-lg font-medium leading-[1.4] md:text-3xl lg:text-[32px];
 }
 
 @utility text-subheader-2 {
-  @apply text-lg md:text-2xl lg:text-[28px] font-medium leading-[1.4];
+  @apply text-lg font-medium leading-[1.4] md:text-2xl lg:text-[28px];
 }
 
 @utility text-body-1 {
-  @apply text-base md:text-xl lg:text-2xl font-normal lg:leading-[1.6];
+  @apply text-base font-normal md:text-xl lg:text-2xl lg:leading-[1.6];
 }
 
 @utility text-body-2 {
-  @apply text-base md:text-xl lg:text-2xl font-light leading-[1.6];
+  @apply text-base font-light leading-[1.6] md:text-xl lg:text-2xl;
 }
 
 @utility text-body-3 {
-  @apply text-base md:text-lg lg:text-xl font-light leading-[1.6];
+  @apply text-base font-light leading-[1.6] md:text-lg lg:text-xl;
 }
 
 @utility text-supporting-body-1 {
-  @apply text-base md:text-2xl lg:text-[28px] font-semibold leading-[1.4];
+  @apply text-base font-semibold leading-[1.4] md:text-2xl lg:text-[28px];
 }
 
 @utility text-label-1 {
@@ -144,19 +144,19 @@
 }
 
 @utility text-button-1 {
-  @apply text-lg md:text-3xl lg:text-[32px] font-medium leading-[1.4];
+  @apply text-lg font-medium leading-[1.4] md:text-3xl lg:text-[32px];
 }
 
 @utility text-button-2 {
-  @apply text-base md:text-xl lg:text-2xl font-medium leading-[1.4];
+  @apply text-base font-medium leading-[1.4] md:text-xl lg:text-2xl;
 }
 
 @utility text-nav-1-selected {
-  @apply text-base lg:text-xl font-semibold leading-[1.4];
+  @apply text-base font-semibold leading-[1.4] lg:text-xl;
 }
 
 @utility text-nav-2 {
-  @apply text-base lg:text-xl font-normal leading-[1.4];
+  @apply text-base font-normal leading-[1.4] lg:text-xl;
 }
 
 @utility no-scrollbar {
@@ -174,7 +174,7 @@
 
   .liquid-scope-purple {
     background:
-      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #635BBB 0%, rgba(2, 6, 3, 0) 100%),
+      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #635bbb 0%, rgba(2, 6, 3, 0) 100%),
       linear-gradient(106.52deg, rgba(255, 204, 247, 0.09) -2.48%, rgba(159, 131, 220, 0.09) 29.08%);
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     border-left: 1px solid rgba(255, 255, 255, 0.3);
@@ -182,7 +182,7 @@
 
   .liquid-scope-pink {
     background:
-      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #EDCCE8 0%, rgba(2, 6, 3, 0) 100%),
+      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #edcce8 0%, rgba(2, 6, 3, 0) 100%),
       linear-gradient(106.52deg, rgba(255, 204, 247, 0.09) -2.48%, rgba(159, 131, 220, 0.09) 29.08%);
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     border-left: 1px solid rgba(255, 255, 255, 0.3);
@@ -190,12 +190,12 @@
 
   .liquid-scope-red {
     background:
-      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #8C3061 0%, rgba(2, 6, 3, 0) 100%),
+      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #8c3061 0%, rgba(2, 6, 3, 0) 100%),
       linear-gradient(106.52deg, rgba(255, 204, 247, 0.09) -2.48%, rgba(159, 131, 220, 0.09) 29.08%);
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     border-left: 1px solid rgba(255, 255, 255, 0.3);
   }
-  
+
   .liquid-award-first {
     background:
       radial-gradient(66.31% 84.48% at 52.63% 121.84%, #9f83dc 0%, rgba(2, 6, 3, 0) 100%),
@@ -222,15 +222,37 @@
 
   .liquid-gray {
     background:
-      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #DFDFDF 0%, rgba(2, 6, 3, 0) 70%),
+      radial-gradient(66.31% 84.48% at 52.63% 121.84%, #dfdfdf 0%, rgba(2, 6, 3, 0) 70%),
       linear-gradient(106.52deg, rgba(255, 204, 247, 0.09) -2.48%, rgba(159, 131, 220, 0.09) 29.08%);
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     border-left: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   .group::before {
-    background: radial-gradient(80% 80% at 50% 50%,
-        var(--glow-color, rgba(159, 131, 220, 0.5)) 0%,
-        transparent 70%);
+    background: radial-gradient(
+      80% 80% at 50% 50%,
+      var(--glow-color, rgba(159, 131, 220, 0.5)) 0%,
+      transparent 70%
+    );
+  }
+
+  .bg-home {
+    background-image: url("/static/background-image/Home-phone.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+  }
+
+  @media (min-width: 768px) {
+    .bg-home {
+      background-image: url("/static/background-image/Home-tablet.png");
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .bg-home {
+      background-image: url("/static/background-image/Home.png");
+    }
   }
 }

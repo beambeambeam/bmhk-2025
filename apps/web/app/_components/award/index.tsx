@@ -72,7 +72,7 @@ const AWARDS_BOTTOMROW: AwardData[] = [
 
 export default function Award() {
   return (
-    <section className="xl:gap-y-15 mx-auto flex min-h-screen w-screen flex-col items-center justify-center gap-y-[21px] px-6 md:gap-y-10 md:px-20 md:py-[40px] xl:px-40">
+    <section className="xl:gap-y-15 mx-auto flex min-h-screen w-full flex-col items-center justify-center gap-y-[21px] px-6 md:gap-y-10 md:px-20 md:py-[40px] xl:px-40">
       <Heading text="รางวัล" />
       <div className="hidden items-end px-[50px] md:flex">
         {AWARDS_TOPROW.map((ea, i) => (
