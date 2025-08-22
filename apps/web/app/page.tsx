@@ -15,31 +15,31 @@ export default function Page() {
       {/* spacec for navbar */}
       <div className="h-[94.45px]" />
 
-      <div className="flex min-h-screen snap-start items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <LandingSection />
       </div>
-      <div className="flex min-h-screen snap-start items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <QualificationSector />
       </div>
-      <div className="flex min-h-screen snap-start items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <Application />
       </div>
-      <div className="flex snap-start items-center justify-center">
+      <div className="flex items-center justify-center">
         <Award />
       </div>
       <div className="flex items-center justify-center">
         <DateAndContest />
       </div>
-      <div className="flex min-h-screen snap-start items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <Scope />
       </div>
-      <div className="flex min-h-screen snap-start items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <Contact />
       </div>
-      <div className="flex min-h-screen snap-start items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <Story />
       </div>
-      <div className="flex snap-start items-center justify-center">
+      <div className="flex items-center justify-center">
         <Footer />
       </div>
     </div>
