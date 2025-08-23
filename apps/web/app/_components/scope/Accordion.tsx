@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 
 import AccordionItem from "./AccordionItem"
-import { contentData } from "./content"
+import { contentData } from "./scope"
 import { AccordionProps } from "./types"
 
 export const Accordion: React.FC<AccordionProps> = ({ type = "single", collapsible = true }) => {
@@ -28,7 +28,8 @@ export const Accordion: React.FC<AccordionProps> = ({ type = "single", collapsib
             value={data.id}
             isOpen={isOpen}
             onToggle={toggleItem}
-            trigger={data.title}
+            shortTitle={data.shortTitle}
+            longTitle={data.longTitle}
             lqClassName={data.lqClassName}
             colorTheme={data.colorTheme}
             data={data}
