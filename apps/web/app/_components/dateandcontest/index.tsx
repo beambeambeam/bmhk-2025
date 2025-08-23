@@ -32,8 +32,6 @@ function DateAndContest() {
     timelineKey = "timeline-competition-5"
   }
 
-  timelineKey = "timeline-registration-2"
-
   const timelineData: SectionItem[] = dateAndContestData[
     timelineKey as keyof typeof dateAndContestData
   ] as SectionItem[]
