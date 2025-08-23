@@ -12,49 +12,6 @@ export const teams = pgTable("teams", {
     award: text("award").notNull()
 })
 
-export const advisor = pgTable("advisor", {
-    id: uuid("id").defaultRandom().notNull().primaryKey(),
-    teamId: uuid("team_id").notNull().references(() => teams.id, { onDelete: "cascade" }),
-    prefix: text("prefix").notNull(),
-    thaiFirstname: text("thai_firstname").notNull(),
-    thaiMiddlename: text("thai_middlename"),
-    thaiLastname: text("thai_lastname").notNull(),
-    firstName: text("english_firstname").notNull(),
-    middleName: text("english_middlename"),
-    lastname: text("english_lastname").notNull(),
-    foodAllergy: text("food_allergy").notNull(),
-    foodType: text("food_type").notNull(),
-    drugAllergy: text("drug_allergy").notNull(),
-    email: text("email").notNull(),
-    phoneNumber: text("phone_number").notNull(),
-    lineId: text("line_id"),
-    nationalDocId: text("national_doc_id").references(() => file.id, { onDelete: "set null" }),
-    teacherDocId: text("teacher_doc_id").references(() => file.id, { onDelete: "set null" })
-
-})
-
-export const member = pgTable("member", {
-    id: uuid("id").defaultRandom().notNull().primaryKey(),
-    teamId: uuid("team_id").notNull().references(() => teams.id, { onDelete: "cascade" }),
-    prefix: text("prefix").notNull(),
-    thaiFirstname: text("thai_firstname").notNull(),
-    thaiMiddlename: text("thai_middlename"),
-    thaiLastname: text("thai_lastname").notNull(),
-    firstName: text("english_firstname").notNull(),
-    middleName: text("english_middlename"),
-    lastname: text("english_lastname").notNull(),
-    foodAllergy: text("food_allergy").notNull(),
-    foodType: text("food_type").notNull(),
-    drugAllergy: text("drug_allergy").notNull(),
-    email: text("email").notNull(),
-    phoneNumber: text("phone_number").notNull(),
-    lineId: text("line_id"),
-    nationalDocId: text("national_doc_id").references(() => file.id, { onDelete: "set null" }),
-    p7DocId: text("p7_doc_id").references(() => file.id, { onDelete: "set null" }),
-    facePicId: text("face_picture_id").references(() => file.id, { onDelete: "set null" })
-
-})
-
 export const announcement = pgTable("announcement", {
     id: uuid("id").notNull().defaultRandom().primaryKey(),
     start: timestamp("start").notNull(),
