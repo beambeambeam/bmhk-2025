@@ -1,0 +1,39 @@
+import { betterAuth } from "better-auth"
+import { drizzleAdapter } from "better-auth/adapters/drizzle"
+import { admin, username } from "better-auth/plugins"
+import * as dotenv from "dotenv"
+
+import { db } from "@workspace/db"
+import { user, account, session, verification } from "@workspace/db/schema"
+import { Roles } from "./roles.ts"
+
+dotenv.config()
+
+export const auth = betterAuth({
+    database: drizzleAdapter(db, {
+        provider: "pg",
+        schema: {
+            user,
+            account,
+            session,
+            verification
+        }
+    }),
+    emailAndPassword: {
+        enabled: true
+    },
+    socialProviders: {
+        google: {
+            clientId: process.env.GOOGLE_CLIENT_ID!,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+            scope: ["email", "profile"]
+        }
+    },
+    plugins: [
+        username(),
+        admin({
+            defaultRole: Roles.USER,
+            adminRoles: [Roles.ADMIN, Roles.SUPER_ADMIN]
+        })
+    ]
+})
