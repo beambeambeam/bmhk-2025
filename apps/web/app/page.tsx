@@ -3,6 +3,7 @@ import Award from "@/app/_components/award"
 import Contact from "@/app/_components/contact"
 import DateAndContest from "@/app/_components/dateandcontest"
 import LandingSection from "@/app/_components/landing"
+import { Navbar } from "@/app/_components/navbar"
 import QualificationSector from "@/app/_components/qualification"
 import Scope from "@/app/_components/scope"
 import Story from "@/app/_components/story"
@@ -14,8 +15,7 @@ export default function Page() {
     <div
       className="no-scrollbar bg-home flex min-h-screen w-full snap-y snap-always flex-col gap-20 overflow-hidden overflow-y-hidden text-white"
       style={{ scrollBehavior: "smooth" }}>
-      {/* spacec for navbar */}
-      <div className="h-[94.45px]" />
+      <Navbar />
 
       <div id="landing" className="flex min-h-screen items-center justify-center">
         <LandingSection />
