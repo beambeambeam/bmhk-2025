@@ -36,6 +36,21 @@ const nav = [
   },
 ]
 
+const CTA = ({ isMobile }: { isMobile?: boolean }) => {
+  if (isMobile) {
+    return (
+      <button className="text-button-2 h-full rounded-full bg-[linear-gradient(0deg,rgba(38,38,38,0.002),rgba(38,38,38,0.002)),radial-gradient(78.68%_99.36%_at_50%_0%,rgba(255,135,237,0.5)_0%,rgba(255,135,237,0)_100%),radial-gradient(79.19%_100%_at_50.05%_100%,#9f83dc_0%,rgba(159,131,220,0)_100%),linear-gradient(106.52deg,rgba(255,204,247,0.09)_-2.48%,rgba(159,131,220,0.09)_29.08%)] px-10 py-2.5 text-white shadow-[0px_0px_20px_rgba(0,0,0,0.25),inset_-1px_-1px_30px_rgba(255,204,247,0.6)]">
+        ลงทะเบียน
+      </button>
+    )
+  }
+  return (
+    <button className="text-button-2 hidden h-full rounded-full bg-[linear-gradient(0deg,rgba(38,38,38,0.002),rgba(38,38,38,0.002)),radial-gradient(78.68%_99.36%_at_50%_0%,rgba(255,135,237,0.5)_0%,rgba(255,135,237,0)_100%),radial-gradient(79.19%_100%_at_50.05%_100%,#9f83dc_0%,rgba(159,131,220,0)_100%),linear-gradient(106.52deg,rgba(255,204,247,0.09)_-2.48%,rgba(159,131,220,0.09)_29.08%)] px-10 py-2.5 text-white shadow-[0px_0px_20px_rgba(0,0,0,0.25),inset_-1px_-1px_30px_rgba(255,204,247,0.6)] md:block">
+      ลงทะเบียน
+    </button>
+  )
+}
+
 const MobileDrawer = () => (
   <Drawer>
     <DrawerTrigger asChild>
@@ -46,6 +61,9 @@ const MobileDrawer = () => (
     <DrawerContent className="!border-none !bg-transparent backdrop-blur-xl">
       <DrawerTitle className="sr-only">Navbar</DrawerTitle>
       <div className="mb-10 flex flex-col gap-y-5 overflow-auto p-6">
+        <DrawerClose asChild className="flex items-center justify-center">
+          <CTA isMobile />
+        </DrawerClose>
         {nav.map((item) => (
           <DrawerClose key={item.href} asChild className="flex items-center justify-center">
             <Link href={item.href}>
@@ -102,9 +120,7 @@ export function Navbar() {
           ))}
         </div>
         <div className="flex h-[70px]">
-          <button className="text-button-2 hidden h-full rounded-full bg-[linear-gradient(0deg,rgba(38,38,38,0.002),rgba(38,38,38,0.002)),radial-gradient(78.68%_99.36%_at_50%_0%,rgba(255,135,237,0.5)_0%,rgba(255,135,237,0)_100%),radial-gradient(79.19%_100%_at_50.05%_100%,#9f83dc_0%,rgba(159,131,220,0)_100%),linear-gradient(106.52deg,rgba(255,204,247,0.09)_-2.48%,rgba(159,131,220,0.09)_29.08%)] px-10 py-2.5 text-white shadow-[0px_0px_20px_rgba(0,0,0,0.25),inset_-1px_-1px_30px_rgba(255,204,247,0.6)] md:block">
-            ลงทะเบียน
-          </button>
+          <CTA />
           <MobileDrawer />
         </div>
       </GlassCard>
