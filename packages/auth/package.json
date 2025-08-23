@@ -20,6 +20,8 @@
     "dotenv": "^17.2.1"
   },
   "dependencies": {
-    "@workspace/db": "workspace:*"
+    "@workspace/db": "workspace:*",
+    "better-auth": "^1.3.7",
+    "zod": "^4.0.17"
   }
 }
