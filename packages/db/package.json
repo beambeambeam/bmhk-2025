@@ -1,33 +1,33 @@
 {
-    "name": "db",
-    "version": "0.0.0",
-    "private": true,
-    "main": "src/index.ts",
-    "type": "module",
-    "exports": {
-        ".": "./src/index.ts",
-        "./orm": "./src/orm.ts",
-        "./schema": "./src/schema.ts"
-    },
-    "files": [
-        "src/**/*"
-    ],
-    "scripts": {
-        "db:check": "drizzle-kit check --config=src/drizzle.config.ts",
-        "db:generate": "drizzle-kit generate --config=src/drizzle.config.ts",
-        "db:migrate": "tsx ./src/migrate.ts"
-    },
-    "devDependencies": {
-        "@types/pg": "^8.11.10",
-        "dotenv": "^17.2.1",
-        "drizzle-kit": "^0.28.1",
-        "tsx": "^4.19.2",
-        "typescript": "^5.2.2"
-    },
-    "dependencies": {
-        "drizzle-orm": "^0.36.4",
-        "next-auth": "5.0.0-beta.25",
-        "pg": "^8.13.1",
-        "postgres": "^3.4.5"
-    }
+  "name": "@workspace/db",
+  "version": "0.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./orm": "./src/orm.ts",
+    "./schema": "./src/schema.ts"
+  },
+  "files": [
+    "src/**/*"
+  ],
+  "scripts": {
+    "db:check": "drizzle-kit check --config=src/drizzle.config.ts",
+    "db:generate": "drizzle-kit generate --config=src/drizzle.config.ts",
+    "db:migrate": "tsx ./src/migrate.ts"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.10",
+    "dotenv": "^17.2.1",
+    "drizzle-kit": "^0.28.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.36.4",
+    "next-auth": "5.0.0-beta.25",
+    "pg": "^8.13.1",
+    "postgres": "^3.4.5"
+  }
 }
