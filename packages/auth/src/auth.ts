@@ -1,12 +1,11 @@
-/* eslint-disable no-undef */
 import { db } from "@workspace/db"
-import { user, account, session, verification } from "@workspace/db/schema"
+import { user, account, session, verification } from "@workspace/db"
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
 import { admin, username } from "better-auth/plugins"
 import * as dotenv from "dotenv"
 
-import { Roles } from "./roles.ts"
+import { Roles } from "./roles.js"
 
 dotenv.config()
 
@@ -25,7 +24,9 @@ export const auth = betterAuth({
   },
   socialProviders: {
     google: {
+      // eslint-disable-next-line no-undef
       clientId: process.env.GOOGLE_CLIENT_ID!,
+      // eslint-disable-next-line no-undef
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       scope: ["email", "profile"],
     },
