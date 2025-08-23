@@ -90,23 +90,32 @@ const MobileDrawer = () => (
   </Drawer>
 )
 
+const sections = ["landing", "qualification", "award", "dateandcontest", "contact"]
+
 export function Navbar() {
-  const [hash, setHash] = useState("")
+  const [active, setActive] = useState("landing")
 
   useEffect(() => {
-    // Set initial hash
-    setHash(window.location.hash)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id)
+          }
+        })
+      },
+      { threshold: 0.6 }
+    )
 
-    // Listen for hash changes
-    const handleHashChange = () => {
-      setHash(window.location.hash)
-    }
+    sections.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
 
-    window.addEventListener("hashchange", handleHashChange)
-    return () => window.removeEventListener("hashchange", handleHashChange)
+    return () => observer.disconnect()
   }, [])
 
-  const isActive = (href: string) => hash === href
+  const isActive = (href: string) => active === href
   return (
     <div className="fixed z-50 w-full p-9 px-[24px] md:px-[60px] lg:px-[160px]">
       <GlassCard className="flex items-center justify-between rounded-full py-3 pl-3 pr-5 backdrop-blur-md md:pr-3">
@@ -125,7 +134,7 @@ export function Navbar() {
           {nav.map((item) => (
             <a
               key={item.label}
-              className={`rounded-full px-6 py-4 text-white ${isActive(item.href) ? "text-nav-1-selected liquid" : "text-nav-2"}`}
+              className={`rounded-full px-6 py-4 text-white ${isActive(item.href.replace("#", "")) ? "text-nav-1-selected liquid" : "text-nav-2"}`}
               href={item.href}>
               {item.label}
             </a>
