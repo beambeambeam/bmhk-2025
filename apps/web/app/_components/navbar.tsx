@@ -63,33 +63,6 @@ const CTA = ({ isMobile }: { isMobile?: boolean }) => {
   )
 }
 
-const MobileDrawer = () => (
-  <Drawer>
-    <DrawerTrigger asChild>
-      <button className="block text-xl md:hidden">
-        <MenuIcon color="#d1d5dc" />
-      </button>
-    </DrawerTrigger>
-    <DrawerContent className="!border-none !bg-transparent backdrop-blur-xl">
-      <DrawerTitle className="sr-only">Navbar</DrawerTitle>
-      <div className="mb-10 flex flex-col gap-y-5 overflow-auto p-6">
-        <DrawerClose asChild className="flex items-center justify-center">
-          <CTA isMobile />
-        </DrawerClose>
-        {nav.map((item) => (
-          <DrawerClose key={item.href} asChild className="flex items-center justify-center">
-            <Link href={item.href}>
-              <button className="hover:text-vermilion cursor-pointer text-white transition-colors">
-                <span className="font-prompt text-[1.3rem] font-bold">{item.label}</span>
-              </button>
-            </Link>
-          </DrawerClose>
-        ))}
-      </div>
-    </DrawerContent>
-  </Drawer>
-)
-
 const sections = ["landing", "qualification", "award", "dateandcontest", "contact"]
 
 export function Navbar() {
@@ -142,7 +115,42 @@ export function Navbar() {
         </div>
         <div className="flex h-[70px]">
           <CTA />
-          <MobileDrawer />
+          <Drawer>
+            <DrawerTrigger asChild>
+              <button className="block text-xl md:hidden">
+                <MenuIcon color="#d1d5dc" />
+              </button>
+            </DrawerTrigger>
+            <DrawerContent className="border-1 !border-none !bg-transparent">
+              <GlassCard className="border-1 rounded-t-2xl border-white/10 bg-black/50 backdrop-blur-2xl">
+                <DrawerTitle className="sr-only">Navbar</DrawerTitle>
+                <div className="mb-10 flex flex-col gap-y-5 overflow-auto p-6">
+                  <Image
+                    className="mx-auto object-cover"
+                    width={142}
+                    height={75}
+                    src="/static/logo/Logo.png"
+                    alt="Bangmod Hackathon"
+                  />
+                  {nav.map((item) => (
+                    <DrawerClose key={item.href} asChild className="flex items-center justify-center">
+                      <Link href={item.href}>
+                        <button className="transition-colors">
+                          <span
+                            className={`font-prompt ${active === item.href.replace("#", "") ? "text-nav-1-selected text-pink-300" : "text-nav-2 text-white"}`}>
+                            {item.label}
+                          </span>
+                        </button>
+                      </Link>
+                    </DrawerClose>
+                  ))}
+                  <DrawerClose asChild className="flex items-center justify-center">
+                    <CTA isMobile />
+                  </DrawerClose>
+                </div>
+              </GlassCard>
+            </DrawerContent>
+          </Drawer>
         </div>
       </GlassCard>
     </div>
