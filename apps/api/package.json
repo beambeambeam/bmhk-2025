@@ -24,7 +24,8 @@
     "@nestjs/core": "^10.4.20",
     "@nestjs/platform-express": "^10.4.20",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.2"
+    "rxjs": "^7.8.2",
+    "@workspace/auth": "workspace:*"
   },
   "devDependencies": {
     "eslint": "^9.32.0",
