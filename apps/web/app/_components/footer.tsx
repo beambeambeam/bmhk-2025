@@ -24,7 +24,7 @@ function Sponsor() {
       <div className="flex flex-wrap items-center gap-6 self-stretch max-lg:justify-center">
         {SPONSOR_LIST.map((s) => (
           <GlassCard
-            className="min-w-15 min-h-15 2xl:min-h-20 2xl:min-w-20"
+            className="min-w-15 min-h-15 px-2 py-1 2xl:min-h-20 2xl:min-w-20"
             style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}>
             <img src={s.image_path} />
           </GlassCard>
@@ -81,13 +81,8 @@ function Footer() {
                   className="ml-[-24px] h-[100px] 2xl:ml-[-32px] 2xl:h-[140px]"
                 />
                 <img
-                  src="/static/logo/CPE.svg"
-                  alt="CPE Logo"
-                  className="max-h-[72px] max-w-[220px] object-contain"
-                />
-                <img
-                  src="/static/logo/KMUTT.png"
-                  alt="KMUTT Logo"
+                  src="/static/logo/KMUTT_CPE.svg"
+                  alt="KMUTT CPE Logo"
                   className="max-h-[72px] max-w-[220px] object-contain"
                 />
               </div>
