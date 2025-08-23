@@ -2,7 +2,42 @@
 
 import GlassCard from "@/components/glassCard"
 import IconCircle from "@/components/iconCircle"
+import Image from "next/image"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
+
+interface Sponsor {
+  name: string
+  image_path: string
+}
+
+function Sponsor() {
+  const SPONSOR_LIST: Sponsor[] = [
+    /* TBA */
+  ]
+  if (SPONSOR_LIST.length < 1) return <></>
+  return (
+    <div className="flex flex-[1_0_0] flex-col items-start gap-7 self-stretch max-lg:items-center">
+      <div className="text-body-1 text-[var(--color-gray-50)] max-2xl:text-[20px] max-lg:text-[18px]">
+        สนับสนุนโดย
+      </div>
+      <div className="flex flex-wrap items-center gap-6 self-stretch max-lg:justify-center">
+        {SPONSOR_LIST.map((s) => (
+          <GlassCard
+            className="min-w-15 min-h-15 2xl:min-h-20 2xl:min-w-20"
+            style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}>
+            <img src={s.image_path} />
+          </GlassCard>
+        ))}
+      </div>
+      <div className="hidden flex-col items-start gap-3 self-stretch 2xl:flex">
+        <div className="text-body-3 text-[var(--color-gray-50)]">
+          เราขอขอบคุณ <span>{SPONSOR_LIST.map((s) => s.name).join(", ")}</span>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 function Footer() {
   const router = useRouter()
@@ -110,42 +145,7 @@ function Footer() {
           <div className="flex flex-[1_0_0] flex-col items-end gap-10 self-stretch">
             {" "}
             {/* Sponsor */}
-            <div className="flex flex-[1_0_0] flex-col items-start gap-7 self-stretch max-lg:items-center">
-              <div className="text-body-1 text-[var(--color-gray-50)] max-2xl:text-[20px] max-lg:text-[18px]">
-                สนับสนุนโดย
-              </div>
-              <div className="flex flex-wrap items-center gap-6 self-stretch max-lg:justify-center">
-                <GlassCard
-                  className="w-15 h-15 2xl:h-20 2xl:w-20"
-                  style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}
-                />
-                <GlassCard
-                  className="w-15 h-15 2xl:h-20 2xl:w-20"
-                  style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}
-                />
-                <GlassCard
-                  className="w-15 h-15 2xl:h-20 2xl:w-20"
-                  style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}
-                />
-                <GlassCard
-                  className="w-15 h-15 2xl:h-20 2xl:w-20"
-                  style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}
-                />
-                <GlassCard
-                  className="w-15 h-15 2xl:h-20 2xl:w-20"
-                  style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}
-                />
-                <GlassCard
-                  className="w-15 h-15 2xl:h-20 2xl:w-20"
-                  style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}
-                />
-              </div>
-              <div className="hidden flex-col items-start gap-3 self-stretch 2xl:flex">
-                <div className="text-body-3 text-[var(--color-gray-50)]">
-                  เราขอขอบคุณ สปอนเซอร์ 1, สปอนเซอร์ 2, สปอนเซอร์ 3, สปอนเซอร์ 4, สปอนเซอร์ 5, สปอนเซอร์ 6
-                </div>
-              </div>
-            </div>
+            <Sponsor />
           </div>
         </div>
         <div className="flex items-center justify-between self-stretch max-lg:justify-center">
@@ -177,9 +177,9 @@ function Footer() {
             <div className="text-nav-2" onClick={() => (window.location.hash = "#contact")}>
               ติดต่อทีมงาน
             </div>
-            <div className="text-nav-2" onClick={() => (window.location.hash = "#privacy")}>
+            <Link className="text-nav-2" href="/privacy-policy">
               นโยบายความเป็นส่วนตัว
-            </div>
+            </Link>
           </div>
         </div>
       </div>
