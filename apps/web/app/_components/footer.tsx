@@ -112,16 +112,11 @@ function Footer() {
                 alt="Bangmod Hackathon Logo"
                 className="ml-[-24px] h-[100px]"
               />
-              <div className="flex h-10 gap-4">
+              <div className="flex h-10 items-center">
                 <img
-                  src="/static/logo/CPE.svg"
-                  alt="CPE Logo"
-                  className="max-h-[72px] max-w-[220px] object-contain"
-                />
-                <img
-                  src="/static/logo/KMUTT.png"
-                  alt="KMUTT Logo"
-                  className="max-h-[72px] max-w-[220px] object-contain"
+                  src="/static/logo/KMUTT_CPE.svg"
+                  alt="KMUTT CPE Logo"
+                  className="max-h-[45px] max-w-[220px] object-contain"
                 />
               </div>
             </div>
