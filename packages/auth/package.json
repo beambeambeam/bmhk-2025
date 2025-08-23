@@ -8,6 +8,7 @@
     "./orm": "./src/orm.ts",
     "./schema": "./src/schema.ts"
   },
+  "types": "src/index.ts",
   "files": [
     "src/**/*"
   ],
