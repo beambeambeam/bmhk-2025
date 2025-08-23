@@ -11,7 +11,8 @@ export type ContentItem = {
   isActive: boolean
   themeColor: string
   lineColor: string
-  otherElement?: boolean
+  NameList?: boolean
+  pathNameList: string
 }
 export type SectionItem = {
   header: string
@@ -145,21 +146,31 @@ export default function Timeline({ data }: TimelineProps) {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-center gap-4 lg:gap-0">
+                <div
+                  className={`flex items-center gap-4 lg:justify-center lg:gap-0 ${
+                    section.content.length > 1
+                      ? sectionIndex % 2
+                        ? "justify-end"
+                        : "justify-start"
+                      : "justify-center"
+                  }`}>
                   {/* Label */}
-                  <div className="flex flex-col items-center justify-center gap-y-3 lg:gap-y-4">
+                  <div className="flex flex-col items-center gap-y-3 lg:gap-y-4">
                     <div
-                      className={`text-center text-[1.125rem] font-medium text-white lg:px-0 lg:text-[1.5rem] 2xl:text-[2rem] ${
-                        section.content.length > 1 ? (sectionIndex % 2 ? "pr-14" : "pl-14") : "px-0"
+                      className={`text-[1.125rem] font-medium text-white lg:px-0 lg:text-center lg:text-[1.5rem] 2xl:text-[2rem] ${
+                        section.content.length > 1
+                          ? sectionIndex % 2
+                            ? "pr-17 text-end"
+                            : "pl-17 text-start"
+                          : "px-0 text-center"
                       }`}
                       style={{ color: content.label.textColor }}
                       dangerouslySetInnerHTML={{ __html: content.label.text }}
                     />
 
-                    {content.otherElement && (
+                    {content.NameList && (
                       <a
-                        href="path to file"
-                        download="file name"
+                        href={content.pathNameList}
                         className={`flex items-center gap-x-3 lg:gap-x-4 lg:px-0 ${section.content.length > 1 ? (sectionIndex % 2 ? "pr-14" : "pl-14") : "px-0"}`}>
                         <EyeOpenedIcon className="text-hover-100 h-5 w-5 lg:h-8 lg:w-8 2xl:h-9 2xl:w-9" />
                         <p className="text-hover-100 text-[1rem] font-medium underline lg:text-[1.5rem] 2xl:text-[1.75rem]">

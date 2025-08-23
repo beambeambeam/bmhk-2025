@@ -14,7 +14,9 @@ function DateAndContest() {
 
   if (today < mkDate(27, 8, 2025)) {
     timelineKey = "timeline-registration-1"
-  } else if (today >= mkDate(15, 9, 2025) && today < mkDate(18, 9, 2025)) {
+  } else if (today >= mkDate(27, 8, 2025) && today < mkDate(16, 9, 2025)) {
+    timelineKey = "timeline-registration-1"
+  } else if (today >= mkDate(16, 9, 2025) && today < mkDate(18, 9, 2025)) {
     timelineKey = "timeline-registration-2"
   } else if (today >= mkDate(18, 9, 2025) && today < mkDate(20, 9, 2025)) {
     timelineKey = "timeline-registration-3"
@@ -29,6 +31,8 @@ function DateAndContest() {
   } else {
     timelineKey = "timeline-competition-5"
   }
+
+  timelineKey = "timeline-registration-2"
 
   const timelineData: SectionItem[] = dateAndContestData[
     timelineKey as keyof typeof dateAndContestData
