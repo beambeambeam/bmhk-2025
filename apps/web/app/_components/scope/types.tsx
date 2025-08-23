@@ -8,7 +8,8 @@ export interface AccordionItemProps {
   value: string
   isOpen?: boolean
   onToggle?: (id: string) => void
-  trigger: string
+  longTitle: string
+  shortTitle: string
   lqClassName: string
   colorTheme: string
   data: ContentData
@@ -26,7 +27,8 @@ export interface SubItem {
 
 export interface ContentData {
   id: string
-  title: string
+  longTitle: string
+  shortTitle: string
   lqClassName: string
   colorTheme: string
   items: SubItem[]

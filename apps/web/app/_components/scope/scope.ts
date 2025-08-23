@@ -3,7 +3,8 @@ import { ContentData } from "./types"
 export const contentData: ContentData[] = [
   {
     id: "math",
-    title: "หมวดคณิตศาสตร์",
+    longTitle: "หมวดคณิตศาสตร์",
+    shortTitle: "หมวดคณิตศาสตร์",
     lqClassName: "liquid-scope-purple",
     colorTheme: "#9F83DC",
     items: [
@@ -48,7 +49,8 @@ export const contentData: ContentData[] = [
   },
   {
     id: "com-sci",
-    title: "หมวดพื้นฐาน วิทยาการคอมพิวเตอร์",
+    longTitle: "หมวดพื้นฐาน วิทยาการคอมพิวเตอร์",
+    shortTitle: "หมวดวิทยาการคอมพิวเตอร์",
     lqClassName: "liquid-scope-pink",
     colorTheme: "#E0A8D8",
     items: [
@@ -79,7 +81,8 @@ export const contentData: ContentData[] = [
   },
   {
     id: "programming",
-    title: "หมวดอัลกอริทึม",
+    longTitle: "หมวดอัลกอริทึม",
+    shortTitle: "หมวดอัลกอริทึม",
     lqClassName: "liquid-scope-red",
     colorTheme: "#CE70A2",
     items: [
