@@ -66,7 +66,7 @@ const CTA = ({ isMobile }: { isMobile?: boolean }) => {
 const MobileDrawer = () => (
   <Drawer>
     <DrawerTrigger asChild>
-      <button className="block text-xl xl:hidden">
+      <button className="block text-xl md:hidden">
         <MenuIcon color="#d1d5dc" />
       </button>
     </DrawerTrigger>
