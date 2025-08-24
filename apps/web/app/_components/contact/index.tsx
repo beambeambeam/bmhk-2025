@@ -1,6 +1,7 @@
 import { Heading } from "@/components/heading"
 import IconCircle from "@/components/iconCircle"
 import MapEmbed from "@/components/mapEmbed"
+import { siteConfig } from "@/config/site"
 
 function Contact() {
   return (
