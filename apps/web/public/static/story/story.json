@@ -2,8 +2,8 @@
   "story": [
     {
       "chapter": "1",
-      "img": "chapter1.png",
-      "background": "Scene1.png",
+      "img": "chapter1.webp",
+      "background": "Scene1.webp",
       "radial-grad-start": "74,154,197",
       "radial-grad-end": "2,6,3",
       "linear-grad-start": "0,86,133",
@@ -14,8 +14,8 @@
     },
     {
       "chapter": "2",
-      "img": "chapter2.png",
-      "background": "Scene2.png",
+      "img": "chapter2.webp",
+      "background": "Scene2.webp",
       "radial-grad-start": "179,87,197",
       "radial-grad-end": "2,6,3",
       "linear-grad-start": "255,204,247",
@@ -26,8 +26,8 @@
     },
     {
       "chapter": "3",
-      "img": "chapter3.png",
-      "background": "Scene3.png",
+      "img": "chapter3.webp",
+      "background": "Scene3.webp",
       "radial-grad-start": "99,91,187",
       "radial-grad-end": "2,6,3",
       "linear-grad-start": "255,204,247",
@@ -38,8 +38,8 @@
     },
     {
       "chapter": "4",
-      "img": "chapter4.png",
-      "background": "Scene4.png",
+      "img": "chapter4.webp",
+      "background": "Scene4.webp",
       "radial-grad-start": "197,109,74",
       "radial-grad-end": "2,6,3",
       "linear-grad-start": "255,204,247",
@@ -50,8 +50,8 @@
     },
     {
       "chapter": "5",
-      "img": "chapter5.png",
-      "background": "Scene5.png",
+      "img": "chapter5.webp",
+      "background": "Scene5.webp",
       "radial-grad-start": "99,91,187",
       "radial-grad-end": "2,6,3",
       "linear-grad-start": "255,204,247",
@@ -62,8 +62,8 @@
     },
     {
       "chapter": "6",
-      "img": "chapter6.png",
-      "background": "Scene6.png",
+      "img": "chapter6.webp",
+      "background": "Scene6.webp",
       "radial-grad-start": "99,91,187",
       "radial-grad-end": "2,6,3",
       "linear-grad-start": "255,204,247",
