@@ -91,7 +91,7 @@ export function Navbar() {
   const isActive = (href: string) => active === href
   return (
     <div className="fixed z-50 w-full p-9 px-[24px] md:px-[60px] lg:px-[160px]">
-      <GlassCard className="flex items-center justify-between rounded-full py-3 pl-3 pr-5 backdrop-blur-md md:pr-3">
+      <GlassCard className="flex items-center justify-between rounded-full pl-3 pr-5 backdrop-blur-md md:pr-3">
         <div className="flex w-[142px] items-center justify-center pt-1 md:w-[100px] xl:w-[180px]">
           <Link href={"/"}>
             <Image

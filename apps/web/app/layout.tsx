@@ -1,6 +1,8 @@
+import { siteConfig } from "@/config/site"
 import { BreakpointIndicator } from "@workspace/ui/components/breakpoint-indicator"
 import "@workspace/ui/globals.css"
 import { cn } from "@workspace/ui/lib/utils"
+import type { Metadata } from "next"
 import { Bai_Jamjuree, Prompt } from "next/font/google"
 
 const fontPrompt = Prompt({
@@ -14,6 +16,20 @@ const fontBaiJamjuree = Bai_Jamjuree({
   variable: "--font-bai-jamjuree",
   weight: ["300", "400", "500", "600", "700"],
 })
+
+export const metadata: Metadata = {
+  title: siteConfig.name,
+  description: siteConfig.description,
+  keywords: ["Bangmod Hackathon", "Hackathon", "Programming Competition", "KMUTT"],
+  openGraph: {
+    type: "website",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    images: [{ url: siteConfig.ogImage }],
+  },
+}
 
 export default function RootLayout({
   children,
