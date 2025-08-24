@@ -7,6 +7,14 @@ app.get("/", (c) => {
   return c.text("Hello Hono!")
 })
 
+app.get("/health", (c) => {
+  return c.json({
+    status: "ok",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+  })
+})
+
 serve(
   {
     fetch: app.fetch,
