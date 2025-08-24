@@ -1,13 +1,14 @@
-import { baseConfig } from "./base.js"
 import globals from "globals"
 
+import { config as baseConfig } from "./base.js"
+
 export const nodeConfig = [
-    ...baseConfig,
-    {
-        languageOptions: {
-            globals: {
-                ...globals.node,
-            },
-        },
+  ...baseConfig,
+  {
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
     },
+  },
 ]
