@@ -52,6 +52,8 @@ function MemberRegisterForm(props: ExternalFormProps<memberRegisterSchemaType>) 
       email: "",
       phone_number: "",
       line_id: "",
+      parent: "",
+      parent_phone: "",
       ...props.defaultValues,
     },
   })

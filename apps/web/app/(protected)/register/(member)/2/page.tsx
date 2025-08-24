@@ -1,4 +1,6 @@
+import MemberRegisterForm from "@/app/(protected)/register/(member)/_components/form"
+
 function MemberPage2() {
-  return <div>MemberPage2</div>
+  return <MemberRegisterForm />
 }
 export default MemberPage2
