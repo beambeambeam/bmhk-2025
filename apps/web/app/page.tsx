@@ -9,16 +9,10 @@ import { Navbar } from "@/app/_components/navbar"
 import QualificationSector from "@/app/_components/qualification"
 import Scope from "@/app/_components/scope"
 import Story from "@/app/_components/story"
-import { orpc } from "@/utils/orpc"
-import { useQuery } from "@tanstack/react-query"
 
 import Footer from "./_components/footer"
 
 export default function Page() {
-  const { data } = useQuery(orpc.healthCheck.queryOptions())
-
-  console.log(data)
-
   return (
     <div
       className="no-scrollbar bg-home flex min-h-screen w-full snap-y snap-always flex-col gap-20 overflow-hidden overflow-y-hidden text-white"
