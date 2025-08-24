@@ -1,5 +1,6 @@
 "use client"
 
+import DocumentUploader from "@/app/(protected)/register/_components/document_uploader"
 import { ExternalFormProps } from "@/types/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@workspace/ui/components/button"
@@ -12,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/components/select"
+import type { FileMetadata } from "@workspace/ui/hooks/use-file-upload"
 import { useForm } from "react-hook-form"
 import z from "zod"
 
@@ -31,11 +33,30 @@ const memberRegisterSchema = z.object({
   line_id: z.string().optional(),
   parent: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   parent_phone: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
+  national_doc: z.array(z.any()).min(1, "จำเป็นต้องอัปโหลดเอกสารประจำตัวประชาชน").max(1),
+  face_picture: z.array(z.any()).min(1, "จำเป็นต้องอัปโหลดรูปถ่ายหน้าตรง").max(1),
+  p7_doc: z.array(z.any()).min(1, "จำเป็นต้องอัปโหลดเอกสาร P7").max(1),
 })
 
-type memberRegisterSchemaType = z.infer<typeof memberRegisterSchema>
+type memberRegisterSchemaType = Omit<
+  z.infer<typeof memberRegisterSchema>,
+  "national_doc" | "face_picture" | "p7_doc"
+> & {
+  national_doc: (File | FileMetadata)[]
+  face_picture: (File | FileMetadata)[]
+  p7_doc: (File | FileMetadata)[]
+}
 
-function MemberRegisterForm(props: ExternalFormProps<memberRegisterSchemaType>) {
+type ProcessedMemberRegisterSchemaType = Omit<
+  memberRegisterSchemaType,
+  "national_doc" | "face_picture" | "p7_doc"
+> & {
+  national_doc: (File | null)[]
+  face_picture: (File | null)[]
+  p7_doc: (File | null)[]
+}
+
+function MemberRegisterForm(props: ExternalFormProps<ProcessedMemberRegisterSchemaType>) {
   const form = useForm<z.infer<typeof memberRegisterSchema>>({
     resolver: zodResolver(memberRegisterSchema),
     defaultValues: {
@@ -54,13 +75,44 @@ function MemberRegisterForm(props: ExternalFormProps<memberRegisterSchemaType>) 
       line_id: "",
       parent: "",
       parent_phone: "",
+      national_doc: [],
+      face_picture: [],
+      p7_doc: [],
       ...props.defaultValues,
     },
   })
 
+  const handleSubmit = (values: memberRegisterSchemaType) => {
+    const processedValues: ProcessedMemberRegisterSchemaType = {
+      ...values,
+      national_doc: values.national_doc.map((file) => {
+        if (file instanceof File) {
+          return file
+        } else {
+          return null
+        }
+      }),
+      face_picture: values.face_picture.map((file) => {
+        if (file instanceof File) {
+          return file
+        } else {
+          return null
+        }
+      }),
+      p7_doc: values.p7_doc.map((file) => {
+        if (file instanceof File) {
+          return file
+        } else {
+          return null
+        }
+      }),
+    }
+    props.onSubmit?.(processedValues)
+  }
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(props.onSubmit!)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
           <FormField
             control={form.control}
@@ -301,6 +353,70 @@ function MemberRegisterForm(props: ExternalFormProps<memberRegisterSchemaType>) 
             )}
           />
         </div>
+
+        <FormField
+          control={form.control}
+          name="national_doc"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>เอกสารประจำตัวประชาชน</FormLabel>
+              <FormControl>
+                <DocumentUploader
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={props.disabled}
+                  multiple={false}
+                  maxFiles={1}
+                  maxSize={10 * 1024 * 1024} // 10MB
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="face_picture"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>รูปถ่ายหน้าตรง</FormLabel>
+              <FormControl>
+                <DocumentUploader
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={props.disabled}
+                  multiple={false}
+                  maxFiles={1}
+                  maxSize={10 * 1024 * 1024} // 10MB
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="p7_doc"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>เอกสาร P7</FormLabel>
+              <FormControl>
+                <DocumentUploader
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={props.disabled}
+                  multiple={false}
+                  maxFiles={1}
+                  maxSize={10 * 1024 * 1024} // 10MB
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <Button type="submit" className="w-full">
           ต่อไป
         </Button>
