@@ -2,6 +2,7 @@
 
 import GlassCard from "@/components/glassCard"
 import IconCircle from "@/components/iconCircle"
+import { siteConfig } from "@/config/site"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -89,15 +90,12 @@ function Footer() {
               <div className="flex items-center gap-6 2xl:hidden">
                 {" "}
                 {/* Social Media */}
-                <a href="https://www.facebook.com/BangmodHackathon" target="_blank" rel="noopener noreferrer">
+                <a href={siteConfig.links.facebook} target="_blank" rel="noopener noreferrer">
                   <IconCircle className="h-[60px] w-[60px] flex-shrink-0 lg:h-[70px] lg:w-[70px] 2xl:h-[80px] 2xl:w-[80px]">
                     <img src="/static/icon/Facebook.svg" alt="Facebook Icon" />
                   </IconCircle>
                 </a>
-                <a
-                  href="https://www.instagram.com/bangmodhack.kmutt"
-                  target="_blank"
-                  rel="noopener noreferrer">
+                <a href={siteConfig.links.instagram} target="_blank" rel="noopener noreferrer">
                   <IconCircle className="h-[60px] w-[60px] flex-shrink-0 lg:h-[70px] lg:w-[70px] 2xl:h-[80px] 2xl:w-[80px]">
                     <img src="/static/icon/Instagram.svg" alt="Instagram Icon" />
                   </IconCircle>
@@ -140,12 +138,12 @@ function Footer() {
         </div>
         <div className="flex items-center justify-between self-stretch max-lg:justify-center">
           <div className="flex items-center gap-6 lg:hidden 2xl:flex">
-            <a href="https://www.facebook.com/BangmodHackathon" target="_blank" rel="noopener noreferrer">
+            <a href={siteConfig.links.facebook} target="_blank" rel="noopener noreferrer">
               <IconCircle className="h-[60px] w-[60px] flex-shrink-0 2xl:h-[80px] 2xl:w-[80px]">
                 <img src="/static/icon/Facebook.svg" alt="Facebook Icon" />
               </IconCircle>
             </a>
-            <a href="https://www.instagram.com/bangmodhack.kmutt" target="_blank" rel="noopener noreferrer">
+            <a href={siteConfig.links.instagram} target="_blank" rel="noopener noreferrer">
               <IconCircle className="h-[60px] w-[60px] flex-shrink-0 2xl:h-[80px] 2xl:w-[80px]">
                 <img src="/static/icon/Instagram.svg" alt="Instagram Icon" />
               </IconCircle>
