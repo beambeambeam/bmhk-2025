@@ -4,17 +4,17 @@ const qualificationData = [
   {
     title: "การจัดทีม",
     description: "กำหนดให้นักเรียน นักศึกษา สมัครเข้าแข่งขันเป็นทีม ทีมละ 2-3 คน",
-    imageSrc: "/static/qualification/team.png",
+    imageSrc: "/static/qualification/team.webp",
   },
   {
     title: "อาจารย์ที่ปรึกษา",
     description: "ต้องมีอาจารย์ที่ปรึกษา ทีมละ 1 คน โดยต้องเป็นอาจารย์จากสถานศึกษานั้น ๆ",
-    imageSrc: "/static/qualification/teacher.png",
+    imageSrc: "/static/qualification/teacher.webp",
   },
   {
     title: "จำนวนทีมต่อสถานศึกษา",
     description: "ในแต่ละสถานศึกษาส่งทีมเข้าแข่งขันได้ไม่เกิน 2 ทีม",
-    imageSrc: "/static/qualification/school.png",
+    imageSrc: "/static/qualification/school.webp",
   },
 ]
 

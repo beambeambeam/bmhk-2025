@@ -98,7 +98,7 @@ export function Navbar() {
               style={{ width: "100%", height: "auto", objectFit: "cover" }}
               width={500}
               height={242}
-              src="/static/logo/Logo.png"
+              src="/static/logo/Logo.webp"
               alt="Bangmod Hackathon"
             />
           </Link>
@@ -129,7 +129,7 @@ export function Navbar() {
                     className="mx-auto object-cover"
                     width={142}
                     height={75}
-                    src="/static/logo/Logo.png"
+                    src="/static/logo/Logo.webp"
                     alt="Bangmod Hackathon"
                   />
                   {nav.map((item) => (
