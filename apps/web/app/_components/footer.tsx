@@ -77,12 +77,12 @@ function Footer() {
                 {" "}
                 {/* Icon */}
                 <img
-                  src="/static/logo/Logo.png"
+                  src="/static/logo/Logo.webp"
                   alt="Bangmod Hackathon Logo"
                   className="ml-[-24px] h-[100px] 2xl:ml-[-32px] 2xl:h-[140px]"
                 />
                 <img
-                  src="/static/logo/KMUTT_CPE.svg"
+                  src="/static/logo/KMUTT_CPE.webp"
                   alt="KMUTT CPE Logo"
                   className="max-h-[72px] max-w-[220px] object-contain"
                 />
@@ -106,13 +106,13 @@ function Footer() {
               {" "}
               {/* Logo Mobile */}
               <img
-                src="/static/logo/Logo.png"
+                src="/static/logo/Logo.webp"
                 alt="Bangmod Hackathon Logo"
                 className="ml-[-24px] h-[100px]"
               />
               <div className="flex h-10 items-center">
                 <img
-                  src="/static/logo/KMUTT_CPE.svg"
+                  src="/static/logo/KMUTT_CPE.webp"
                   alt="KMUTT CPE Logo"
                   className="max-h-[45px] max-w-[220px] object-contain"
                 />

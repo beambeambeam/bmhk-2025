@@ -229,30 +229,29 @@
   }
 
   .group::before {
-    background: radial-gradient(
-      80% 80% at 50% 50%,
-      var(--glow-color, rgba(159, 131, 220, 0.5)) 0%,
-      transparent 70%
-    );
+    background: radial-gradient(80% 80% at 50% 50%,
+        var(--glow-color, rgba(159, 131, 220, 0.5)) 0%,
+        transparent 70%);
   }
 
   .bg-home {
-    background-image: url("/static/background-image/Home-phone.png");
+    background-image: url("/static/background-image/Home-phone.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: scroll;
+    background-color: #000000;
   }
 
   @media (min-width: 768px) {
     .bg-home {
-      background-image: url("/static/background-image/Home-tablet.png");
+      background-image: url("/static/background-image/Home-tablet.webp");
     }
   }
 
   @media (min-width: 1024px) {
     .bg-home {
-      background-image: url("/static/background-image/Home.png");
+      background-image: url("/static/background-image/Home.webp");
     }
   }
 }
