@@ -1,5 +1,6 @@
 "use client"
 
+import DocumentUploader from "@/app/(protected)/register/_components/document_uploader"
 import FormProps from "@/types/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@workspace/ui/components/button"
@@ -12,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/components/select"
+import type { FileMetadata } from "@workspace/ui/hooks/use-file-upload"
 import { useForm } from "react-hook-form"
 import z from "zod"
 
@@ -29,9 +31,17 @@ const adviserRegisterSchema = z.object({
   email: z.string().email("กรุณากรอกอีเมลให้ถูกต้อง").min(1, "จำเป็นต้องกรอกช่องนี้"),
   phone_number: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   line_id: z.string().optional(),
+  national_doc: z.array(z.any()).min(1, "จำเป็นต้องอัปโหลดเอกสารประจำตัวประชาชน").max(1),
+  teacher_doc: z.array(z.any()).min(1, "จำเป็นต้องอัปโหลดเอกสารครู").max(1),
 })
 
-type AdviserRegisterSchemaType = z.infer<typeof adviserRegisterSchema>
+type AdviserRegisterSchemaType = Omit<
+  z.infer<typeof adviserRegisterSchema>,
+  "national_doc" | "teacher_doc"
+> & {
+  national_doc: (File | FileMetadata)[]
+  teacher_doc: (File | FileMetadata)[]
+}
 
 function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
   const form = useForm<z.infer<typeof adviserRegisterSchema>>({
@@ -50,12 +60,32 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
       email: "",
       phone_number: "",
       line_id: "",
+      national_doc: [],
+      teacher_doc: [],
       ...props.defaultValues,
     },
   })
 
   const onSubmit = (values: AdviserRegisterSchemaType) => {
-    console.log(values)
+    // Process the files - FileMetadata will be converted to null
+    const processedValues = {
+      ...values,
+      national_doc: values.national_doc.map((file) => {
+        if (file instanceof File) {
+          return file
+        } else {
+          return null // FileMetadata becomes null
+        }
+      }),
+      teacher_doc: values.teacher_doc.map((file) => {
+        if (file instanceof File) {
+          return file
+        } else {
+          return null // FileMetadata becomes null
+        }
+      }),
+    }
+    console.log(processedValues)
   }
 
   return (
@@ -274,6 +304,48 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
             )}
           />
         </div>
+
+        <FormField
+          control={form.control}
+          name="national_doc"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>เอกสารประจำตัวประชาชน</FormLabel>
+              <FormControl>
+                <DocumentUploader
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={props.disabled}
+                  multiple={false}
+                  maxFiles={1}
+                  maxSize={10 * 1024 * 1024} // 10MB
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="teacher_doc"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>เอกสารครู</FormLabel>
+              <FormControl>
+                <DocumentUploader
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={props.disabled}
+                  multiple={false}
+                  maxFiles={1}
+                  maxSize={10 * 1024 * 1024} // 10MB
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <Button type="submit" className="w-full">
           ต่อไป
