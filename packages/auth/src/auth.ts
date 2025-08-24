@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { db } from "@workspace/db"
 import { user, account, session, verification } from "@workspace/db/schema"
 import { betterAuth } from "better-auth"
@@ -6,7 +5,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle"
 import { admin, username } from "better-auth/plugins"
 import * as dotenv from "dotenv"
 
-import { Roles } from "./roles.ts"
+import { Roles } from "./roles"
 
 dotenv.config()
 

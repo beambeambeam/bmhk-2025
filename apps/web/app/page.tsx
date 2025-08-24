@@ -1,3 +1,5 @@
+"use client"
+
 import Application from "@/app/_components/application"
 import Award from "@/app/_components/award"
 import Contact from "@/app/_components/contact"

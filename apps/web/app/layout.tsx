@@ -1,3 +1,4 @@
+import Providers from "@/components/provider"
 import { siteConfig } from "@/config/site"
 import { BreakpointIndicator } from "@workspace/ui/components/breakpoint-indicator"
 import "@workspace/ui/globals.css"
@@ -39,8 +40,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn("font-prompt antialiased", fontPrompt.variable, fontBaiJamjuree.variable)}>
-        {children}
-        <BreakpointIndicator />
+        <Providers>
+          {children}
+          <BreakpointIndicator />
+        </Providers>
       </body>
     </html>
   )

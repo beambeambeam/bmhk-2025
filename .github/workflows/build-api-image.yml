@@ -1,14 +1,24 @@
-name: CD
+name: Build and Deploy API
 
 on:
   push:
     branches: [main]
     paths:
-      - 'apps/api/**/*'
-      - 'packages/**/*'
-      - '.github/workflows/build-api-image.yml'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
+      - "apps/api/**/*"
+      - "packages/**/*"
+      - ".github/workflows/build-api-image.yml"
+      - "package.json"
+      - "pnpm-lock.yaml"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to deploy to"
+        required: true
+        default: "production"
+        type: choice
+        options:
+          - staging
+          - production
 
 env:
   REGISTRY: ghcr.io
@@ -19,6 +29,7 @@ jobs:
   build-api-image:
     name: Build API Docker image
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       contents: read
       packages: write
@@ -40,6 +51,10 @@ jobs:
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix={{branch}}-
 
       - name: Build and push Docker image
         id: push
@@ -50,6 +65,8 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
