@@ -240,6 +240,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: scroll;
+    background-color: #000000;
   }
 
   @media (min-width: 768px) {
