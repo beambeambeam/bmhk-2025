@@ -2,7 +2,7 @@ import { boolean, integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg
 
 export const teams = pgTable("teams", {
   id: uuid("id").defaultRandom().notNull().primaryKey(),
-  userId: text("user_id")
+  userId: uuid("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   imageId: text("team_image_id").notNull(),
@@ -32,8 +32,8 @@ export const advisor = pgTable("advisor", {
   email: text("email").notNull(),
   phoneNumber: text("phone_number").notNull(),
   lineId: text("line_id"),
-  nationalDocId: text("national_doc_id").references(() => file.id, { onDelete: "set null" }),
-  teacherDocId: text("teacher_doc_id").references(() => file.id, { onDelete: "set null" }),
+  nationalDocId: uuid("national_doc_id").references(() => file.id, { onDelete: "set null" }),
+  teacherDocId: uuid("teacher_doc_id").references(() => file.id, { onDelete: "set null" }),
 })
 
 export const member = pgTable("member", {
@@ -54,9 +54,9 @@ export const member = pgTable("member", {
   email: text("email").notNull(),
   phoneNumber: text("phone_number").notNull(),
   lineId: text("line_id"),
-  nationalDocId: text("national_doc_id").references(() => file.id, { onDelete: "set null" }),
-  p7DocId: text("p7_doc_id").references(() => file.id, { onDelete: "set null" }),
-  facePicId: text("face_picture_id").references(() => file.id, { onDelete: "set null" }),
+  nationalDocId: uuid("national_doc_id").references(() => file.id, { onDelete: "set null" }),
+  p7DocId: uuid("p7_doc_id").references(() => file.id, { onDelete: "set null" }),
+  facePicId: uuid("face_picture_id").references(() => file.id, { onDelete: "set null" }),
 })
 
 export const announcement = pgTable("announcement", {
@@ -70,7 +70,7 @@ export const announcement = pgTable("announcement", {
 
 export const file = pgTable("file", {
   id: uuid("id").defaultRandom().notNull().primaryKey(),
-  uploadBy: text("id").references(() => user.id, { onDelete: "cascade" }),
+  uploadBy: uuid("uploaded_by").references(() => user.id, { onDelete: "cascade" }),
   resourceType: text("resource_type").notNull(),
   uploadAt: timestamp("upload_at").defaultNow().notNull(),
   name: text("name").notNull(),
@@ -80,7 +80,7 @@ export const file = pgTable("file", {
 })
 
 export const user = pgTable("user", {
-  id: text("id").primaryKey(),
+  id: uuid("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").notNull(),
@@ -103,7 +103,7 @@ export const session = pgTable("session", {
   updatedAt: timestamp("updated_at").notNull(),
   ipAddress: text("ip_address"),
   userAgent: text("user_agent"),
-  userId: text("user_id")
+  userId: uuid("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   impersonatedBy: text("impersonated_by"),
@@ -113,7 +113,7 @@ export const account = pgTable("account", {
   id: text("id").primaryKey(),
   accountId: text("account_id").notNull(),
   providerId: text("provider_id").notNull(),
-  userId: text("user_id")
+  userId: uuid("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   accessToken: text("access_token"),
