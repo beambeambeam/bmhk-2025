@@ -1,3 +1,4 @@
+import CookieConsent from "@/components/accpet-card/cookie"
 import Providers from "@/components/provider"
 import { siteConfig } from "@/config/site"
 import { BreakpointIndicator } from "@workspace/ui/components/breakpoint-indicator"
@@ -42,6 +43,7 @@ export default function RootLayout({
       <body className={cn("font-prompt antialiased", fontPrompt.variable, fontBaiJamjuree.variable)}>
         <Providers>
           {children}
+          <CookieConsent />
           <BreakpointIndicator />
         </Providers>
       </body>
