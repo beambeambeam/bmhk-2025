@@ -1,4 +1,30 @@
 services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: ${DATABASE_USER:-postgres}
+      POSTGRES_PASSWORD: ${DATABASE_PW:-password}
+      POSTGRES_DB: ${DATABASE_NAME:-bmhk_2025}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER:-postgres}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
   watchtower:
     image: containrrr/watchtower
     env_file: ".env"
@@ -20,6 +46,7 @@ services:
     depends_on:
       - web
       - api
+      - postgres
     networks:
       - app_network
     volumes:
@@ -52,6 +79,13 @@ services:
     restart: unless-stopped
     networks:
       - app_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+    driver: local
 
 networks:
   app_network:
