@@ -5,9 +5,10 @@ import { authClient } from "@/lib/auth-client"
 function SignInPage() {
   return (
     <div className="flex h-screen items-center justify-center">
-      {process.env.NEXT_PUBLIC_SERVER_URL}
       <button
-        onClick={() => authClient.signIn.social({ provider: "google" })}
+        onClick={() =>
+          authClient.signIn.social({ provider: "google", callbackURL: "http://localhost:3000/teams" })
+        }
         className="cursor-pointer border-2">
         sign in
       </button>
