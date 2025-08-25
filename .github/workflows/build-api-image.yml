@@ -2,7 +2,7 @@ name: Build and Deploy API
 
 on:
   push:
-    branches: [main]
+    branches: [main, staging]
     paths:
       - "apps/api/**/*"
       - "packages/**/*"
