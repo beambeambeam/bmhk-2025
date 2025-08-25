@@ -72,20 +72,20 @@ const AWARDS_BOTTOMROW: AwardData[] = [
 
 export default function Award() {
   return (
-    <section className="xl:gap-y-15 mx-auto flex min-h-screen w-full flex-col items-center justify-center gap-y-[21px] px-6 md:gap-y-10 md:px-20 md:py-[40px] xl:px-40">
+    <section className="2xl:gap-y-15 mx-auto flex min-h-screen w-full flex-col items-center justify-center gap-y-[21px] px-6 lg:gap-y-10 lg:px-20 lg:py-[40px] 2xl:px-40">
       <Heading text="รางวัล" />
-      <div className="hidden items-end px-[50px] md:flex">
+      <div className="hidden items-end lg:flex 2xl:px-[50px]">
         {AWARDS_TOPROW.map((ea, i) => (
           <EachAwardForTopRow data={ea} key={i} />
         ))}
       </div>
-      <div className="flex flex-col gap-y-6 md:hidden">
+      <div className="flex flex-col gap-y-6 lg:hidden">
         {AWARDS_TOPROW_MOBILE.map((ea, i) => (
           <EachAwardForTopRow data={ea} key={i} />
         ))}
       </div>
 
-      <div className="flex flex-col gap-y-10 md:flex-row md:gap-x-8 xl:gap-x-10">
+      <div className="flex flex-col gap-y-10 lg:flex-row lg:gap-x-8 2xl:gap-x-10">
         {AWARDS_BOTTOMROW.map((ea, i) => (
           <EachAwardForBottomRow data={ea} key={i} />
         ))}

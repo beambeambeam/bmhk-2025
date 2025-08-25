@@ -1,8 +1,9 @@
 import * as dotenv from "dotenv"
 import { drizzle } from "drizzle-orm/node-postgres"
+import { resolve } from "path"
 import pg from "pg"
 
-dotenv.config()
+dotenv.config({ path: resolve("../../.env") })
 
 const { Pool } = pg
 
