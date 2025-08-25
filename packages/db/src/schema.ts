@@ -2,7 +2,7 @@ import { boolean, integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg
 
 export const teams = pgTable("teams", {
   id: uuid("id").defaultRandom().notNull().primaryKey(),
-  userId: uuid("user_id")
+  userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   imageId: text("team_image_id").notNull(),
@@ -64,7 +64,7 @@ export const member = pgTable("member", {
 
 export const file = pgTable("file", {
   id: uuid("id").defaultRandom().notNull().primaryKey(),
-  uploadBy: uuid("uploaded_by").references(() => user.id, { onDelete: "cascade" }),
+  uploadBy: text("uploaded_by").references(() => user.id, { onDelete: "cascade" }),
   resourceType: text("resource_type").notNull(),
   uploadAt: timestamp("upload_at").defaultNow().notNull(),
   name: text("name").notNull(),
@@ -74,13 +74,19 @@ export const file = pgTable("file", {
 })
 
 export const user = pgTable("user", {
-  id: uuid("id").primaryKey(),
+  id: text("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
-  emailVerified: boolean("email_verified").notNull(),
+  emailVerified: boolean("email_verified")
+    .$defaultFn(() => false)
+    .notNull(),
   image: text("image"),
-  createdAt: timestamp("created_at").notNull(),
-  updatedAt: timestamp("updated_at").notNull(),
+  createdAt: timestamp("created_at")
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+  updatedAt: timestamp("updated_at")
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
   username: text("username").unique(),
   displayUsername: text("display_username"),
   role: text("role"),
@@ -97,7 +103,7 @@ export const session = pgTable("session", {
   updatedAt: timestamp("updated_at").notNull(),
   ipAddress: text("ip_address"),
   userAgent: text("user_agent"),
-  userId: uuid("user_id")
+  userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   impersonatedBy: text("impersonated_by"),
@@ -107,7 +113,7 @@ export const account = pgTable("account", {
   id: text("id").primaryKey(),
   accountId: text("account_id").notNull(),
   providerId: text("provider_id").notNull(),
-  userId: uuid("user_id")
+  userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   accessToken: text("access_token"),
@@ -126,6 +132,6 @@ export const verification = pgTable("verification", {
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
   expiresAt: timestamp("expires_at").notNull(),
-  createdAt: timestamp("created_at"),
-  updatedAt: timestamp("updated_at"),
+  createdAt: timestamp("created_at").$defaultFn(() => /* @__PURE__ */ new Date()),
+  updatedAt: timestamp("updated_at").$defaultFn(() => /* @__PURE__ */ new Date()),
 })

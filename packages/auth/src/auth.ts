@@ -37,4 +37,5 @@ export const auth = betterAuth({
       adminRoles: [Roles.ADMIN, Roles.SUPER_ADMIN],
     }),
   ],
+  trustedOrigins: ["http://localhost:3000"],
 })
