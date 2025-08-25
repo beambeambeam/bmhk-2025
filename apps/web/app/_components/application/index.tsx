@@ -8,18 +8,18 @@ interface RequirementProps {
 
 function Requirement({ title, items, imgSrc }: RequirementProps) {
   return (
-    <div className="group relative isolate flex w-[313px] flex-col justify-center gap-y-6 before:absolute before:-inset-10 before:-z-10 before:rounded-[48px] before:bg-[radial-gradient(80%_80%_at_50%_40%,rgba(159,131,220,0.55)_0%,rgba(159,131,220,0.25)_40%,transparent_70%)] before:opacity-0 before:blur-3xl before:transition before:duration-500 before:ease-out before:content-[''] hover:before:scale-105 hover:before:opacity-100 md:w-[437px] lg:w-[643px]">
+    <div className="group relative isolate flex w-[313px] flex-col justify-center gap-y-6 before:absolute before:-inset-10 before:-z-10 before:rounded-[48px] before:bg-[radial-gradient(80%_80%_at_50%_40%,rgba(159,131,220,0.55)_0%,rgba(159,131,220,0.25)_40%,transparent_70%)] before:opacity-0 before:blur-3xl before:transition before:duration-500 before:ease-out before:content-[''] hover:before:scale-105 hover:before:opacity-100 lg:w-[437px] 2xl:w-[643px]">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={imgSrc}
         height={378}
         width={378}
         alt={title}
-        className="md:size-65 mx-auto size-40 lg:size-[378px]"
+        className="lg:size-65 mx-auto size-40 2xl:size-[378px]"
       />
 
-      <div className="relative z-10 min-h-[265px] w-full md:min-h-[269px] lg:min-h-[374px]">
-        <div className="liquid absolute inset-x-0 top-[48px] z-10 mx-auto flex !h-fit !min-h-[235px] w-full max-w-[643px] flex-col items-center rounded-[40px] border border-white/10 px-4 pb-6 pt-8 md:h-[233px] md:px-8 md:pt-12 lg:h-[326px] lg:pt-14">
+      <div className="relative z-10 min-h-[265px] w-full lg:min-h-[269px] 2xl:min-h-[374px]">
+        <div className="liquid absolute inset-x-0 top-[48px] z-10 mx-auto flex !h-fit !min-h-[235px] w-full max-w-[643px] flex-col items-center rounded-[40px] border border-white/10 px-4 pb-6 pt-8 lg:h-[303px] lg:px-8 lg:pt-12 2xl:h-[326px] 2xl:pt-14">
           <ul className="text-body-2 m-0 mx-auto flex h-full flex-1 list-inside list-disc flex-col">
             {items.map((item, i) => (
               <li key={i}>{item}</li>
@@ -57,9 +57,9 @@ const req: RequirementProps[] = [
 
 export default function Application() {
   return (
-    <section className="gap-y-15 my-12 flex w-full flex-col justify-start px-6 md:px-20 lg:px-40">
+    <section className="gap-y-15 my-12 flex w-full flex-col justify-start px-6 lg:px-20 2xl:px-40">
       <Heading text="เอกสารในการสมัคร" />
-      <div className="flex flex-col items-center justify-center gap-10 md:flex-row">
+      <div className="flex flex-col items-center justify-center gap-10 lg:flex-row">
         {req.map((ea) => (
           <Requirement key={ea.title} title={ea.title} items={ea.items} imgSrc={ea.imgSrc} />
         ))}
