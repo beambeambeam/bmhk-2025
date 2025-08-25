@@ -57,7 +57,7 @@ const CTA = ({ isMobile }: { isMobile?: boolean }) => {
     )
   }
   return (
-    <button className="text-button-2 hidden h-full cursor-not-allowed rounded-full bg-[radial-gradient(ellipse_99.36%_78.93%_at_50.23%_99.36%,_rgba(198,_60,_81,_0.80)_9%,_rgba(198,_60,_81,_0.32)_100%)] px-10 py-2.5 text-white shadow-[0px_0px_20px_rgba(0,0,0,0.25),inset_-1px_-1px_30px_rgba(93,47,60,0.6)] md:block">
+    <button className="text-button-2 hidden h-full cursor-not-allowed rounded-full bg-[radial-gradient(ellipse_99.36%_78.93%_at_50.23%_99.36%,_rgba(198,_60,_81,_0.80)_9%,_rgba(198,_60,_81,_0.32)_100%)] px-4 text-white shadow-[0px_0px_20px_rgba(0,0,0,0.25),inset_-1px_-1px_30px_rgba(93,47,60,0.6)] lg:block 2xl:px-10 2xl:py-2.5">
       ยังไม่เปิดรับสมัคร
     </button>
   )
@@ -90,9 +90,9 @@ export function Navbar() {
 
   const isActive = (href: string) => active === href
   return (
-    <div className="fixed z-50 w-full p-9 px-[24px] md:px-[60px] lg:px-[160px]">
-      <GlassCard className="flex items-center justify-between rounded-full pl-3 pr-5 backdrop-blur-md md:pr-3">
-        <div className="flex w-[142px] items-center justify-center pt-1 md:w-[100px] xl:w-[180px]">
+    <div className="fixed z-50 w-full p-9 px-[24px] lg:px-[60px] 2xl:px-[160px]">
+      <GlassCard className="flex items-center justify-between rounded-full pl-3 pr-5 backdrop-blur-md lg:pr-3">
+        <div className="flex w-[142px] items-center justify-center pt-1 lg:w-[100px] 2xl:w-[180px]">
           <Link href={"/"}>
             <Image
               style={{ width: "100%", height: "auto", objectFit: "cover" }}
@@ -103,11 +103,11 @@ export function Navbar() {
             />
           </Link>
         </div>
-        <div className="hidden items-center justify-between gap-2.5 md:flex">
+        <div className="hidden items-center lg:flex 2xl:justify-between 2xl:gap-2.5">
           {nav.map((item) => (
             <a
               key={item.label}
-              className={`rounded-full px-6 py-4 text-white ${isActive(item.href.replace("#", "")) ? "text-nav-1-selected liquid" : "text-nav-2"}`}
+              className={`rounded-full px-4 py-4 text-white 2xl:px-6 ${isActive(item.href.replace("#", "")) ? "text-nav-1-selected liquid" : "text-nav-2"}`}
               href={item.href}>
               {item.label}
             </a>
@@ -117,7 +117,7 @@ export function Navbar() {
           <CTA />
           <Drawer>
             <DrawerTrigger asChild>
-              <button className="block text-xl md:hidden">
+              <button className="block text-xl lg:hidden">
                 <MenuIcon color="#d1d5dc" />
               </button>
             </DrawerTrigger>
