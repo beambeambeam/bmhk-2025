@@ -7,7 +7,10 @@ function SignInPage() {
     <div className="flex h-screen items-center justify-center">
       <button
         onClick={() =>
-          authClient.signIn.social({ provider: "google", callbackURL: process.env.NEXT_PUBLIC_WEB_URL })
+          authClient.signIn.social({
+            provider: "google",
+            callbackURL: `${process.env.NEXT_PUBLIC_WEB_URL}/teams`,
+          })
         }
         className="cursor-pointer border-2">
         sign in
