@@ -8,7 +8,7 @@ import type { AppRouterClient } from "../../api/src/routers"
 export const queryClient = new QueryClient({})
 
 export const link = new RPCLink({
-  url: `http://localhost:3001/rpc`,
+  url: `${process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3001"}/rpc`,
   fetch(url, options) {
     return fetch(url, {
       ...options,

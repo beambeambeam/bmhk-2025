@@ -4,10 +4,11 @@ import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
 import { admin, username } from "better-auth/plugins"
 import * as dotenv from "dotenv"
+import { resolve } from "path"
 
 import { Roles } from "./roles"
 
-dotenv.config()
+dotenv.config({ path: resolve("../../.env") })
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -36,4 +37,5 @@ export const auth = betterAuth({
       adminRoles: [Roles.ADMIN, Roles.SUPER_ADMIN],
     }),
   ],
+  trustedOrigins: [process.env.API_CORS_ORIGIN || "http://localhost:3000"],
 })

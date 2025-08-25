@@ -32,12 +32,13 @@ export const advisor = pgTable("advisor", {
   email: text("email").notNull(),
   phoneNumber: text("phone_number").notNull(),
   lineId: text("line_id"),
-  nationalDocId: text("national_doc_id").references(() => file.id, { onDelete: "set null" }),
-  teacherDocId: text("teacher_doc_id").references(() => file.id, { onDelete: "set null" }),
+  nationalDocId: uuid("national_doc_id").references(() => file.id, { onDelete: "set null" }),
+  teacherDocId: uuid("teacher_doc_id").references(() => file.id, { onDelete: "set null" }),
 })
 
 export const member = pgTable("member", {
   id: uuid("id").defaultRandom().notNull().primaryKey(),
+  index: integer("index").notNull().default(1),
   teamId: uuid("team_id")
     .notNull()
     .references(() => teams.id, { onDelete: "cascade" }),
@@ -54,23 +55,16 @@ export const member = pgTable("member", {
   email: text("email").notNull(),
   phoneNumber: text("phone_number").notNull(),
   lineId: text("line_id"),
-  nationalDocId: text("national_doc_id").references(() => file.id, { onDelete: "set null" }),
-  p7DocId: text("p7_doc_id").references(() => file.id, { onDelete: "set null" }),
-  facePicId: text("face_picture_id").references(() => file.id, { onDelete: "set null" }),
-})
-
-export const announcement = pgTable("announcement", {
-  id: uuid("id").notNull().defaultRandom().primaryKey(),
-  start: timestamp("start").notNull(),
-  end: timestamp("end").notNull(),
-  school: text("school_name").notNull(),
-  by: uuid("by").notNull(),
-  range: text("range").notNull(),
+  parent: text("parent").notNull(),
+  parentPhoneNumber: text("parent_phone_number").notNull(),
+  nationalDocId: uuid("national_doc_id").references(() => file.id, { onDelete: "set null" }),
+  p7DocId: uuid("p7_doc_id").references(() => file.id, { onDelete: "set null" }),
+  facePicId: uuid("face_picture_id").references(() => file.id, { onDelete: "set null" }),
 })
 
 export const file = pgTable("file", {
   id: uuid("id").defaultRandom().notNull().primaryKey(),
-  uploadBy: text("id").references(() => user.id, { onDelete: "cascade" }),
+  uploadBy: text("uploaded_by").references(() => user.id, { onDelete: "cascade" }),
   resourceType: text("resource_type").notNull(),
   uploadAt: timestamp("upload_at").defaultNow().notNull(),
   name: text("name").notNull(),
@@ -83,10 +77,16 @@ export const user = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
-  emailVerified: boolean("email_verified").notNull(),
+  emailVerified: boolean("email_verified")
+    .$defaultFn(() => false)
+    .notNull(),
   image: text("image"),
-  createdAt: timestamp("created_at").notNull(),
-  updatedAt: timestamp("updated_at").notNull(),
+  createdAt: timestamp("created_at")
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+  updatedAt: timestamp("updated_at")
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
   username: text("username").unique(),
   displayUsername: text("display_username"),
   role: text("role"),
@@ -132,6 +132,6 @@ export const verification = pgTable("verification", {
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
   expiresAt: timestamp("expires_at").notNull(),
-  createdAt: timestamp("created_at"),
-  updatedAt: timestamp("updated_at"),
+  createdAt: timestamp("created_at").$defaultFn(() => /* @__PURE__ */ new Date()),
+  updatedAt: timestamp("updated_at").$defaultFn(() => /* @__PURE__ */ new Date()),
 })

@@ -103,39 +103,39 @@
 }
 
 @utility text-header-1 {
-  @apply text-2xl font-medium leading-[1.4] md:text-3xl lg:text-5xl;
+  @apply text-2xl font-medium leading-[1.4] lg:text-3xl 2xl:text-5xl;
 }
 
 @utility text-header-2-medium {
-  @apply text-xl font-medium leading-[1.4] md:text-3xl lg:text-4xl;
+  @apply text-xl font-medium leading-[1.4] lg:text-3xl 2xl:text-4xl;
 }
 
 @utility text-header-2-regular {
-  @apply text-lg font-normal leading-[1.4] md:text-2xl lg:text-[32px];
+  @apply text-lg font-normal leading-[1.4] lg:text-2xl 2xl:text-[32px];
 }
 
 @utility text-subheader-1 {
-  @apply text-lg font-medium leading-[1.4] md:text-3xl lg:text-[32px];
+  @apply text-lg font-medium leading-[1.4] lg:text-3xl 2xl:text-[32px];
 }
 
 @utility text-subheader-2 {
-  @apply text-lg font-medium leading-[1.4] md:text-2xl lg:text-[28px];
+  @apply text-lg font-medium leading-[1.4] lg:text-2xl 2xl:text-[28px];
 }
 
 @utility text-body-1 {
-  @apply text-base font-normal md:text-xl lg:text-2xl lg:leading-[1.6];
+  @apply text-base font-normal lg:text-xl 2xl:text-2xl 2xl:leading-[1.6];
 }
 
 @utility text-body-2 {
-  @apply text-base font-light leading-[1.6] md:text-xl lg:text-2xl;
+  @apply text-base font-light leading-[1.6] lg:text-xl 2xl:text-2xl;
 }
 
 @utility text-body-3 {
-  @apply text-base font-light leading-[1.6] md:text-lg lg:text-xl;
+  @apply text-base font-light leading-[1.6] lg:text-lg 2xl:text-xl;
 }
 
 @utility text-supporting-body-1 {
-  @apply text-base font-semibold leading-[1.4] md:text-2xl lg:text-[28px];
+  @apply text-base font-semibold leading-[1.4] lg:text-2xl 2xl:text-[28px];
 }
 
 @utility text-label-1 {
@@ -144,19 +144,19 @@
 }
 
 @utility text-button-1 {
-  @apply text-lg font-medium leading-[1.4] md:text-3xl lg:text-[32px];
+  @apply text-lg font-medium leading-[1.4] lg:text-3xl 2xl:text-[32px];
 }
 
 @utility text-button-2 {
-  @apply text-base font-medium leading-[1.4] md:text-xl lg:text-2xl;
+  @apply text-base font-medium leading-[1.4] lg:text-xl 2xl:text-2xl;
 }
 
 @utility text-nav-1-selected {
-  @apply text-base font-semibold leading-[1.4] lg:text-xl;
+  @apply text-base font-semibold leading-[1.4] 2xl:text-xl;
 }
 
 @utility text-nav-2 {
-  @apply text-base font-normal leading-[1.4] lg:text-xl;
+  @apply text-base font-normal leading-[1.4] 2xl:text-xl;
 }
 
 @utility no-scrollbar {
