@@ -13,9 +13,6 @@
     "src/**/*"
   ],
   "scripts": {
-    "db:check": "drizzle-kit check --config=src/drizzle.config.ts",
-    "db:generate": "drizzle-kit generate --config=src/drizzle.config.ts",
-    "db:migrate": "tsx ./src/migrate.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
