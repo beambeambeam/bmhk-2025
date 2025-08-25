@@ -38,6 +38,7 @@ export const advisor = pgTable("advisor", {
 
 export const member = pgTable("member", {
   id: uuid("id").defaultRandom().notNull().primaryKey(),
+  index: integer("index").notNull().default(1),
   teamId: uuid("team_id")
     .notNull()
     .references(() => teams.id, { onDelete: "cascade" }),
@@ -54,18 +55,11 @@ export const member = pgTable("member", {
   email: text("email").notNull(),
   phoneNumber: text("phone_number").notNull(),
   lineId: text("line_id"),
+  parent: text("parent").notNull(),
+  parentPhoneNumber: text("parent_phone_number").notNull(),
   nationalDocId: uuid("national_doc_id").references(() => file.id, { onDelete: "set null" }),
   p7DocId: uuid("p7_doc_id").references(() => file.id, { onDelete: "set null" }),
   facePicId: uuid("face_picture_id").references(() => file.id, { onDelete: "set null" }),
-})
-
-export const announcement = pgTable("announcement", {
-  id: uuid("id").notNull().defaultRandom().primaryKey(),
-  start: timestamp("start").notNull(),
-  end: timestamp("end").notNull(),
-  school: text("school_name").notNull(),
-  by: uuid("by").notNull(),
-  range: text("range").notNull(),
 })
 
 export const file = pgTable("file", {
