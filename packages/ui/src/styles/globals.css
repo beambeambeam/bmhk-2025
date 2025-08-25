@@ -156,10 +156,12 @@
 
 @utility text-nav-2 {
   @apply text-base font-normal leading-[1.4] 2xl:text-xl;
+  <<<<<<< HEAD
 }
 
 @utility text-form-header {
   @apply text-xl font-medium leading-[1.4] lg:text-[28px] 2xl:text-[32px];
+  =======>>>>>>>9e6ac1d (release: pre landing release (#55))
 }
 
 @utility no-scrollbar {
