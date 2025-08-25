@@ -303,7 +303,7 @@ export default function PolicyConsent({ demo = false }) {
                       อีเมล
                     </div>
                   </div>
-                  <div className="text-body-1 whitespace-normal break-words text-[16px] sm:text-[18px] lg:text-[14px] lg:text-[20px] 2xl:text-[24px]">
+                  <div className="text-body-1 whitespace-normal break-words text-[16px] sm:text-[18px] lg:text-[20px] 2xl:text-[24px]">
                     tana.udom@mail.kmutt.ac.th
                   </div>
                 </div>
