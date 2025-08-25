@@ -55,7 +55,11 @@ services:
     image: ghcr.io/beambeambeam/bmhk-2025-web:main
     labels:
       - "traefik.enable=true"
+<<<<<<< HEAD
       - "traefik.http.routers.web.rule=Host(`bangmodhackathon.com`) || Host(`www.bangmodhackathon.com`) || Host(`2025.bangmodhackathon.com`)"
+=======
+      - "traefik.http.routers.web.rule=Host(`bangmodhackathon.com`) || Host(`www.bangmodhackathon.com`)"
+>>>>>>> 27459c7 (chore: seperate staging environment (#50))
       - "traefik.http.services.web.loadbalancer.server.port=3000"
       - "com.centurylinklabs.watchtower.enable=false"
     env_file: ".env"
