@@ -28,13 +28,13 @@ function ProtectedLayout({ children }: ProtectedLayoutProps) {
   const initialState = useMemo(() => {
     return query.data?.registerStatus
       ? {
-          team: query.data.registerStatus.team,
-          adviser: query.data.registerStatus.adviser,
-          member1: query.data.registerStatus.member1,
-          member2: query.data.registerStatus.member2,
-          member3: query.data.registerStatus.member3,
-          submitRegister: query.data.registerStatus.submitRegister,
-        }
+        team: query.data.registerStatus.team,
+        adviser: query.data.registerStatus.adviser,
+        member1: query.data.registerStatus.member1,
+        member2: query.data.registerStatus.member2,
+        member3: query.data.registerStatus.member3,
+        submitRegister: query.data.registerStatus.submitRegister,
+      }
       : undefined
   }, [query.data?.registerStatus])
 
