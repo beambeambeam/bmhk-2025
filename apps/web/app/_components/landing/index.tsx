@@ -128,7 +128,7 @@ function LandingSection() {
             }
           />
           <Stat
-            title="54,000 บาท"
+            title="60,000 บาท"
             description={
               <>
                 เข้าแข่งขันเพื่อชิงเงินรางวัล
@@ -147,7 +147,7 @@ function LandingSection() {
       <div className="z-10 h-[312px] w-[340px] shrink-0 lg:h-[420px] lg:w-[477px] 2xl:h-[650px] 2xl:w-[563px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/static/hero/landing/logo.webp"
+          src="/static/hero/landing/landinglogo-compressed.webp"
           alt="logo"
           className="mx-auto h-full object-cover object-center"
         />
