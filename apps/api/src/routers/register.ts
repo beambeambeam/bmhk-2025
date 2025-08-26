@@ -1,7 +1,7 @@
 import { protectedProcedure } from "@/lib/orpc"
 import { db } from "@workspace/db"
-import { teams, file, advisor } from "@workspace/db/schema"
-import { eq } from "drizzle-orm"
+import { teams, file, advisor, member } from "@workspace/db/schema"
+import { eq, and } from "drizzle-orm"
 import z from "zod"
 
 export const registerRouter = {
@@ -352,6 +352,284 @@ export const registerRouter = {
           success: true,
           adviser: adviserRecord[0],
           message: "Adviser registered successfully",
+        }
+      }
+    }),
+
+  getMember: protectedProcedure
+    .input(z.object({ memberIndex: z.number().min(1).max(3) }))
+    .handler(async ({ input, context }) => {
+      if (!context.session?.user?.id) {
+        throw new Error("User not authenticated")
+      }
+
+      const userId = context.session.user.id
+
+      // First get the user's team
+      const userTeam = await db.select().from(teams).where(eq(teams.userId, userId)).limit(1)
+
+      if (userTeam.length === 0) {
+        return {
+          success: true,
+          member: null,
+          message: "No team found for user",
+        }
+      }
+
+      const team = userTeam[0]
+
+      // Get the member for this team and index
+      const existingMember = await db
+        .select()
+        .from(member)
+        .where(and(eq(member.teamId, team.id), eq(member.index, input.memberIndex)))
+        .limit(1)
+
+      if (existingMember.length === 0) {
+        return {
+          success: true,
+          member: null,
+          message: "No member found for team",
+        }
+      }
+
+      const memberData = existingMember[0]
+
+      // Get the documents
+      const nationalDoc = memberData.nationalDocId
+        ? await db.select().from(file).where(eq(file.id, memberData.nationalDocId)).limit(1)
+        : []
+
+      const p7Doc = memberData.p7DocId
+        ? await db.select().from(file).where(eq(file.id, memberData.p7DocId)).limit(1)
+        : []
+
+      const facePic = memberData.facePicId
+        ? await db.select().from(file).where(eq(file.id, memberData.facePicId)).limit(1)
+        : []
+
+      const memberWithDocs = {
+        ...memberData,
+        nationalDoc:
+          nationalDoc.length > 0
+            ? {
+                id: nationalDoc[0].id,
+                upload_by: nationalDoc[0].uploadBy,
+                resource_type: nationalDoc[0].resourceType,
+                upload_at: nationalDoc[0].uploadAt,
+                name: nationalDoc[0].name,
+                size: nationalDoc[0].size,
+                type: nationalDoc[0].type,
+                url: nationalDoc[0].url,
+              }
+            : null,
+        p7Doc:
+          p7Doc.length > 0
+            ? {
+                id: p7Doc[0].id,
+                upload_by: p7Doc[0].uploadBy,
+                resource_type: p7Doc[0].resourceType,
+                upload_at: p7Doc[0].uploadAt,
+                name: p7Doc[0].name,
+                size: p7Doc[0].size,
+                type: p7Doc[0].type,
+                url: p7Doc[0].url,
+              }
+            : null,
+        facePic:
+          facePic.length > 0
+            ? {
+                id: facePic[0].id,
+                upload_by: facePic[0].uploadBy,
+                resource_type: facePic[0].resourceType,
+                upload_at: facePic[0].uploadAt,
+                name: facePic[0].name,
+                size: facePic[0].size,
+                type: facePic[0].type,
+                url: facePic[0].url,
+              }
+            : null,
+      }
+
+      return {
+        success: true,
+        member: memberWithDocs,
+        message: "Member found",
+      }
+    }),
+
+  setMember: protectedProcedure
+    .input(
+      z.object({
+        memberIndex: z.number().min(1).max(3),
+        prefix: z.enum(["MR", "MS", "MRS"]),
+        thai_firstname: z.string().min(1),
+        thai_middlename: z.string().optional(),
+        thai_lastname: z.string().min(1),
+        english_firstname: z.string().min(1),
+        english_middlename: z.string().optional(),
+        english_lastname: z.string().min(1),
+        food_allergy: z.string().min(1),
+        food_type: z.string().min(1),
+        drug_allergy: z.string().min(1),
+        email: z.string().email().min(1),
+        phone_number: z.string().min(1),
+        line_id: z.string().optional(),
+        parent: z.string().min(1),
+        parent_phone: z.string().min(1),
+        national_doc: z.array(z.any()).min(1).max(1),
+        face_picture: z.array(z.any()).min(1).max(1),
+        p7_doc: z.array(z.any()).min(1).max(1),
+      })
+    )
+    .handler(async ({ input, context }) => {
+      if (!context.session?.user?.id) {
+        throw new Error("User not authenticated")
+      }
+
+      const userId = context.session.user.id
+
+      // First get the user's team
+      const userTeam = await db.select().from(teams).where(eq(teams.userId, userId)).limit(1)
+
+      if (userTeam.length === 0) {
+        throw new Error("User must register a team first")
+      }
+
+      const team = userTeam[0]
+
+      // Process the uploaded files
+      const nationalDocFile = input.national_doc.find((file): file is File => file instanceof File)
+      const facePictureFile = input.face_picture.find((file): file is File => file instanceof File)
+      const p7DocFile = input.p7_doc.find((file): file is File => file instanceof File)
+
+      let nationalDocId: string | undefined
+      let facePicId: string | undefined
+      let p7DocId: string | undefined
+
+      if (nationalDocFile) {
+        const nationalDocRecord = await db
+          .insert(file)
+          .values({
+            uploadBy: userId,
+            resourceType: "MEMBER_NATIONAL_DOC",
+            name: nationalDocFile.name,
+            size: nationalDocFile.size,
+            type: nationalDocFile.type,
+            url: "",
+          })
+          .returning()
+
+        nationalDocId = nationalDocRecord[0].id
+      }
+
+      if (facePictureFile) {
+        const facePicRecord = await db
+          .insert(file)
+          .values({
+            uploadBy: userId,
+            resourceType: "MEMBER_FACE_PICTURE",
+            name: facePictureFile.name,
+            size: facePictureFile.size,
+            type: facePictureFile.type,
+            url: "",
+          })
+          .returning()
+
+        facePicId = facePicRecord[0].id
+      }
+
+      if (p7DocFile) {
+        const p7DocRecord = await db
+          .insert(file)
+          .values({
+            uploadBy: userId,
+            resourceType: "MEMBER_P7_DOC",
+            name: p7DocFile.name,
+            size: p7DocFile.size,
+            type: p7DocFile.type,
+            url: "",
+          })
+          .returning()
+
+        p7DocId = p7DocRecord[0].id
+      }
+
+      // Check if member already exists
+      const existingMember = await db
+        .select()
+        .from(member)
+        .where(and(eq(member.teamId, team.id), eq(member.index, input.memberIndex)))
+        .limit(1)
+
+      if (existingMember.length > 0) {
+        // Update existing member
+        const updatedMember = await db
+          .update(member)
+          .set({
+            prefix: input.prefix,
+            thaiFirstname: input.thai_firstname,
+            thaiMiddlename: input.thai_middlename,
+            thaiLastname: input.thai_lastname,
+            firstName: input.english_firstname,
+            middleName: input.english_middlename,
+            lastname: input.english_lastname,
+            foodAllergy: input.food_allergy,
+            foodType: input.food_type,
+            drugAllergy: input.drug_allergy,
+            email: input.email,
+            phoneNumber: input.phone_number,
+            lineId: input.line_id,
+            parent: input.parent,
+            parentPhoneNumber: input.parent_phone,
+            ...(nationalDocId && { nationalDocId }),
+            ...(facePicId && { facePicId }),
+            ...(p7DocId && { p7DocId }),
+          })
+          .where(and(eq(member.teamId, team.id), eq(member.index, input.memberIndex)))
+          .returning()
+
+        return {
+          success: true,
+          member: updatedMember[0],
+          message: "Member updated successfully",
+        }
+      } else {
+        // Create new member
+        if (!nationalDocId || !facePicId || !p7DocId) {
+          throw new Error("All documents are required")
+        }
+
+        const memberRecord = await db
+          .insert(member)
+          .values({
+            index: input.memberIndex,
+            teamId: team.id,
+            prefix: input.prefix,
+            thaiFirstname: input.thai_firstname,
+            thaiMiddlename: input.thai_middlename,
+            thaiLastname: input.thai_lastname,
+            firstName: input.english_firstname,
+            middleName: input.english_middlename,
+            lastname: input.english_lastname,
+            foodAllergy: input.food_allergy,
+            foodType: input.food_type,
+            drugAllergy: input.drug_allergy,
+            email: input.email,
+            phoneNumber: input.phone_number,
+            lineId: input.line_id,
+            parent: input.parent,
+            parentPhoneNumber: input.parent_phone,
+            nationalDocId,
+            facePicId,
+            p7DocId,
+          })
+          .returning()
+
+        return {
+          success: true,
+          member: memberRecord[0],
+          message: "Member registered successfully",
         }
       }
     }),
