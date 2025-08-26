@@ -39,13 +39,13 @@ export default function CookieConsent({ demo = false }) {
   return (
     <div
       className={cn(
-        "font-prompt fixed bottom-0 left-0 right-0 z-[200] w-full text-black backdrop-blur-2xl duration-700 sm:bottom-4 sm:left-4 sm:max-w-md",
+        "font-prompt fixed bottom-0 left-0 right-0 z-[200] w-full text-black duration-700 sm:bottom-4 sm:left-4 sm:max-w-md",
         !isOpen
           ? "translate-y-8 opacity-0 transition-[opacity,transform]"
           : "translate-y-0 opacity-100 transition-[opacity,transform]",
         hide && "hidden"
       )}>
-      <div className="rounded-3xl border border-white/10">
+      <div className="rounded-3xl border border-white/10 backdrop-blur-2xl">
         <div className="grid gap-2 text-white">
           <div className="m-4 flex items-center gap-6">
             <div className="liquid boder-white/10 flex size-[40px] items-center justify-center rounded-xl bg-transparent 2xl:size-[60px] 2xl:rounded-3xl">
