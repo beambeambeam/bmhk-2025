@@ -1,11 +1,9 @@
 "use client"
 
-
 import GlassCard from "@/components/glassCard"
 import { authClient } from "@/lib/auth-client"
-import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-
+import { useEffect, useState } from "react"
 
 function SignInPage() {
   const { data: session, isPending } = authClient.useSession()
@@ -23,10 +21,9 @@ function SignInPage() {
     return () => window.removeEventListener("resize", checkHeight)
   }, [])
 
-
   useEffect(() => {
     if (session?.user && !isPending) {
-      router.push("/")
+      router.push("/teams")
     }
   }, [session, isPending])
 
@@ -47,8 +44,9 @@ function SignInPage() {
 
   return (
     <div
-      className={`relative flex h-screen w-screen flex-col items-center justify-between px-[30px] lg:px-0 ${isTall ? "2xl:px-[160px]" : ""
-        } py-[60px] ${isTall ? "2xl:py-[100px]" : ""} overflow-hidden`}
+      className={`relative flex h-screen w-screen flex-col items-center justify-between px-[30px] lg:px-0 ${
+        isTall ? "2xl:px-[160px]" : ""
+      } py-[60px] ${isTall ? "2xl:py-[100px]" : ""} overflow-hidden`}
       style={{
         backgroundImage: `
           linear-gradient(rgba(255, 204, 247, 0.15), rgba(159, 131, 220, 0.15)),
@@ -93,8 +91,9 @@ function SignInPage() {
         />
 
         <div
-          className={`flex flex-col items-center justify-between p-4 max-lg:gap-6 lg:h-[300px] lg:p-8 ${isTall ? "2xl:h-[368px] 2xl:p-10" : ""
-            } rounded-[24px] border-2 border-white/10 bg-[linear-gradient(107deg,rgba(255,204,247,0.05)_-2.48%,rgba(159,131,220,0.05)_29.08%)]`}>
+          className={`flex flex-col items-center justify-between p-4 max-lg:gap-6 lg:h-[300px] lg:p-8 ${
+            isTall ? "2xl:h-[368px] 2xl:p-10" : ""
+          } rounded-[24px] border-2 border-white/10 bg-[linear-gradient(107deg,rgba(255,204,247,0.05)_-2.48%,rgba(159,131,220,0.05)_29.08%)]`}>
           <div className="flex flex-col items-center justify-center gap-6">
             <div className="text-header-2-medium text-[var(--color-white)]">เข้าสู่ระบบ</div>
             <div className="text-subheader-2 text-center font-light text-[var(--color-gray-50)] max-lg:text-[16px]">
