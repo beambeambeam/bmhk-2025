@@ -67,7 +67,7 @@ export const registerRouter = {
           teamImage.length > 0
             ? {
                 id: teamImage[0].id,
-                upload_by: teamImage[0].uploadBy,
+                upload_by: teamImage[0].uploadBy ?? "ไม่ทราบผู้อัพโหลด",
                 resource_type: teamImage[0].resourceType,
                 upload_at: teamImage[0].uploadAt,
                 name: teamImage[0].name,
