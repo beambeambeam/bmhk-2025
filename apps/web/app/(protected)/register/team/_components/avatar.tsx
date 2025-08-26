@@ -59,17 +59,6 @@ function AvatarUploader({ value = [], onChange, disabled }: AvatarUploaderProps)
         {previewUrl ? (
           <div className="relative h-full w-full">
             <img src={previewUrl} alt="Avatar preview" className="h-full w-full rounded-lg object-cover" />
-            {!disabled && files[0] && (
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  removeFile(files[0]?.id || "")
-                }}
-                className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-white hover:bg-red-600">
-                ×
-              </button>
-            )}
           </div>
         ) : (
           <div className="text-center">
@@ -90,12 +79,6 @@ function AvatarUploader({ value = [], onChange, disabled }: AvatarUploaderProps)
       </div>
 
       <input {...getInputProps({ disabled })} className="hidden" />
-
-      {!previewUrl && !disabled && (
-        <Button type="button" variant="outline" onClick={openFileDialog}>
-          Choose File
-        </Button>
-      )}
     </div>
   )
 }
