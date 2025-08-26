@@ -1,6 +1,6 @@
 import { protectedProcedure } from "@/lib/orpc"
 import { db } from "@workspace/db"
-import { teams, file } from "@workspace/db/schema"
+import { teams, file, advisor } from "@workspace/db/schema"
 import { eq } from "drizzle-orm"
 import z from "zod"
 
@@ -130,6 +130,228 @@ export const registerRouter = {
           success: true,
           team: teamRecord[0],
           message: "Team registered successfully",
+        }
+      }
+    }),
+
+  getAdviser: protectedProcedure.handler(async ({ context }) => {
+    if (!context.session?.user?.id) {
+      throw new Error("User not authenticated")
+    }
+
+    const userId = context.session.user.id
+
+    // First get the user's team
+    const userTeam = await db.select().from(teams).where(eq(teams.userId, userId)).limit(1)
+
+    if (userTeam.length === 0) {
+      return {
+        success: true,
+        adviser: null,
+        message: "No team found for user",
+      }
+    }
+
+    const team = userTeam[0]
+
+    // Get the adviser for this team
+    const existingAdviser = await db.select().from(advisor).where(eq(advisor.teamId, team.id)).limit(1)
+
+    if (existingAdviser.length === 0) {
+      return {
+        success: true,
+        adviser: null,
+        message: "No adviser found for team",
+      }
+    }
+
+    const adviser = existingAdviser[0]
+
+    // Get the documents
+    const nationalDoc = adviser.nationalDocId
+      ? await db.select().from(file).where(eq(file.id, adviser.nationalDocId)).limit(1)
+      : []
+
+    const teacherDoc = adviser.teacherDocId
+      ? await db.select().from(file).where(eq(file.id, adviser.teacherDocId)).limit(1)
+      : []
+
+    const adviserWithDocs = {
+      ...adviser,
+      nationalDoc:
+        nationalDoc.length > 0
+          ? {
+              id: nationalDoc[0].id,
+              upload_by: nationalDoc[0].uploadBy,
+              resource_type: nationalDoc[0].resourceType,
+              upload_at: nationalDoc[0].uploadAt,
+              name: nationalDoc[0].name,
+              size: nationalDoc[0].size,
+              type: nationalDoc[0].type,
+              url: nationalDoc[0].url,
+            }
+          : null,
+      teacherDoc:
+        teacherDoc.length > 0
+          ? {
+              id: teacherDoc[0].id,
+              upload_by: teacherDoc[0].uploadBy,
+              resource_type: teacherDoc[0].resourceType,
+              upload_at: teacherDoc[0].uploadAt,
+              name: teacherDoc[0].name,
+              size: teacherDoc[0].size,
+              type: teacherDoc[0].type,
+              url: teacherDoc[0].url,
+            }
+          : null,
+    }
+
+    return {
+      success: true,
+      adviser: adviserWithDocs,
+      message: "Adviser found",
+    }
+  }),
+
+  setAdviser: protectedProcedure
+    .input(
+      z.object({
+        prefix: z.enum(["MR", "MS", "MRS"]),
+        thai_firstname: z.string().min(1),
+        thai_middlename: z.string().optional(),
+        thai_lastname: z.string().min(1),
+        english_firstname: z.string().min(1),
+        english_middlename: z.string().optional(),
+        english_lastname: z.string().min(1),
+        food_allergy: z.string().min(1),
+        food_type: z.string().min(1),
+        drug_allergy: z.string().min(1),
+        email: z.string().email().min(1),
+        phone_number: z.string().min(1),
+        line_id: z.string().optional(),
+        national_doc: z.array(z.any()).min(1).max(1),
+        teacher_doc: z.array(z.any()).min(1).max(1),
+      })
+    )
+    .handler(async ({ input, context }) => {
+      if (!context.session?.user?.id) {
+        throw new Error("User not authenticated")
+      }
+
+      const userId = context.session.user.id
+
+      // First get the user's team
+      const userTeam = await db.select().from(teams).where(eq(teams.userId, userId)).limit(1)
+
+      if (userTeam.length === 0) {
+        throw new Error("User must register a team first")
+      }
+
+      const team = userTeam[0]
+
+      // Process the uploaded files
+      const nationalDocFile = input.national_doc.find((file): file is File => file instanceof File)
+      const teacherDocFile = input.teacher_doc.find((file): file is File => file instanceof File)
+
+      let nationalDocId: string | undefined
+      let teacherDocId: string | undefined
+
+      if (nationalDocFile) {
+        const nationalDocRecord = await db
+          .insert(file)
+          .values({
+            uploadBy: userId,
+            resourceType: "ADVISER_NATIONAL_DOC",
+            name: nationalDocFile.name,
+            size: nationalDocFile.size,
+            type: nationalDocFile.type,
+            url: "",
+          })
+          .returning()
+
+        nationalDocId = nationalDocRecord[0].id
+      }
+
+      if (teacherDocFile) {
+        const teacherDocRecord = await db
+          .insert(file)
+          .values({
+            uploadBy: userId,
+            resourceType: "ADVISER_TEACHER_DOC",
+            name: teacherDocFile.name,
+            size: teacherDocFile.size,
+            type: teacherDocFile.type,
+            url: "",
+          })
+          .returning()
+
+        teacherDocId = teacherDocRecord[0].id
+      }
+
+      // Check if adviser already exists
+      const existingAdviser = await db.select().from(advisor).where(eq(advisor.teamId, team.id)).limit(1)
+
+      if (existingAdviser.length > 0) {
+        // Update existing adviser
+        const updatedAdviser = await db
+          .update(advisor)
+          .set({
+            prefix: input.prefix,
+            thaiFirstname: input.thai_firstname,
+            thaiMiddlename: input.thai_middlename,
+            thaiLastname: input.thai_lastname,
+            firstName: input.english_firstname,
+            middleName: input.english_middlename,
+            lastname: input.english_lastname,
+            foodAllergy: input.food_allergy,
+            foodType: input.food_type,
+            drugAllergy: input.drug_allergy,
+            email: input.email,
+            phoneNumber: input.phone_number,
+            lineId: input.line_id,
+            ...(nationalDocId && { nationalDocId }),
+            ...(teacherDocId && { teacherDocId }),
+          })
+          .where(eq(advisor.teamId, team.id))
+          .returning()
+
+        return {
+          success: true,
+          adviser: updatedAdviser[0],
+          message: "Adviser updated successfully",
+        }
+      } else {
+        // Create new adviser
+        if (!nationalDocId || !teacherDocId) {
+          throw new Error("Both national document and teacher document are required")
+        }
+
+        const adviserRecord = await db
+          .insert(advisor)
+          .values({
+            teamId: team.id,
+            prefix: input.prefix,
+            thaiFirstname: input.thai_firstname,
+            thaiMiddlename: input.thai_middlename,
+            thaiLastname: input.thai_lastname,
+            firstName: input.english_firstname,
+            middleName: input.english_middlename,
+            lastname: input.english_lastname,
+            foodAllergy: input.food_allergy,
+            foodType: input.food_type,
+            drugAllergy: input.drug_allergy,
+            email: input.email,
+            phoneNumber: input.phone_number,
+            lineId: input.line_id,
+            nationalDocId,
+            teacherDocId,
+          })
+          .returning()
+
+        return {
+          success: true,
+          adviser: adviserRecord[0],
+          message: "Adviser registered successfully",
         }
       }
     }),
