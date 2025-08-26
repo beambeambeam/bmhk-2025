@@ -16,11 +16,12 @@
     "drizzle-orm": "^0.36.4",
     "hono": "^4.9.4",
     "zod": "^4.0.17"
+    "tsx": "^4.20.4"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
     "@workspace/eslint-config": "workspace:*",
-    "tsx": "^4.7.1",
+    "tsc-alias": "^1.8.16",
     "typescript": "^5.8.3"
   }
 }
