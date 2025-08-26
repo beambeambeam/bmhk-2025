@@ -10,7 +10,7 @@ import MemberRegisterForm, {
 import { orpc } from "@/utils/orpc"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { Button } from "@workspace/ui/components/button"
-import { useRouter } from "next/navigation"
+import { redirect, useRouter } from "next/navigation"
 
 function MemberPage2() {
   const router = useRouter()
@@ -53,6 +53,10 @@ function MemberPage2() {
 
   if (teamQuery.isPending || memberQuery.isPending) {
     return <div>Loading...</div>
+  }
+
+  if (!teamQuery.data?.team) {
+    router.push("/register/team")
   }
 
   const handleSubmit = (values: ProcessedMemberRegisterSchemaType) => {

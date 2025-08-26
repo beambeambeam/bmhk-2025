@@ -1,17 +1,13 @@
 "use client"
 
-import {
-  useIsReadyForFinalSubmit,
-  useRegisterStatusActions,
-} from "@/app/(protected)/_components/status/context"
+import { useRegisterStatusActions } from "@/app/(protected)/_components/status/context"
 import MemberRegisterForm, {
   ProcessedMemberRegisterSchemaType,
 } from "@/app/(protected)/register/(member)/_components/form"
 import { orpc } from "@/utils/orpc"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { Button } from "@workspace/ui/components/button"
-import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { redirect, useRouter } from "next/navigation"
 
 function MemberPage3() {
   const router = useRouter()
@@ -40,27 +36,17 @@ function MemberPage3() {
     })
   )
 
-  useEffect(() => {
-    if (
-      !teamQuery.isPending &&
-      teamQuery.data?.success &&
-      teamQuery.data.team &&
-      teamQuery.data.team.memberCount === 2
-    ) {
-      router.replace("/register/2")
-    }
-  }, [teamQuery.isPending, teamQuery.data, router])
-
   if (teamQuery.isPending || memberQuery.isPending) {
     return <div>Loading...</div>
   }
 
-  if (!teamQuery.data?.success || !teamQuery.data.team || teamQuery.data.team.memberCount === 2) {
-    return null
+  if (!teamQuery.data?.team) {
+    router.push("/register/team")
   }
 
-  const isReadyForSubmit = useIsReadyForFinalSubmit(teamQuery.data.team.memberCount || 3)
-  const showFinalSubmit = isReadyForSubmit
+  if (teamQuery.data?.team?.memberCount === 2) {
+    return router.push("/register/2")
+  }
 
   const handleSubmit = (values: ProcessedMemberRegisterSchemaType) => {
     mutation.mutate({
@@ -105,16 +91,12 @@ function MemberPage3() {
           }
         />
 
-        {showFinalSubmit && (
-          <div className="mt-8 flex justify-center">
-            <Button
-              onClick={() => submitMutation.mutate({})}
-              disabled={submitMutation.isPending}
-              className="bg-green-600 px-8 py-3 text-lg font-semibold text-white hover:bg-green-700">
-              {submitMutation.isPending ? "กำลังส่ง..." : "ส่งใบสมัคร"}
-            </Button>
-          </div>
-        )}
+        <Button
+          onClick={() => submitMutation.mutate({})}
+          disabled={submitMutation.isPending}
+          className="bg-green-600 px-8 py-3 text-lg font-semibold text-white hover:bg-green-700">
+          {submitMutation.isPending ? "กำลังส่ง..." : "ส่งใบสมัคร"}
+        </Button>
       </div>
     </div>
   )
