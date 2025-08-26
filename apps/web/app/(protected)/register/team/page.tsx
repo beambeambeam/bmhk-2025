@@ -8,7 +8,7 @@ function TeamRegisterPage() {
   const query = useQuery(orpc.register.team.get.queryOptions())
 
   if (query.isPending) {
-    return
+    return null
   }
 
   return (
@@ -21,7 +21,7 @@ function TeamRegisterPage() {
                 school_name: query.data.team.school ?? "",
                 member_count: query.data.team.memberCount ?? 0,
                 quote: query.data.team.quote ?? "",
-                team_image: [],
+                team_image: query.data.team.image ? [query.data.team.image] : [],
               }
             : undefined
         }
@@ -29,4 +29,5 @@ function TeamRegisterPage() {
     </div>
   )
 }
+
 export default TeamRegisterPage
