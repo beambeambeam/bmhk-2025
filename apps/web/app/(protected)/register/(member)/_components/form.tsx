@@ -1,5 +1,6 @@
 "use client"
 
+import RegisterStatus from "@/app/(protected)/_components/status"
 import DocumentUploader from "@/app/(protected)/register/_components/document_uploader"
 import ScrollArea from "@/app/_components/scope/ScrollArea"
 import { ExternalFormProps } from "@/types/form"
@@ -115,6 +116,7 @@ function MemberRegisterForm(props: ExternalFormProps<ProcessedMemberRegisterSche
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <ScrollArea colorTheme="#9F83DC" className="flex h-[80vh] max-h-full flex-col gap-8">
+          <RegisterStatus />
           <div className="flex flex-col gap-6">
             <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
               <p className="text-3xl text-white">1. ข้อมูลอาจารย์</p>

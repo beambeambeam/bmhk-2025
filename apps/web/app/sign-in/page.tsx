@@ -25,7 +25,7 @@ function SignInPage() {
     if (session?.user && !isPending) {
       router.push("/teams")
     }
-  }, [session, isPending])
+  }, [session, isPending, router])
 
   useEffect(() => {
     const count = 20
