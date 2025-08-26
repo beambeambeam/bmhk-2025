@@ -3,7 +3,7 @@ import Link from "next/link"
 
 function PrivacyPolicyPage() {
   return (
-    <div className="bg-home flex h-full w-full flex-col gap-8 p-32 text-white">
+    <div className="bg-home flex h-full w-full flex-col gap-8 px-6 py-32 text-white lg:p-32">
       <div className="flex flex-col gap-6">
         <h1 className="text-header-2-medium">1. นโยบายความเป็นส่วนตัว (Privacy Policy)</h1>
         <p className="text-body-1">
@@ -17,7 +17,9 @@ function PrivacyPolicyPage() {
       <div className="flex flex-col gap-6">
         <h1 className="text-header-2-medium">2. การเก็บรวบรวมข้อมูลส่วนบุคคล</h1>
         <p className="text-body-1">เราจะเก็บข้อมูลส่วนบุคคลที่ได้รับโดยตรงจากคุณผ่านช่องทาง ดังต่อไปนี้</p>
-        <li className="text-body-1 list-disc">การรับสมัครเข้าร่วมโครงการบนหน้าเว็บไซต์</li>
+        <ul className="text-body-1 list-disc pl-6">
+          <li>การรับสมัครเข้าร่วมโครงการบนหน้าเว็บไซต์</li>
+        </ul>
       </div>
       <div className="flex flex-col gap-6">
         <h1 className="text-header-2-medium">3. ประเภทข้อมูลส่วนบุคคลที่เก็บรวบรวม</h1>
@@ -189,9 +191,11 @@ function PrivacyPolicyPage() {
         </p>
       </div>
       <div className="flex flex-col gap-6">
-        <h1 className="text-header-2-medium">หัวหน้าฝ่ายทะเบียน</h1>
-        <h1 className="text-body-2">นายธน อุดมพรกุล</h1>
-        <div className="flex">
+        <div className="flex flex-col gap-4">
+          <h1 className="text-header-2-medium">หัวหน้าฝ่ายทะเบียน</h1>
+          <h1 className="text-body-2">นายธน อุดมพรกุล</h1>
+        </div>
+        <div className="flex flex-col gap-y-6 lg:flex-row">
           <div className="flex min-w-0 flex-1 flex-col gap-4">
             <div className="flex items-center gap-4">
               <IconCircle className="h-[50px] w-[50px] flex-shrink-0 2xl:h-[60px] 2xl:w-[60px]">
@@ -231,8 +235,10 @@ function PrivacyPolicyPage() {
       <div className="flex w-full pt-12">
         <Link href="/">
           <IconCircle className="pr-6">
-            <img src="/static/icon/Left_arrow.svg" alt="Left Arrow Icon" />
-            <p className="text-body-1">ย้อนกลับ</p>
+            <div className="flex items-center gap-x-3">
+              <img src="/static/icon/Left_arrow.svg" alt="Left Arrow Icon" />
+              <p className="text-body-1">ย้อนกลับ</p>
+            </div>
           </IconCircle>
         </Link>
       </div>
