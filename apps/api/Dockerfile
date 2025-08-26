@@ -24,7 +24,7 @@ COPY packages/eslint-config/package.json ./packages/eslint-config/
 
 RUN pnpm install --frozen-lockfile --ignore-scripts
 
-COPY --from=base /app/apps ./apps
+COPY --from=base /app/apps/api ./apps/api
 COPY --from=base /app/packages ./packages
 
 ENV NODE_ENV=production
