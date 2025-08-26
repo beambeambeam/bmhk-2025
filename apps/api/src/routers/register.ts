@@ -234,6 +234,7 @@ export const registerRouter = {
           nationalDoc.length > 0
             ? {
                 id: nationalDoc[0].id,
+
                 upload_by: nationalDoc[0].uploadBy ?? "ไม่ทราบผู้อัพโหลด",
                 resource_type: nationalDoc[0].resourceType,
                 upload_at: nationalDoc[0].uploadAt,
