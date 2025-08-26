@@ -10,7 +10,7 @@ import MemberRegisterForm, {
 import { orpc } from "@/utils/orpc"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { Button } from "@workspace/ui/components/button"
-import { redirect, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 
 function MemberPage2() {
   const router = useRouter()

@@ -5,7 +5,7 @@ import MemberRegisterForm, {
 } from "@/app/(protected)/register/(member)/_components/form"
 import { orpc } from "@/utils/orpc"
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { redirect, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 
 function MemberPage1() {
   const router = useRouter()
