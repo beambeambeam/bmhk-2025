@@ -79,8 +79,17 @@ const RegisterBlob = (
     />
 
     <div className="flex flex-col items-center justify-center">
-      <div className="liquid flex size-[100px] items-center justify-center rounded-full backdrop-blur-2xl">
-        d
+      <div className="relative">
+        <div className="liquid flex size-[100px] items-center justify-center rounded-full backdrop-blur-2xl">
+          d
+        </div>
+        {props.status === "DONE" && (
+          <div className="absolute -bottom-0.5 -right-0.5 flex size-8 items-center justify-center rounded-full bg-green-500">
+            <svg className="size-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+        )}
       </div>
     </div>
     <div
