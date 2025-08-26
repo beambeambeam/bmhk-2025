@@ -15,6 +15,13 @@
       "when": 1756183999763,
       "tag": "0001_unique_shotgun",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1756186499867,
+      "tag": "0002_material_newton_destine",
+      "breakpoints": true
     }
   ]
 }

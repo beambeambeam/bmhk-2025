@@ -1,8 +1,41 @@
 import { protectedProcedure } from "@/lib/orpc"
 import { db } from "@workspace/db"
-import { teams, file, advisor, member } from "@workspace/db/schema"
+import { teams, file, advisor, member, registerStatus } from "@workspace/db/schema"
 import { eq, and } from "drizzle-orm"
 import z from "zod"
+
+// Helper function to get or create register status for a team
+async function getOrCreateRegisterStatus(teamId: string) {
+  const existingStatus = await db
+    .select()
+    .from(registerStatus)
+    .where(eq(registerStatus.teamId, teamId))
+    .limit(1)
+
+  if (existingStatus.length > 0) {
+    return existingStatus[0]
+  }
+
+  // Create new register status if it doesn't exist
+  const newStatus = await db
+    .insert(registerStatus)
+    .values({
+      teamId,
+      team: "NOT_DONE",
+      adviser: "NOT_DONE",
+      member1: "NOT_DONE",
+      member2: "NOT_DONE",
+      member3: "NOT_HAVE",
+    })
+    .returning()
+
+  return newStatus[0]
+}
+
+// Helper function to update register status
+async function updateRegisterStatus(teamId: string, updates: Partial<typeof registerStatus.$inferInsert>) {
+  return await db.update(registerStatus).set(updates).where(eq(registerStatus.teamId, teamId)).returning()
+}
 
 export const registerRouter = {
   getTeam: protectedProcedure.handler(async ({ context }) => {
@@ -50,6 +83,110 @@ export const registerRouter = {
     }
   }),
 
+  getRegisterStatus: protectedProcedure.handler(async ({ context }) => {
+    if (!context.session?.user?.id) {
+      throw new Error("User not authenticated")
+    }
+
+    const userId = context.session.user.id
+
+    // Get the user's team
+    const userTeam = await db.select().from(teams).where(eq(teams.userId, userId)).limit(1)
+
+    if (userTeam.length === 0) {
+      return {
+        success: true,
+        registerStatus: null,
+        message: "No team found for user",
+      }
+    }
+
+    const team = userTeam[0]
+    const status = await getOrCreateRegisterStatus(team.id)
+
+    return {
+      success: true,
+      registerStatus: status,
+      message: "Register status retrieved successfully",
+    }
+  }),
+
+  updateRegisterStatus: protectedProcedure
+    .input(
+      z.object({
+        team: z.enum(["NOT_DONE", "DONE", "NOT_HAVE"]).optional(),
+        adviser: z.enum(["NOT_DONE", "DONE", "NOT_HAVE"]).optional(),
+        member1: z.enum(["NOT_DONE", "DONE", "NOT_HAVE"]).optional(),
+        member2: z.enum(["NOT_DONE", "DONE", "NOT_HAVE"]).optional(),
+        member3: z.enum(["NOT_DONE", "DONE", "NOT_HAVE"]).optional(),
+      })
+    )
+    .handler(async ({ input, context }) => {
+      if (!context.session?.user?.id) {
+        throw new Error("User not authenticated")
+      }
+
+      const userId = context.session.user.id
+
+      // Get the user's team
+      const userTeam = await db.select().from(teams).where(eq(teams.userId, userId)).limit(1)
+
+      if (userTeam.length === 0) {
+        throw new Error("User must register a team first")
+      }
+
+      const team = userTeam[0]
+      await getOrCreateRegisterStatus(team.id) // Ensure status exists
+
+      const updatedStatus = await updateRegisterStatus(team.id, input)
+
+      return {
+        success: true,
+        registerStatus: updatedStatus[0],
+        message: "Register status updated successfully",
+      }
+    }),
+
+  submitRegister: protectedProcedure.handler(async ({ context }) => {
+    if (!context.session?.user?.id) {
+      throw new Error("User not authenticated")
+    }
+
+    const userId = context.session.user.id
+
+    // Get the user's team
+    const userTeam = await db.select().from(teams).where(eq(teams.userId, userId)).limit(1)
+
+    if (userTeam.length === 0) {
+      throw new Error("User must register a team first")
+    }
+
+    const team = userTeam[0]
+    const status = await getOrCreateRegisterStatus(team.id)
+
+    // Check if all required forms are completed
+    const requiredFields = ["team", "adviser", "member1", "member2"]
+    const hasIncompleteFields = requiredFields.some(
+      (field) => status[field as keyof typeof status] !== "DONE"
+    )
+
+    if (hasIncompleteFields) {
+      throw new Error("All required forms must be completed before submitting")
+    }
+
+    // Update submit timestamp
+    const updatedStatus = await updateRegisterStatus(team.id, {
+      submitRegister: new Date(),
+    })
+
+    return {
+      success: true,
+      registerStatus: updatedStatus[0],
+      message: "Registration submitted successfully",
+    }
+  }),
+
+  // Auto-update register status when team is set
   setTeam: protectedProcedure
     .input(
       z.object({
@@ -89,6 +226,8 @@ export const registerRouter = {
         fileId = fileRecord[0].id
       }
 
+      let teamResult
+
       if (existingTeam.length > 0) {
         const updatedTeam = await db
           .update(teams)
@@ -103,11 +242,7 @@ export const registerRouter = {
           .where(eq(teams.userId, userId))
           .returning()
 
-        return {
-          success: true,
-          team: updatedTeam[0],
-          message: "Team updated successfully",
-        }
+        teamResult = updatedTeam[0]
       } else {
         if (!fileId) {
           throw new Error("Team image is required")
@@ -126,11 +261,17 @@ export const registerRouter = {
           })
           .returning()
 
-        return {
-          success: true,
-          team: teamRecord[0],
-          message: "Team registered successfully",
-        }
+        teamResult = teamRecord[0]
+      }
+
+      // Update register status to mark team as DONE
+      await getOrCreateRegisterStatus(teamResult.id)
+      await updateRegisterStatus(teamResult.id, { team: "DONE" })
+
+      return {
+        success: true,
+        team: teamResult,
+        message: existingTeam.length > 0 ? "Team updated successfully" : "Team registered successfully",
       }
     }),
 
@@ -291,6 +432,8 @@ export const registerRouter = {
       // Check if adviser already exists
       const existingAdviser = await db.select().from(advisor).where(eq(advisor.teamId, team.id)).limit(1)
 
+      let adviserResult
+
       if (existingAdviser.length > 0) {
         // Update existing adviser
         const updatedAdviser = await db
@@ -315,11 +458,7 @@ export const registerRouter = {
           .where(eq(advisor.teamId, team.id))
           .returning()
 
-        return {
-          success: true,
-          adviser: updatedAdviser[0],
-          message: "Adviser updated successfully",
-        }
+        adviserResult = updatedAdviser[0]
       } else {
         // Create new adviser
         if (!nationalDocId || !teacherDocId) {
@@ -348,11 +487,18 @@ export const registerRouter = {
           })
           .returning()
 
-        return {
-          success: true,
-          adviser: adviserRecord[0],
-          message: "Adviser registered successfully",
-        }
+        adviserResult = adviserRecord[0]
+      }
+
+      // Update register status to mark adviser as DONE
+      await getOrCreateRegisterStatus(team.id)
+      await updateRegisterStatus(team.id, { adviser: "DONE" })
+
+      return {
+        success: true,
+        adviser: adviserResult,
+        message:
+          existingAdviser.length > 0 ? "Adviser updated successfully" : "Adviser registered successfully",
       }
     }),
 
@@ -562,6 +708,8 @@ export const registerRouter = {
         .where(and(eq(member.teamId, team.id), eq(member.index, input.memberIndex)))
         .limit(1)
 
+      let memberResult
+
       if (existingMember.length > 0) {
         // Update existing member
         const updatedMember = await db
@@ -589,11 +737,7 @@ export const registerRouter = {
           .where(and(eq(member.teamId, team.id), eq(member.index, input.memberIndex)))
           .returning()
 
-        return {
-          success: true,
-          member: updatedMember[0],
-          message: "Member updated successfully",
-        }
+        memberResult = updatedMember[0]
       } else {
         // Create new member
         if (!nationalDocId || !facePicId || !p7DocId) {
@@ -626,11 +770,18 @@ export const registerRouter = {
           })
           .returning()
 
-        return {
-          success: true,
-          member: memberRecord[0],
-          message: "Member registered successfully",
-        }
+        memberResult = memberRecord[0]
+      }
+
+      // Update register status to mark the specific member as DONE
+      await getOrCreateRegisterStatus(team.id)
+      const memberField = `member${input.memberIndex}` as "member1" | "member2" | "member3"
+      await updateRegisterStatus(team.id, { [memberField]: "DONE" })
+
+      return {
+        success: true,
+        member: memberResult,
+        message: existingMember.length > 0 ? "Member updated successfully" : "Member registered successfully",
       }
     }),
 }

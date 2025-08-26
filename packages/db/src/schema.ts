@@ -1,4 +1,4 @@
-import { boolean, integer, pgTable, text, timestamp, uuid, uniqueIndex } from "drizzle-orm/pg-core"
+import { boolean, integer, pgTable, text, timestamp, uuid, uniqueIndex, pgEnum } from "drizzle-orm/pg-core"
 
 export const teams = pgTable("teams", {
   id: uuid("id").defaultRandom().notNull().primaryKey(),
@@ -165,3 +165,31 @@ export const verification = pgTable("verification", {
   createdAt: timestamp("created_at").$defaultFn(() => /* @__PURE__ */ new Date()),
   updatedAt: timestamp("updated_at").$defaultFn(() => /* @__PURE__ */ new Date()),
 })
+
+export const registerStatusEnum = pgEnum("register_status_enum", ["NOT_DONE", "DONE", "NOT_HAVE"])
+
+export const registerStatus = pgTable(
+  "register_status",
+  {
+    id: uuid("id").defaultRandom().notNull().primaryKey(),
+    teamId: uuid("team_id")
+      .notNull()
+      .references(() => teams.id, { onDelete: "cascade" }),
+    team: registerStatusEnum("team").notNull().default("NOT_DONE"),
+    adviser: registerStatusEnum("adviser").notNull().default("NOT_DONE"),
+    member1: registerStatusEnum("member1").notNull().default("NOT_DONE"),
+    member2: registerStatusEnum("member2").notNull().default("NOT_DONE"),
+    member3: registerStatusEnum("member3").notNull().default("NOT_HAVE"),
+    submitRegister: timestamp("submit_register"),
+    createdAt: timestamp("created_at")
+      .$defaultFn(() => /* @__PURE__ */ new Date())
+      .notNull(),
+    updatedAt: timestamp("updated_at")
+      .$defaultFn(() => /* @__PURE__ */ new Date())
+      .notNull(),
+  },
+  (table) => ({
+    // Ensure one register status per team
+    teamIdUnique: uniqueIndex("register_status_team_id_unique").on(table.teamId),
+  })
+)
