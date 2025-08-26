@@ -19,7 +19,7 @@ function TeamRegisterPage() {
             ? {
                 team_name: query.data.team.name ?? "",
                 school_name: query.data.team.school ?? "",
-                number_of_member: query.data.team.memberCount ?? 0,
+                member_count: query.data.team.memberCount ?? 0,
                 quote: query.data.team.quote ?? "",
                 team_image: [],
               }

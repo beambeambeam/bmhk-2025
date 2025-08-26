@@ -57,7 +57,7 @@ export const registerRouter = {
         team_name: z.string().min(1).max(20),
         school_name: z.string().min(1),
         quote: z.string().max(50),
-        number_of_member: z.number().min(1).max(5),
+        member_count: z.number().min(1).max(5),
       })
     )
     .handler(async ({ input, context }) => {
@@ -95,10 +95,9 @@ export const registerRouter = {
           .set({
             name: input.team_name,
             school: input.school_name,
-            memberAmount: input.number_of_member,
-            advisor: "",
+            memberCount: input.member_count,
             quote: input.quote,
-            award: "",
+            award: "", // Keep award as empty string for now
             ...(fileId && { imageId: fileId }),
           })
           .where(eq(teams.userId, userId))
@@ -121,10 +120,9 @@ export const registerRouter = {
             imageId: fileId,
             name: input.team_name,
             school: input.school_name,
-            memberAmount: input.number_of_member,
-            advisor: "", // Auto-added by system
+            memberCount: input.member_count,
             quote: input.quote,
-            award: "", // Auto-added by system
+            award: "", // Default empty award, will be set later
           })
           .returning()
 

@@ -24,7 +24,7 @@ const teamRegisterSchema = z.object({
   team_name: z.string().min(1, "จำเป็นต้องกรอกช่องนี้").max(20, "ชื่อทีมต้องมีไม่เกิน 20 ตัวอักษร"),
   school_name: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   quote: z.string().max(50, "คำคมประจำทีมต้องมีไม่เกิน 50 ตัวอักษร"),
-  number_of_member: z.number(),
+  member_count: z.number(),
 })
 
 type TeamRegisterSchemaType = Omit<z.infer<typeof teamRegisterSchema>, "team_image"> & {
@@ -41,7 +41,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
       team_name: "",
       school_name: "",
       quote: "",
-      number_of_member: 2,
+      member_count: 2,
       ...props.defaultValues,
     },
   })
@@ -118,10 +118,10 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
         />
         <FormField
           control={form.control}
-          name="number_of_member"
+          name="member_count"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>number_of_member</FormLabel>
+              <FormLabel>member_count</FormLabel>
               <Select
                 onValueChange={(value) => field.onChange(Number(value))}
                 defaultValue={String(field.value)}>
