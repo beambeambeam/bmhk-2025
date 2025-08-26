@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react"
 import { createStore, useStore } from "zustand"
+import { useShallow } from "zustand/react/shallow"
 
 // Types for register status
 export type RegisterStatusEnum = "NOT_DONE" | "DONE" | "NOT_HAVE"
@@ -69,6 +70,18 @@ export const useRegisterStatus = <T,>(selector: (state: RegisterStatusState) => 
   return useStore(store, selector)
 }
 
+export const useAllStatus = () =>
+  useRegisterStatus(
+    useShallow((state) => ({
+      team: state.team,
+      adviser: state.adviser,
+      member1: state.member1,
+      member2: state.member2,
+      member3: state.member3,
+      submitRegister: state.submitRegister,
+    }))
+  )
+
 // Convenience hooks for specific state slices
 export const useTeamStatus = () => useRegisterStatus((state) => state.team)
 export const useAdviserStatus = () => useRegisterStatus((state) => state.adviser)
@@ -93,11 +106,3 @@ export const useIsRegistrationComplete = () =>
 
 // Hook to check if registration is submitted
 export const useIsRegistrationSubmitted = () => useRegisterStatus((state) => state.submitRegister !== null)
-
-// Hook to get completion percentage
-export const useCompletionPercentage = () =>
-  useRegisterStatus((state) => {
-    const requiredFields = ["team", "adviser", "member1", "member2"] as const
-    const completedFields = requiredFields.filter((field) => state[field] === "DONE").length
-    return Math.round((completedFields / requiredFields.length) * 100)
-  })
