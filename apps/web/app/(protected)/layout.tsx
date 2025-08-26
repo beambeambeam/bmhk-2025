@@ -14,14 +14,14 @@ interface ProtectedLayoutProps {
 }
 
 function ProtectedLayout({ children }: ProtectedLayoutProps) {
-  const { data: session } = authClient.useSession()
+  const { data: session, isPending } = authClient.useSession()
   const router = useRouter()
 
   useEffect(() => {
-    if (!session?.user) {
+    if (!session?.user && !isPending) {
       router.push("/sign-in")
     }
-  }, [session])
+  }, [session, isPending])
 
   const query = useQuery(orpc.register.status.get.queryOptions())
 
