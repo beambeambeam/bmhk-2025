@@ -64,84 +64,94 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="team_image"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Team Image</FormLabel>
-              <FormControl>
-                <AvatarUploader value={field.value} onChange={field.onChange} disabled={props.disabled} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="team_name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>team_name</FormLabel>
-              <FormControl>
-                <Input placeholder="team_name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="school_name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>school_name</FormLabel>
-              <FormControl>
-                <Input placeholder="school_name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="quote"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>quote</FormLabel>
-              <FormControl>
-                <Input placeholder="quote" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="member_count"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>member_count</FormLabel>
-              <Select
-                onValueChange={(value) => field.onChange(Number(value))}
-                defaultValue={String(field.value)}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="2">2</SelectItem>
-                  <SelectItem value="3">3</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full max-w-[62rem] flex-col gap-6">
+        <div className="grid w-full grid-cols-[auto_1fr] gap-8">
+          <div className="col-span-2 grid grid-cols-2 gap-4">
+            <p className="text-3xl text-white">1. ข้อมูลทีม</p>
+          </div>
+          <div className="w-full">
+            <FormField
+              control={form.control}
+              name="team_image"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Team Image</FormLabel>
+                  <FormControl>
+                    <AvatarUploader value={field.value} onChange={field.onChange} disabled={props.disabled} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="grid w-full grid-cols-2 grid-rows-2 gap-4">
+            <FormField
+              control={form.control}
+              name="team_name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>team_name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="team_name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="school_name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>school_name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="school_name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="quote"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>quote</FormLabel>
+                  <FormControl>
+                    <Input placeholder="quote" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="member_count"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>member_count</FormLabel>
+                  <Select
+                    onValueChange={(value) => field.onChange(Number(value))}
+                    defaultValue={String(field.value)}>
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        <SelectValue />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="2">2</SelectItem>
+                      <SelectItem value="3">3</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+        <div className="flex justify-end">
+          <Button type="submit">Submit</Button>
+        </div>
       </form>
     </Form>
   )
