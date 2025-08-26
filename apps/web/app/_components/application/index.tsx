@@ -20,7 +20,7 @@ function Requirement({ title, items, imgSrc }: RequirementProps) {
       />
 
       <div className="relative z-10 min-h-[265px] w-full lg:min-h-[269px] 2xl:min-h-[374px]">
-        <div className="liquid absolute inset-x-0 top-[36px] z-10 mx-auto flex !h-fit !min-h-[235px] w-full max-w-[643px] flex-col items-center rounded-[40px] border border-white/10 px-4 pb-6 pt-8 lg:h-[303px] lg:px-8 lg:pt-10 2xl:top-[48px] 2xl:h-[326px] 2xl:pt-14">
+        <div className="liquid absolute inset-x-0 top-[36px] z-10 mx-auto flex !h-fit !min-h-[235px] w-full max-w-[643px] flex-col items-center rounded-[40px] border border-white/10 px-4 pb-6 pt-8 lg:h-[303px] lg:px-8 lg:pt-7 2xl:top-[48px] 2xl:h-[326px] 2xl:pt-14">
           <ul className="text-body-2 m-0 mx-auto flex h-full flex-1 list-inside list-disc flex-col">
             {items.map((item, i) => (
               <li key={i}>{item}</li>
