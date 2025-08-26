@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.873.0",
+    "@aws-sdk/s3-request-presigner": "^3.873.0",
     "@hono/node-server": "^1.19.0",
     "@orpc/server": "^1.8.4",
     "@workspace/auth": "workspace:*",
