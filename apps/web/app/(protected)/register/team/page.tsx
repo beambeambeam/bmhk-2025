@@ -5,7 +5,7 @@ import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
 
 function TeamRegisterPage() {
-  const query = useQuery(orpc.register.getTeam.queryOptions())
+  const query = useQuery(orpc.register.team.get.queryOptions())
 
   if (query.isLoading) {
     return

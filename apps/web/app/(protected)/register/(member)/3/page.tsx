@@ -11,17 +11,17 @@ import { useEffect } from "react"
 function MemberPage3() {
   const router = useRouter()
 
-  const teamQuery = useQuery(orpc.register.getTeam.queryOptions())
+  const teamQuery = useQuery(orpc.register.team.get.queryOptions())
 
   const memberQuery = useQuery(
-    orpc.register.getMember.queryOptions({
+    orpc.register.member.get.queryOptions({
       input: {
         memberIndex: 3,
       },
     })
   )
 
-  const mutation = useMutation(orpc.register.setMember.mutationOptions())
+  const mutation = useMutation(orpc.register.member.set.mutationOptions())
 
   if (!teamQuery.isLoading && (!teamQuery.data?.success || !teamQuery.data.team)) {
     router.replace("/register/team")

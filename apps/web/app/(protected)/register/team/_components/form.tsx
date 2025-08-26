@@ -32,7 +32,7 @@ type TeamRegisterSchemaType = Omit<z.infer<typeof teamRegisterSchema>, "team_ima
 }
 
 function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
-  const mutation = useMutation(orpc.register.setTeam.mutationOptions())
+  const mutation = useMutation(orpc.register.team.set.mutationOptions())
 
   const form = useForm<z.infer<typeof teamRegisterSchema>>({
     resolver: zodResolver(teamRegisterSchema),

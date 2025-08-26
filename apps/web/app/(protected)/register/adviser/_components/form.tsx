@@ -46,7 +46,7 @@ type AdviserRegisterSchemaType = Omit<
 }
 
 function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
-  const mutation = useMutation(orpc.register.setAdviser.mutationOptions())
+  const mutation = useMutation(orpc.register.adviser.set.mutationOptions())
 
   const form = useForm<z.infer<typeof adviserRegisterSchema>>({
     resolver: zodResolver(adviserRegisterSchema),

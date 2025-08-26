@@ -5,7 +5,7 @@ import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
 
 function AdviserRegisterPage() {
-  const query = useQuery(orpc.register.getAdviser.queryOptions())
+  const query = useQuery(orpc.register.adviser.get.queryOptions())
 
   if (query.isLoading) {
     return

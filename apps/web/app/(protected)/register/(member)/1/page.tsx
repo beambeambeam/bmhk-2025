@@ -10,10 +10,10 @@ import { useRouter } from "next/navigation"
 function MemberPage1() {
   const router = useRouter()
 
-  const teamQuery = useQuery(orpc.register.getTeam.queryOptions())
+  const teamQuery = useQuery(orpc.register.team.get.queryOptions())
 
   const memberQuery = useQuery(
-    orpc.register.getMember.queryOptions({
+    orpc.register.member.get.queryOptions({
       input: {
         memberIndex: 1,
       },
@@ -21,7 +21,7 @@ function MemberPage1() {
   )
 
   // Set member mutation
-  const mutation = useMutation(orpc.register.setMember.mutationOptions())
+  const mutation = useMutation(orpc.register.member.set.mutationOptions())
 
   if (teamQuery.isLoading || memberQuery.isLoading) {
     return <div>Loading...</div>
