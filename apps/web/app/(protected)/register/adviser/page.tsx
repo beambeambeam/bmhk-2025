@@ -30,8 +30,8 @@ function AdviserRegisterPage() {
                 email: query.data.adviser.email ?? "",
                 phone_number: query.data.adviser.phoneNumber ?? "",
                 line_id: query.data.adviser.lineId ?? "",
-                national_doc: [],
-                teacher_doc: [],
+                national_doc: query.data.adviser.nationalDoc ? [query.data.adviser.nationalDoc] : [],
+                teacher_doc: query.data.adviser.teacherDoc ? [query.data.adviser.teacherDoc] : [],
               }
             : undefined
         }

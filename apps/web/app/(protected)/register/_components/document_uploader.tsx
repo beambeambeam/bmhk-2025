@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react"
 
 interface DocumentUploaderProps {
   value?: (File | FileMetadata)[]
-  onChange?: (files: File[]) => void
+  onChange?: (files: (File | FileMetadata)[]) => void
   disabled?: boolean
   multiple?: boolean
   maxFiles?: number
@@ -49,8 +49,8 @@ function DocumentUploader({
     if (currentFilesString !== previousFilesRef.current) {
       previousFilesRef.current = currentFilesString
 
-      const fileArray = files.map((f) => f.file).filter((file): file is File => file instanceof File)
-      onChange?.(fileArray)
+      const normalizedFiles = files.map((f) => f.file)
+      onChange?.(normalizedFiles)
     }
   }, [files, onChange])
 

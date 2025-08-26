@@ -83,32 +83,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
   })
 
   const onSubmit = (values: AdviserRegisterSchemaType) => {
-    // Process the files - FileMetadata will be converted to null
-    const processedValues = {
-      ...values,
-      national_doc: values.national_doc.map((file) => {
-        if (file instanceof File) {
-          return file
-        } else {
-          return null
-        }
-      }),
-      teacher_doc: values.teacher_doc.map((file) => {
-        if (file instanceof File) {
-          return file
-        } else {
-          return null
-        }
-      }),
-    }
-
-    const filteredValues = {
-      ...processedValues,
-      national_doc: processedValues.national_doc.filter((file): file is File => file !== null),
-      teacher_doc: processedValues.teacher_doc.filter((file): file is File => file !== null),
-    }
-
-    mutation.mutate(filteredValues)
+    mutation.mutate(values)
   }
 
   return (
