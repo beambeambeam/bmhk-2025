@@ -12,7 +12,7 @@ function TeamRegisterPage() {
   }
 
   return (
-    <div className="h-full min-h-screen w-full bg-black">
+    <div className="flex h-full min-h-screen w-full items-center justify-center bg-black">
       <TeamRegisterForm
         defaultValues={
           query.data && query.data.success && query.data.team
