@@ -51,3 +51,6 @@ serve(
     console.log(`Server is running on http://localhost:${info.port}`)
   }
 )
+
+// Export types for the web app to use
+export type { AppRouter, AppRouterClient } from "./routers"
