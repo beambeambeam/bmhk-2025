@@ -1,8 +1,19 @@
 "use client"
 
 import { authClient } from "@/lib/auth-client"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
 function SignInPage() {
+  const { data: session } = authClient.useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (session?.user) {
+      router.push("/")
+    }
+  }, [session])
+
   return (
     <div className="flex h-screen items-center justify-center">
       <button
