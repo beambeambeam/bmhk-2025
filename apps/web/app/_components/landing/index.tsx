@@ -160,7 +160,7 @@ function LandingSection() {
           <div className="text-header-2-medium text-white">
             การแข่งขัน
             <br className="not-2xl:hidden" />
-            เขียนโปรแกรมคอมพิวเตอร์ BangMod Hackathon 2025
+            เขียนโปรแกรมคอมพิวเตอร์ <br className="lg:hidden" /> BangMod Hackathon 2025
           </div>
           <p className="text-body-2 text-balance text-gray-50">
             โครงการนี้เปิดโอกาสให้นักเรียนมัธยมปลาย และนักศึกษาอาชีวะระดับปวช. หรือเทียบเท่า
