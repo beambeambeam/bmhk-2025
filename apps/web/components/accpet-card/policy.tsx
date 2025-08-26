@@ -45,11 +45,27 @@ export default function PolicyConsent({ demo = false }) {
           : "translate-y-0 opacity-100 transition-[opacity,transform]",
         hide && "hidden"
       )}>
-      <div className="liquid flex h-fit max-h-[80vh] w-full max-w-[80rem] justify-between rounded-[3rem]">
+      <div className="liquid flex h-fit max-h-[80vh] w-full max-w-[80rem] justify-between rounded-[3rem] shadow-[0_0_100px_0_rgba(255,255,255,0.25)] backdrop-blur-sm">
         <div className="grid h-fit w-full grid-rows-[auto_1fr_auto] gap-8 p-10 text-white">
           <div className="flex h-full items-center gap-6">
-            <div className="liquid flex size-[3rem] min-h-[3rem] min-w-[3rem] items-center justify-center rounded-[1.25rem] lg:size-[3.75rem]">
-              d
+            <div className="liquid flex size-[3rem] min-h-[3rem] min-w-[3rem] items-center justify-center rounded-[1.25rem] shadow-[0_0_100px_0_rgba(255,255,255,0.25)] lg:size-[3.75rem]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="size-[2rem] lg:size-[2.5rem]"
+                viewBox="0 0 40 40"
+                fill="none">
+                <g clipPath="url(#clip0_4231_38874)">
+                  <path
+                    d="M7 25.5516C7 32.7208 11.962 37 18.6493 37C23.6606 37 26.9138 35.0201 29.1484 31.0443C30.7421 28.5693 31.8594 25.1683 32.7795 22.2304C33.2724 20.7135 33.9461 18.7974 33.9954 17.9512C34.0611 16.9932 33.4203 16.3066 32.4345 16.2427C31.3008 16.1629 30.5943 16.8016 29.8877 18.2386L27.5875 23.0447C27.3739 23.5237 27.1438 23.6834 26.881 23.6834C26.5852 23.6834 26.3716 23.5237 26.3716 22.9968V6.11953C26.3716 5.08166 25.5336 4.26734 24.4657 4.26734C23.4141 4.26734 22.5762 5.08166 22.5762 6.11953V18.3983C22.149 18.2546 21.6889 18.1268 21.2124 18.031V3.85219C21.2124 2.81432 20.3745 2 19.3065 2C18.2549 2 17.417 2.81432 17.417 3.85219V17.8554C16.924 17.9033 16.4476 17.9672 15.9711 18.047V5.17746C15.9711 4.15557 15.1331 3.34124 14.0816 3.34124C13.0136 3.34124 12.1756 4.15557 12.1756 5.17746V19.1328C11.6827 19.3563 11.2226 19.6118 10.7955 19.8832V10.1592C10.7955 9.13732 9.9575 8.32299 8.90594 8.32299C7.83796 8.32299 7 9.13732 7 10.1592V25.5516Z"
+                    fill="white"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_4231_38874">
+                    <rect width="40" height="40" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
             </div>
             <p className="text-header-2-medium">นโยบายความเป็นส่วนตัว (Privacy Policy)</p>
           </div>
