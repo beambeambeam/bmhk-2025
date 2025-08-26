@@ -12,12 +12,13 @@
     "@hono/node-server": "^1.19.0",
     "@orpc/server": "^1.8.4",
     "@workspace/auth": "workspace:*",
-    "hono": "^4.9.4"
+    "hono": "^4.9.4",
+    "tsx": "^4.20.4"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
     "@workspace/eslint-config": "workspace:*",
-    "tsx": "^4.7.1",
+    "tsc-alias": "^1.8.16",
     "typescript": "^5.8.3"
   }
 }
