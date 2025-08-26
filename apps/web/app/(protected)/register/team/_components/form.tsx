@@ -59,17 +59,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
   })
 
   const onSubmit = (values: TeamRegisterSchemaType) => {
-    const processedValues = {
-      ...values,
-      team_image: values.team_image.map((file) => {
-        if (file instanceof File) {
-          return file
-        } else {
-          return null
-        }
-      }),
-    }
-    mutation.mutate(processedValues)
+    mutation.mutate(values)
   }
 
   return (
