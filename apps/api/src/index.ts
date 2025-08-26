@@ -25,7 +25,7 @@ app.use(
 app.on(["POST", "GET"], "/api/auth/**", (c) => auth.handler(c.req.raw))
 
 const handler = new RPCHandler(appRouter)
-app.use("/api/rpc/*", async (c, next) => {
+app.use("/rpc/*", async (c, next) => {
   const context = await createContext({ context: c })
   const { matched, response } = await handler.handle(c.req.raw, {
     prefix: "/rpc",

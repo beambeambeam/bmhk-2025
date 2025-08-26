@@ -2,7 +2,9 @@
 
 import AvatarUploader from "@/app/(protected)/register/team/_components/avatar"
 import FormProps from "@/types/form"
+import { orpc } from "@/utils/orpc"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation } from "@tanstack/react-query"
 import { Button } from "@workspace/ui/components/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@workspace/ui/components/form"
 import { Input } from "@workspace/ui/components/input"
@@ -30,6 +32,8 @@ type TeamRegisterSchemaType = Omit<z.infer<typeof teamRegisterSchema>, "team_ima
 }
 
 function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
+  const mutation = useMutation(orpc.register.setTeam.mutationOptions())
+
   const form = useForm<z.infer<typeof teamRegisterSchema>>({
     resolver: zodResolver(teamRegisterSchema),
     defaultValues: {
@@ -53,7 +57,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
         }
       }),
     }
-    console.log(processedValues)
+    mutation.mutate(processedValues)
   }
 
   return (
