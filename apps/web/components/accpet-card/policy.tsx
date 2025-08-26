@@ -39,20 +39,27 @@ export default function PolicyConsent({ demo = false }) {
   return (
     <div
       className={cn(
-        "font-prompt fixed left-0 right-0 top-0 z-[200] flex h-full items-center justify-center text-black duration-700",
+        "font-prompt fixed left-0 right-0 top-0 z-[200] flex h-full items-center justify-center duration-700",
         !isOpen
           ? "translate-y-8 opacity-0 transition-[opacity,transform]"
           : "translate-y-0 opacity-100 transition-[opacity,transform]",
         hide && "hidden"
       )}>
-      <div className="flex max-h-[80vh] w-full max-w-[80rem] justify-between border border-white/10 bg-black p-10">
-        <div className="grid h-full w-full grid-rows-[auto_1fr_auto] gap-4 text-white">
-          <ScrollArea className="max-h-full rounded-xl bg-black p-5" colorTheme="">
-            d
+      <div className="liquid flex h-fit max-h-[80vh] w-full max-w-[80rem] justify-between rounded-[3rem]">
+        <div className="grid h-fit w-full grid-rows-3 gap-8 p-10 text-white">
+          <div className="flex h-full items-center gap-6">
+            <div className="liquid flex size-[3rem] min-h-[3rem] min-w-[3rem] items-center justify-center rounded-[1.25rem] lg:size-[3.75rem]">
+              d
+            </div>
+            <p className="text-header-2-medium">นโยบายความเป็นส่วนตัว (Privacy Policy)</p>
+          </div>
+          <ScrollArea className="max-h-full rounded-xl" colorTheme="">
+            ddd
           </ScrollArea>
-
-          <div className="flex h-fit w-full justify-between">
-            <Button onClick={accept}>ยอมรับ</Button>
+          <div className="flex h-full w-full justify-between">
+            <Button onClick={accept} className="h-full w-full">
+              ยอมรับ
+            </Button>
           </div>
         </div>
       </div>
