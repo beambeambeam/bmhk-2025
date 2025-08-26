@@ -1,11 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import GlassCard from "@/components/glassCard"
 import { authClient } from "@/lib/auth-client"
+import { useEffect, useState } from "react"
 
 function SignInPage() {
-  const [stars, setStars] = useState<{ id: number; top: string; left: string; size: number; src: string }[]>([])
+  const [stars, setStars] = useState<{ id: number; top: string; left: string; size: number; src: string }[]>(
+    []
+  )
   const [isTall, setIsTall] = useState(false)
 
   useEffect(() => {
@@ -18,11 +20,7 @@ function SignInPage() {
 
   useEffect(() => {
     const count = 20
-    const starImages = [
-      "/static/icon/Star.svg",
-      "/static/icon/Star_bright.svg",
-      "/static/icon/Star2.svg",
-    ]
+    const starImages = ["/static/icon/Star.svg", "/static/icon/Star_bright.svg", "/static/icon/Star2.svg"]
 
     const newStars = Array.from({ length: count }).map((_, i) => ({
       id: i,
@@ -37,7 +35,7 @@ function SignInPage() {
 
   return (
     <div
-      className={`relative flex h-screen w-screen flex-col justify-between items-center px-[30px] lg:px-0 ${
+      className={`relative flex h-screen w-screen flex-col items-center justify-between px-[30px] lg:px-0 ${
         isTall ? "2xl:px-[160px]" : ""
       } py-[60px] ${isTall ? "2xl:py-[100px]" : ""} overflow-hidden`}
       style={{
@@ -48,8 +46,7 @@ function SignInPage() {
         backgroundSize: "auto, auto",
         backgroundPosition: "center, center",
         backgroundRepeat: "no-repeat, no-repeat",
-      }}
-    >
+      }}>
       {/* background image */}
       <div className="absolute inset-0 z-0">
         <img
@@ -65,7 +62,7 @@ function SignInPage() {
           key={star.id}
           src={star.src}
           alt="star"
-          className="absolute animate-pulse z-1"
+          className="z-1 absolute animate-pulse"
           style={{
             top: star.top,
             left: star.left,
@@ -77,7 +74,7 @@ function SignInPage() {
       ))}
 
       {/* content */}
-      <div className="relative z-10 flex h-full w-full flex-col justify-between items-center">
+      <div className="relative z-10 flex h-full w-full flex-col items-center justify-between">
         <img
           src="/static/logo/Logo.webp"
           alt="Bangmod Hackathon Logo"
@@ -85,28 +82,26 @@ function SignInPage() {
         />
 
         <div
-          className={`flex flex-col justify-between items-center p-4 max-lg:gap-6 lg:h-[300px] lg:p-8 ${
+          className={`flex flex-col items-center justify-between p-4 max-lg:gap-6 lg:h-[300px] lg:p-8 ${
             isTall ? "2xl:h-[368px] 2xl:p-10" : ""
-          } rounded-[24px] border-2 border-white/10 bg-[linear-gradient(107deg,rgba(255,204,247,0.05)_-2.48%,rgba(159,131,220,0.05)_29.08%)]`}
-        >
-          <div className="flex flex-col justify-center items-center gap-6">
+          } rounded-[24px] border-2 border-white/10 bg-[linear-gradient(107deg,rgba(255,204,247,0.05)_-2.48%,rgba(159,131,220,0.05)_29.08%)]`}>
+          <div className="flex flex-col items-center justify-center gap-6">
             <div className="text-header-2-medium text-[var(--color-white)]">เข้าสู่ระบบ</div>
-            <div className="font-light max-lg:text-[16px] text-subheader-2 text-[var(--color-gray-50)] text-center">
-              กรุณาเข้าสู่ระบบ ด้วยบัญชี Google ของคุณ
+            <div className="text-subheader-2 text-center font-light text-[var(--color-gray-50)] max-lg:text-[16px]">
+              กรุณาเข้าสู่ระบบด้วยบัญชี Google ของคุณ
             </div>
           </div>
-          <GlassCard className="group relative cursor-pointer w-full flex gap-6 items-center justify-center px-3 py-3 lg:py-4 2xl:py-5 rounded-[24px]">
-            <div className="absolute inset-0 rounded-[24px] bg-[rgba(159,131,220,0.6)] blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+          <GlassCard className="group relative flex w-full cursor-pointer items-center justify-center gap-6 rounded-[24px] px-3 py-3 lg:py-4 2xl:py-5">
+            <div className="pointer-events-none absolute inset-0 rounded-[24px] bg-[rgba(159,131,220,0.6)] opacity-0 blur-[40px] transition-opacity duration-500 group-hover:opacity-100"></div>
             <img src="/static/icon/Google.svg" alt="Google Icon" className="relative z-10" />
             <div
-              className="relative z-10 text-body-1 text-[var(--color-white)]"
+              className="text-body-1 relative z-10 text-[var(--color-white)]"
               onClick={() =>
                 authClient.signIn.social({
                   provider: "google",
                   callbackURL: `${process.env.NEXT_PUBLIC_WEB_URL}/teams`,
                 })
-              }
-            >
+              }>
               ดำเนินการต่อด้วย Google
             </div>
           </GlassCard>
