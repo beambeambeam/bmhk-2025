@@ -26,7 +26,7 @@ function MemberPage1() {
     })
   )
 
-  if (teamQuery.isLoading || memberQuery.isLoading) {
+  if (teamQuery.isPending || memberQuery.isPending) {
     return <div>Loading...</div>
   }
 

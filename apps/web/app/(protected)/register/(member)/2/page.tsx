@@ -51,7 +51,7 @@ function MemberPage2() {
   const showFinalSubmit =
     teamQuery.data?.success && teamQuery.data.team?.memberCount === 2 && isReadyForSubmit
 
-  if (teamQuery.isLoading || memberQuery.isLoading) {
+  if (teamQuery.isPending || memberQuery.isPending) {
     return <div>Loading...</div>
   }
 

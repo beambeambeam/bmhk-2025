@@ -14,7 +14,7 @@ interface ProtectedLayoutProps {
 function ProtectedLayout({ children }: ProtectedLayoutProps) {
   const query = useQuery(orpc.register.status.get.queryOptions())
 
-  if (query.isLoading) {
+  if (query.isPending) {
     return null
   }
 

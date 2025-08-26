@@ -42,16 +42,16 @@ function MemberPage3() {
 
   useEffect(() => {
     if (
-      !teamQuery.isLoading &&
+      !teamQuery.isPending &&
       teamQuery.data?.success &&
       teamQuery.data.team &&
       teamQuery.data.team.memberCount === 2
     ) {
       router.replace("/register/2")
     }
-  }, [teamQuery.isLoading, teamQuery.data, router])
+  }, [teamQuery.isPending, teamQuery.data, router])
 
-  if (teamQuery.isLoading || memberQuery.isLoading) {
+  if (teamQuery.isPending || memberQuery.isPending) {
     return <div>Loading...</div>
   }
 
