@@ -233,7 +233,7 @@ export const registerRouter = {
           nationalDoc.length > 0
             ? {
                 id: nationalDoc[0].id,
-                upload_by: nationalDoc[0].uploadBy,
+                upload_by: nationalDoc[0].uploadBy ?? "ไม่ทราบผู็อัพโหลด",
                 resource_type: nationalDoc[0].resourceType,
                 upload_at: nationalDoc[0].uploadAt,
                 name: nationalDoc[0].name,
@@ -246,7 +246,7 @@ export const registerRouter = {
           teacherDoc.length > 0
             ? {
                 id: teacherDoc[0].id,
-                upload_by: teacherDoc[0].uploadBy,
+                upload_by: teacherDoc[0].uploadBy ?? "ไม่ทราบผู็อัพโหลด",
                 resource_type: teacherDoc[0].resourceType,
                 upload_at: teacherDoc[0].uploadAt,
                 name: teacherDoc[0].name,
