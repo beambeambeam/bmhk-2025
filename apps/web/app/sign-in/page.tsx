@@ -3,8 +3,11 @@
 import GlassCard from "@/components/glassCard"
 import { authClient } from "@/lib/auth-client"
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 
 function SignInPage() {
+  const { data: session } = authClient.useSession()
+  const router = useRouter()
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: number; src: string }[]>(
     []
   )
@@ -17,6 +20,12 @@ function SignInPage() {
     window.addEventListener("resize", checkHeight)
     return () => window.removeEventListener("resize", checkHeight)
   }, [])
+
+  useEffect(() => {
+    if (session?.user) {
+      router.push("/")
+    }
+  }, [session])
 
   useEffect(() => {
     const count = 20
