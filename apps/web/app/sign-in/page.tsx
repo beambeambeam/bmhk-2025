@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 
 function SignInPage() {
-  const { data: session } = authClient.useSession()
+  const { data: session, isPending } = authClient.useSession()
   const router = useRouter()
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: number; src: string }[]>(
     []
@@ -22,10 +22,10 @@ function SignInPage() {
   }, [])
 
   useEffect(() => {
-    if (session?.user) {
+    if (session?.user && !isPending) {
       router.push("/")
     }
-  }, [session])
+  }, [session, isPending])
 
   useEffect(() => {
     const count = 20
