@@ -1,5 +1,6 @@
 import { useAllRegisterStatus, type RegisterStatusEnum } from "@/app/(protected)/_components/status/context"
 import { cn } from "@workspace/ui/lib/utils"
+import { usePathname } from "next/navigation"
 
 interface RegisterBlobProps {
   name: string
@@ -10,6 +11,7 @@ interface RegisterBlobProps {
 
 function RegisterStatus() {
   const registerStatus = useAllRegisterStatus()
+  const pathName = usePathname()
 
   const NODES: RegisterBlobProps[] = [
     {
@@ -47,9 +49,32 @@ function RegisterStatus() {
   return (
     <div className="relative w-full">
       <div className="relative z-0 flex w-full justify-between">
-        {NODES.filter((node) => node.status !== "NOT_HAVE").map((node, index, arr) => (
-          <RegisterBlob index={index} total={arr.length} {...node} key={node.pattern} />
-        ))}
+        {NODES.filter((node) => node.status !== "NOT_HAVE").map((node, index, arr) => {
+          const isCurrentCompleted = node.status === "DONE"
+          const isPreviousCompleted = index > 0 ? arr[index - 1]?.status === "DONE" : false
+          const isNextCompleted = index < arr.length - 1 ? arr[index + 1]?.status === "DONE" : false
+          const isCurrentPath = pathName.includes(node.pattern.replace("/*", ""))
+
+          const isNextCurrentPath =
+            index < arr.length - 1
+              ? pathName.includes((arr[index + 1]?.pattern || "").replace("/*", ""))
+              : false
+
+          const activeLeft = index > 0 && (isCurrentPath || (isCurrentCompleted && isPreviousCompleted))
+          const activeRight =
+            index < arr.length - 1 && (isNextCurrentPath || (isCurrentCompleted && isNextCompleted))
+
+          return (
+            <RegisterBlob
+              activeLeft={activeLeft}
+              activeRight={activeRight}
+              index={index}
+              total={arr.length}
+              {...node}
+              key={node.pattern}
+            />
+          )
+        })}
       </div>
       <div className="relative z-0 mt-4 flex w-full justify-between">
         {NODES.filter((node) => node.status !== "NOT_HAVE").map((node) => (
@@ -68,13 +93,15 @@ const RegisterBlob = (
   props: RegisterBlobProps & {
     index: number
     total: number
+    activeLeft: boolean
+    activeRight: boolean
   }
 ) => (
   <div className="flex w-full items-center justify-center">
     <div
       className={cn(
         "h-full max-h-[0.5rem] min-h-[0.5rem] w-full",
-        props.index !== 0 ? "bg-[#DFDFDF4D]" : "bg-transparent"
+        props.activeLeft ? "bg-[#9F83DC]" : props.index !== 0 ? "bg-[#DFDFDF4D]" : "bg-transparent"
       )}
     />
 
@@ -95,7 +122,11 @@ const RegisterBlob = (
     <div
       className={cn(
         "h-full max-h-[0.5rem] min-h-[0.5rem] w-full",
-        props.index !== props.total - 1 ? "bg-[#DFDFDF4D]" : "bg-transparent"
+        props.activeRight
+          ? "bg-[#9F83DC]"
+          : props.index !== props.total - 1
+            ? "bg-[#DFDFDF4D]"
+            : "bg-transparent"
       )}
     />
   </div>
