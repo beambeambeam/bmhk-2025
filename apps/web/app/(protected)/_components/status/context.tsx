@@ -92,10 +92,12 @@ export const useSubmitRegister = () => useRegisterStatus((state) => state.submit
 
 // Hook for actions
 export const useRegisterStatusActions = () =>
-  useRegisterStatus((state) => ({
-    setStatus: state.setStatus,
-    setSubmitRegister: state.setSubmitRegister,
-  }))
+  useRegisterStatus(
+    useShallow((state) => ({
+      setStatus: state.setStatus,
+      setSubmitRegister: state.setSubmitRegister,
+    }))
+  )
 
 // Hook to check if all required forms are completed
 export const useIsRegistrationComplete = () =>
@@ -106,3 +108,38 @@ export const useIsRegistrationComplete = () =>
 
 // Hook to check if registration is submitted
 export const useIsRegistrationSubmitted = () => useRegisterStatus((state) => state.submitRegister !== null)
+
+// Hook to check if required fields are incomplete
+export const useHasIncompleteFields = () =>
+  useRegisterStatus((state) => {
+    return (
+      state.team !== "DONE" ||
+      state.adviser !== "DONE" ||
+      state.member1 !== "DONE" ||
+      state.member2 !== "DONE"
+    )
+  })
+
+// Hook to check if registration is ready for final submit
+export const useIsReadyForFinalSubmit = (memberCount: number) =>
+  useRegisterStatus((state) => {
+    const hasIncompleteFields =
+      state.team !== "DONE" ||
+      state.adviser !== "DONE" ||
+      state.member1 !== "DONE" ||
+      state.member2 !== "DONE"
+
+    if (hasIncompleteFields) return false
+
+    // For 3-member teams, member3 must be DONE
+    if (memberCount === 3) {
+      return state.member3 === "DONE"
+    }
+
+    // For 2-member teams, member3 should be NOT_HAVE
+    if (memberCount === 2) {
+      return state.member3 === "NOT_HAVE"
+    }
+
+    return false
+  })

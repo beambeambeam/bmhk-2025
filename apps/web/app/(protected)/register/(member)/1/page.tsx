@@ -22,17 +22,12 @@ function MemberPage1() {
 
   const mutation = useMutation(
     orpc.register.member.set.mutationOptions({
-      onSuccess: () => router.push("/2"),
+      onSuccess: () => router.push("/register/2"),
     })
   )
 
   if (teamQuery.isLoading || memberQuery.isLoading) {
     return <div>Loading...</div>
-  }
-
-  if (!teamQuery.data?.success || !teamQuery.data.team) {
-    router.replace("/register/team")
-    return null
   }
 
   const handleSubmit = (values: ProcessedMemberRegisterSchemaType) => {

@@ -1,15 +1,21 @@
 "use client"
 
+import {
+  useIsReadyForFinalSubmit,
+  useRegisterStatusActions,
+} from "@/app/(protected)/_components/status/context"
 import MemberRegisterForm, {
   ProcessedMemberRegisterSchemaType,
 } from "@/app/(protected)/register/(member)/_components/form"
 import { orpc } from "@/utils/orpc"
 import { useMutation, useQuery } from "@tanstack/react-query"
+import { Button } from "@workspace/ui/components/button"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
 function MemberPage3() {
   const router = useRouter()
+  const { setSubmitRegister } = useRegisterStatusActions()
 
   const teamQuery = useQuery(orpc.register.team.get.queryOptions())
 
@@ -21,11 +27,25 @@ function MemberPage3() {
     })
   )
 
-  const mutation = useMutation(orpc.register.member.set.mutationOptions())
+  const mutation = useMutation(
+    orpc.register.member.set.mutationOptions({
+      onSuccess: () => {
+        // After member 3 is saved, check if we should show final submit
+        // The showFinalSubmit will be true automatically if all conditions are met
+      },
+    })
+  )
 
-  if (!teamQuery.isLoading && (!teamQuery.data?.success || !teamQuery.data.team)) {
-    router.replace("/register/team")
-  }
+  const submitMutation = useMutation(
+    orpc.register.status.submit.mutationOptions({
+      onSuccess: (data) => {
+        if (data.registerStatus?.submitRegister) {
+          setSubmitRegister(data.registerStatus.submitRegister)
+        }
+        router.push("/teams")
+      },
+    })
+  )
 
   useEffect(() => {
     if (
@@ -46,6 +66,10 @@ function MemberPage3() {
   if (!teamQuery.data?.success || !teamQuery.data.team || teamQuery.data.team.memberCount === 2) {
     return null
   }
+
+  // Check if all forms are completed and show final submit button
+  const isReadyForSubmit = useIsReadyForFinalSubmit(teamQuery.data.team.memberCount || 3)
+  const showFinalSubmit = isReadyForSubmit
 
   const handleSubmit = (values: ProcessedMemberRegisterSchemaType) => {
     mutation.mutate({
@@ -89,6 +113,17 @@ function MemberPage3() {
               : undefined
           }
         />
+
+        {showFinalSubmit && (
+          <div className="mt-8 flex justify-center">
+            <Button
+              onClick={() => submitMutation.mutate({})}
+              disabled={submitMutation.isPending}
+              className="bg-green-600 px-8 py-3 text-lg font-semibold text-white hover:bg-green-700">
+              {submitMutation.isPending ? "กำลังส่ง..." : "ส่งใบสมัคร"}
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   )

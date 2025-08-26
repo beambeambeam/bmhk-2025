@@ -103,6 +103,14 @@ export const registerRouter = {
 
         const existingTeam = await db.select().from(teams).where(eq(teams.userId, userId)).limit(1)
 
+        // Check if registration is already submitted (for existing teams)
+        if (existingTeam.length > 0) {
+          const currentStatus = await getOrCreateRegisterStatus(existingTeam[0].id)
+          if (currentStatus.submitRegister) {
+            throw new Error("Cannot modify registration after submission")
+          }
+        }
+
         const teamImageFile = input.team_image.find((file): file is File => file instanceof File)
 
         let fileId: string | undefined
@@ -288,6 +296,12 @@ export const registerRouter = {
         }
 
         const team = userTeam[0]
+
+        // Check if registration is already submitted
+        const currentStatus = await getOrCreateRegisterStatus(team.id)
+        if (currentStatus.submitRegister) {
+          throw new Error("Cannot modify registration after submission")
+        }
 
         // Process the uploaded files
         const nationalDocFile = input.national_doc.find((file): file is File => file instanceof File)
@@ -545,6 +559,12 @@ export const registerRouter = {
 
         const team = userTeam[0]
 
+        // Check if registration is already submitted
+        const currentStatus = await getOrCreateRegisterStatus(team.id)
+        if (currentStatus.submitRegister) {
+          throw new Error("Cannot modify registration after submission")
+        }
+
         // Process the uploaded files
         const nationalDocFile = input.national_doc.find((file): file is File => file instanceof File)
         const facePictureFile = input.face_picture.find((file): file is File => file instanceof File)
@@ -742,7 +762,22 @@ export const registerRouter = {
         }
 
         const team = userTeam[0]
-        await getOrCreateRegisterStatus(team.id) // Ensure status exists
+        const currentStatus = await getOrCreateRegisterStatus(team.id)
+
+        // Validate member3 status based on team member count
+        if (input.member3 !== undefined) {
+          if (team.memberCount === 2 && input.member3 !== "NOT_HAVE") {
+            throw new Error("Member3 status must be NOT_HAVE for 2-member teams")
+          }
+          if (team.memberCount === 3 && input.member3 === "NOT_HAVE") {
+            throw new Error("Member3 status cannot be NOT_HAVE for 3-member teams")
+          }
+        }
+
+        // Prevent changing status if already submitted
+        if (currentStatus.submitRegister) {
+          throw new Error("Cannot modify registration status after submission")
+        }
 
         const updatedStatus = await updateRegisterStatus(team.id, input)
 
@@ -778,6 +813,23 @@ export const registerRouter = {
 
       if (hasIncompleteFields) {
         throw new Error("All required forms must be completed before submitting")
+      }
+
+      // Check member3 based on team member count
+      if (team.memberCount === 3) {
+        if (status.member3 !== "DONE") {
+          throw new Error("All team members must be registered before submitting")
+        }
+      } else if (team.memberCount === 2) {
+        // For 2-member teams, member3 should be NOT_HAVE
+        if (status.member3 !== "NOT_HAVE") {
+          throw new Error("Invalid member3 status for 2-member team")
+        }
+      }
+
+      // Check if already submitted
+      if (status.submitRegister) {
+        throw new Error("Registration has already been submitted")
       }
 
       // Update submit timestamp
