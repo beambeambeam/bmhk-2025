@@ -47,12 +47,12 @@ function RegisterStatus() {
   return (
     <div className="relative w-full">
       <div className="relative z-0 flex w-full justify-between">
-        {NODES.map((node, index) => (
-          <RegisterBlob index={index} total={NODES.length} {...node} key={node.pattern} />
+        {NODES.filter((node) => node.status !== "NOT_HAVE").map((node, index, arr) => (
+          <RegisterBlob index={index} total={arr.length} {...node} key={node.pattern} />
         ))}
       </div>
       <div className="relative z-0 mt-4 flex w-full justify-between">
-        {NODES.map((node) => (
+        {NODES.filter((node) => node.status !== "NOT_HAVE").map((node) => (
           <div key={node.pattern} className="flex w-full items-center justify-center">
             <div className={cn("h-full max-h-[0.5rem] min-h-[0.5rem] w-full bg-transparent")} />
             <div className="whitespace-nowrap text-center text-2xl font-medium text-white">{node.name}</div>
@@ -80,7 +80,7 @@ const RegisterBlob = (
 
     <div className="flex flex-col items-center justify-center">
       <div className="relative">
-        <div className="liquid flex size-[100px] items-center justify-center rounded-full backdrop-blur-2xl">
+        <div className="liquid flex size-[70px] items-center justify-center rounded-full backdrop-blur-2xl lg:size-[72px] 2xl:size-[100px]">
           d
         </div>
         {props.status === "DONE" && (
