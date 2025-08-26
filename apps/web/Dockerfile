@@ -24,6 +24,11 @@ RUN pnpm install --frozen-lockfile
 
 COPY --from=builder /app/out/full/ .
 
+ARG NEXT_PUBLIC_SERVER_URL
+ARG NEXT_PUBLIC_WEB_URL
+ENV NEXT_PUBLIC_SERVER_URL=$NEXT_PUBLIC_SERVER_URL
+ENV NEXT_PUBLIC_WEB_URL=$NEXT_PUBLIC_WEB_URL
+
 RUN pnpm turbo build
 
 FROM base AS runner
