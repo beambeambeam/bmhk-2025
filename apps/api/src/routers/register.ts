@@ -1,4 +1,6 @@
 import { protectedProcedure } from "@/lib/orpc"
+import { getPresignedUrlForKey } from "@/lib/s3"
+import { uploadFileToS3 } from "@/lib/upload"
 import { db } from "@workspace/db"
 import { teams, file, advisor, member, registerStatus } from "@workspace/db/schema"
 import { eq, and } from "drizzle-orm"
@@ -66,13 +68,13 @@ export const registerRouter = {
           teamImage.length > 0
             ? {
                 id: teamImage[0].id,
-                upload_by: teamImage[0].uploadBy,
+                upload_by: teamImage[0].uploadBy ?? "ไม่ทราบผู้อัพโหลด",
                 resource_type: teamImage[0].resourceType,
                 upload_at: teamImage[0].uploadAt,
                 name: teamImage[0].name,
                 size: teamImage[0].size,
                 type: teamImage[0].type,
-                url: teamImage[0].url,
+                url: await getPresignedUrlForKey(teamImage[0].url),
               }
             : null,
       }
@@ -116,6 +118,8 @@ export const registerRouter = {
         let fileId: string | undefined
 
         if (teamImageFile) {
+          const key = `uploads/${userId}/team/${Date.now()}_${encodeURIComponent(teamImageFile.name)}`
+          const keySaved = await uploadFileToS3({ file: teamImageFile, key })
           const fileRecord = await db
             .insert(file)
             .values({
@@ -124,7 +128,7 @@ export const registerRouter = {
               name: teamImageFile.name,
               size: teamImageFile.size,
               type: teamImageFile.type,
-              url: "",
+              url: keySaved,
             })
             .returning()
 
@@ -230,26 +234,26 @@ export const registerRouter = {
           nationalDoc.length > 0
             ? {
                 id: nationalDoc[0].id,
-                upload_by: nationalDoc[0].uploadBy,
+                upload_by: nationalDoc[0].uploadBy ?? "ไม่ทราบผู็อัพโหลด",
                 resource_type: nationalDoc[0].resourceType,
                 upload_at: nationalDoc[0].uploadAt,
                 name: nationalDoc[0].name,
                 size: nationalDoc[0].size,
                 type: nationalDoc[0].type,
-                url: nationalDoc[0].url,
+                url: await getPresignedUrlForKey(nationalDoc[0].url),
               }
             : null,
         teacherDoc:
           teacherDoc.length > 0
             ? {
                 id: teacherDoc[0].id,
-                upload_by: teacherDoc[0].uploadBy,
+                upload_by: teacherDoc[0].uploadBy ?? "ไม่ทราบผู็อัพโหลด",
                 resource_type: teacherDoc[0].resourceType,
                 upload_at: teacherDoc[0].uploadAt,
                 name: teacherDoc[0].name,
                 size: teacherDoc[0].size,
                 type: teacherDoc[0].type,
-                url: teacherDoc[0].url,
+                url: await getPresignedUrlForKey(teacherDoc[0].url),
               }
             : null,
       }
@@ -311,6 +315,8 @@ export const registerRouter = {
         let teacherDocId: string | undefined
 
         if (nationalDocFile) {
+          const key = `uploads/${userId}/adviser/national/${Date.now()}_${encodeURIComponent(nationalDocFile.name)}`
+          const keySaved = await uploadFileToS3({ file: nationalDocFile, key })
           const nationalDocRecord = await db
             .insert(file)
             .values({
@@ -319,7 +325,7 @@ export const registerRouter = {
               name: nationalDocFile.name,
               size: nationalDocFile.size,
               type: nationalDocFile.type,
-              url: "",
+              url: keySaved,
             })
             .returning()
 
@@ -327,6 +333,8 @@ export const registerRouter = {
         }
 
         if (teacherDocFile) {
+          const key = `uploads/${userId}/adviser/teacher/${Date.now()}_${encodeURIComponent(teacherDocFile.name)}`
+          const keySaved = await uploadFileToS3({ file: teacherDocFile, key })
           const teacherDocRecord = await db
             .insert(file)
             .values({
@@ -335,7 +343,7 @@ export const registerRouter = {
               name: teacherDocFile.name,
               size: teacherDocFile.size,
               type: teacherDocFile.type,
-              url: "",
+              url: keySaved,
             })
             .returning()
 
@@ -481,7 +489,7 @@ export const registerRouter = {
                   name: nationalDoc[0].name,
                   size: nationalDoc[0].size,
                   type: nationalDoc[0].type,
-                  url: nationalDoc[0].url,
+                  url: await getPresignedUrlForKey(nationalDoc[0].url),
                 }
               : null,
           p7Doc:
@@ -494,7 +502,7 @@ export const registerRouter = {
                   name: p7Doc[0].name,
                   size: p7Doc[0].size,
                   type: p7Doc[0].type,
-                  url: p7Doc[0].url,
+                  url: await getPresignedUrlForKey(p7Doc[0].url),
                 }
               : null,
           facePic:
@@ -507,7 +515,7 @@ export const registerRouter = {
                   name: facePic[0].name,
                   size: facePic[0].size,
                   type: facePic[0].type,
-                  url: facePic[0].url,
+                  url: await getPresignedUrlForKey(facePic[0].url),
                 }
               : null,
         }
@@ -575,6 +583,8 @@ export const registerRouter = {
         let p7DocId: string | undefined
 
         if (nationalDocFile) {
+          const key = `uploads/${userId}/member/${input.memberIndex}/national/${Date.now()}_${encodeURIComponent(nationalDocFile.name)}`
+          const keySaved = await uploadFileToS3({ file: nationalDocFile, key })
           const nationalDocRecord = await db
             .insert(file)
             .values({
@@ -583,7 +593,7 @@ export const registerRouter = {
               name: nationalDocFile.name,
               size: nationalDocFile.size,
               type: nationalDocFile.type,
-              url: "",
+              url: keySaved,
             })
             .returning()
 
@@ -591,6 +601,8 @@ export const registerRouter = {
         }
 
         if (facePictureFile) {
+          const key = `uploads/${userId}/member/${input.memberIndex}/face/${Date.now()}_${encodeURIComponent(facePictureFile.name)}`
+          const keySaved = await uploadFileToS3({ file: facePictureFile, key })
           const facePicRecord = await db
             .insert(file)
             .values({
@@ -599,7 +611,7 @@ export const registerRouter = {
               name: facePictureFile.name,
               size: facePictureFile.size,
               type: facePictureFile.type,
-              url: "",
+              url: keySaved,
             })
             .returning()
 
@@ -607,6 +619,8 @@ export const registerRouter = {
         }
 
         if (p7DocFile) {
+          const key = `uploads/${userId}/member/${input.memberIndex}/p7/${Date.now()}_${encodeURIComponent(p7DocFile.name)}`
+          const keySaved = await uploadFileToS3({ file: p7DocFile, key })
           const p7DocRecord = await db
             .insert(file)
             .values({
@@ -615,7 +629,7 @@ export const registerRouter = {
               name: p7DocFile.name,
               size: p7DocFile.size,
               type: p7DocFile.type,
-              url: "",
+              url: keySaved,
             })
             .returning()
 
