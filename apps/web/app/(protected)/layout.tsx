@@ -3,15 +3,26 @@
 import RegisterStatus from "@/app/(protected)/_components/status"
 import { RegisterStatusProvider } from "@/app/(protected)/_components/status/context"
 import PolicyConsent from "@/components/accpet-card/policy"
+import { authClient } from "@/lib/auth-client"
 import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
-import { ReactNode, useMemo } from "react"
+import { useRouter } from "next/navigation"
+import { ReactNode, useEffect, useMemo } from "react"
 
 interface ProtectedLayoutProps {
   readonly children: ReactNode
 }
 
 function ProtectedLayout({ children }: ProtectedLayoutProps) {
+  const { data: session } = authClient.useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!session?.user) {
+      router.push("/sign-in")
+    }
+  }, [session])
+
   const query = useQuery(orpc.register.status.get.queryOptions())
 
   const initialState = useMemo(() => {
