@@ -51,7 +51,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
 
   const mutation = useMutation(
     orpc.register.adviser.set.mutationOptions({
-      onSuccess: () => router.push("/1"),
+      onSuccess: () => router.push("/register/1"),
     })
   )
 
