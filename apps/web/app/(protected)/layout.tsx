@@ -12,7 +12,7 @@ interface ProtectedLayoutProps {
 }
 
 function ProtectedLayout({ children }: ProtectedLayoutProps) {
-  const query = useQuery(orpc.register.getRegisterStatus.queryOptions())
+  const query = useQuery(orpc.register.status.get.queryOptions())
 
   if (query.isLoading) {
     return null
