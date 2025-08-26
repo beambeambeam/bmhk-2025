@@ -20,10 +20,8 @@ export interface RegisterStatusState {
   setSubmitRegister: (timestamp: Date) => void
 }
 
-// Create the store
 const createRegisterStatusStore = (initialState: Partial<RegisterStatusState> = {}) =>
   createStore<RegisterStatusState>((set) => ({
-    // Default state
     team: "NOT_DONE",
     adviser: "NOT_DONE",
     member1: "NOT_DONE",
@@ -32,7 +30,6 @@ const createRegisterStatusStore = (initialState: Partial<RegisterStatusState> = 
     submitRegister: null,
     ...initialState,
 
-    // Actions
     setStatus: (field, status) =>
       set((state) => ({
         ...state,
@@ -48,7 +45,6 @@ const createRegisterStatusStore = (initialState: Partial<RegisterStatusState> = 
 // Context for dependency injection
 const RegisterStatusContext = createContext<ReturnType<typeof createRegisterStatusStore> | null>(null)
 
-// Provider component
 export const RegisterStatusProvider = ({
   children,
   initialState,
@@ -61,7 +57,6 @@ export const RegisterStatusProvider = ({
   return <RegisterStatusContext.Provider value={store}>{children}</RegisterStatusContext.Provider>
 }
 
-// Hook to use the store with context
 export const useRegisterStatus = <T,>(selector: (state: RegisterStatusState) => T): T => {
   const store = useContext(RegisterStatusContext)
   if (!store) {
@@ -82,7 +77,6 @@ export const useAllStatus = () =>
     }))
   )
 
-// Convenience hooks for specific state slices
 export const useTeamStatus = () => useRegisterStatus((state) => state.team)
 export const useAdviserStatus = () => useRegisterStatus((state) => state.adviser)
 export const useMember1Status = () => useRegisterStatus((state) => state.member1)
@@ -90,7 +84,6 @@ export const useMember2Status = () => useRegisterStatus((state) => state.member2
 export const useMember3Status = () => useRegisterStatus((state) => state.member3)
 export const useSubmitRegister = () => useRegisterStatus((state) => state.submitRegister)
 
-// Hook for actions
 export const useRegisterStatusActions = () =>
   useRegisterStatus(
     useShallow((state) => ({
@@ -99,17 +92,14 @@ export const useRegisterStatusActions = () =>
     }))
   )
 
-// Hook to check if all required forms are completed
 export const useIsRegistrationComplete = () =>
   useRegisterStatus((state) => {
     const requiredFields = ["team", "adviser", "member1", "member2"] as const
     return requiredFields.every((field) => state[field] === "DONE")
   })
 
-// Hook to check if registration is submitted
 export const useIsRegistrationSubmitted = () => useRegisterStatus((state) => state.submitRegister !== null)
 
-// Hook to check if required fields are incomplete
 export const useHasIncompleteFields = () =>
   useRegisterStatus((state) => {
     return (
@@ -120,7 +110,6 @@ export const useHasIncompleteFields = () =>
     )
   })
 
-// Hook to check if registration is ready for final submit
 export const useIsReadyForFinalSubmit = (memberCount: number) =>
   useRegisterStatus((state) => {
     const hasIncompleteFields =
@@ -131,12 +120,10 @@ export const useIsReadyForFinalSubmit = (memberCount: number) =>
 
     if (hasIncompleteFields) return false
 
-    // For 3-member teams, member3 must be DONE
     if (memberCount === 3) {
       return state.member3 === "DONE"
     }
 
-    // For 2-member teams, member3 should be NOT_HAVE
     if (memberCount === 2) {
       return state.member3 === "NOT_HAVE"
     }
