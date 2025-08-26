@@ -30,7 +30,7 @@ function MemberPage2() {
     orpc.register.member.set.mutationOptions({
       onSuccess: () => {
         if (teamQuery.data?.success && teamQuery.data.team?.memberCount === 3) {
-          router.push("/3")
+          router.push("/register/3")
         }
       },
     })

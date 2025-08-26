@@ -27,14 +27,7 @@ function MemberPage3() {
     })
   )
 
-  const mutation = useMutation(
-    orpc.register.member.set.mutationOptions({
-      onSuccess: () => {
-        // After member 3 is saved, check if we should show final submit
-        // The showFinalSubmit will be true automatically if all conditions are met
-      },
-    })
-  )
+  const mutation = useMutation(orpc.register.member.set.mutationOptions())
 
   const submitMutation = useMutation(
     orpc.register.status.submit.mutationOptions({
@@ -62,12 +55,10 @@ function MemberPage3() {
     return <div>Loading...</div>
   }
 
-  // Don't render if we're redirecting
   if (!teamQuery.data?.success || !teamQuery.data.team || teamQuery.data.team.memberCount === 2) {
     return null
   }
 
-  // Check if all forms are completed and show final submit button
   const isReadyForSubmit = useIsReadyForFinalSubmit(teamQuery.data.team.memberCount || 3)
   const showFinalSubmit = isReadyForSubmit
 
