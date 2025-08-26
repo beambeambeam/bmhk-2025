@@ -40,7 +40,6 @@ function ProtectedLayout({ children }: ProtectedLayoutProps) {
 
   return (
     <RegisterStatusProvider initialState={initialState}>
-      <RegisterStatus />
       {!query.isPending && children}
       <PolicyConsent />
     </RegisterStatusProvider>
