@@ -22,8 +22,6 @@ services:
           memory: 1G
         reservations:
           memory: 512M
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
 
   watchtower:
     image: containrrr/watchtower
