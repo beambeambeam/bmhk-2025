@@ -1,9 +1,11 @@
 "use client"
 
+
 import GlassCard from "@/components/glassCard"
 import { authClient } from "@/lib/auth-client"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+
 
 function SignInPage() {
   const { data: session, isPending } = authClient.useSession()
@@ -20,6 +22,7 @@ function SignInPage() {
     window.addEventListener("resize", checkHeight)
     return () => window.removeEventListener("resize", checkHeight)
   }, [])
+
 
   useEffect(() => {
     if (session?.user && !isPending) {
