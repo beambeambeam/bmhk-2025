@@ -1,6 +1,7 @@
 "use client"
 
 import AdviserRegisterForm from "@/app/(protected)/register/adviser/_components/form"
+import ScrollArea from "@/app/_components/scope/ScrollArea"
 import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
 
@@ -12,30 +13,34 @@ function AdviserRegisterPage() {
   }
 
   return (
-    <div className="h-full min-h-screen w-full bg-black">
-      <AdviserRegisterForm
-        defaultValues={
-          query.data && query.data.success && query.data.adviser
-            ? {
-                prefix: query.data.adviser.prefix as "MR" | "MS" | "MRS",
-                thai_firstname: query.data.adviser.thaiFirstname ?? "",
-                thai_middlename: query.data.adviser.thaiMiddlename ?? "",
-                thai_lastname: query.data.adviser.thaiLastname ?? "",
-                english_firstname: query.data.adviser.firstName ?? "",
-                english_middlename: query.data.adviser.middleName ?? "",
-                english_lastname: query.data.adviser.lastname ?? "",
-                food_allergy: query.data.adviser.foodAllergy ?? "",
-                food_type: query.data.adviser.foodType ?? "",
-                drug_allergy: query.data.adviser.drugAllergy ?? "",
-                email: query.data.adviser.email ?? "",
-                phone_number: query.data.adviser.phoneNumber ?? "",
-                line_id: query.data.adviser.lineId ?? "",
-                national_doc: query.data.adviser.nationalDoc ? [query.data.adviser.nationalDoc] : [],
-                teacher_doc: query.data.adviser.teacherDoc ? [query.data.adviser.teacherDoc] : [],
-              }
-            : undefined
-        }
-      />
+    <div className="flex h-full min-h-screen w-full items-center justify-center bg-black">
+      <div className="h-full w-full max-w-[62rem]">
+        <ScrollArea colorTheme="#9F83DC" className="max-h-full">
+          <AdviserRegisterForm
+            defaultValues={
+              query.data && query.data.success && query.data.adviser
+                ? {
+                    prefix: query.data.adviser.prefix as "MR" | "MS" | "MRS",
+                    thai_firstname: query.data.adviser.thaiFirstname ?? "",
+                    thai_middlename: query.data.adviser.thaiMiddlename ?? "",
+                    thai_lastname: query.data.adviser.thaiLastname ?? "",
+                    english_firstname: query.data.adviser.firstName ?? "",
+                    english_middlename: query.data.adviser.middleName ?? "",
+                    english_lastname: query.data.adviser.lastname ?? "",
+                    food_allergy: query.data.adviser.foodAllergy ?? "",
+                    food_type: query.data.adviser.foodType ?? "",
+                    drug_allergy: query.data.adviser.drugAllergy ?? "",
+                    email: query.data.adviser.email ?? "",
+                    phone_number: query.data.adviser.phoneNumber ?? "",
+                    line_id: query.data.adviser.lineId ?? "",
+                    national_doc: query.data.adviser.nationalDoc ? [query.data.adviser.nationalDoc] : [],
+                    teacher_doc: query.data.adviser.teacherDoc ? [query.data.adviser.teacherDoc] : [],
+                  }
+                : undefined
+            }
+          />
+        </ScrollArea>
+      </div>
     </div>
   )
 }
