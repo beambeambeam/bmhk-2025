@@ -65,11 +65,11 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full max-w-[62rem] flex-col gap-6">
-        <div className="grid w-full grid-cols-[auto_1fr] gap-8">
-          <div className="col-span-2 grid grid-cols-2 gap-4">
+        <div className="grid w-full gap-8 lg:grid-rows-[auto_1fr_1fr] 2xl:grid-cols-[auto_1fr]">
+          <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
             <p className="text-3xl text-white">1. ข้อมูลทีม</p>
           </div>
-          <div className="w-full">
+          <div className="flex w-full items-center justify-center">
             <FormField
               control={form.control}
               name="team_image"
@@ -84,7 +84,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
               )}
             />
           </div>
-          <div className="grid w-full grid-cols-2 grid-rows-2 gap-4">
+          <div className="grid w-full gap-4 lg:grid-cols-2 lg:grid-rows-2">
             <FormField
               control={form.control}
               name="team_name"
