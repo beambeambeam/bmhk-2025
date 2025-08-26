@@ -52,11 +52,11 @@ function Contact() {
                   </div>
                 </div>
                 <div className="text-body-1 text-[16px] lg:text-[20px] 2xl:text-[24px]">
-                  ภูริณัฐ พลอาสา (นาโน)
+                  ภัทรธร มหัตกีรติ (จิตอล)
                 </div>
-                <div className="text-body-1 text-[18px] lg:text-[20px] 2xl:text-[24px]">081 837 0772</div>
+                <div className="text-body-1 text-[18px] lg:text-[20px] 2xl:text-[24px]">095 553 1132</div>
                 <div className="text-body-1 whitespace-normal break-words text-[18px] lg:text-[20px] 2xl:text-[24px]">
-                  phurinat.pola@kmutt.ac.th
+                  phattaratorn.mahatk@mail.kmutt.ac.th
                 </div>
               </div>
             </div>
@@ -76,17 +76,17 @@ function Contact() {
                 </div>
               </div>
               <div className="text-body-1 text-[16px] lg:text-[20px] 2xl:text-[24px]">
-                อาคารวิศววัฒนะ ชั้น 10 เลขที่ 126 ถ.ประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพฯ 10140
+                อาคารวิศววัฒนะ ชั้น 10-11 เลขที่ 126 ถ.ประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพฯ 10140
               </div>
             </div>
             <div className="flex gap-6">
               <a href={siteConfig.links.facebook} target="_blank" rel="noopener noreferrer">
-                <IconCircle className="h-[60px] w-[60px] flex-shrink-0 lg:h-[70px] lg:w-[70px] 2xl:h-[90px] 2xl:w-[90px]">
+                <IconCircle className="h-[60px] w-[60px] flex-shrink-0 lg:h-[70px] lg:w-[70px] 2xl:h-[90px] 2xl:w-[90px] cursor-pointer">
                   <img src="/static/icon/Facebook.svg" alt="Facebook Icon" />
                 </IconCircle>
               </a>
               <a href={siteConfig.links.instagram} target="_blank" rel="noopener noreferrer">
-                <IconCircle className="h-[60px] w-[60px] flex-shrink-0 lg:h-[70px] lg:w-[70px] 2xl:h-[90px] 2xl:w-[90px]">
+                <IconCircle className="h-[60px] w-[60px] flex-shrink-0 lg:h-[70px] lg:w-[70px] 2xl:h-[90px] 2xl:w-[90px] cursor-pointer">
                   <img src="/static/icon/Instagram.svg" alt="Instagram Icon" />
                 </IconCircle>
               </a>
