@@ -2,7 +2,7 @@
 
 import DocumentUploader from "@/app/(protected)/register/_components/document_uploader"
 import FormProps from "@/types/form"
-import { orpc } from "@/utils/orpc"
+import { orpc, queryClient } from "@/utils/orpc"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { Button } from "@workspace/ui/components/button"
@@ -51,7 +51,12 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
 
   const mutation = useMutation(
     orpc.register.adviser.set.mutationOptions({
-      onSuccess: () => router.push("/register/1"),
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: orpc.register.status.get.key(),
+        })
+        router.push("/register/1")
+      },
     })
   )
 

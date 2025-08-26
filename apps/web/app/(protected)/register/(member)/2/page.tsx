@@ -7,7 +7,7 @@ import {
 import MemberRegisterForm, {
   ProcessedMemberRegisterSchemaType,
 } from "@/app/(protected)/register/(member)/_components/form"
-import { orpc } from "@/utils/orpc"
+import { orpc, queryClient } from "@/utils/orpc"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { Button } from "@workspace/ui/components/button"
 import { useRouter } from "next/navigation"
@@ -29,6 +29,9 @@ function MemberPage2() {
   const mutation = useMutation(
     orpc.register.member.set.mutationOptions({
       onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: orpc.register.status.get.key(),
+        })
         if (teamQuery.data?.success && teamQuery.data.team?.memberCount === 3) {
           router.push("/register/3")
         }

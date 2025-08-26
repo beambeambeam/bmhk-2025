@@ -3,7 +3,7 @@
 import MemberRegisterForm, {
   ProcessedMemberRegisterSchemaType,
 } from "@/app/(protected)/register/(member)/_components/form"
-import { orpc } from "@/utils/orpc"
+import { orpc, queryClient } from "@/utils/orpc"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 
@@ -22,7 +22,12 @@ function MemberPage1() {
 
   const mutation = useMutation(
     orpc.register.member.set.mutationOptions({
-      onSuccess: () => router.push("/register/2"),
+      onSuccess: () => {
+        router.push("/register/2")
+        queryClient.invalidateQueries({
+          queryKey: orpc.register.status.get.key(),
+        })
+      },
     })
   )
 
