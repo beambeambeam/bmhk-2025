@@ -47,7 +47,7 @@ type memberRegisterSchemaType = Omit<
   p7_doc: (File | FileMetadata)[]
 }
 
-type ProcessedMemberRegisterSchemaType = Omit<
+export type ProcessedMemberRegisterSchemaType = Omit<
   memberRegisterSchemaType,
   "national_doc" | "face_picture" | "p7_doc"
 > & {
