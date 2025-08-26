@@ -22,7 +22,7 @@ const fontBaiJamjuree = Bai_Jamjuree({
 export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
-  keywords: ["Bangmod Hackathon", "Hackathon", "Programming Competition", "KMUTT"],
+  keywords: ["Bangmod Hackathon", "Hackathon", "Programming Competition", "KMUTT", "CPE KMUTT"],
   openGraph: {
     type: "website",
     url: siteConfig.url,
@@ -40,6 +40,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="apple-mobile-web-app-title" content="Bangmod Hackathon 2025" />
+      </head>
       <body className={cn("font-prompt antialiased", fontPrompt.variable, fontBaiJamjuree.variable)}>
         <Providers>
           {children}
