@@ -1,4 +1,5 @@
 import { protectedProcedure } from "@/lib/orpc"
+import { uploadFileToS3 } from "@/lib/upload"
 import { db } from "@workspace/db"
 import { teams, file, advisor, member, registerStatus } from "@workspace/db/schema"
 import { eq, and } from "drizzle-orm"
@@ -116,6 +117,8 @@ export const registerRouter = {
         let fileId: string | undefined
 
         if (teamImageFile) {
+          const key = `uploads/${userId}/team/${Date.now()}_${encodeURIComponent(teamImageFile.name)}`
+          const url = await uploadFileToS3({ file: teamImageFile, key })
           const fileRecord = await db
             .insert(file)
             .values({
@@ -124,7 +127,7 @@ export const registerRouter = {
               name: teamImageFile.name,
               size: teamImageFile.size,
               type: teamImageFile.type,
-              url: "",
+              url,
             })
             .returning()
 
@@ -311,6 +314,8 @@ export const registerRouter = {
         let teacherDocId: string | undefined
 
         if (nationalDocFile) {
+          const key = `uploads/${userId}/adviser/national/${Date.now()}_${encodeURIComponent(nationalDocFile.name)}`
+          const url = await uploadFileToS3({ file: nationalDocFile, key })
           const nationalDocRecord = await db
             .insert(file)
             .values({
@@ -319,7 +324,7 @@ export const registerRouter = {
               name: nationalDocFile.name,
               size: nationalDocFile.size,
               type: nationalDocFile.type,
-              url: "",
+              url,
             })
             .returning()
 
@@ -327,6 +332,8 @@ export const registerRouter = {
         }
 
         if (teacherDocFile) {
+          const key = `uploads/${userId}/adviser/teacher/${Date.now()}_${encodeURIComponent(teacherDocFile.name)}`
+          const url = await uploadFileToS3({ file: teacherDocFile, key })
           const teacherDocRecord = await db
             .insert(file)
             .values({
@@ -335,7 +342,7 @@ export const registerRouter = {
               name: teacherDocFile.name,
               size: teacherDocFile.size,
               type: teacherDocFile.type,
-              url: "",
+              url,
             })
             .returning()
 
@@ -575,6 +582,8 @@ export const registerRouter = {
         let p7DocId: string | undefined
 
         if (nationalDocFile) {
+          const key = `uploads/${userId}/member/${input.memberIndex}/national/${Date.now()}_${encodeURIComponent(nationalDocFile.name)}`
+          const url = await uploadFileToS3({ file: nationalDocFile, key })
           const nationalDocRecord = await db
             .insert(file)
             .values({
@@ -583,7 +592,7 @@ export const registerRouter = {
               name: nationalDocFile.name,
               size: nationalDocFile.size,
               type: nationalDocFile.type,
-              url: "",
+              url,
             })
             .returning()
 
@@ -591,6 +600,8 @@ export const registerRouter = {
         }
 
         if (facePictureFile) {
+          const key = `uploads/${userId}/member/${input.memberIndex}/face/${Date.now()}_${encodeURIComponent(facePictureFile.name)}`
+          const url = await uploadFileToS3({ file: facePictureFile, key })
           const facePicRecord = await db
             .insert(file)
             .values({
@@ -599,7 +610,7 @@ export const registerRouter = {
               name: facePictureFile.name,
               size: facePictureFile.size,
               type: facePictureFile.type,
-              url: "",
+              url,
             })
             .returning()
 
@@ -607,6 +618,8 @@ export const registerRouter = {
         }
 
         if (p7DocFile) {
+          const key = `uploads/${userId}/member/${input.memberIndex}/p7/${Date.now()}_${encodeURIComponent(p7DocFile.name)}`
+          const url = await uploadFileToS3({ file: p7DocFile, key })
           const p7DocRecord = await db
             .insert(file)
             .values({
@@ -615,7 +628,7 @@ export const registerRouter = {
               name: p7DocFile.name,
               size: p7DocFile.size,
               type: p7DocFile.type,
-              url: "",
+              url,
             })
             .returning()
 
