@@ -8,6 +8,13 @@
       "when": 1756149173905,
       "tag": "0000_white_dagger",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1756183999763,
+      "tag": "0001_unique_shotgun",
+      "breakpoints": true
     }
   ]
 }
