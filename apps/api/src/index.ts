@@ -25,7 +25,7 @@ app.use(
 app.on(["POST", "GET"], "/api/auth/**", (c) => auth.handler(c.req.raw))
 
 const handler = new RPCHandler(appRouter)
-app.use("/rpc/*", async (c, next) => {
+app.use("/api/rpc/*", async (c, next) => {
   const context = await createContext({ context: c })
   const { matched, response } = await handler.handle(c.req.raw, {
     prefix: "/rpc",
@@ -51,3 +51,6 @@ serve(
     console.log(`Server is running on http://localhost:${info.port}`)
   }
 )
+
+// Export types for the web app to use
+export type { AppRouter, AppRouterClient } from "./routers"

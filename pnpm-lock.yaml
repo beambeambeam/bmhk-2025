@@ -75,9 +75,18 @@ importers:
       '@workspace/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@workspace/db':
+        specifier: workspace:*
+        version: link:../../packages/db
+      drizzle-orm:
+        specifier: ^0.36.4
+        version: 0.36.4(@types/pg@8.15.5)(@types/react@19.1.10)(kysely@0.28.5)(pg@8.16.3)(postgres@3.4.7)(react@19.1.1)
       hono:
         specifier: ^4.9.4
         version: 4.9.4
+      zod:
+        specifier: ^4.0.17
+        version: 4.0.17
     devDependencies:
       '@types/node':
         specifier: ^20.11.17

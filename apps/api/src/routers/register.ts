@@ -30,8 +30,6 @@ export const registerRouter = {
         throw new Error("User already has a registered team")
       }
 
-      // Handle file upload - for now, we'll create a placeholder file record
-      // In a real implementation, you'd upload the file to a storage service
       const fileRecord = await db
         .insert(file)
         .values({
