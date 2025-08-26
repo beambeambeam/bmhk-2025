@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@workspace/ui/components/select"
 import type { FileMetadata } from "@workspace/ui/hooks/use-file-upload"
+import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import z from "zod"
 
@@ -46,7 +47,13 @@ type AdviserRegisterSchemaType = Omit<
 }
 
 function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
-  const mutation = useMutation(orpc.register.adviser.set.mutationOptions())
+  const router = useRouter()
+
+  const mutation = useMutation(
+    orpc.register.adviser.set.mutationOptions({
+      onSuccess: () => router.push("/1"),
+    })
+  )
 
   const form = useForm<z.infer<typeof adviserRegisterSchema>>({
     resolver: zodResolver(adviserRegisterSchema),

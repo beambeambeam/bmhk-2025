@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@workspace/ui/components/select"
 import type { FileMetadata } from "@workspace/ui/hooks/use-file-upload"
+import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import z from "zod"
 
@@ -32,7 +33,13 @@ type TeamRegisterSchemaType = Omit<z.infer<typeof teamRegisterSchema>, "team_ima
 }
 
 function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
-  const mutation = useMutation(orpc.register.team.set.mutationOptions())
+  const router = useRouter()
+
+  const mutation = useMutation(
+    orpc.register.team.set.mutationOptions({
+      onSuccess: () => router.push("/register/adviser"),
+    })
+  )
 
   const form = useForm<z.infer<typeof teamRegisterSchema>>({
     resolver: zodResolver(teamRegisterSchema),

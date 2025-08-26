@@ -20,8 +20,11 @@ function MemberPage1() {
     })
   )
 
-  // Set member mutation
-  const mutation = useMutation(orpc.register.member.set.mutationOptions())
+  const mutation = useMutation(
+    orpc.register.member.set.mutationOptions({
+      onSuccess: () => router.push("/2"),
+    })
+  )
 
   if (teamQuery.isLoading || memberQuery.isLoading) {
     return <div>Loading...</div>
