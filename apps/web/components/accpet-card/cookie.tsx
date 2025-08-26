@@ -51,7 +51,7 @@ export default function CookieConsent({ demo = false }) {
               เราใช้คุกกี้ (Cookies) ที่จำเป็นเพื่อให้เว็บไซต์ทำงานได้อย่างถูกต้องและช่วยให้คุณใช้งาน
               ฟีเจอร์พื้นฐาน และเข้าถึงพื้นที่ปลอดภัยของเว็บไซต์ อ่านเพิ่มเติมได้ที่
               <Link href="/privacy-policy" className="text-vermilion">
-                นโยบายความเป็นส่วนตัวล
+                นโยบายความเป็นส่วนตัว
               </Link>
               <br />
             </p>

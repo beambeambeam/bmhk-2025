@@ -60,7 +60,7 @@ function Story() {
             backgroundImage: `
               radial-gradient(
                 66.31% 84.48% at 52.63% 121.84%, 
-                rgba(${currentStory['radial-grad-start']},0.5) 0%, 
+                rgba(${currentStory['radial-grad-start']},0.25) 0%, 
                 rgba(${currentStory['radial-grad-end']},0) 100%
               ),
               linear-gradient(
@@ -68,12 +68,11 @@ function Story() {
                 rgba(${currentStory['linear-grad-start']},0.09) -2.48%,
                 rgba(${currentStory['linear-grad-end']},0.09) 29.08%
               ),
-              linear-gradient(rgba(160,160,160,0.6), rgba(0,0,0,0.8)),
               url("/static/story/${currentStory.background}")
             `,
-            backgroundSize: 'auto, auto, auto, cover',
-            backgroundPosition: 'center, center, center, center',
-            backgroundRepeat: 'no-repeat, no-repeat, no-repeat, no-repeat',
+            backgroundSize: 'auto, auto, cover',
+            backgroundPosition: 'center, center, center',
+            backgroundRepeat: 'no-repeat, no-repeat, no-repeat',
             borderRadius: 40,
             display: 'flex',
             flexDirection: 'column',
