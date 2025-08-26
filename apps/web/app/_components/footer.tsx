@@ -3,9 +3,7 @@
 import GlassCard from "@/components/glassCard"
 import IconCircle from "@/components/iconCircle"
 import { siteConfig } from "@/config/site"
-import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 
 interface Sponsor {
   name: string
@@ -41,8 +39,6 @@ function Sponsor() {
 }
 
 function Footer() {
-  const router = useRouter()
-
   return (
     <GlassCard
       className="lg:py-15 p-6 lg:px-20 2xl:px-[120px] 2xl:py-[90px]"
@@ -91,12 +87,12 @@ function Footer() {
                 {" "}
                 {/* Social Media */}
                 <a href={siteConfig.links.facebook} target="_blank" rel="noopener noreferrer">
-                  <IconCircle className="h-[60px] w-[60px] flex-shrink-0 lg:h-[70px] lg:w-[70px] 2xl:h-[80px] 2xl:w-[80px] cursor-pointer">
+                  <IconCircle className="h-[60px] w-[60px] flex-shrink-0 cursor-pointer lg:h-[70px] lg:w-[70px] 2xl:h-[80px] 2xl:w-[80px]">
                     <img src="/static/icon/Facebook.svg" alt="Facebook Icon" />
                   </IconCircle>
                 </a>
                 <a href={siteConfig.links.instagram} target="_blank" rel="noopener noreferrer">
-                  <IconCircle className="h-[60px] w-[60px] flex-shrink-0 lg:h-[70px] lg:w-[70px] 2xl:h-[80px] 2xl:w-[80px] cursor-pointer">
+                  <IconCircle className="h-[60px] w-[60px] flex-shrink-0 cursor-pointer lg:h-[70px] lg:w-[70px] 2xl:h-[80px] 2xl:w-[80px]">
                     <img src="/static/icon/Instagram.svg" alt="Instagram Icon" />
                   </IconCircle>
                 </a>
@@ -139,63 +135,55 @@ function Footer() {
         <div className="flex items-center justify-between self-stretch max-lg:justify-center">
           <div className="flex items-center gap-6 lg:hidden 2xl:flex">
             <a href={siteConfig.links.facebook} target="_blank" rel="noopener noreferrer">
-              <IconCircle className="h-[60px] w-[60px] flex-shrink-0 2xl:h-[80px] 2xl:w-[80px] cursor-pointer">
+              <IconCircle className="h-[60px] w-[60px] flex-shrink-0 cursor-pointer 2xl:h-[80px] 2xl:w-[80px]">
                 <img src="/static/icon/Facebook.svg" alt="Facebook Icon" />
               </IconCircle>
             </a>
             <a href={siteConfig.links.instagram} target="_blank" rel="noopener noreferrer">
-              <IconCircle className="h-[60px] w-[60px] flex-shrink-0 2xl:h-[80px] 2xl:w-[80px] cursor-pointer">
+              <IconCircle className="h-[60px] w-[60px] flex-shrink-0 cursor-pointer 2xl:h-[80px] 2xl:w-[80px]">
                 <img src="/static/icon/Instagram.svg" alt="Instagram Icon" />
               </IconCircle>
             </a>
           </div>
           <div className="hidden items-center justify-between lg:flex lg:w-full 2xl:w-[820px]">
             <div
-              className="relative text-nav-2 cursor-pointer group"
-              onClick={() => (window.location.hash = "#landing")}
-            >
+              className="text-nav-2 group relative cursor-pointer"
+              onClick={() => (window.location.hash = "#landing")}>
               <span className="relative z-10">รายละเอียด</span>
-              <span className="absolute inset-0 rounded-full bg-[rgba(159,131,220,0.4)] blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+              <span className="absolute inset-0 rounded-full bg-[rgba(159,131,220,0.4)] opacity-0 blur-[40px] transition-opacity duration-500 group-hover:opacity-100"></span>
             </div>
 
             <div
-              className="relative text-nav-2 cursor-pointer group"
-              onClick={() => (window.location.hash = "#qualification")}
-            >
+              className="text-nav-2 group relative cursor-pointer"
+              onClick={() => (window.location.hash = "#qualification")}>
               <span className="relative z-10">คุณสมบัติ</span>
-              <span className="absolute inset-0 rounded-full bg-[rgba(159,131,220,0.4)] blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+              <span className="absolute inset-0 rounded-full bg-[rgba(159,131,220,0.4)] opacity-0 blur-[40px] transition-opacity duration-500 group-hover:opacity-100"></span>
             </div>
 
             <div
-              className="relative text-nav-2 cursor-pointer group"
-              onClick={() => (window.location.hash = "#award")}
-            >
+              className="text-nav-2 group relative cursor-pointer"
+              onClick={() => (window.location.hash = "#award")}>
               <span className="relative z-10">รางวัล</span>
-              <span className="absolute inset-0 rounded-full bg-[rgba(159,131,220,0.4)] blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+              <span className="absolute inset-0 rounded-full bg-[rgba(159,131,220,0.4)] opacity-0 blur-[40px] transition-opacity duration-500 group-hover:opacity-100"></span>
             </div>
 
             <div
-              className="relative text-nav-2 cursor-pointer group"
-              onClick={() => (window.location.hash = "#dateandcontest")}
-            >
+              className="text-nav-2 group relative cursor-pointer"
+              onClick={() => (window.location.hash = "#dateandcontest")}>
               <span className="relative z-10">กำหนดการ</span>
-              <span className="absolute inset-0 rounded-full bg-[rgba(159,131,220,0.4)] blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+              <span className="absolute inset-0 rounded-full bg-[rgba(159,131,220,0.4)] opacity-0 blur-[40px] transition-opacity duration-500 group-hover:opacity-100"></span>
             </div>
 
             <div
-              className="relative text-nav-2 cursor-pointer group"
-              onClick={() => (window.location.hash = "#contact")}
-            >
+              className="text-nav-2 group relative cursor-pointer"
+              onClick={() => (window.location.hash = "#contact")}>
               <span className="relative z-10">ติดต่อทีมงาน</span>
-              <span className="absolute inset-0 rounded-full bg-[rgba(159,131,220,0.4)] blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+              <span className="absolute inset-0 rounded-full bg-[rgba(159,131,220,0.4)] opacity-0 blur-[40px] transition-opacity duration-500 group-hover:opacity-100"></span>
             </div>
 
-            <Link
-              className="relative text-nav-2 cursor-pointer group"
-              href="/privacy-policy"
-            >
+            <Link className="text-nav-2 group relative cursor-pointer" href="/privacy-policy">
               <span className="relative z-10">นโยบายความเป็นส่วนตัว</span>
-              <span className="absolute inset-0 rounded-full bg-[rgba(159,131,220,0.4)] blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+              <span className="absolute inset-0 rounded-full bg-[rgba(159,131,220,0.4)] opacity-0 blur-[40px] transition-opacity duration-500 group-hover:opacity-100"></span>
             </Link>
           </div>
         </div>
