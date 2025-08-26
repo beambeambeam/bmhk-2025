@@ -78,7 +78,7 @@ function Footer() {
                   className="ml-[-24px] h-[100px] 2xl:ml-[-32px] 2xl:h-[140px]"
                 />
                 <img
-                  src="/static/logo/KMUTT_CPE.svg"
+                  src="/static/logo/KMUTT_CPE.webp"
                   alt="KMUTT CPE Logo"
                   className="max-h-[72px] max-w-[220px] object-contain"
                 />
