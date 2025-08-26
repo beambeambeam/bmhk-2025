@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useState, useEffect } from "react"
 import { createStore, useStore } from "zustand"
 import { useShallow } from "zustand/react/shallow"
 
@@ -14,10 +14,11 @@ export interface RegisterStatusState {
   submitRegister: Date | null
   // Actions
   setStatus: (
-    field: keyof Omit<RegisterStatusState, "setStatus" | "setSubmitRegister">,
+    field: keyof Omit<RegisterStatusState, "setStatus" | "setSubmitRegister" | "updateFromData">,
     status: RegisterStatusEnum
   ) => void
   setSubmitRegister: (timestamp: Date) => void
+  updateFromData: (data: Partial<RegisterStatusState>) => void
 }
 
 const createRegisterStatusStore = (initialState: Partial<RegisterStatusState> = {}) =>
@@ -40,6 +41,12 @@ const createRegisterStatusStore = (initialState: Partial<RegisterStatusState> = 
       set({
         submitRegister: timestamp,
       }),
+
+    updateFromData: (data) =>
+      set((state) => ({
+        ...state,
+        ...data,
+      })),
   }))
 
 // Context for dependency injection
@@ -54,6 +61,12 @@ export const RegisterStatusProvider = ({
 }) => {
   const [store] = useState(() => createRegisterStatusStore(initialState))
 
+  useEffect(() => {
+    if (initialState) {
+      store.getState().updateFromData(initialState)
+    }
+  }, [store, initialState])
+
   return <RegisterStatusContext.Provider value={store}>{children}</RegisterStatusContext.Provider>
 }
 
@@ -64,18 +77,6 @@ export const useRegisterStatus = <T,>(selector: (state: RegisterStatusState) => 
   }
   return useStore(store, selector)
 }
-
-export const useAllStatus = () =>
-  useRegisterStatus(
-    useShallow((state) => ({
-      team: state.team,
-      adviser: state.adviser,
-      member1: state.member1,
-      member2: state.member2,
-      member3: state.member3,
-      submitRegister: state.submitRegister,
-    }))
-  )
 
 export const useTeamStatus = () => useRegisterStatus((state) => state.team)
 export const useAdviserStatus = () => useRegisterStatus((state) => state.adviser)

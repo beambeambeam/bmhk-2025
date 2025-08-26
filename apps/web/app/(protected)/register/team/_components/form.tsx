@@ -2,7 +2,7 @@
 
 import AvatarUploader from "@/app/(protected)/register/team/_components/avatar"
 import FormProps from "@/types/form"
-import { orpc } from "@/utils/orpc"
+import { orpc, queryClient } from "@/utils/orpc"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { Button } from "@workspace/ui/components/button"
@@ -37,7 +37,12 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
 
   const mutation = useMutation(
     orpc.register.team.set.mutationOptions({
-      onSuccess: () => router.push("/register/adviser"),
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: orpc.register.status.get.key(),
+        })
+        router.push("/register/adviser")
+      },
     })
   )
 
