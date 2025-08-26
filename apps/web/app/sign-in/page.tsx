@@ -5,14 +5,14 @@ import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
 function SignInPage() {
-  const { data: session } = authClient.useSession()
+  const { data: session, isPending } = authClient.useSession()
   const router = useRouter()
 
   useEffect(() => {
-    if (session?.user) {
+    if (session?.user && !isPending) {
       router.push("/")
     }
-  }, [session])
+  }, [session, isPending])
 
   return (
     <div className="flex h-screen items-center justify-center">
