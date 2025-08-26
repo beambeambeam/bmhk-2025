@@ -136,8 +136,10 @@ export const registerRouter = {
         }
 
         let teamResult
+        let previousMemberCount: number | undefined
 
         if (existingTeam.length > 0) {
+          previousMemberCount = existingTeam[0].memberCount
           const updatedTeam = await db
             .update(teams)
             .set({
@@ -145,7 +147,7 @@ export const registerRouter = {
               school: input.school_name,
               memberCount: input.member_count,
               quote: input.quote,
-              award: "", // Keep award as empty string for now
+              award: "",
               ...(fileId && { imageId: fileId }),
             })
             .where(eq(teams.userId, userId))
@@ -173,9 +175,36 @@ export const registerRouter = {
           teamResult = teamRecord[0]
         }
 
-        // Update register status to mark team as DONE
-        await getOrCreateRegisterStatus(teamResult.id)
-        await updateRegisterStatus(teamResult.id, { team: "DONE" })
+        const statusUpdates: Partial<typeof registerStatus.$inferInsert> = { team: "DONE" }
+
+        if (existingTeam.length > 0 && previousMemberCount !== undefined) {
+          // Member count changed - adjust member statuses accordingly
+          if (previousMemberCount === 2 && input.member_count === 3) {
+            // Member count increased from 2 to 3 - change member3 from NOT_HAVE to NOT_DONE
+            statusUpdates.member3 = "NOT_DONE"
+          } else if (previousMemberCount === 3 && input.member_count === 2) {
+            // Member count decreased from 3 to 2 - change member3 from NOT_DONE to NOT_HAVE
+            statusUpdates.member3 = "NOT_HAVE"
+          }
+        } else if (existingTeam.length === 0) {
+          if (input.member_count === 2) {
+            statusUpdates.member2 = "NOT_DONE"
+            statusUpdates.member3 = "NOT_HAVE"
+          } else if (input.member_count === 3) {
+            statusUpdates.member2 = "NOT_DONE"
+            statusUpdates.member3 = "NOT_DONE"
+          }
+        }
+
+        // Update register status with member count changes
+        await updateRegisterStatus(teamResult.id, statusUpdates)
+
+        // Clean up member records when member count decreases
+        if (existingTeam.length > 0 && previousMemberCount !== undefined) {
+          if (previousMemberCount === 3 && input.member_count === 2) {
+            await db.delete(member).where(and(eq(member.teamId, teamResult.id), eq(member.index, 3)))
+          }
+        }
 
         return {
           success: true,

@@ -1,5 +1,6 @@
 "use client"
 
+import RegisterStatus from "@/app/(protected)/_components/status"
 import TeamRegisterForm from "@/app/(protected)/register/team/_components/form"
 import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
@@ -12,7 +13,8 @@ function TeamRegisterPage() {
   }
 
   return (
-    <div className="flex h-full min-h-screen w-full items-center justify-center bg-black">
+    <div className="flex h-full min-h-screen w-full flex-col items-center justify-center bg-black">
+      <RegisterStatus />
       <TeamRegisterForm
         defaultValues={
           query.data && query.data.success && query.data.team
