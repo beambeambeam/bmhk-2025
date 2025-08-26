@@ -2,7 +2,9 @@
 
 import DocumentUploader from "@/app/(protected)/register/_components/document_uploader"
 import FormProps from "@/types/form"
+import { orpc, queryClient } from "@/utils/orpc"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useMutation } from "@tanstack/react-query"
 import { Button } from "@workspace/ui/components/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@workspace/ui/components/form"
 import { Input } from "@workspace/ui/components/input"
@@ -14,6 +16,7 @@ import {
   SelectValue,
 } from "@workspace/ui/components/select"
 import type { FileMetadata } from "@workspace/ui/hooks/use-file-upload"
+import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import z from "zod"
 
@@ -44,6 +47,19 @@ type AdviserRegisterSchemaType = Omit<
 }
 
 function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
+  const router = useRouter()
+
+  const mutation = useMutation(
+    orpc.register.adviser.set.mutationOptions({
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: orpc.register.status.get.key(),
+        })
+        router.push("/register/1")
+      },
+    })
+  )
+
   const form = useForm<z.infer<typeof adviserRegisterSchema>>({
     resolver: zodResolver(adviserRegisterSchema),
     defaultValues: {
@@ -74,68 +90,77 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
         if (file instanceof File) {
           return file
         } else {
-          return null // FileMetadata becomes null
+          return null
         }
       }),
       teacher_doc: values.teacher_doc.map((file) => {
         if (file instanceof File) {
           return file
         } else {
-          return null // FileMetadata becomes null
+          return null
         }
       }),
     }
-    console.log(processedValues)
+
+    const filteredValues = {
+      ...processedValues,
+      national_doc: processedValues.national_doc.filter((file): file is File => file !== null),
+      teacher_doc: processedValues.teacher_doc.filter((file): file is File => file !== null),
+    }
+
+    mutation.mutate(filteredValues)
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="prefix"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>คำนำหน้า</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="เลือกคำนำหน้า" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="MR">นาย</SelectItem>
-                  <SelectItem value="MS">นางสาว</SelectItem>
-                  <SelectItem value="MRS">นาง</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <FormField
+            control={form.control}
+            name="prefix"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>คำนำหน้าภาษาไทย</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="เลือกคำนำหน้า" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="MR">นาย</SelectItem>
+                    <SelectItem value="MS">นางสาว</SelectItem>
+                    <SelectItem value="MRS">นาง</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="prefix"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>คำนำหน้า</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="เลือกคำนำหน้า" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="MR">MR</SelectItem>
-                  <SelectItem value="MS">MS</SelectItem>
-                  <SelectItem value="MRS">MRS</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="prefix"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>คำนำหน้าภาษาอังกฤษ</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="เลือกคำนำหน้า" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="MR">MR</SelectItem>
+                    <SelectItem value="MS">MS</SelectItem>
+                    <SelectItem value="MRS">MRS</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <FormField
