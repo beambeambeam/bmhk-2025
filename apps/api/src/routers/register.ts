@@ -815,24 +815,20 @@ export const registerRouter = {
         throw new Error("All required forms must be completed before submitting")
       }
 
-      // Check member3 based on team member count
       if (team.memberCount === 3) {
         if (status.member3 !== "DONE") {
           throw new Error("All team members must be registered before submitting")
         }
       } else if (team.memberCount === 2) {
-        // For 2-member teams, member3 should be NOT_HAVE
         if (status.member3 !== "NOT_HAVE") {
           throw new Error("Invalid member3 status for 2-member team")
         }
       }
 
-      // Check if already submitted
       if (status.submitRegister) {
         throw new Error("Registration has already been submitted")
       }
 
-      // Update submit timestamp
       const updatedStatus = await updateRegisterStatus(team.id, {
         submitRegister: new Date(),
       })
