@@ -234,11 +234,9 @@
   }
 
   .group::before {
-    background: radial-gradient(
-      80% 80% at 50% 50%,
-      var(--glow-color, rgba(159, 131, 220, 0.5)) 0%,
-      transparent 70%
-    );
+    background: radial-gradient(80% 80% at 50% 50%,
+        var(--glow-color, rgba(159, 131, 220, 0.5)) 0%,
+        transparent 70%);
   }
 
   .bg-home {
