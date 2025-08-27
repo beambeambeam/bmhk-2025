@@ -318,7 +318,7 @@ function MemberRegisterForm(
                   <FormItem className="col-span-1 lg:col-span-2 2xl:col-span-1">
                     <FormLabel>โรคประจำตัว และวิธีปฐมพยาบาลเบื้องต้น</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="รายละเอียด" {...field} />
+                      <Textarea placeholder="รายละเอียด" {...field} className="h-28" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
