@@ -112,7 +112,11 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                   name="prefix"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>คำนำหน้าภาษาไทย</FormLabel>
+                      <FormLabel>
+                        <span>
+                          คำนำหน้า <span className="align-super text-pink-300">*</span>
+                        </span>
+                      </FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="w-full">
@@ -134,7 +138,11 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                   name="thai_firstname"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>ชื่อภาษาไทย</FormLabel>
+                      <FormLabel>
+                        <span>
+                          ชื่อจริง (ภาษาไทย) <span className="align-super text-pink-300">*</span>
+                        </span>
+                      </FormLabel>
                       <FormControl>
                         <Input placeholder="ชื่อภาษาไทย" {...field} />
                       </FormControl>
@@ -147,9 +155,9 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                   name="thai_middlename"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>ชื่อกลางภาษาไทย (ไม่บังคับ)</FormLabel>
+                      <FormLabel>ชื่อกลาง (ภาษาไทย)</FormLabel>
                       <FormControl>
-                        <Input placeholder="ชื่อกลางภาษาไทย" {...field} />
+                        <Input placeholder="ชื่อกลาง" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -160,9 +168,13 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                   name="thai_lastname"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>นามสกุลภาษาไทย</FormLabel>
+                      <FormLabel>
+                        <span>
+                          นามสกุล (ภาษาไทย) <span className="align-super text-pink-300">*</span>
+                        </span>
+                      </FormLabel>
                       <FormControl>
-                        <Input placeholder="นามสกุลภาษาไทย" {...field} />
+                        <Input placeholder="นามสกุล" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -176,7 +188,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                   name="prefix"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>คำนำหน้าภาษาอังกฤษ</FormLabel>
+                      <FormLabel>Prefix</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="w-full">
@@ -198,9 +210,13 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                   name="english_firstname"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>ชื่อภาษาอังกฤษ</FormLabel>
+                      <FormLabel>
+                        <span>
+                          First Name <span className="align-super text-pink-300">*</span>
+                        </span>
+                      </FormLabel>
                       <FormControl>
-                        <Input placeholder="ชื่อภาษาอังกฤษ" {...field} />
+                        <Input placeholder="Name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -211,9 +227,9 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                   name="english_middlename"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>ชื่อกลางภาษาอังกฤษ (ไม่บังคับ)</FormLabel>
+                      <FormLabel>Middle Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="ชื่อกลางภาษาอังกฤษ" {...field} />
+                        <Input placeholder="Middle Name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -224,9 +240,13 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                   name="english_lastname"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>นามสกุลภาษาอังกฤษ</FormLabel>
+                      <FormLabel>
+                        <span>
+                          Last Name <span className="align-super text-pink-300">*</span>
+                        </span>
+                      </FormLabel>
                       <FormControl>
-                        <Input placeholder="นามสกุลภาษาอังกฤษ" {...field} />
+                        <Input placeholder="Last Name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -240,9 +260,9 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                   name="food_allergy"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>แพ้อาหาร</FormLabel>
+                      <FormLabel>อาหารที่แพ้</FormLabel>
                       <FormControl>
-                        <Input placeholder="แพ้อาหาร" {...field} />
+                        <Input placeholder="อาหารที่แพ้" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -253,7 +273,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                   name="food_type"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>ประเภทอาหาร</FormLabel>
+                      <FormLabel>ประเภทอาหาร (เช่น มังสวิรัติ ฮาลาล)</FormLabel>
                       <FormControl>
                         <Input placeholder="ประเภทอาหาร" {...field} />
                       </FormControl>
@@ -266,9 +286,9 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                   name="drug_allergy"
                   render={({ field }) => (
                     <FormItem className="col-span-1 lg:col-span-2 2xl:col-span-1">
-                      <FormLabel>แพ้ยา</FormLabel>
+                      <FormLabel>ยาที่แพ้</FormLabel>
                       <FormControl>
-                        <Input placeholder="แพ้ยา" {...field} />
+                        <Input placeholder="ยาที่แพ้" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -284,7 +304,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                     <FormItem className="col-span-1 lg:col-span-2 2xl:col-span-1">
                       <FormLabel>โรคประจำตัว และวิธีปฐมพยาบาลเบื้องต้น</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="แพ้ยา" {...field} />
+                        <Textarea placeholder="รายละเอียด" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -305,9 +325,13 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>อีเมล</FormLabel>
+                    <FormLabel>
+                      <span>
+                        อีเมล <span className="align-super text-pink-300">*</span>
+                      </span>
+                    </FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="อีเมล" {...field} />
+                      <Input type="email" placeholder="someone@example.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -318,9 +342,13 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                 name="phone_number"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>เบอร์โทรศัพท์</FormLabel>
+                    <FormLabel>
+                      <span>
+                        เบอร์โทรศัพท์ <span className="align-super text-pink-300">*</span>
+                      </span>
+                    </FormLabel>
                     <FormControl>
-                      <Input placeholder="เบอร์โทรศัพท์" {...field} />
+                      <Input placeholder="0812345678" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -331,7 +359,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                 name="line_id"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Line ID (ไม่บังคับ)</FormLabel>
+                    <FormLabel>Line ID</FormLabel>
                     <FormControl>
                       <Input placeholder="Line ID" {...field} />
                     </FormControl>
@@ -352,7 +380,13 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
               name="national_doc"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>เอกสารประจำตัวประชาชน</FormLabel>
+                  <FormLabel>
+                    <span>
+                      1. สำเนาบัตรประจำตัวประชาชน หรือบัตรประจำตัวสำหรับบุคคลที่ไม่ใช่สัญชาติไทย
+                      พร้อมเซ็นสำเนาถูกต้อง (เฉพาะด้านหน้า){" "}
+                      <span className="align-super text-pink-300">*</span>
+                    </span>
+                  </FormLabel>
                   <FormControl>
                     <DocumentUploader
                       value={field.value}
@@ -373,7 +407,13 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
               name="teacher_doc"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>เอกสารครู</FormLabel>
+                  <FormLabel>
+                    <span>
+                      2. เอกสารแสดงสถานภาพการเป็นอาจารย์ประจำในสถานศึกษา เช่น บัตรประจำตัวอาจารย์
+                      บัตรข้าราชการครู หรือหนังสือรับรองจากสถานศึกษา{" "}
+                      <span className="align-super text-pink-300">*</span>
+                    </span>
+                  </FormLabel>
                   <FormControl>
                     <DocumentUploader
                       value={field.value}

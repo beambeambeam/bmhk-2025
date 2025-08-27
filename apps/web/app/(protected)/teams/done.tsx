@@ -199,7 +199,7 @@ function TeamDone() {
                 href: student.facePic?.url || "",
               },
               {
-                description: "สำเนา ป.7",
+                description: "สำเนา ปw.7",
                 fileName: student.p7Doc?.name || "",
                 size: formatBytes(student.p7Doc?.size || 0),
                 href: student.p7Doc?.url || "",
