@@ -7,6 +7,7 @@ import {
 import MemberRegisterForm, {
   memberRegisterSchemaType,
 } from "@/app/(protected)/register/(member)/_components/form"
+import ArrowIcon from "@/components/ArrowIcon"
 import { orpc, queryClient } from "@/utils/orpc"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { Button } from "@workspace/ui/components/button"
@@ -65,7 +66,7 @@ function MemberPage2() {
   const handleSubmit = (values: memberRegisterSchemaType) => {
     mutation.mutate({
       ...values,
-      memberIndex: 1,
+      memberIndex: 2,
     })
   }
 
@@ -100,14 +101,16 @@ function MemberPage2() {
                 chronic_disease: memberQuery.data.member.chronicDisease ?? "",
               }
             : undefined
-        }
-      />
-
-      {showFinalSubmit && (
-        <Button onClick={() => submitMutation.mutate({})} disabled={submitMutation.isPending}>
-          {submitMutation.isPending ? "กำลังส่ง..." : "ส่งใบสมัคร"}
-        </Button>
-      )}
+        }>
+        {showFinalSubmit && (
+          <Button
+            onClick={() => submitMutation.mutate({})}
+            disabled={submitMutation.isPending}
+            className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+            <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ลงทะเบียน</span>
+          </Button>
+        )}
+      </MemberRegisterForm>
     </>
   )
 }

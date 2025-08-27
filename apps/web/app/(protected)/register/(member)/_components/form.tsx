@@ -2,7 +2,7 @@
 
 import RegisterStatus from "@/app/(protected)/_components/status"
 import DocumentUploader from "@/app/(protected)/register/_components/document_uploader"
-import ScrollArea from "@/app/_components/scope/ScrollArea"
+import ArrowIcon from "@/components/ArrowIcon"
 import { ExternalFormProps } from "@/types/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@workspace/ui/components/button"
@@ -17,6 +17,7 @@ import {
 } from "@workspace/ui/components/select"
 import { Textarea } from "@workspace/ui/components/textarea"
 import type { FileMetadata } from "@workspace/ui/hooks/use-file-upload"
+import type { ReactNode } from "react"
 import { useForm } from "react-hook-form"
 import z from "zod"
 
@@ -60,7 +61,7 @@ export type ProcessedMemberRegisterSchemaType = Omit<
   p7_doc: (File | null)[]
 }
 
-function MemberRegisterForm(props: ExternalFormProps<memberRegisterSchemaType>) {
+function MemberRegisterForm(props: ExternalFormProps<memberRegisterSchemaType> & { children?: ReactNode }) {
   const form = useForm<z.infer<typeof memberRegisterSchema>>({
     resolver: zodResolver(memberRegisterSchema),
     defaultValues: {
@@ -93,12 +94,14 @@ function MemberRegisterForm(props: ExternalFormProps<memberRegisterSchemaType>) 
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <ScrollArea colorTheme="#9F83DC" className="flex h-[80vh] max-h-full flex-col gap-8">
-          <RegisterStatus />
-          <div className="flex flex-col gap-6">
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="flex h-fit w-full max-w-[80rem] flex-col gap-14 px-4">
+        <RegisterStatus />
+        <div className="flex flex-col gap-6">
+          <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
             <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
-              <p className="text-3xl text-white">1. ข้อมูลอาจารย์</p>
+              <p className="text-3xl text-white">1. ข้อมูลนักเรียน</p>
             </div>
 
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-[1fr_2.25fr_2.25fr_2.25fr]">
@@ -286,81 +289,87 @@ function MemberRegisterForm(props: ExternalFormProps<memberRegisterSchemaType>) 
               />
             </div>
           </div>
+        </div>
 
-          <div className="flex flex-col gap-6">
-            <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
-              <p className="text-3xl text-white">2. ข้อมูลติดต่อ</p>
-            </div>
+        <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
+          <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
+            <p className="text-3xl text-white">2. ข้อมูลติดต่อ</p>
+          </div>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>อีเมล</FormLabel>
-                    <FormControl>
-                      <Input type="email" placeholder="อีเมล" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="phone_number"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>เบอร์โทรศัพท์</FormLabel>
-                    <FormControl>
-                      <Input placeholder="เบอร์โทรศัพท์" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="line_id"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Line ID (ไม่บังคับ)</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Line ID" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="grid w-full gap-4 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="parent_phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>เบอร์โทรศัพท์ผู้ปกครองคนที่ 1</FormLabel>
-                    <FormControl>
-                      <Input placeholder="เบอร์โทรศัพท์ผู้ปกครองคนที่ 1" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="parent"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>ผู้ปกครองคนที่ 1</FormLabel>
-                    <FormControl>
-                      <Input placeholder="ชื่อผู้ปกครองคนที่ 1" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>อีเมล</FormLabel>
+                  <FormControl>
+                    <Input type="email" placeholder="อีเมล" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="phone_number"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>เบอร์โทรศัพท์</FormLabel>
+                  <FormControl>
+                    <Input placeholder="เบอร์โทรศัพท์" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="line_id"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Line ID (ไม่บังคับ)</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Line ID" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="grid w-full gap-4 md:grid-cols-2">
+            <FormField
+              control={form.control}
+              name="parent_phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>เบอร์โทรศัพท์ผู้ปกครองคนที่ 1</FormLabel>
+                  <FormControl>
+                    <Input placeholder="เบอร์โทรศัพท์ผู้ปกครองคนที่ 1" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="parent"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>ผู้ปกครองคนที่ 1</FormLabel>
+                  <FormControl>
+                    <Input placeholder="ชื่อผู้ปกครองคนที่ 1" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+
+        <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
+          <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
+            <p className="text-3xl text-white">3. เอกสาร</p>
           </div>
 
           <FormField
@@ -376,7 +385,7 @@ function MemberRegisterForm(props: ExternalFormProps<memberRegisterSchemaType>) 
                     disabled={props.disabled}
                     multiple={false}
                     maxFiles={1}
-                    maxSize={10 * 1024 * 1024} // 10MB
+                    maxSize={10 * 1024 * 1024}
                   />
                 </FormControl>
                 <FormMessage />
@@ -397,7 +406,7 @@ function MemberRegisterForm(props: ExternalFormProps<memberRegisterSchemaType>) 
                     disabled={props.disabled}
                     multiple={false}
                     maxFiles={1}
-                    maxSize={10 * 1024 * 1024} // 10MB
+                    maxSize={10 * 1024 * 1024}
                   />
                 </FormControl>
                 <FormMessage />
@@ -418,17 +427,26 @@ function MemberRegisterForm(props: ExternalFormProps<memberRegisterSchemaType>) 
                     disabled={props.disabled}
                     multiple={false}
                     maxFiles={1}
-                    maxSize={10 * 1024 * 1024} // 10MB
+                    maxSize={10 * 1024 * 1024}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        </ScrollArea>
-        <Button type="submit" className="w-full">
-          ต่อไป
-        </Button>
+        </div>
+
+        <div className="flex w-full justify-end">
+          <div className="flex h-full items-center justify-center">
+            <Button
+              type="submit"
+              className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+              <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ต่อไป</span>
+              <ArrowIcon className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
+            </Button>
+            {props.children}
+          </div>
+        </div>
       </form>
     </Form>
   )

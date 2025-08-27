@@ -53,13 +53,14 @@ function MemberPage3() {
   }
 
   if (teamQuery.data?.team?.memberCount === 2) {
-    return router.push("/register/2")
+    router.push("/register/2")
+    return null
   }
 
   const handleSubmit = (values: memberRegisterSchemaType) => {
     mutation.mutate({
       ...values,
-      memberIndex: 1,
+      memberIndex: 3,
     })
   }
   return (
@@ -91,12 +92,11 @@ function MemberPage3() {
                 chronic_disease: memberQuery.data.member.chronicDisease ?? "",
               }
             : undefined
-        }
-      />
-
-      <Button onClick={() => submitMutation.mutate({})} disabled={submitMutation.isPending}>
-        {submitMutation.isPending ? "กำลังส่ง..." : "ส่งใบสมัคร"}
-      </Button>
+        }>
+        <Button onClick={() => submitMutation.mutate({})} disabled={submitMutation.isPending}>
+          {submitMutation.isPending ? "กำลังส่ง..." : "ส่งใบสมัคร"}
+        </Button>
+      </MemberRegisterForm>
     </>
   )
 }
