@@ -37,22 +37,34 @@ export default function PolicyConsent({ demo = false }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = "unset"
+    }
+
+    return () => {
+      document.body.style.overflow = "unset"
+    }
+  }, [isOpen])
+
   return (
     <div
       className={cn(
-        "font-prompt fixed left-0 right-0 top-0 z-[200] flex h-full items-center justify-center duration-700",
+        "font-prompt fixed left-0 right-0 top-0 z-[200] flex h-full items-center justify-center bg-black/20 backdrop-blur-sm duration-700",
         !isOpen
           ? "translate-y-8 opacity-0 transition-[opacity,transform]"
           : "translate-y-0 opacity-100 transition-[opacity,transform]",
         hide && "hidden"
       )}>
-      <div className="liquid flex h-fit max-h-[80vh] w-full max-w-[80rem] justify-between rounded-[3rem] shadow-[0_0_100px_0_rgba(255,255,255,0.25)] backdrop-blur-lg">
-        <div className="grid h-fit w-full grid-rows-[auto_1fr_auto] gap-8 p-10 text-white">
-          <div className="flex h-full items-center gap-6">
-            <div className="liquid flex size-[3rem] min-h-[3rem] min-w-[3rem] items-center justify-center rounded-[1.25rem] shadow-[0_0_100px_0_rgba(255,255,255,0.25)] lg:size-[3.75rem]">
+      <div className="liquid mx-4 flex h-full max-h-[90vh] w-full max-w-[90vw] justify-between rounded-[2rem] shadow-[0_0_100px_0_rgba(255,255,255,0.25)] backdrop-blur-lg sm:mx-8 sm:max-w-[80rem] sm:rounded-[3rem]">
+        <div className="grid h-full w-full grid-rows-[auto_1fr_auto] gap-6 p-6 text-white sm:gap-8 sm:p-10">
+          <div className="flex h-full items-center gap-4 sm:gap-6">
+            <div className="liquid flex size-[2.5rem] min-h-[2.5rem] min-w-[2.5rem] items-center justify-center rounded-[1rem] shadow-[0_0_100px_0_rgba(255,255,255,0.25)] sm:size-[3rem] sm:min-h-[3rem] sm:min-w-[3rem] sm:rounded-[1.25rem] lg:size-[3.75rem]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="size-[2rem] lg:size-[2.5rem]"
+                className="size-[1.5rem] sm:size-[2rem] lg:size-[2.5rem]"
                 viewBox="0 0 40 40"
                 fill="none">
                 <g clipPath="url(#clip0_4231_38874)">
@@ -68,9 +80,11 @@ export default function PolicyConsent({ demo = false }) {
                 </defs>
               </svg>
             </div>
-            <p className="text-header-2-medium">นโยบายความเป็นส่วนตัว (Privacy Policy)</p>
+            <p className="text-header-2-medium text-lg sm:text-xl lg:text-2xl">
+              นโยบายความเป็นส่วนตัว (Privacy Policy)
+            </p>
           </div>
-          <ScrollArea className="flex max-h-[30rem] flex-col gap-12 rounded-xl" colorTheme="#9F83DC">
+          <ScrollArea className="flex min-h-0 flex-col gap-8 rounded-xl sm:gap-12" colorTheme="#9F83DC">
             <div className="flex flex-col gap-6">
               <h1 className="text-header-2-medium">1. นโยบายความเป็นส่วนตัว (Privacy Policy)</h1>
               <p className="text-body-1">
@@ -255,41 +269,41 @@ export default function PolicyConsent({ demo = false }) {
                 ท่านสามารถติดต่อได้ที่เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล สถานที่ติดต่อ อีเมล
               </p>
             </div>
-            <div className="flex flex-col gap-6">
-              <h1 className="text-header-2-medium">หัวหน้าฝ่ายทะเบียน</h1>
-              <h1 className="text-body-2">นายธน อุดมพรกุล</h1>
-              <div className="flex">
-                <div className="flex min-w-0 flex-1 flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    <IconCircle className="h-[50px] w-[50px] flex-shrink-0 2xl:h-[60px] 2xl:w-[60px]">
+            <div className="flex flex-col gap-4 sm:gap-6">
+              <h1 className="text-header-2-medium text-lg sm:text-xl lg:text-2xl">หัวหน้าฝ่ายทะเบียน</h1>
+              <h1 className="text-body-2 text-base sm:text-lg lg:text-xl">นายธน อุดมพรกุล</h1>
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <div className="flex min-w-0 flex-1 flex-col gap-3 sm:gap-4">
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <IconCircle className="h-[40px] w-[40px] flex-shrink-0 sm:h-[50px] sm:w-[50px] 2xl:h-[60px] 2xl:w-[60px]">
                       <img
                         src="/static/icon/Phone.svg"
                         alt="Staff Icon"
-                        className="h-[30px] w-[30px] 2xl:h-9 2xl:w-9"
+                        className="h-[24px] w-[24px] sm:h-[30px] sm:w-[30px] 2xl:h-9 2xl:w-9"
                       />
                     </IconCircle>
-                    <div className="text-body-1 text-[18px] text-[var(--color-gray-50)] lg:text-[20px] 2xl:text-[24px]">
+                    <div className="text-body-1 text-[16px] text-[var(--color-gray-50)] sm:text-[18px] lg:text-[20px] 2xl:text-[24px]">
                       หมายเลขโทรศัพท์
                     </div>
                   </div>
-                  <div className="text-body-1 whitespace-normal break-words text-[18px] lg:text-[20px] 2xl:text-[24px]">
+                  <div className="text-body-1 whitespace-normal break-words text-[16px] sm:text-[18px] lg:text-[20px] 2xl:text-[24px]">
                     082 113 9665
                   </div>
                 </div>
-                <div className="flex min-w-0 flex-1 flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    <IconCircle className="h-[50px] w-[50px] flex-shrink-0 2xl:h-[60px] 2xl:w-[60px]">
+                <div className="flex min-w-0 flex-1 flex-col gap-3 sm:gap-4">
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <IconCircle className="h-[40px] w-[40px] flex-shrink-0 sm:h-[50px] sm:w-[50px] 2xl:h-[60px] 2xl:w-[60px]">
                       <img
                         src="/static/icon/Mail.svg"
                         alt="Staff Icon"
-                        className="h-[30px] w-[30px] 2xl:h-9 2xl:w-9"
+                        className="h-[24px] w-[24px] sm:h-[30px] sm:w-[30px] 2xl:h-9 2xl:w-9"
                       />
                     </IconCircle>
-                    <div className="text-body-1 text-[18px] text-[var(--color-gray-50)] lg:text-[20px] 2xl:text-[24px]">
+                    <div className="text-body-1 text-[16px] text-[var(--color-gray-50)] sm:text-[18px] lg:text-[20px] 2xl:text-[24px]">
                       อีเมล
                     </div>
                   </div>
-                  <div className="text-body-1 whitespace-normal break-words text-[18px] lg:text-[20px] 2xl:text-[24px]">
+                  <div className="text-body-1 whitespace-normal break-words text-[16px] sm:text-[18px] lg:text-[14px] lg:text-[20px] 2xl:text-[24px]">
                     tana.udom@mail.kmutt.ac.th
                   </div>
                 </div>
