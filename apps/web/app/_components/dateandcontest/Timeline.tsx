@@ -52,7 +52,7 @@ export default function Timeline({ data }: TimelineProps) {
                       <div
                         className="absolute left-1/2 top-2 w-[6px] -translate-x-1/2 bg-[currentColor]"
                         style={{
-                          height: "190px",
+                          height: "180px",
                           backgroundColor: content.lineColor,
                         }}
                       />
@@ -122,7 +122,7 @@ export default function Timeline({ data }: TimelineProps) {
 
                   {/* Date card */}
                   <div
-                    className="liquid relative rounded-[1.25rem] border border-white/10 px-6 py-4 text-center text-[1.125rem] font-medium backdrop-blur-sm lg:rounded-[1.875rem] lg:text-[1.5rem] 2xl:rounded-[2.5rem] 2xl:px-8 2xl:py-6 2xl:text-[1.75rem]"
+                    className="liquid relative mx-auto inline-flex w-fit flex-col items-center justify-center gap-10 rounded-[24px] px-6 py-3 text-center text-[1.125rem] font-medium outline-1 outline-offset-[-1px] outline-white/10 backdrop-blur-3xl lg:rounded-[40px] lg:text-[1.5rem] 2xl:rounded-[2.5rem] 2xl:px-8 2xl:py-6 2xl:text-[1.75rem]"
                     style={{
                       color: content.card.textColor,
                       background: `
@@ -160,8 +160,8 @@ export default function Timeline({ data }: TimelineProps) {
                       className={`text-[1.125rem] font-medium text-white lg:px-0 lg:text-center lg:text-[1.5rem] 2xl:text-[2rem] ${
                         section.content.length > 1
                           ? sectionIndex % 2
-                            ? "pr-17 text-end"
-                            : "pl-17 text-start"
+                            ? "pr-22 text-end"
+                            : "pl-22 text-start"
                           : "px-0 text-center"
                       }`}
                       style={{ color: content.label.textColor }}
@@ -171,7 +171,7 @@ export default function Timeline({ data }: TimelineProps) {
                     {content.NameList && (
                       <a
                         href={content.pathNameList}
-                        className={`flex items-center gap-x-3 lg:gap-x-4 lg:px-0 ${section.content.length > 1 ? (sectionIndex % 2 ? "pr-14" : "pl-14") : "px-0"}`}>
+                        className={`flex items-center gap-x-3 lg:gap-x-4 lg:px-0 ${section.content.length > 1 ? (sectionIndex % 2 ? "pr-16" : "pl-16") : "px-0"}`}>
                         <EyeOpenedIcon className="text-hover-100 h-5 w-5 lg:h-8 lg:w-8 2xl:h-9 2xl:w-9" />
                         <p className="text-hover-100 text-[1rem] font-medium underline lg:text-[1.5rem] 2xl:text-[1.75rem]">
                           ดูรายชื่อ
