@@ -1,4 +1,3 @@
-import { useCharacterLimit } from "@workspace/ui/hooks/use-character-limit"
 import { cn } from "@workspace/ui/lib/utils"
 import * as React from "react"
 
