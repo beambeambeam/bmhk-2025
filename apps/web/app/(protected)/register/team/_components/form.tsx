@@ -3,7 +3,6 @@
 import RegisterStatus from "@/app/(protected)/_components/status"
 import { useRegisterStatusActions } from "@/app/(protected)/_components/status/context"
 import AvatarUploader from "@/app/(protected)/register/team/_components/avatar"
-import ArrowIcon from "@/components/ArrowIcon"
 import FormProps from "@/types/form"
 import { orpc, queryClient } from "@/utils/orpc"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -76,9 +75,9 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex h-fit w-full max-w-[80rem] flex-col gap-14">
         <RegisterStatus />
-        <div className="liquid grid w-full gap-5 rounded-[40px] p-4 lg:grid-rows-[auto_1fr] 2xl:grid-cols-[auto_1fr] 2xl:gap-8 2xl:px-8 2xl:py-6">
+        <div className="liquid grid w-full gap-5 rounded-[40px] p-5 lg:grid-rows-[auto_1fr] lg:p-6 2xl:grid-cols-[auto_1fr] 2xl:gap-8 2xl:px-8 2xl:py-6">
           <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
-            <p className="text-3xl text-white">1. ข้อมูลทีม</p>
+            <p className="text-form-header text-white">1. ข้อมูลทีม</p>
           </div>
           <div className="flex w-full items-center justify-center">
             <FormField

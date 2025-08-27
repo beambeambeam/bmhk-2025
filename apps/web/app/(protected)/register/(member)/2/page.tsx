@@ -7,6 +7,7 @@ import {
 import MemberRegisterForm, {
   memberRegisterSchemaType,
 } from "@/app/(protected)/register/(member)/_components/form"
+import RegisterFormSkeleton from "@/app/(protected)/register/_components/skeleton"
 import { orpc, queryClient } from "@/utils/orpc"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import {
@@ -66,7 +67,7 @@ function MemberPage2() {
     teamQuery.data?.success && teamQuery.data.team?.memberCount === 2 && isReadyForSubmit
 
   if (teamQuery.isPending || memberQuery.isPending) {
-    return <div>Loading...</div>
+    return <RegisterFormSkeleton />
   }
 
   if (!teamQuery.data?.team) {

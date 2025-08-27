@@ -8,6 +8,50 @@ function Stat({ title, description }: { title: string; description: string | Rea
 }
 
 function LandingSection() {
+  const descriptions = {
+    base: (
+      <>
+        โครงการนี้เปิดโอกาสให้นักเรียนมัธยมปลาย
+        <br />
+        และนักศึกษาอาชีวะระดับปวช. หรือเทียบเท่าได้เข้าร่วม
+        <br />
+        การแข่งขันเขียนโปรแกรมด้วยภาษา C/C++ ในรูปแบบทีม
+        <br />
+        เพื่อเสริมสร้างทักษะการเขียนโปรแกรม พร้อมทั้งฝึก
+        <br />
+        การทำงานร่วมกัน และเก็บเกี่ยวประสบการณ์จาก
+        <br />
+        การลงสนามจริง
+      </>
+    ),
+    lg: (
+      <>
+        โครงการนี้เปิดโอกาสให้นักเรียนมัธยมปลาย และนักศึกษาอาชีวะระดับปวช. หรือเทียบเท่าได้เข้าร่วมการแข่งขัน
+        <br />
+        เขียนโปรแกรมด้วยภาษา C/C++ ในรูปแบบทีม เพื่อเสริมสร้างทักษะการเขียนโปรแกรม พร้อมทั้งฝึกการทำงานร่วมกัน
+        <br />
+        และเก็บเกี่ยวประสบการณ์จากการลงสนามจริง
+      </>
+    ),
+    xl2: (
+      <>
+        โครงการนี้เปิดโอกาสให้นักเรียนมัธยมปลาย
+        <br />
+        และนักศึกษาอาชีวะระดับปวช. หรือเทียบเท่า
+        <br />
+        ได้เข้าร่วมการแข่งขัน เขียนโปรแกรมด้วย
+        <br />
+        ภาษา C/C++ ในรูปแบบทีม เพื่อเสริมสร้าง
+        <br />
+        ทักษะการเขียนโปรแกรม พร้อมทั้งฝึก
+        <br />
+        การทำงานร่วมกันและเก็บเกี่ยวประสบการณ์
+        <br />
+        จากการลงสนามจริง
+      </>
+    ),
+  }
+
   return (
     <div className="relative flex h-[1080px] w-full flex-col items-center justify-center gap-8 lg:gap-10 2xl:flex-row 2xl:gap-[60px]">
       {/* perspective grid */}
@@ -156,19 +200,21 @@ function LandingSection() {
       <div className="relative flex w-full items-start justify-center gap-8 text-center 2xl:w-[494px] 2xl:text-left">
         <div className="not-2xl:hidden mt-5 h-[2px] w-[30px] shrink-0 bg-white" />
 
-        <div className="flex max-w-full flex-col items-center gap-6 md:max-w-[971px] 2xl:max-w-[466px] 2xl:items-start 2xl:gap-8">
+        <div className="flex flex-col items-center gap-6 md:max-w-[971px] 2xl:max-w-[466px] 2xl:items-start 2xl:gap-8">
           <div className="text-header-2-medium text-white">
             การแข่งขัน
             <br className="not-2xl:hidden" />
             เขียนโปรแกรมคอมพิวเตอร์ <br className="lg:hidden" /> BangMod Hackathon 2025
           </div>
-          <p className="text-body-2 text-balance text-gray-50">
-            โครงการนี้เปิดโอกาสให้นักเรียนมัธยมปลาย และนักศึกษาอาชีวะระดับปวช. หรือเทียบเท่า
-            ได้เข้าร่วมการแข่งขัน เขียนโปรแกรมด้วย ภาษา C/C++ ในรูปแบบทีม เพื่อเสริมสร้าง ทักษะการเขียนโปรแกรม
-            พร้อมทั้งฝึก
-            <br className="not-2xl:hidden" />
-            การทำงานร่วมกันและเก็บเกี่ยวประสบการณ์จากการลงสนามจริง
+
+          <p className="text-body-2 block whitespace-nowrap text-gray-50 lg:hidden">{descriptions.base}</p>
+
+          <p className="text-body-2 hidden whitespace-nowrap text-gray-50 lg:block 2xl:hidden">
+            {descriptions.lg}
           </p>
+
+          <p className="text-body-2 hidden whitespace-nowrap text-gray-50 2xl:block">{descriptions.xl2}</p>
+
           <button className="text-button-1 bg-supporting-3 text-secondary-50 h-[54px] rounded-full px-8 lg:h-[76px] 2xl:h-[87px] 2xl:px-12">
             ยังไม่เปิดรับสมัคร
           </button>

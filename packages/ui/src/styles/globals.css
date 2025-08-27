@@ -158,6 +158,10 @@
   @apply text-base font-normal leading-[1.4] 2xl:text-xl;
 }
 
+@utility text-form-header {
+  @apply text-xl font-medium leading-[1.4] lg:text-[28px] 2xl:text-[32px];
+}
+
 @utility no-scrollbar {
   @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }

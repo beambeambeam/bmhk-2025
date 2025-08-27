@@ -17,7 +17,7 @@ function AvatarUploader({ value = [], onChange, disabled }: AvatarUploaderProps)
     { files, isDragging },
     { openFileDialog, getInputProps, handleDragEnter, handleDragLeave, handleDragOver, handleDrop },
   ] = useFileUpload({
-    accept: "image/*",
+    accept: "image/png, image/jpeg",
     multiple: false,
     initialFiles: value.filter((file): file is FileMetadata => !(file instanceof File)),
   })

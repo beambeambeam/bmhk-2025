@@ -33,18 +33,39 @@ import z from "zod"
 
 const adviserRegisterSchema = z.object({
   prefix: z.enum(["MR", "MS", "MRS"]),
-  thai_firstname: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
-  thai_middlename: z.string().optional(),
-  thai_lastname: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
-  english_firstname: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
-  english_middlename: z.string().optional(),
-  english_lastname: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
+  thai_firstname: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[ก-๙\s]+$/, "กรุณากรอกชื่อเป็นภาษาไทยเท่านั้น"),
+  thai_middlename: z
+    .string()
+    .optional()
+    .refine((val) => !val || /^[ก-๙\s]+$/.test(val), "กรุณากรอกชื่อเป็นภาษาไทยเท่านั้น"),
+  thai_lastname: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[ก-๙\s]+$/, "กรุณากรอกนามสกุลเป็นภาษาไทยเท่านั้น"),
+  english_firstname: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[a-zA-Z\s]+$/, "กรุณากรอกชื่อเป็นภาษาอังกฤษเท่านั้น"),
+  english_middlename: z
+    .string()
+    .optional()
+    .refine((val) => !val || /^[a-zA-Z\s]+$/.test(val), "กรุณากรอกชื่อเป็นภาษาอังกฤษเท่านั้น"),
+  english_lastname: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[a-zA-Z\s]+$/, "กรุณากรอกนามสกุลเป็นภาษาอังกฤษเท่านั้น"),
   food_allergy: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   food_type: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   drug_allergy: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   chronic_disease: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   email: z.string().email("กรุณากรอกอีเมลให้ถูกต้อง").min(1, "จำเป็นต้องกรอกช่องนี้"),
-  phone_number: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
+  phone_number: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[0-9]{10}$/, "กรุณากรอกเบอร์โทรศัพท์ 10 หลัก"),
   line_id: z.string().optional(),
   national_doc: z.array(z.any()).min(1, "จำเป็นต้องอัปโหลดเอกสารประจำตัวประชาชน").max(1),
   teacher_doc: z.array(z.any()).min(1, "จำเป็นต้องอัปโหลดเอกสารครู").max(1),
@@ -106,10 +127,10 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
         className="flex h-fit w-full max-w-[80rem] flex-col gap-14 px-4">
         <RegisterStatus />
         <div className="flex flex-col gap-6">
-          <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
+          <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-5 lg:p-6 2xl:gap-8 2xl:px-8 2xl:py-6">
             <div className="flex flex-col gap-6">
               <div className="col-span-2 grid grid-cols-2 gap-4">
-                <p className="col-span-2 w-full text-3xl text-white">1. ข้อมูลอาจารย์</p>
+                <p className="text-form-header col-span-2 w-full text-white">1. ข้อมูลอาจารย์</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4 lg:grid-cols-[1fr_2.25fr_2.25fr_2.25fr]">
@@ -322,7 +343,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
 
           <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
             <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
-              <p className="text-3xl text-white">2. ข้อมูลติดต่อ</p>
+              <p className="text-form-header text-white">2. ข้อมูลติดต่อ</p>
             </div>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -378,7 +399,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
 
           <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
             <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
-              <p className="text-3xl text-white">3. เอกสาร</p>
+              <p className="text-form-header text-white">3. เอกสาร</p>
             </div>
 
             <FormField
@@ -445,7 +466,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
           <Button
             type="button"
             onClick={() => router.push("/register/team")}
-            className="liquid mb-8 flex h-fit w-12 items-center justify-between gap-4 rounded-[32px] py-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+            className="liquid mb-8 flex h-fit w-12 items-center justify-between gap-4 rounded-[20px] py-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
             <ChevronLeft className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
             <span className="hidden text-[20px] font-medium text-white md:block 2xl:text-[22px]">
               ย้อนกลับ
@@ -453,7 +474,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
           </Button>
           <Button
             type="submit"
-            className="liquid py-3md:w-auto mb-8 flex h-fit w-12 items-center justify-between gap-4 rounded-[32px] md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+            className="liquid mb-8 flex h-fit w-12 items-center justify-between gap-4 rounded-[20px] py-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
             <span className="hidden text-[20px] font-medium text-white md:block 2xl:text-[22px]">ต่อไป</span>
             <ChevronRight className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
           </Button>
