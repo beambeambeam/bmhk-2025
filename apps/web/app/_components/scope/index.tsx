@@ -23,7 +23,7 @@ export default function Scope() {
           <a
             href="https://dekcpe.link/bmhk2025scope"
             target="_blank"
-            rel="noopener,noreferrer"
+            rel="noopener, noreferrer"
             className="flex items-center gap-x-4">
             <DownloadIcon className="text-hover-100 h-5 w-5 lg:h-8 lg:w-8 2xl:h-9 2xl:w-9" />
             <p className="text-hover-100 text-[1rem] font-medium underline lg:text-[1.5rem] 2xl:text-[1.75rem]">

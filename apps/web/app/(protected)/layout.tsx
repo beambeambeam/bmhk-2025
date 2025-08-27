@@ -1,6 +1,5 @@
 "use client"
 
-import RegisterStatus from "@/app/(protected)/_components/status"
 import { RegisterStatusProvider } from "@/app/(protected)/_components/status/context"
 import PolicyConsent from "@/components/accpet-card/policy"
 import { authClient } from "@/lib/auth-client"

@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/components/select"
+import { Textarea } from "@workspace/ui/components/textarea"
 import type { FileMetadata } from "@workspace/ui/hooks/use-file-upload"
 import { useForm } from "react-hook-form"
 import z from "zod"
@@ -30,6 +31,7 @@ const memberRegisterSchema = z.object({
   food_allergy: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   food_type: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   drug_allergy: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
+  chronic_disease: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   email: z.string().email("กรุณากรอกอีเมลให้ถูกต้อง").min(1, "จำเป็นต้องกรอกช่องนี้"),
   phone_number: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   line_id: z.string().optional(),
@@ -40,7 +42,7 @@ const memberRegisterSchema = z.object({
   p7_doc: z.array(z.any()).min(1, "จำเป็นต้องอัปโหลดเอกสาร P7").max(1),
 })
 
-type memberRegisterSchemaType = Omit<
+export type memberRegisterSchemaType = Omit<
   z.infer<typeof memberRegisterSchema>,
   "national_doc" | "face_picture" | "p7_doc"
 > & {
@@ -58,7 +60,7 @@ export type ProcessedMemberRegisterSchemaType = Omit<
   p7_doc: (File | null)[]
 }
 
-function MemberRegisterForm(props: ExternalFormProps<ProcessedMemberRegisterSchemaType>) {
+function MemberRegisterForm(props: ExternalFormProps<memberRegisterSchemaType>) {
   const form = useForm<z.infer<typeof memberRegisterSchema>>({
     resolver: zodResolver(memberRegisterSchema),
     defaultValues: {
@@ -80,36 +82,13 @@ function MemberRegisterForm(props: ExternalFormProps<ProcessedMemberRegisterSche
       national_doc: [],
       face_picture: [],
       p7_doc: [],
+      chronic_disease: "",
       ...props.defaultValues,
     },
   })
 
   const handleSubmit = (values: memberRegisterSchemaType) => {
-    const processedValues: ProcessedMemberRegisterSchemaType = {
-      ...values,
-      national_doc: values.national_doc.map((file) => {
-        if (file instanceof File) {
-          return file
-        } else {
-          return null
-        }
-      }),
-      face_picture: values.face_picture.map((file) => {
-        if (file instanceof File) {
-          return file
-        } else {
-          return null
-        }
-      }),
-      p7_doc: values.p7_doc.map((file) => {
-        if (file instanceof File) {
-          return file
-        } else {
-          return null
-        }
-      }),
-    }
-    props.onSubmit?.(processedValues)
+    props.onSubmit?.(values)
   }
 
   return (
@@ -285,6 +264,21 @@ function MemberRegisterForm(props: ExternalFormProps<ProcessedMemberRegisterSche
                     <FormLabel>แพ้ยา</FormLabel>
                     <FormControl>
                       <Input placeholder="แพ้ยา" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div>
+              <FormField
+                control={form.control}
+                name="chronic_disease"
+                render={({ field }) => (
+                  <FormItem className="col-span-1 lg:col-span-2 2xl:col-span-1">
+                    <FormLabel>โรคประจำตัว และวิธีปฐมพยาบาลเบื้องต้น</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="แพ้ยา" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
