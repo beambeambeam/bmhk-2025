@@ -97,9 +97,11 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
               name="team_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>ชื่อทีม</FormLabel>
+                  <FormLabel>
+                    ชื่อทีม <span className="align-super text-pink-300">*</span>
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="team_name" {...field} limit={20} />
+                    <Input placeholder="ชื่อทีม" {...field} limit={20} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -110,9 +112,11 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
               name="school_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>สถานศึกษา</FormLabel>
+                  <FormLabel>
+                    สถานศึกษา <span className="align-super text-pink-300">*</span>
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="school_name" {...field} />
+                    <Input placeholder="สถานศึกษา" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -125,7 +129,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
                 <FormItem>
                   <FormLabel>คำคมประจำทีม</FormLabel>
                   <FormControl>
-                    <Input placeholder="quote" {...field} limit={50} />
+                    <Input placeholder="คำคมประจำทีม" {...field} limit={50} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -136,7 +140,9 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
               name="member_count"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>จำนวนสมาชิก</FormLabel>
+                  <FormLabel>
+                    จำนวนสมาชิก <span className="align-super text-pink-300">*</span>
+                  </FormLabel>
                   <Select
                     onValueChange={(value) => field.onChange(Number(value))}
                     defaultValue={String(field.value)}>
