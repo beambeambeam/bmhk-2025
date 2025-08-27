@@ -36,7 +36,7 @@ const AWARDS_TOPROW: TopRowAwardData[] = [
   {
     imageSrc: "/static/awards/3.webp",
     title: "รางวัลรองชนะเลิศอันดับ 2",
-    description: "เงินรางวัล 5,000 บาท",
+    description: "เงินรางวัล 10,000 บาท",
     lqClassName: "liquid-award-third",
     imageDimension: { width: 250, height: 250 },
     glowColor: "#c63c51",
@@ -57,7 +57,7 @@ const AWARDS_BOTTOMROW: AwardData[] = [
   {
     imageSrc: "/static/awards/4.webp",
     title: "รางวัลชมเชย",
-    description: "เงินรางวัล 2,000 บาท",
+    description: "เงินรางวัล 2,500 บาท",
     imageDimension: { width: 140, height: 140 },
     glowColor: "#ffffff",
   },
