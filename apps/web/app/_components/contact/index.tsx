@@ -72,7 +72,8 @@ function Contact() {
                   />
                 </IconCircle>
                 <div className="text-body-1 text-[18px] text-[var(--color-gray-50)] lg:text-[20px] 2xl:text-[24px]">
-                  ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์
+                  ภาควิชาวิศวกรรมคอมพิวเตอร์ <br className="block sm:hidden" />
+                  คณะวิศวกรรมศาสตร์
                 </div>
               </div>
               <div className="text-body-1 text-[16px] lg:text-[20px] 2xl:text-[24px]">
@@ -81,18 +82,18 @@ function Contact() {
             </div>
             <div className="flex gap-6">
               <a href={siteConfig.links.facebook} target="_blank" rel="noopener noreferrer">
-                <IconCircle className="h-[60px] w-[60px] flex-shrink-0 lg:h-[70px] lg:w-[70px] 2xl:h-[90px] 2xl:w-[90px] cursor-pointer">
+                <IconCircle className="h-[60px] w-[60px] flex-shrink-0 cursor-pointer lg:h-[70px] lg:w-[70px] 2xl:h-[90px] 2xl:w-[90px]">
                   <img src="/static/icon/Facebook.svg" alt="Facebook Icon" />
                 </IconCircle>
               </a>
               <a href={siteConfig.links.instagram} target="_blank" rel="noopener noreferrer">
-                <IconCircle className="h-[60px] w-[60px] flex-shrink-0 lg:h-[70px] lg:w-[70px] 2xl:h-[90px] 2xl:w-[90px] cursor-pointer">
+                <IconCircle className="h-[60px] w-[60px] flex-shrink-0 cursor-pointer lg:h-[70px] lg:w-[70px] 2xl:h-[90px] 2xl:w-[90px]">
                   <img src="/static/icon/Instagram.svg" alt="Instagram Icon" />
                 </IconCircle>
               </a>
             </div>
           </div>
-          <MapEmbed className="hidden flex-shrink-0 md:w-[384px] lg:block 2xl:w-[506px]" />{" "}
+          <MapEmbed className="hidden flex-shrink-0 lg:w-[384px] 2xl:block 2xl:w-[506px]" />{" "}
           {/* Right Section */}
         </div>
       </div>
