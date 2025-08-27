@@ -2,7 +2,7 @@
 
 import { useRegisterStatusActions } from "@/app/(protected)/_components/status/context"
 import MemberRegisterForm, {
-  ProcessedMemberRegisterSchemaType,
+  memberRegisterSchemaType,
 } from "@/app/(protected)/register/(member)/_components/form"
 import { orpc, queryClient } from "@/utils/orpc"
 import { useMutation, useQuery } from "@tanstack/react-query"
@@ -56,16 +56,12 @@ function MemberPage3() {
     return router.push("/register/2")
   }
 
-  const handleSubmit = (values: ProcessedMemberRegisterSchemaType) => {
+  const handleSubmit = (values: memberRegisterSchemaType) => {
     mutation.mutate({
       ...values,
-      memberIndex: 3,
-      national_doc: values.national_doc.filter((file): file is File => file !== null),
-      face_picture: values.face_picture.filter((file): file is File => file !== null),
-      p7_doc: values.p7_doc.filter((file): file is File => file !== null),
+      memberIndex: 1,
     })
   }
-
   return (
     <>
       <MemberRegisterForm
@@ -92,6 +88,7 @@ function MemberPage3() {
                 national_doc: [],
                 face_picture: [],
                 p7_doc: [],
+                chronic_disease: memberQuery.data.member.chronicDisease ?? "",
               }
             : undefined
         }

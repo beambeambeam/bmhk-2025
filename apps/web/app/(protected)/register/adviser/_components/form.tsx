@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/components/select"
+import { Textarea } from "@workspace/ui/components/textarea"
 import type { FileMetadata } from "@workspace/ui/hooks/use-file-upload"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
@@ -32,6 +33,7 @@ const adviserRegisterSchema = z.object({
   food_allergy: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   food_type: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   drug_allergy: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
+  chronic_disease: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   email: z.string().email("กรุณากรอกอีเมลให้ถูกต้อง").min(1, "จำเป็นต้องกรอกช่องนี้"),
   phone_number: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   line_id: z.string().optional(),
@@ -79,6 +81,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
       line_id: "",
       national_doc: [],
       teacher_doc: [],
+      chronic_disease: "",
       ...props.defaultValues,
     },
   })
@@ -259,6 +262,22 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                     <FormLabel>แพ้ยา</FormLabel>
                     <FormControl>
                       <Input placeholder="แพ้ยา" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div>
+              <FormField
+                control={form.control}
+                name="chronic_disease"
+                render={({ field }) => (
+                  <FormItem className="col-span-1 lg:col-span-2 2xl:col-span-1">
+                    <FormLabel>โรคประจำตัว และวิธีปฐมพยาบาลเบื้องต้น</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="แพ้ยา" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

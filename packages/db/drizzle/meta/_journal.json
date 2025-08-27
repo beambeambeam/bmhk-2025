@@ -22,7 +22,20 @@
       "when": 1756186499867,
       "tag": "0002_material_newton_destine",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1756277245018,
+      "tag": "0003_dusty_hex",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1756277686779,
+      "tag": "0004_yielding_serpent_society",
+      "breakpoints": true
     }
   ]
 }
-

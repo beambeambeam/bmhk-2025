@@ -109,6 +109,7 @@ function SignInPage() {
                 authClient.signIn.social({
                   provider: "google",
                   callbackURL: `${process.env.NEXT_PUBLIC_WEB_URL}/teams`,
+                  errorCallbackURL: `${process.env.NEXT_PUBLIC_WEB_URL}/sign-in`,
                 })
               }>
               ดำเนินการต่อด้วย Google

@@ -1,0 +1,1 @@
+ALTER TABLE "teams" ADD COLUMN "index" serial NOT NULL;

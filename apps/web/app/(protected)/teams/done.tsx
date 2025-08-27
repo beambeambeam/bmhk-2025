@@ -1,111 +1,229 @@
+import { useSubmitRegister } from "@/app/(protected)/_components/status/context"
+import ArrowIcon from "@/components/ArrowIcon"
 import CheckIcon from "@/components/CheckIcon"
 import DocumentIcon from "@/components/DocumentIcon"
 import EducationIcon from "@/components/EducationIcon"
 import MessageIcon from "@/components/MessageIcon"
 import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
+import { formatBytes } from "@workspace/ui/hooks/use-file-upload"
+import Link from "next/link"
 import { useState } from "react"
 
 function TeamDone() {
   const query = useQuery(orpc.register.all.get.queryOptions())
   const [activeMember, setActiveMember] = useState<string | null>("อาจารย์ที่ปรึกษา")
+  const isSubmit = useSubmitRegister()
 
   if (query.isPending) {
     return
   }
 
   const teamData = {
-    teamCode: query.data?.team?.id || null,
+    teamCode: `#BH${query.data?.team?.index?.toString().padStart(3, "0") || "NaN"}`,
     teamName: query.data?.team?.name || "",
     teamImage: query.data?.team?.image?.url || "",
     school: query.data?.team?.school || "",
     message: query.data?.team?.quote || "",
   }
 
-  const membersData =
-    query.data?.members?.map((member) => ({
-      teamCode: member.teamId,
-      role: member.index === 1 ? "สมาชิกคนที่ 1" : member.index === 2 ? "สมาชิกคนที่ 2" : "สมาชิกคนที่ 3",
-      avatar: `/static/teams/student${member.index}.webp`,
+  // Create all possible team member slots
+  const allMemberSlots = [
+    {
+      teamCode: "",
+      role: "อาจารย์ที่ปรึกษา",
+      avatar: "/static/teams/teacher.webp",
       info: {
         general: {
-          id: member.id || null,
-          nameTH: [member.thaiFirstname || "", member.thaiLastname || ""],
-          nameEN: [member.firstName || "", member.lastname || ""],
-          allergyFood: member.foodAllergy || "",
-          foodType: member.foodType || "",
-          allergyMedicine: member.drugAllergy || "",
+          id: null,
+          nameTH: ["", ""],
+          nameEN: ["", ""],
+          allergyFood: "",
+          foodType: "",
+          allergyMedicine: "",
           chronicDisease: "",
         },
         contact: {
-          email: member.email || "",
-          phone: member.phoneNumber || "",
-          line: member.lineId || "",
+          email: "",
+          phone: "",
+          line: "",
         },
-        documents: [
-          {
-            description: "สำเนาบัตรประชาชน",
-            fileName: member.nationalDoc?.name || "",
-            size: member.nationalDoc?.size || "",
-            href: member.nationalDoc?.url || "",
-          },
-          {
-            description: "รูปถ่ายหน้าตรง",
-            fileName: member.facePic?.name || "",
-            size: member.facePic?.size || "",
-            href: member.facePic?.url || "",
-          },
-          {
-            description: "สำเนา ป.7",
-            fileName: member.p7Doc?.name || "",
-            size: member.p7Doc?.size || "",
-            href: member.p7Doc?.url || "",
-          },
-        ].filter((doc) => doc.fileName),
+        documents: [],
       },
-    })) || []
-
-  if (query.data?.adviser) {
-    const adviserData = {
-      teamCode: query.data.adviser.teamId || "",
-      role: "อาจารย์ที่ปรึกษา",
-      avatar: "/static/teams/team.webp",
+    },
+    {
+      teamCode: "",
+      role: "สมาชิกคนที่ 1",
+      avatar: "/static/teams/student1.webp",
       info: {
         general: {
-          id: query.data.adviser.id || null,
-          nameTH: [query.data.adviser.thaiFirstname || "", query.data.adviser.thaiLastname || ""],
-          nameEN: [query.data.adviser.firstName || "", query.data.adviser.lastname || ""],
-          allergyFood: query.data.adviser.foodAllergy || "",
-          foodType: query.data.adviser.foodType || "",
-          allergyMedicine: query.data.adviser.drugAllergy || "",
-          chronicDisease: "", // Not available in current data structure
+          id: null,
+          nameTH: ["", ""],
+          nameEN: ["", ""],
+          allergyFood: "",
+          foodType: "",
+          allergyMedicine: "",
+          chronicDisease: "",
         },
         contact: {
-          email: query.data.adviser.email || "",
-          phone: query.data.adviser.phoneNumber || "",
-          line: query.data.adviser.lineId || "",
+          email: "",
+          phone: "",
+          line: "",
         },
-        documents: [
-          {
-            description: "สำเนาบัตรประชาชน",
-            fileName: query.data.adviser.nationalDoc?.name || "",
-            size: query.data.adviser.nationalDoc?.size || "",
-            href: query.data.adviser.nationalDoc?.url || "",
-          },
-          {
-            description: "หนังสือรับรองความเป็นครู",
-            fileName: query.data.adviser.teacherDoc?.name || "",
-            size: query.data.adviser.teacherDoc?.size || "",
-            href: query.data.adviser.teacherDoc?.url || "",
-          },
-        ].filter((doc) => doc.fileName),
+        documents: [],
       },
+    },
+    {
+      teamCode: "",
+      role: "สมาชิกคนที่ 2",
+      avatar: "/static/teams/student2.webp",
+      info: {
+        general: {
+          id: null,
+          nameTH: ["", ""],
+          nameEN: ["", ""],
+          allergyFood: "",
+          foodType: "",
+          allergyMedicine: "",
+          chronicDisease: "",
+        },
+        contact: {
+          email: "",
+          phone: "",
+          line: "",
+        },
+        documents: [],
+      },
+    },
+    ...(query.data?.team?.memberCount === 3
+      ? [
+          {
+            teamCode: "",
+            role: "สมาชิกคนที่ 3",
+            avatar: "/static/teams/student3.webp",
+            info: {
+              general: {
+                id: null,
+                nameTH: ["", ""],
+                nameEN: ["", ""],
+                allergyFood: "",
+                foodType: "",
+                allergyMedicine: "",
+                chronicDisease: "",
+              },
+              contact: {
+                email: "",
+                phone: "",
+                line: "",
+              },
+              documents: [],
+            },
+          },
+        ]
+      : []),
+  ]
+
+  // Fill in actual data where available
+  const membersData = allMemberSlots.map((slot, index) => {
+    if (index === 0) {
+      // Advisor slot
+      if (query.data?.adviser) {
+        return {
+          ...slot,
+          teamCode: query.data.adviser.teamId || "",
+          info: {
+            general: {
+              id: query.data.adviser.id || null,
+              nameTH: [query.data.adviser.thaiFirstname || "", query.data.adviser.thaiLastname || ""],
+              nameEN: [query.data.adviser.firstName || "", query.data.adviser.lastname || ""],
+              allergyFood: query.data.adviser.foodAllergy || "",
+              foodType: query.data.adviser.foodType || "",
+              allergyMedicine: query.data.adviser.drugAllergy || "",
+              chronicDisease: query.data.adviser.chronicDisease || "",
+            },
+            contact: {
+              email: query.data.adviser.email || "",
+              phone: query.data.adviser.phoneNumber || "",
+              line: query.data.adviser.lineId || "",
+            },
+            documents: [
+              {
+                description: "สำเนาบัตรประชาชน",
+                fileName: query.data.adviser.nationalDoc?.name || "",
+                size: formatBytes(query.data.adviser.nationalDoc?.size || 0),
+                href: query.data.adviser.nationalDoc?.url || "",
+              },
+              {
+                description: "หนังสือรับรองความเป็นครู",
+                fileName: query.data.adviser.teacherDoc?.name || "",
+                size: formatBytes(query.data.adviser.teacherDoc?.size || 0),
+                href: query.data.adviser.teacherDoc?.url || "",
+              },
+            ].filter((doc) => doc.fileName),
+          },
+        }
+      }
+      return slot
+    } else {
+      // Student slots (index 1, 2, 3)
+      const studentIndex = index
+      const student = query.data?.members?.find((member) => member.index === studentIndex)
+      if (student) {
+        return {
+          ...slot,
+          teamCode: student.teamId,
+          info: {
+            general: {
+              id: student.id || null,
+              nameTH: [student.thaiFirstname || "", student.thaiLastname || ""],
+              nameEN: [student.firstName || "", student.lastname || ""],
+              allergyFood: student.foodAllergy || "",
+              foodType: student.foodType || "",
+              allergyMedicine: student.drugAllergy || "",
+              chronicDisease: student.chronicDisease,
+            },
+            contact: {
+              email: student.email || "",
+              phone: student.phoneNumber || "",
+              line: student.lineId || "",
+            },
+            documents: [
+              {
+                description: "สำเนาบัตรประชาชน",
+                fileName: student.nationalDoc?.name || "",
+                size: formatBytes(student.nationalDoc?.size || 0),
+                href: student.nationalDoc?.url || "",
+              },
+              {
+                description: "รูปถ่ายหน้าตรง",
+                fileName: student.facePic?.name || "",
+                size: formatBytes(student.facePic?.size || 0),
+                href: student.facePic?.url || "",
+              },
+              {
+                description: "สำเนา ป.7",
+                fileName: student.p7Doc?.name || "",
+                size: formatBytes(student.p7Doc?.size || 0),
+                href: student.p7Doc?.url || "",
+              },
+            ].filter((doc) => doc.fileName),
+          },
+        }
+      }
+      return slot
     }
-    membersData.unshift(adviserData)
-  }
+  })
 
   return (
     <div className="md:px-15 z-50 w-full px-6 pt-8 md:pt-0 lg:px-20 2xl:px-40">
+      {!isSubmit && (
+        <Link
+          href="/register/team"
+          className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:hidden md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+          <span className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[2rem]">ลงทะเบียนต่อ</span>
+          <ArrowIcon className="h-6 w-6 md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
+        </Link>
+      )}
       <div
         className="liquid flex flex-col items-center gap-8 rounded-[24px] p-4 md:gap-10 md:rounded-[40px] md:p-8 lg:gap-8 2xl:gap-10 2xl:p-10"
         style={{
@@ -133,40 +251,53 @@ function TeamDone() {
               {teamData.teamCode}
             </div>
           </div>
-          <div className="flex flex-col gap-2.5 md:gap-3 2xl:gap-4">
-            <div className="flex flex-col gap-2.5 md:gap-4 2xl:flex-row 2xl:items-center">
-              <div className="xmd:text-[1.5rem] text-[1.25rem] font-medium lg:text-[1.875rem] 2xl:text-[2.25rem]">
-                {teamData.teamName}
-              </div>
-              <div className="block text-[0.875rem] font-normal text-gray-50 md:hidden 2xl:block 2xl:text-[1.75rem]">
-                {teamData.teamCode}
-              </div>
-            </div>
-            <div className="flex flex-col flex-wrap gap-2.5 2xl:flex-row 2xl:gap-6">
-              <div className="flex items-center gap-2.5">
-                <EducationIcon className="h-[16px] w-[16px] text-gray-50 md:h-[20px] md:w-[20px] lg:h-[24px] lg:w-[24px] 2xl:h-[32px] 2xl:w-[32px]" />
-                <div className="text-[0.875rem] font-normal text-gray-50 md:text-[1rem] lg:text-[1.5rem]">
-                  {teamData.school}
+          <div className="flex w-full flex-col md:flex-row md:justify-between">
+            <div className="flex flex-col gap-2.5 md:gap-3 2xl:gap-4">
+              <div className="flex flex-col gap-2.5 md:gap-4 2xl:flex-row 2xl:items-center">
+                <div className="xmd:text-[1.5rem] text-[1.25rem] font-medium lg:text-[1.875rem] 2xl:text-[2.25rem]">
+                  {teamData.teamName}
+                </div>
+                <div className="block text-[0.875rem] font-normal text-gray-50 md:hidden 2xl:block 2xl:text-[1.75rem]">
+                  {teamData.teamCode}
                 </div>
               </div>
-              <div className="flex items-center gap-2.5">
-                <MessageIcon className="h-[16px] w-[16px] text-gray-50 md:h-[20px] md:w-[20px] lg:h-[24px] lg:w-[24px] 2xl:h-[32px] 2xl:w-[32px]" />
-                <div className="text-[0.875rem] font-normal text-gray-50 md:text-[1rem] lg:text-[1.5rem]">
-                  {teamData.message}
+              <div className="flex flex-col flex-wrap gap-2.5 2xl:flex-row 2xl:gap-6">
+                <div className="flex items-center gap-2.5">
+                  <EducationIcon className="h-[16px] w-[16px] text-gray-50 md:h-[20px] md:w-[20px] lg:h-[24px] lg:w-[24px] 2xl:h-[32px] 2xl:w-[32px]" />
+                  <div className="text-[0.875rem] font-normal text-gray-50 md:text-[1rem] lg:text-[1.5rem]">
+                    {teamData.school}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <MessageIcon className="h-[16px] w-[16px] text-gray-50 md:h-[20px] md:w-[20px] lg:h-[24px] lg:w-[24px] 2xl:h-[32px] 2xl:w-[32px]" />
+                  <div className="text-[0.875rem] font-normal text-gray-50 md:text-[1rem] lg:text-[1.5rem]">
+                    {teamData.message}
+                  </div>
                 </div>
               </div>
             </div>
+
+            {!isSubmit && (
+              <Link
+                href="/register/team"
+                className="liquid hidden h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:flex md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+                <span className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[2rem]">
+                  ลงทะเบียนต่อ
+                </span>
+                <ArrowIcon className="h-6 w-6 md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
+              </Link>
+            )}
           </div>
         </div>
 
-        <div className="flex w-full flex-wrap justify-between px-0 lg:px-20 2xl:px-40">
+        <div className="flex w-full flex-wrap items-center justify-between px-0 lg:px-20 2xl:px-40">
           {membersData.map((member, idx) => (
-            <a
+            <Link
               key={idx}
               href="#"
               onClick={(e) => {
                 e.preventDefault()
-                if (!member.info.general.id) return // block click if no id
+                if (!member.info.general.id) return
                 setActiveMember(member.role)
               }}
               className={`flex flex-col items-center gap-6 ${
@@ -213,10 +344,9 @@ function TeamDone() {
                 className={`hidden text-center text-[1rem] md:block lg:text-[1.25rem] 2xl:text-[1.5rem] ${activeMember === member.role ? "font-normal" : "font-light"}`}>
                 {member.role}
               </div>
-            </a>
+            </Link>
           ))}
         </div>
-
         {membersData.map((member, idx) =>
           activeMember === member.role ? (
             <div
@@ -291,7 +421,7 @@ function TeamDone() {
                     </div>
                     <div className="flex min-w-0 flex-1 flex-col gap-2.5 md:gap-3">
                       <div className="text-[1rem] font-light text-gray-50 md:text-[1.125rem] 2xl:text-[1.25rem]">
-                        โรคประจำตัว
+                        โรคประจำตัวและวิธีปฐมพยาบาลเบื้องต้น
                       </div>
                       <div className="flex gap-3 text-[1rem] font-normal md:text-[1.25rem] 2xl:text-[1.375rem]">
                         {member.info.general.chronicDisease}

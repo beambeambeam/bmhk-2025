@@ -1,4 +1,14 @@
-import { boolean, integer, pgTable, text, timestamp, uuid, uniqueIndex, pgEnum } from "drizzle-orm/pg-core"
+import {
+  boolean,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  uniqueIndex,
+  pgEnum,
+  serial,
+} from "drizzle-orm/pg-core"
 
 export const teams = pgTable("teams", {
   id: uuid("id").defaultRandom().notNull().primaryKey(),
@@ -11,6 +21,7 @@ export const teams = pgTable("teams", {
   memberCount: integer("member_count").notNull().default(0),
   quote: text("quote").notNull(),
   award: text("award").notNull(),
+  index: serial().notNull(),
   createdAt: timestamp("created_at")
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
@@ -36,6 +47,7 @@ export const advisor = pgTable(
     foodAllergy: text("food_allergy").notNull(),
     foodType: text("food_type").notNull(),
     drugAllergy: text("drug_allergy").notNull(),
+    chronicDisease: text("chronic_disease").notNull(),
     email: text("email").notNull(),
     phoneNumber: text("phone_number").notNull(),
     lineId: text("line_id"),
@@ -76,6 +88,7 @@ export const member = pgTable(
     phoneNumber: text("phone_number").notNull(),
     lineId: text("line_id"),
     parent: text("parent").notNull(),
+    chronicDisease: text("chronic_disease").notNull(),
     parentPhoneNumber: text("parent_phone_number").notNull(),
     nationalDocId: uuid("national_doc_id").references(() => file.id, { onDelete: "set null" }),
     p7DocId: uuid("p7_doc_id").references(() => file.id, { onDelete: "set null" }),
