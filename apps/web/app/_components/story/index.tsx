@@ -34,6 +34,13 @@ function Story() {
     }
   }, [stories.length])
 
+  useEffect(() => {
+    stories.forEach((story) => {
+      const img = new Image()
+      img.src = `/static/story/${story.background}`
+    })
+  }, [stories])
+
   const handleSelect = (index: number) => {
     setFade(false) // start fade-out
     setTimeout(() => {
@@ -56,34 +63,45 @@ function Story() {
           <img src="/static/icon/Left_arrow.svg" alt="Left Arrow Icon" />
         </IconCircle>
         <GlassCard
-          className="2xl:p-[80px 80px 40px 80px] w-full p-4 lg:max-w-[1034px] lg:p-10 2xl:max-w-[1326px]"
+          className="relative z-10 flex w-full flex-col items-center justify-center gap-10 p-4 lg:max-w-[1034px] lg:p-10 2xl:max-w-[1326px]"
           style={{
-            backgroundImage: `
-              radial-gradient(
-                66.31% 84.48% at 52.63% 121.84%,
-                rgba(${currentStory["radial-grad-start"]},0.25) 0%,
-                rgba(${currentStory["radial-grad-end"]},0) 100%
-              ),
-              linear-gradient(
-                106.52deg,
-                rgba(${currentStory["linear-grad-start"]},0.09) -2.48%,
-                rgba(${currentStory["linear-grad-end"]},0.09) 29.08%
-              ),
-              url("/static/story/${currentStory.background}")
-            `,
-            backgroundSize: "auto, auto, cover",
-            backgroundPosition: "center, center, center",
-            backgroundRepeat: "no-repeat, no-repeat, no-repeat",
             borderRadius: 40,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 10,
             transition: "opacity 0.5s",
             opacity: fade ? 1 : 0,
           }}>
-          <div className="flex flex-col items-center gap-8 self-stretch lg:flex-row 2xl:gap-10">
+          {/* Background images inside the card */}
+          <div className="absolute left-0 top-0 h-full w-full overflow-hidden rounded-[40px]">
+            {stories.map((story, index) => (
+              <img
+                key={index}
+                src={`/static/story/${story.background}`}
+                alt={`Background ${index}`}
+                className={`absolute left-0 top-0 h-full w-full object-cover transition-opacity duration-500 ${
+                  index === currentIndex ? (fade ? "opacity-100" : "opacity-0") : "opacity-0"
+                }`}
+              />
+            ))}
+
+            {/* Gradients overlay */}
+            <div
+              className="absolute left-0 top-0 h-full w-full"
+              style={{
+                backgroundImage: `
+                  radial-gradient(
+                    66.31% 84.48% at 52.63% 121.84%,
+                    rgba(${currentStory["radial-grad-start"]},0.25) 0%,
+                    rgba(${currentStory["radial-grad-end"]},0) 100%
+                  ),
+                  linear-gradient(
+                    106.52deg,
+                    rgba(${currentStory["linear-grad-start"]},0.09) -2.48%,
+                    rgba(${currentStory["linear-grad-end"]},0.09) 29.08%
+                  )
+                `,
+              }}
+            />
+          </div>
+          <div className="z-10 flex flex-col items-center gap-8 self-stretch lg:flex-row 2xl:gap-10">
             <div className="flex h-[200px] w-[280px] items-center justify-center lg:h-auto">
               {currentStory.img && (
                 <img
