@@ -2,6 +2,7 @@
 
 import RegisterStatus from "@/app/(protected)/_components/status"
 import TeamRegisterForm from "@/app/(protected)/register/team/_components/form"
+import Navbar from "@/app/(protected)/teams/navbar"
 import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
 import { cn } from "@workspace/ui/lib/utils"
@@ -17,8 +18,13 @@ function TeamRegisterPage() {
     "bg-[url(/static/background-image/register-form/xs.webp)] md:bg-[url(/static/background-image/register-form/md.webp)] lg:bg-[url(/static/background-image/register-form/lg.webp)] 2xl:bg-[url(/static/background-image/register-form/2xl.webp)]"
 
   return (
-    <div className={cn("flex flex-col h-full min-h-screen w-full items-center justify-center", BACKGROUND_CLASS)}>
-      <RegisterStatus />
+    <div
+      className={cn(
+        "flex h-full min-h-screen w-full flex-col items-center justify-center gap-14 pt-14",
+        BACKGROUND_CLASS
+      )}>
+      <Navbar />
+      <p className="text-header-2-medium">ลงทะเบียนเข้าแข่งขัน</p>
       <TeamRegisterForm
         defaultValues={
           query.data && query.data.success && query.data.team

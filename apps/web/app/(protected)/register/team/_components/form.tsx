@@ -1,6 +1,8 @@
 "use client"
 
+import RegisterStatus from "@/app/(protected)/_components/status"
 import AvatarUploader from "@/app/(protected)/register/team/_components/avatar"
+import ArrowIcon from "@/components/ArrowIcon"
 import FormProps from "@/types/form"
 import { orpc, queryClient } from "@/utils/orpc"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -66,8 +68,11 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full max-w-[62rem] flex-col gap-6">
-        <div className="grid w-full gap-8 lg:grid-rows-[auto_1fr_1fr] 2xl:grid-cols-[auto_1fr]">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex h-fit w-full max-w-[80rem] flex-col gap-14">
+        <RegisterStatus />
+        <div className="liquid grid w-full gap-5 rounded-[40px] p-4 lg:grid-rows-[auto_1fr_1fr] 2xl:grid-cols-[auto_1fr] 2xl:gap-8 2xl:px-8 2xl:py-6">
           <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
             <p className="text-3xl text-white">1. ข้อมูลทีม</p>
           </div>
@@ -77,7 +82,6 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
               name="team_image"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Team Image</FormLabel>
                   <FormControl>
                     <AvatarUploader value={field.value} onChange={field.onChange} disabled={props.disabled} />
                   </FormControl>
@@ -92,7 +96,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
               name="team_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>team_name</FormLabel>
+                  <FormLabel>ชื่อทีม</FormLabel>
                   <FormControl>
                     <Input placeholder="team_name" {...field} limit={20} />
                   </FormControl>
@@ -105,7 +109,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
               name="school_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>school_name</FormLabel>
+                  <FormLabel>สถานศึกษา</FormLabel>
                   <FormControl>
                     <Input placeholder="school_name" {...field} />
                   </FormControl>
@@ -118,7 +122,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
               name="quote"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>quote</FormLabel>
+                  <FormLabel>คำคมประจำทีม</FormLabel>
                   <FormControl>
                     <Input placeholder="quote" {...field} limit={50} />
                   </FormControl>
@@ -131,7 +135,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
               name="member_count"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>member_count</FormLabel>
+                  <FormLabel>จำนวนสมาชิก</FormLabel>
                   <Select
                     onValueChange={(value) => field.onChange(Number(value))}
                     defaultValue={String(field.value)}>
@@ -151,8 +155,20 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
             />
           </div>
         </div>
-        <div className="flex justify-end">
-          <Button type="submit">Submit</Button>
+        <div className="flex w-full justify-between">
+          <Button
+            type="button"
+            onClick={() => router.push("/teams")}
+            className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+            <ArrowIcon className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
+            <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ย้อนกลับ</span>
+          </Button>
+          <Button
+            type="submit"
+            className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+            <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ต่อไป</span>
+            <ArrowIcon className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
+          </Button>
         </div>
       </form>
     </Form>
