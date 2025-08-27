@@ -56,6 +56,8 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
       member_count: 2,
       ...props.defaultValues,
     },
+    mode: "onChange",
+    reValidateMode: "onChange",
   })
 
   const onSubmit = (values: TeamRegisterSchemaType) => {
@@ -92,7 +94,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
                 <FormItem>
                   <FormLabel>team_name</FormLabel>
                   <FormControl>
-                    <Input placeholder="team_name" {...field} />
+                    <Input placeholder="team_name" {...field} limit={20} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -118,7 +120,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
                 <FormItem>
                   <FormLabel>quote</FormLabel>
                   <FormControl>
-                    <Input placeholder="quote" {...field} />
+                    <Input placeholder="quote" {...field} limit={50} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
