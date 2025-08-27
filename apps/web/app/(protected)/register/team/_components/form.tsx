@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@workspace/ui/components/select"
 import type { FileMetadata } from "@workspace/ui/hooks/use-file-upload"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import z from "zod"
@@ -160,14 +161,14 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
             type="button"
             onClick={() => router.push("/teams")}
             className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
-            <ArrowIcon className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
+            <ChevronLeft className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
             <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ย้อนกลับ</span>
           </Button>
           <Button
             type="submit"
             className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
             <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ต่อไป</span>
-            <ArrowIcon className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
+            <ChevronRight className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
           </Button>
         </div>
       </form>

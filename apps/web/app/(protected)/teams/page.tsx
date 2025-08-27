@@ -31,7 +31,7 @@ export default function TeamPage() {
       <Navbar links={TeamNavMobileLinks} CTA={TeamNavMenu} sections={[]} />
       <div
         className={
-          "pb-15 2xl:gap-18 flex w-full flex-col items-center gap-0 overflow-hidden pt-[140px] text-white md:gap-10 md:pt-[140px]"
+          "pb-15 flex w-full flex-col items-center gap-0 overflow-hidden text-white md:gap-10 2xl:gap-8"
         }>
         {!isSubmit ? <Requirement key="landing" /> : <TeamDone />}
       </div>
