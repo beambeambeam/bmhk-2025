@@ -122,9 +122,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex h-fit w-full max-w-[80rem] flex-col gap-14 px-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex h-fit w-full flex-col gap-14 px-4">
         <RegisterStatus />
         <div className="flex flex-col gap-6 px-3 md:px-[60px] lg:px-[100px] 2xl:px-80">
           <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-5 lg:p-6 2xl:gap-8 2xl:px-8 2xl:py-6">
