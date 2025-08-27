@@ -1,4 +1,14 @@
-import { boolean, integer, pgTable, text, timestamp, uuid, uniqueIndex, pgEnum } from "drizzle-orm/pg-core"
+import {
+  boolean,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  uniqueIndex,
+  pgEnum,
+  serial,
+} from "drizzle-orm/pg-core"
 
 export const teams = pgTable("teams", {
   id: uuid("id").defaultRandom().notNull().primaryKey(),
@@ -11,6 +21,7 @@ export const teams = pgTable("teams", {
   memberCount: integer("member_count").notNull().default(0),
   quote: text("quote").notNull(),
   award: text("award").notNull(),
+  index: serial().notNull(),
   createdAt: timestamp("created_at")
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
