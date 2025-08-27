@@ -21,7 +21,7 @@ function RegisterStatus() {
       status: registerStatus.team,
     },
     {
-      name: "อาจาร์ยที่ปรึกษา",
+      name: "อาจารย์ที่ปรึกษา",
       imageUrl: "d",
       pattern: "/adviser/*",
       status: registerStatus.adviser,

@@ -1,7 +1,9 @@
 "use client"
 
+import RegisterStatus from "@/app/(protected)/_components/status"
 import DocumentUploader from "@/app/(protected)/register/_components/document_uploader"
 import ScrollArea from "@/app/_components/scope/ScrollArea"
+import ArrowIcon from "@/components/ArrowIcon"
 import FormProps from "@/types/form"
 import { orpc, queryClient } from "@/utils/orpc"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -18,6 +20,7 @@ import {
 } from "@workspace/ui/components/select"
 import { Textarea } from "@workspace/ui/components/textarea"
 import type { FileMetadata } from "@workspace/ui/hooks/use-file-upload"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import z from "zod"
@@ -92,201 +95,206 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="h-full">
-        <ScrollArea colorTheme="#9F83DC" className="flex max-h-full flex-col gap-8">
-          <div className="flex flex-col gap-6">
-            <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
-              <p className="text-3xl text-white">1. ข้อมูลอาจารย์</p>
-            </div>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex h-fit w-full max-w-[80rem] flex-col gap-14 px-4">
+        <RegisterStatus />
+        <div className="flex flex-col gap-6">
+          <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
+            <div className="flex flex-col gap-6">
+              <div className="col-span-2 grid grid-cols-2 gap-4">
+                <p className="col-span-2 w-full text-3xl text-white">1. ข้อมูลอาจารย์</p>
+              </div>
 
-            <div className="grid grid-cols-2 gap-4 lg:grid-cols-[1fr_2.25fr_2.25fr_2.25fr]">
-              <FormField
-                control={form.control}
-                name="prefix"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>คำนำหน้าภาษาไทย</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <div className="grid grid-cols-2 gap-4 lg:grid-cols-[1fr_2.25fr_2.25fr_2.25fr]">
+                <FormField
+                  control={form.control}
+                  name="prefix"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>คำนำหน้าภาษาไทย</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="เลือกคำนำหน้า" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="MR">นาย</SelectItem>
+                          <SelectItem value="MS">นางสาว</SelectItem>
+                          <SelectItem value="MRS">นาง</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="thai_firstname"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>ชื่อภาษาไทย</FormLabel>
                       <FormControl>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="เลือกคำนำหน้า" />
-                        </SelectTrigger>
+                        <Input placeholder="ชื่อภาษาไทย" {...field} />
                       </FormControl>
-                      <SelectContent>
-                        <SelectItem value="MR">นาย</SelectItem>
-                        <SelectItem value="MS">นางสาว</SelectItem>
-                        <SelectItem value="MRS">นาง</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="thai_firstname"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>ชื่อภาษาไทย</FormLabel>
-                    <FormControl>
-                      <Input placeholder="ชื่อภาษาไทย" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="thai_middlename"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>ชื่อกลางภาษาไทย (ไม่บังคับ)</FormLabel>
-                    <FormControl>
-                      <Input placeholder="ชื่อกลางภาษาไทย" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="thai_lastname"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>นามสกุลภาษาไทย</FormLabel>
-                    <FormControl>
-                      <Input placeholder="นามสกุลภาษาไทย" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 lg:grid-cols-[1fr_2.25fr_2.25fr_2.25fr]">
-              <FormField
-                control={form.control}
-                name="prefix"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>คำนำหน้าภาษาอังกฤษ</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="thai_middlename"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>ชื่อกลางภาษาไทย (ไม่บังคับ)</FormLabel>
                       <FormControl>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="เลือกคำนำหน้า" />
-                        </SelectTrigger>
+                        <Input placeholder="ชื่อกลางภาษาไทย" {...field} />
                       </FormControl>
-                      <SelectContent>
-                        <SelectItem value="MR">MR</SelectItem>
-                        <SelectItem value="MS">MS</SelectItem>
-                        <SelectItem value="MRS">MRS</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="english_firstname"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>ชื่อภาษาอังกฤษ</FormLabel>
-                    <FormControl>
-                      <Input placeholder="ชื่อภาษาอังกฤษ" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="english_middlename"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>ชื่อกลางภาษาอังกฤษ (ไม่บังคับ)</FormLabel>
-                    <FormControl>
-                      <Input placeholder="ชื่อกลางภาษาอังกฤษ" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="english_lastname"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>นามสกุลภาษาอังกฤษ</FormLabel>
-                    <FormControl>
-                      <Input placeholder="นามสกุลภาษาอังกฤษ" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="thai_lastname"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>นามสกุลภาษาไทย</FormLabel>
+                      <FormControl>
+                        <Input placeholder="นามสกุลภาษาไทย" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
-              <FormField
-                control={form.control}
-                name="food_allergy"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>แพ้อาหาร</FormLabel>
-                    <FormControl>
-                      <Input placeholder="แพ้อาหาร" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="food_type"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>ประเภทอาหาร</FormLabel>
-                    <FormControl>
-                      <Input placeholder="ประเภทอาหาร" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="drug_allergy"
-                render={({ field }) => (
-                  <FormItem className="col-span-1 lg:col-span-2 2xl:col-span-1">
-                    <FormLabel>แพ้ยา</FormLabel>
-                    <FormControl>
-                      <Input placeholder="แพ้ยา" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+              <div className="grid grid-cols-2 gap-4 lg:grid-cols-[1fr_2.25fr_2.25fr_2.25fr]">
+                <FormField
+                  control={form.control}
+                  name="prefix"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>คำนำหน้าภาษาอังกฤษ</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="เลือกคำนำหน้า" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="MR">MR</SelectItem>
+                          <SelectItem value="MS">MS</SelectItem>
+                          <SelectItem value="MRS">MRS</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="english_firstname"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>ชื่อภาษาอังกฤษ</FormLabel>
+                      <FormControl>
+                        <Input placeholder="ชื่อภาษาอังกฤษ" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="english_middlename"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>ชื่อกลางภาษาอังกฤษ (ไม่บังคับ)</FormLabel>
+                      <FormControl>
+                        <Input placeholder="ชื่อกลางภาษาอังกฤษ" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="english_lastname"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>นามสกุลภาษาอังกฤษ</FormLabel>
+                      <FormControl>
+                        <Input placeholder="นามสกุลภาษาอังกฤษ" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
 
-            <div>
-              <FormField
-                control={form.control}
-                name="chronic_disease"
-                render={({ field }) => (
-                  <FormItem className="col-span-1 lg:col-span-2 2xl:col-span-1">
-                    <FormLabel>โรคประจำตัว และวิธีปฐมพยาบาลเบื้องต้น</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="แพ้ยา" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
+                <FormField
+                  control={form.control}
+                  name="food_allergy"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>แพ้อาหาร</FormLabel>
+                      <FormControl>
+                        <Input placeholder="แพ้อาหาร" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="food_type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>ประเภทอาหาร</FormLabel>
+                      <FormControl>
+                        <Input placeholder="ประเภทอาหาร" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="drug_allergy"
+                  render={({ field }) => (
+                    <FormItem className="col-span-1 lg:col-span-2 2xl:col-span-1">
+                      <FormLabel>แพ้ยา</FormLabel>
+                      <FormControl>
+                        <Input placeholder="แพ้ยา" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div>
+                <FormField
+                  control={form.control}
+                  name="chronic_disease"
+                  render={({ field }) => (
+                    <FormItem className="col-span-1 lg:col-span-2 2xl:col-span-1">
+                      <FormLabel>โรคประจำตัว และวิธีปฐมพยาบาลเบื้องต้น</FormLabel>
+                      <FormControl>
+                        <Textarea placeholder="แพ้ยา" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-6">
+          <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
             <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
               <p className="text-3xl text-white">2. ข้อมูลติดต่อ</p>
             </div>
@@ -334,7 +342,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-6">
+          <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
             <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
               <p className="text-3xl text-white">3. เอกสาร</p>
             </div>
@@ -381,11 +389,23 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
               )}
             />
           </div>
-        </ScrollArea>
+        </div>
 
-        <Button type="submit" className="w-full">
-          ต่อไป
-        </Button>
+        <div className="flex w-full justify-between">
+          <Button
+            type="button"
+            onClick={() => router.push("/register/team")}
+            className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+            <ChevronLeft className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
+            <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ย้อนกลับ</span>
+          </Button>
+          <Button
+            type="submit"
+            className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+            <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ต่อไป</span>
+            <ChevronRight className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
+          </Button>
+        </div>
       </form>
     </Form>
   )
