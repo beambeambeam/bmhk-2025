@@ -291,7 +291,7 @@ function TeamDone() {
                     </div>
                     <div className="flex min-w-0 flex-1 flex-col gap-2.5 md:gap-3">
                       <div className="text-[1rem] font-light text-gray-50 md:text-[1.125rem] 2xl:text-[1.25rem]">
-                        โรคประจำตัว
+                        โรคประจำตัวและวิธีปฐมพยาบาลเบื้องต้น
                       </div>
                       <div className="flex gap-3 text-[1rem] font-normal md:text-[1.25rem] 2xl:text-[1.375rem]">
                         {member.info.general.chronicDisease}
