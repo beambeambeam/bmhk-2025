@@ -1,6 +1,7 @@
 "use client"
 
 import { useSubmitRegister } from "@/app/(protected)/_components/status/context"
+import TeamDone from "@/app/(protected)/teams/done"
 import Requirement from "@/app/(protected)/teams/requirement"
 import { cn } from "@workspace/ui/lib/utils"
 import { useState } from "react"
@@ -190,6 +191,7 @@ export default function TeamPage() {
             const members = teamMembers.filter((m) => m.teamCode === team.teamCode)
             return <Team key={team.teamCode} team={team} members={members} />
           })}
+          <TeamDone />
         </>
       )}
     </div>
