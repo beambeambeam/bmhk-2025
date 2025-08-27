@@ -20,7 +20,7 @@ function MemberLayout(props: MemberLayoutProps) {
       )}>
       <Navbar links={TeamNavMobileLinks} CTAId={"regis"} sections={[]} />
       <p className="text-header-2-medium">ลงทะเบียนเข้าแข่งขัน</p>
-      <div className="max-w-[80rem]">{props.children}</div>
+      <div className="w-full max-w-[80rem]">{props.children}</div>
     </div>
   )
 }
