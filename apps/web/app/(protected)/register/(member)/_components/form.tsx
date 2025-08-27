@@ -1,6 +1,7 @@
 "use client"
 
 import RegisterStatus from "@/app/(protected)/_components/status"
+import { useMember3Status } from "@/app/(protected)/_components/status/context"
 import DocumentUploader from "@/app/(protected)/register/_components/document_uploader"
 import { ExternalFormProps } from "@/types/form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -71,7 +72,10 @@ export type ProcessedMemberRegisterSchemaType = Omit<
 }
 
 function MemberRegisterForm(
-  props: ExternalFormProps<memberRegisterSchemaType> & { children?: ReactNode; index: number }
+  props: ExternalFormProps<memberRegisterSchemaType> & {
+    children?: ReactNode
+    index: number
+  }
 ) {
   const router = useRouter()
 
@@ -99,11 +103,14 @@ function MemberRegisterForm(
       chronic_disease: "",
       ...props.defaultValues,
     },
+    disabled: props.disabled,
   })
 
   const handleSubmit = (values: memberRegisterSchemaType) => {
     props.onSubmit?.(values)
   }
+
+  const member3 = useMember3Status()
 
   return (
     <Form {...form}>
@@ -518,8 +525,15 @@ function MemberRegisterForm(
           <div className="flex h-full items-center justify-center">
             <Button
               type="submit"
-              className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
-              <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ต่อไป</span>
+              className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6"
+              disabled={props.disabled}>
+              <span className="text-[20px] font-medium text-white 2xl:text-[22px]">
+                {props.index === 3
+                  ? "บันทึก"
+                  : props.index === 2 && member3 === "NOT_HAVE"
+                    ? "บันทึก"
+                    : "ต่อไป"}
+              </span>
               <ChevronRight className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
             </Button>
             {props.children}

@@ -7,7 +7,6 @@ import {
 import MemberRegisterForm, {
   memberRegisterSchemaType,
 } from "@/app/(protected)/register/(member)/_components/form"
-import ArrowIcon from "@/components/ArrowIcon"
 import { orpc, queryClient } from "@/utils/orpc"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { Button } from "@workspace/ui/components/button"
@@ -102,7 +101,8 @@ function MemberPage2() {
               }
             : undefined
         }
-        index={2}>
+        index={2}
+        isPending={mutation.isPending}>
         {showFinalSubmit && (
           <Button
             onClick={() => submitMutation.mutate({})}
