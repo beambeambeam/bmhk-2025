@@ -117,7 +117,9 @@ function MemberRegisterForm(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      คำนำหน้า <span className="align-super text-pink-300">*</span>
+                      <span>
+                        คำนำหน้า <span className="align-super text-pink-300">*</span>
+                      </span>
                     </FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
@@ -140,7 +142,11 @@ function MemberRegisterForm(
                 name="thai_firstname"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>ชื่อจริง (ภาษาไทย)</FormLabel>
+                    <FormLabel>
+                      <span>
+                        ชื่อจริง (ภาษาไทย) <span className="align-super text-pink-300">*</span>
+                      </span>
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="ชื่อจริง" {...field} />
                     </FormControl>
@@ -167,7 +173,9 @@ function MemberRegisterForm(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      นามสกุล (ภาษาไทย) <span className="align-super text-pink-300">*</span>
+                      <span>
+                        นามสกุล (ภาษาไทย) <span className="align-super text-pink-300">*</span>
+                      </span>
                     </FormLabel>
                     <FormControl>
                       <Input placeholder="นามสกุล" {...field} />
@@ -185,7 +193,9 @@ function MemberRegisterForm(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Prefix <span className="align-super text-pink-300">*</span>
+                      <span>
+                        Prefix <span className="align-super text-pink-300">*</span>
+                      </span>
                     </FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
@@ -209,7 +219,9 @@ function MemberRegisterForm(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      First Name <span className="align-super text-pink-300">*</span>
+                      <span>
+                        First Name <span className="align-super text-pink-300">*</span>
+                      </span>
                     </FormLabel>
                     <FormControl>
                       <Input placeholder="Name" {...field} />
@@ -237,7 +249,9 @@ function MemberRegisterForm(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Last Name <span className="align-super text-pink-300">*</span>
+                      <span>
+                        Last Name <span className="align-super text-pink-300">*</span>
+                      </span>
                     </FormLabel>
                     <FormControl>
                       <Input placeholder="Last Name" {...field} />
@@ -319,7 +333,9 @@ function MemberRegisterForm(
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    อีเมล <span className="align-super text-pink-300">*</span>
+                    <span>
+                      อีเมล <span className="align-super text-pink-300">*</span>
+                    </span>
                   </FormLabel>
                   <FormControl>
                     <Input type="email" placeholder="someone@example.com" {...field} />
@@ -334,7 +350,9 @@ function MemberRegisterForm(
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    เบอร์โทรศัพท์ <span className="align-super text-pink-300">*</span>
+                    <span>
+                      เบอร์โทรศัพท์ <span className="align-super text-pink-300">*</span>
+                    </span>
                   </FormLabel>
                   <FormControl>
                     <Input placeholder="0812345678" {...field} />
@@ -398,7 +416,9 @@ function MemberRegisterForm(
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  รูปถ่ายนักเรียนหน้าตรง ขนาด 1.5 นิ้ว <span className="align-super text-pink-300">*</span>
+                  <span>
+                    รูปถ่ายนักเรียนหน้าตรง ขนาด 1.5 นิ้ว <span className="align-super text-pink-300">*</span>
+                  </span>
                 </FormLabel>
                 <FormControl>
                   <DocumentUploader
@@ -421,8 +441,10 @@ function MemberRegisterForm(
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  2. สำเนาบัตรประจำตัวประชาชน หรือบัตรประจำตัวสำหรับ บุคคลที่ไม่ใช่สัญชาติไทย
-                  พร้อมเซ็นสำเนาถูกต้อง (เฉพาะด้านหน้า) <span className="align-super text-pink-300">*</span>
+                  <span>
+                    2. สำเนาบัตรประจำตัวประชาชน หรือบัตรประจำตัวสำหรับ บุคคลที่ไม่ใช่สัญชาติไทย
+                    พร้อมเซ็นสำเนาถูกต้อง (เฉพาะด้านหน้า) <span className="align-super text-pink-300">*</span>
+                  </span>
                 </FormLabel>
                 <FormControl>
                   <DocumentUploader
@@ -445,8 +467,10 @@ function MemberRegisterForm(
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  3. สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริง{" "}
-                  <span className="align-super text-pink-300">*</span>
+                  <span>
+                    3. สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริง
+                    <span className="align-super text-pink-300">*</span>
+                  </span>
                 </FormLabel>
                 <FormControl>
                   <DocumentUploader
