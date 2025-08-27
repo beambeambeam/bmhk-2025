@@ -144,7 +144,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                         </span>
                       </FormLabel>
                       <FormControl>
-                        <Input placeholder="ชื่อภาษาไทย" {...field} />
+                        <Input placeholder="ชื่อจริง" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -196,9 +196,9 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="MR">MR</SelectItem>
-                          <SelectItem value="MS">MS</SelectItem>
-                          <SelectItem value="MRS">MRS</SelectItem>
+                          <SelectItem value="MR">Mr.</SelectItem>
+                          <SelectItem value="MS">Ms.</SelectItem>
+                          <SelectItem value="MRS">Mrs.</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -361,7 +361,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                   <FormItem>
                     <FormLabel>Line ID</FormLabel>
                     <FormControl>
-                      <Input placeholder="Line ID" {...field} />
+                      <Input placeholder="ID LINE" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
