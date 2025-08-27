@@ -73,7 +73,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex h-fit w-full max-w-[80rem] flex-col gap-14">
         <RegisterStatus />
-        <div className="liquid grid w-full gap-5 rounded-[40px] p-4 lg:grid-rows-[auto_1fr_1fr] 2xl:grid-cols-[auto_1fr] 2xl:gap-8 2xl:px-8 2xl:py-6">
+        <div className="liquid grid w-full gap-5 rounded-[40px] p-4 lg:grid-rows-[auto_1fr] 2xl:grid-cols-[auto_1fr] 2xl:gap-8 2xl:px-8 2xl:py-6">
           <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
             <p className="text-3xl text-white">1. ข้อมูลทีม</p>
           </div>
@@ -91,7 +91,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
               )}
             />
           </div>
-          <div className="grid w-full gap-4 lg:grid-cols-2 lg:grid-rows-2">
+          <div className="grid w-full gap-4 lg:grid-cols-2 lg:grid-rows-2 2xl:gap-6">
             <FormField
               control={form.control}
               name="team_name"
