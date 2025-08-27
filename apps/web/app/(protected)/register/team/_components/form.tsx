@@ -166,15 +166,17 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
           <Button
             type="button"
             onClick={() => router.push("/teams")}
-            className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
-            <ChevronLeft className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
-            <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ย้อนกลับ</span>
+            className="liquid mb-8 flex h-fit w-12 items-center gap-4 rounded-[20px] py-3 md:w-[182px] md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+            <ChevronLeft className="size-6 text-white md:size-8 2xl:size-10" />
+            <span className="hidden text-[20px] font-medium text-white md:block 2xl:text-[22px]">
+              ย้อนกลับ
+            </span>
           </Button>
           <Button
             type="submit"
-            className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
-            <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ต่อไป</span>
-            <ChevronRight className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
+            className="liquid mb-8 flex h-fit w-12 items-center gap-4 rounded-[20px] py-3 md:w-[182px] md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+            <span className="hidden text-[20px] font-medium text-white md:block 2xl:text-[22px]">ต่อไป</span>
+            <ChevronRight className="size-6 text-white md:size-8 2xl:size-10" />
           </Button>
         </div>
       </form>
