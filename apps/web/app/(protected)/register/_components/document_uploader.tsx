@@ -141,13 +141,19 @@ function DocumentUploader({
             const fileSize = file instanceof File ? file.size : file.size
 
             return (
-              <div key={fileWithPreview.id} className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="text-green-400">{getFileIcon(file)}</div>
+              <div key={fileWithPreview.id} className="flex items-center justify-between gap-2">
+                <div className="flex min-w-0 flex-1 items-center space-x-2 md:space-x-3">
+                  <div className="flex-shrink-0 text-green-400">{getFileIcon(file)}</div>
 
-                  <div className="flex min-w-0 gap-x-3">
-                    <p className="truncate text-lg font-normal text-white">{fileName}</p>
-                    <p className="text-lg font-light text-gray-50">{formatBytes(fileSize)}</p>
+                  <div className="flex min-w-0 flex-col md:flex-row md:gap-x-3">
+                    <p className="truncate text-sm font-normal text-white md:text-lg" title={fileName}>
+                      {fileName.length > 20
+                        ? `${fileName.substring(0, 15)}...${fileName.split(".").pop()}`
+                        : fileName}
+                    </p>
+                    <p className="flex-shrink-0 text-xs font-light text-gray-50 md:text-lg">
+                      {formatBytes(fileSize)}
+                    </p>
                   </div>
                 </div>
 
@@ -155,8 +161,12 @@ function DocumentUploader({
                   <button
                     type="button"
                     onClick={() => removeFile(fileWithPreview.id)}
-                    className="text-white transition-colors hover:text-[#ea4335]">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    className="flex-shrink-0 text-white transition-colors hover:text-[#ea4335]">
+                    <svg
+                      className="h-4 w-4 md:h-5 md:w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
