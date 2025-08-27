@@ -1,4 +1,3 @@
-import { Button } from "@workspace/ui/components/button"
 import { useFileUpload } from "@workspace/ui/hooks/use-file-upload"
 import type { FileMetadata } from "@workspace/ui/hooks/use-file-upload"
 import { cn } from "@workspace/ui/lib/utils"
@@ -16,15 +15,7 @@ function AvatarUploader({ value = [], onChange, disabled }: AvatarUploaderProps)
 
   const [
     { files, isDragging },
-    {
-      removeFile,
-      openFileDialog,
-      getInputProps,
-      handleDragEnter,
-      handleDragLeave,
-      handleDragOver,
-      handleDrop,
-    },
+    { openFileDialog, getInputProps, handleDragEnter, handleDragLeave, handleDragOver, handleDrop },
   ] = useFileUpload({
     accept: "image/*",
     multiple: false,

@@ -2,14 +2,20 @@
 
 import RegisterStatus from "@/app/(protected)/_components/status"
 import DocumentUploader from "@/app/(protected)/register/_components/document_uploader"
-import ScrollArea from "@/app/_components/scope/ScrollArea"
-import ArrowIcon from "@/components/ArrowIcon"
 import FormProps from "@/types/form"
 import { orpc, queryClient } from "@/utils/orpc"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { Button } from "@workspace/ui/components/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@workspace/ui/components/form"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@workspace/ui/components/form"
 import { Input } from "@workspace/ui/components/input"
 import {
   Select,
@@ -144,7 +150,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                         </span>
                       </FormLabel>
                       <FormControl>
-                        <Input placeholder="ชื่อภาษาไทย" {...field} />
+                        <Input placeholder="ชื่อจริง" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -196,9 +202,9 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="MR">MR</SelectItem>
-                          <SelectItem value="MS">MS</SelectItem>
-                          <SelectItem value="MRS">MRS</SelectItem>
+                          <SelectItem value="MR">Mr.</SelectItem>
+                          <SelectItem value="MS">Ms.</SelectItem>
+                          <SelectItem value="MRS">Mrs.</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -304,7 +310,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                     <FormItem className="col-span-1 lg:col-span-2 2xl:col-span-1">
                       <FormLabel>โรคประจำตัว และวิธีปฐมพยาบาลเบื้องต้น</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="รายละเอียด" {...field} />
+                        <Textarea placeholder="รายละเอียด" {...field} className="h-28" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -361,7 +367,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                   <FormItem>
                     <FormLabel>Line ID</FormLabel>
                     <FormControl>
-                      <Input placeholder="Line ID" {...field} />
+                      <Input placeholder="ID LINE" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -380,22 +386,24 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
               name="national_doc"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    <span>
-                      1. สำเนาบัตรประจำตัวประชาชน หรือบัตรประจำตัวสำหรับบุคคลที่ไม่ใช่สัญชาติไทย
-                      พร้อมเซ็นสำเนาถูกต้อง (เฉพาะด้านหน้า){" "}
-                      <span className="align-super text-pink-300">*</span>
-                    </span>
-                  </FormLabel>
                   <FormControl>
-                    <DocumentUploader
-                      value={field.value}
-                      onChange={field.onChange}
-                      disabled={props.disabled}
-                      multiple={false}
-                      maxFiles={1}
-                      maxSize={10 * 1024 * 1024} // 10MB
-                    />
+                    <div className="grid grid-cols-2 gap-10">
+                      <FormDescription>
+                        1. สำเนาบัตรประจำตัวประชาชน หรือบัตรประจำตัวสำหรับ{" "}
+                        <span className="whitespace-nowrap">บุคคลที่ไม่ใช่สัญชาติไทย</span>
+                        พร้อมเซ็นสำเนาถูกต้อง <span className="whitespace-nowrap">(เฉพาะด้านหน้า)*</span>
+                      </FormDescription>
+                      <div>
+                        <DocumentUploader
+                          value={field.value}
+                          onChange={field.onChange}
+                          disabled={props.disabled}
+                          multiple={false}
+                          maxFiles={1}
+                          maxSize={10 * 1024 * 1024}
+                        />
+                      </div>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -407,22 +415,24 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
               name="teacher_doc"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    <span>
-                      2. เอกสารแสดงสถานภาพการเป็นอาจารย์ประจำในสถานศึกษา เช่น บัตรประจำตัวอาจารย์
-                      บัตรข้าราชการครู หรือหนังสือรับรองจากสถานศึกษา{" "}
-                      <span className="align-super text-pink-300">*</span>
-                    </span>
-                  </FormLabel>
                   <FormControl>
-                    <DocumentUploader
-                      value={field.value}
-                      onChange={field.onChange}
-                      disabled={props.disabled}
-                      multiple={false}
-                      maxFiles={1}
-                      maxSize={10 * 1024 * 1024} // 10MB
-                    />
+                    <div className="grid grid-cols-2 gap-10">
+                      <FormDescription>
+                        2. เอกสารแสดงสถานภาพการเป็นอาจารย์ประจำ ในสถานศึกษา เช่น บัตรประจำตัวอาจารย์
+                        บัตรข้าราชการครู{" "}
+                        <span className="whitespace-nowrap">หรือหนังสือรับรองจากสถานศึกษา*</span>
+                      </FormDescription>
+                      <div>
+                        <DocumentUploader
+                          value={field.value}
+                          onChange={field.onChange}
+                          disabled={props.disabled}
+                          multiple={false}
+                          maxFiles={1}
+                          maxSize={10 * 1024 * 1024}
+                        />
+                      </div>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
