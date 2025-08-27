@@ -12,7 +12,7 @@ import {
 import { MenuIcon } from "lucide-react"
 import Image from "next/image"
 import NavLink from "next/link"
-import { FC, useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 
 import { CTA } from "./cta"
 
@@ -74,7 +74,7 @@ export function Navbar({ links, CTAId, sections }: NavbarProps) {
 
   const isActive = (href: string) => active === href
   return (
-    <div className="z-50 w-full p-9 px-[24px] lg:px-[60px] 2xl:px-[160px]">
+    <div className="z-100 sticky top-0 w-full p-9 px-[24px] lg:px-[60px] 2xl:px-[160px]">
       <GlassCard className="flex items-center justify-between rounded-full pl-3 pr-5 backdrop-blur-md lg:pr-3">
         <div className="flex w-[142px] items-center justify-center pt-1 lg:w-[100px] 2xl:w-[180px]">
           <NavLink href={"/"}>
@@ -98,7 +98,7 @@ export function Navbar({ links, CTAId, sections }: NavbarProps) {
                   {item.label}
                 </NavLink>
               )
-            } else return <></>
+            } else return <Fragment key={`${item.label}-${i}`}></Fragment>
           })}
         </div>
         <div className="flex h-[70px] items-center">

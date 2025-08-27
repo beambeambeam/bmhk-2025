@@ -4,9 +4,9 @@ import { usePathname } from "next/navigation"
 
 interface RegisterBlobProps {
   name: string
-  imageUrl: string
   pattern: string
   status: RegisterStatusEnum
+  imgUrl: string
 }
 
 function RegisterStatus() {
@@ -16,33 +16,38 @@ function RegisterStatus() {
   const NODES: RegisterBlobProps[] = [
     {
       name: "ทีม",
-      imageUrl: "d",
+
       pattern: "/team/*",
       status: registerStatus.team,
+      imgUrl: "/static/teams/team.webp",
     },
     {
       name: "อาจารย์ที่ปรึกษา",
-      imageUrl: "d",
+
       pattern: "/adviser/*",
       status: registerStatus.adviser,
+      imgUrl: "/static/teams/teacher.webp",
     },
     {
       name: "ผู้เข้าแข่งขันคนที่ 1",
-      imageUrl: "d",
+
       pattern: "/1/*",
       status: registerStatus.member1,
+      imgUrl: "/static/teams/student1.webp",
     },
     {
       name: "ผู้เข้าแข่งขันคนที่ 2",
-      imageUrl: "d",
+
       pattern: "/2/*",
       status: registerStatus.member2,
+      imgUrl: "/static/teams/student2.webp",
     },
     {
       name: "ผู้เข้าแข่งขันคนที่ 3",
-      imageUrl: "d",
+
       pattern: "/3/*",
       status: registerStatus.member3,
+      imgUrl: "/static/teams/student3.webp",
     },
   ]
 
@@ -107,15 +112,45 @@ const RegisterBlob = (
 
     <div className="flex flex-col items-center justify-center">
       <div className="relative">
-        <div className="liquid flex size-[70px] items-center justify-center rounded-full backdrop-blur-2xl lg:size-[72px] 2xl:size-[100px]">
-          d
+        {typeof window !== "undefined" &&
+          window.location.pathname.includes(props.pattern.replace("/*", "")) && (
+            <>
+              <div
+                className="absolute -z-10 h-[80px] w-[80px] rounded-full bg-[#9F83DC] opacity-10 blur-[30px] md:h-[160px] md:w-[160px] md:opacity-70 md:blur-[70px] lg:h-[222px] lg:w-[222px] lg:opacity-60 lg:blur-[100px]"
+                style={{
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%) scale(0)",
+                  animation: "glow-expand 0.5s forwards",
+                }}
+              />
+              <style>
+                {`
+                @keyframes glow-expand {
+                  0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+                  100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+                }
+              `}
+              </style>
+            </>
+          )}
+
+        <div className="relative flex size-[70px] items-center justify-center overflow-hidden rounded-full bg-[rgba(0,0,0,0.001)] backdrop-blur-2xl lg:size-[72px] 2xl:size-[100px]">
+          <img
+            src={props.imgUrl}
+            className="absolute bottom-0 left-1/2 z-0 h-4/5 -translate-x-1/2 object-cover"
+          />
+          <div className="pointer-events-none absolute inset-0 z-10 rounded-full shadow-[inset_6.07228px_4.55421px_13.6626px_rgba(237,204,232,0.65)]"></div>
         </div>
+
         {props.status === "DONE" && (
-          <div className="absolute -bottom-0.5 -right-0.5 flex size-8 items-center justify-center rounded-full bg-green-500">
-            <svg className="size-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
+          <>
+            <div className="absolute -bottom-0.5 -right-0.5 flex size-8 items-center justify-center rounded-full bg-green-500 shadow-lg shadow-green-500/50">
+              <svg className="size-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+          </>
         )}
       </div>
     </div>
