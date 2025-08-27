@@ -25,7 +25,7 @@ function TeamRegisterPage() {
         "flex h-full min-h-screen w-full flex-col items-center justify-center gap-12 pt-4",
         BACKGROUND_CLASS
       )}>
-      <Navbar links={TeamNavMobileLinks} CTA={TeamNavMenu} sections={[]} />
+      <Navbar links={TeamNavMobileLinks} CTAId={"regis"} sections={[]} />
       <p className="text-header-2-medium">ลงทะเบียนเข้าแข่งขัน</p>
       <TeamRegisterForm
         defaultValues={

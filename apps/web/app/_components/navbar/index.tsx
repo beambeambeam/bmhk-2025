@@ -2,7 +2,6 @@
 
 import GlassCard from "@/components/glassCard"
 import { authClient } from "@/lib/auth-client"
-import { Button } from "@workspace/ui/components/button"
 import {
   Drawer,
   DrawerClose,
@@ -14,6 +13,8 @@ import { MenuIcon } from "lucide-react"
 import Image from "next/image"
 import NavLink from "next/link"
 import { FC, useEffect, useState } from "react"
+
+import { CTA } from "./cta"
 
 interface BaseLink {
   type: "normal" | "action"
@@ -35,7 +36,7 @@ export type NavLink = NormalLink | ActionLink
 
 interface NavbarProps {
   links: NavLink[]
-  CTA: FC<{ isMobile?: boolean }>
+  CTAId: string
   sections?: string[]
 }
 
@@ -47,7 +48,7 @@ const actions: Actions = {
   signout: authClient.signOut,
 }
 
-export function Navbar({ links, CTA, sections }: NavbarProps) {
+export function Navbar({ links, CTAId, sections }: NavbarProps) {
   const [active, setActive] = useState(sections !== undefined ? sections[0] : "")
 
   useEffect(() => {
@@ -101,7 +102,7 @@ export function Navbar({ links, CTA, sections }: NavbarProps) {
           })}
         </div>
         <div className="flex h-[70px] items-center">
-          <CTA />
+          {CTA[CTAId]}
           <Drawer>
             <DrawerTrigger asChild>
               <button className="block text-xl lg:hidden">
@@ -147,7 +148,7 @@ export function Navbar({ links, CTA, sections }: NavbarProps) {
                       )
                   })}
                   <DrawerClose asChild className="flex items-center justify-center">
-                    <CTA isMobile />
+                    {CTA[`${CTAId}-mobile`]}
                   </DrawerClose>
                 </div>
               </GlassCard>

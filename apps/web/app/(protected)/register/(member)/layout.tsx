@@ -18,7 +18,7 @@ function MemberLayout(props: MemberLayoutProps) {
         "flex h-full min-h-screen w-full flex-col items-center justify-center gap-14 pt-4",
         BACKGROUND_CLASS
       )}>
-      <Navbar links={TeamNavMobileLinks} CTA={TeamNavMenu} sections={[]} />
+      <Navbar links={TeamNavMobileLinks} CTAId={"regis"} sections={[]} />
       <p className="text-header-2-medium">ลงทะเบียนเข้าแข่งขัน</p>
       <div className="max-w-[62rem]">{props.children}</div>
     </div>
