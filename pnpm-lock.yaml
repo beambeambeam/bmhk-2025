@@ -99,9 +99,12 @@ importers:
       tsx:
         specifier: ^4.20.4
         version: 4.20.4
+<<<<<<< HEAD
       zod:
         specifier: ^4.0.17
         version: 4.0.17
+=======
+>>>>>>> main
     devDependencies:
       '@types/node':
         specifier: ^20.11.17
