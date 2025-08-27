@@ -92,6 +92,7 @@ function MemberPage3() {
                 national_doc: [],
                 face_picture: [],
                 p7_doc: [],
+                chronic_disease: memberQuery.data.member.chronicDisease ?? "",
               }
             : undefined
         }

@@ -81,6 +81,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
       line_id: "",
       national_doc: [],
       teacher_doc: [],
+      chronic_disease: "",
       ...props.defaultValues,
     },
   })

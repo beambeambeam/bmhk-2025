@@ -1,6 +1,6 @@
 "use client"
 
-import { useSubmitRegister } from "@/app/(protected)/_components/status/context"
+import { useSubmitRegister, useAllRegisterStatus } from "@/app/(protected)/_components/status/context"
 import TeamDone from "@/app/(protected)/teams/done"
 import Navbar from "@/app/(protected)/teams/navbar"
 import Requirement from "@/app/(protected)/teams/requirement"
@@ -11,6 +11,18 @@ const BACKGROUND_CLASS =
 
 export default function TeamPage() {
   const isSubmit = useSubmitRegister()
+  const allStatus = useAllRegisterStatus()
+
+  // Check if only one status is "DONE"
+  const doneStatuses = [
+    allStatus.team,
+    allStatus.adviser,
+    allStatus.member1,
+    allStatus.member2,
+    allStatus.member3,
+  ].filter((status) => status === "DONE")
+
+  const shouldShowTeamDone = isSubmit || doneStatuses.length >= 1
 
   return (
     <div
@@ -20,7 +32,7 @@ export default function TeamPage() {
       )}>
       <Navbar />
 
-      {!isSubmit ? <Requirement key="landing" /> : <TeamDone />}
+      {!shouldShowTeamDone ? <Requirement key="landing" /> : <TeamDone />}
     </div>
   )
 }

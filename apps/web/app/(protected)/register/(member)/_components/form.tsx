@@ -82,6 +82,7 @@ function MemberRegisterForm(props: ExternalFormProps<ProcessedMemberRegisterSche
       national_doc: [],
       face_picture: [],
       p7_doc: [],
+      chronic_disease: "",
       ...props.defaultValues,
     },
   })
