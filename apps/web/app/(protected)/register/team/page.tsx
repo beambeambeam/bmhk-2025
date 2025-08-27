@@ -15,7 +15,7 @@ function TeamRegisterPage() {
   }
 
   const BACKGROUND_CLASS =
-    "bg-[url(/static/background-image/register-form/xs.webp)] md:bg-[url(/static/background-image/register-form/md.webp)] lg:bg-[url(/static/background-image/register-form/lg.webp)] 2xl:bg-[url(/static/background-image/register-form/2xl.webp)]"
+    "bg-[url(/static/background-image/register-form/xs.webp)] md:bg-[url(/static/background-image/register-form/md.webp)] lg:bg-[url(/static/background-image/register-form/lg.webp)] 2xl:bg-[url(/static/background-image/register-form/2xl.webp)] bg-cover bg-center bg-no-repeat bg-scroll bg-black"
 
   return (
     <div
