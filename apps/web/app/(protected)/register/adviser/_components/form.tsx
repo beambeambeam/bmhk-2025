@@ -126,14 +126,14 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex h-fit w-full max-w-[80rem] flex-col gap-14 px-4">
         <RegisterStatus />
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 px-3 md:px-[60px] lg:px-[100px] 2xl:px-80">
           <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-5 lg:p-6 2xl:gap-8 2xl:px-8 2xl:py-6">
             <div className="flex flex-col gap-6">
               <div className="col-span-2 grid grid-cols-2 gap-4">
                 <p className="text-form-header col-span-2 w-full text-white">1. ข้อมูลอาจารย์</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 lg:grid-cols-[1fr_2.25fr_2.25fr_2.25fr]">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-[1fr_2.25fr_2.25fr_2.25fr]">
                 <FormField
                   control={form.control}
                   name="prefix"
@@ -209,7 +209,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4 lg:grid-cols-[1fr_2.25fr_2.25fr_2.25fr]">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-[1fr_2.25fr_2.25fr_2.25fr]">
                 <FormField
                   control={form.control}
                   name="prefix"
@@ -346,12 +346,12 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
               <p className="text-form-header text-white">2. ข้อมูลติดต่อ</p>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="col-span-2 lg:col-span-1">
                     <FormLabel>
                       <span>
                         อีเมล <span className="align-super text-pink-300">*</span>
@@ -408,8 +408,8 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <div className="grid grid-cols-2 gap-10">
-                      <FormDescription>
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-10">
+                      <FormDescription className="text-center md:text-left">
                         1. สำเนาบัตรประจำตัวประชาชน หรือบัตรประจำตัวสำหรับ{" "}
                         <span className="whitespace-nowrap">บุคคลที่ไม่ใช่สัญชาติไทย</span>
                         พร้อมเซ็นสำเนาถูกต้อง <span className="whitespace-nowrap">(เฉพาะด้านหน้า)*</span>
@@ -437,8 +437,8 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <div className="grid grid-cols-2 gap-10">
-                      <FormDescription>
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-10">
+                      <FormDescription className="text-center md:text-left">
                         2. เอกสารแสดงสถานภาพการเป็นอาจารย์ประจำ ในสถานศึกษา เช่น บัตรประจำตัวอาจารย์
                         บัตรข้าราชการครู{" "}
                         <span className="whitespace-nowrap">หรือหนังสือรับรองจากสถานศึกษา*</span>
