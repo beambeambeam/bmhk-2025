@@ -86,9 +86,9 @@ function DocumentUploader({
       <div
         className={cn(
           "relative flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 transition-colors",
-          "border-gray-600 bg-gray-800 hover:bg-gray-700",
-          isDragging && "border-blue-400 bg-blue-900/20",
-          errors.length > 0 && "border-red-500 bg-red-900/20",
+          "border-white/80 bg-white/15 hover:bg-white/30",
+          isDragging && "border-white/80 bg-white/30",
+          errors.length > 0 && "border-[#ea4335]/80 bg-[#ea4335]/5",
           disabled && "cursor-not-allowed opacity-50"
         )}
         onDragEnter={handleDragEnter}
@@ -97,8 +97,8 @@ function DocumentUploader({
         onDrop={handleDrop}
         onClick={disabled ? undefined : openFileDialog}>
         {/* Upload Icon */}
-        <div className={cn("mb-4 text-gray-400", errors.length > 0 && "text-red-400")}>
-          <svg className="mx-auto h-12 w-12" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+        <div className={cn("mb-4 text-neutral-200", errors.length > 0 && "text-[#ea4335]")}>
+          <svg className="mx-auto size-6" stroke="currentColor" fill="none" viewBox="0 0 48 48">
             <path
               d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
               strokeWidth={2}
@@ -109,21 +109,21 @@ function DocumentUploader({
         </div>
 
         {/* Upload Text */}
-        <p className={cn("text-sm font-medium text-gray-300", errors.length > 0 && "text-red-300")}>
+        <p className={cn("text-body-3 font-medium text-neutral-200", errors.length > 0 && "text-[#ea4335]")}>
           อัปโหลดไฟล์
         </p>
 
         {/* Helper Text */}
-        <p className="mt-2 text-center text-xs text-gray-400">
+        {/* <p className="mt-2 text-center text-xs text-gray-400">
           อัปโหลดเอกสารไม่เกิน {formatBytes(maxSize)} (รูปภาพและ PDF เท่านั้น)
-        </p>
+        </p> */}
       </div>
 
       {/* Error Messages */}
       {errors.length > 0 && (
         <div className="space-y-2">
           {errors.map((error, index) => (
-            <p key={index} className="text-sm text-red-400">
+            <p key={index} className="text-sm text-[#ea4335]">
               {error}
             </p>
           ))}
@@ -138,15 +138,13 @@ function DocumentUploader({
             const fileSize = file instanceof File ? file.size : file.size
 
             return (
-              <div
-                key={fileWithPreview.id}
-                className="flex items-center justify-between rounded-lg border border-gray-600 bg-gray-800 p-3">
+              <div key={fileWithPreview.id} className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="text-green-400">{getFileIcon(file)}</div>
 
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-gray-300">{fileName}</p>
-                    <p className="text-xs text-gray-400">{formatBytes(fileSize)}</p>
+                  <div className="flex min-w-0 gap-x-3">
+                    <p className="truncate text-lg font-normal text-white">{fileName}</p>
+                    <p className="text-lg font-light text-gray-50">{formatBytes(fileSize)}</p>
                   </div>
                 </div>
 
@@ -154,7 +152,7 @@ function DocumentUploader({
                   <button
                     type="button"
                     onClick={() => removeFile(fileWithPreview.id)}
-                    className="text-gray-400 transition-colors hover:text-red-400">
+                    className="text-white transition-colors hover:text-[#ea4335]">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
@@ -173,11 +171,11 @@ function DocumentUploader({
 
       <input {...getInputProps({ disabled })} className="hidden" />
 
-      {files.length === 0 && !disabled && (
-        <Button type="button" variant="outline" onClick={openFileDialog} className="w-full">
+      {/* {files.length === 0 && !disabled && (
+        <Button type="button" variant="outline" onClick={openFileDialog} className="w-full !bg-white/5 !border-white/80">
           เลือกไฟล์
         </Button>
-      )}
+      )} */}
     </div>
   )
 }
