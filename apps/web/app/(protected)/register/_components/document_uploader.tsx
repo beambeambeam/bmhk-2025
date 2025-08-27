@@ -82,6 +82,9 @@ function DocumentUploader({
 
   return (
     <div className="space-y-4">
+      <p className="text-body-3 block text-center text-white md:hidden">
+        อัปโหลดเอกสารไม่เกิน {formatBytes(maxSize)} (รูปภาพและ PDF เท่านั้น)
+      </p>
       {/* Upload Area */}
       <div
         className={cn(
@@ -112,12 +115,12 @@ function DocumentUploader({
         <p className={cn("text-body-3 font-medium text-neutral-200", errors.length > 0 && "text-[#ea4335]")}>
           อัปโหลดไฟล์
         </p>
-
-        {/* Helper Text */}
-        {/* <p className="mt-2 text-center text-xs text-gray-400">
-          อัปโหลดเอกสารไม่เกิน {formatBytes(maxSize)} (รูปภาพและ PDF เท่านั้น)
-        </p> */}
       </div>
+
+      {/* Helper Text */}
+      <p className="text-body-3 hidden text-left text-white lg:block">
+        อัปโหลดเอกสารไม่เกิน {formatBytes(maxSize)} (รูปภาพและ PDF เท่านั้น)
+      </p>
 
       {/* Error Messages */}
       {errors.length > 0 && (
