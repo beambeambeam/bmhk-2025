@@ -40,6 +40,166 @@ async function updateRegisterStatus(teamId: string, updates: Partial<typeof regi
 }
 
 export const registerRouter = {
+  all: {
+    get: protectedProcedure.handler(async ({ context }) => {
+      if (!context.session?.user?.id) {
+        throw new Error("User not authenticated")
+      }
+
+      const userId = context.session.user.id
+
+      // Get the user's team
+      const userTeam = await db.select().from(teams).where(eq(teams.userId, userId)).limit(1)
+
+      if (userTeam.length === 0) {
+        return {
+          success: true,
+          team: null,
+          adviser: null,
+          members: [],
+          message: "No team found for user",
+        }
+      }
+
+      const team = userTeam[0]
+
+      // Get team image
+      const teamImage = await db.select().from(file).where(eq(file.id, team.imageId)).limit(1)
+
+      const teamWithImage = {
+        ...team,
+        image:
+          teamImage.length > 0
+            ? {
+                id: teamImage[0].id,
+                upload_by: teamImage[0].uploadBy ?? "ไม่ทราบผู้อัพโหลด",
+                resource_type: teamImage[0].resourceType,
+                upload_at: teamImage[0].uploadAt,
+                name: teamImage[0].name,
+                size: teamImage[0].size,
+                type: teamImage[0].type,
+                url: await getPresignedUrlForKey(teamImage[0].url),
+              }
+            : null,
+      }
+
+      // Get adviser
+      const existingAdviser = await db.select().from(advisor).where(eq(advisor.teamId, team.id)).limit(1)
+
+      let adviserWithDocs = null
+      if (existingAdviser.length > 0) {
+        const adviser = existingAdviser[0]
+
+        const nationalDoc = adviser.nationalDocId
+          ? await db.select().from(file).where(eq(file.id, adviser.nationalDocId)).limit(1)
+          : []
+
+        const teacherDoc = adviser.teacherDocId
+          ? await db.select().from(file).where(eq(file.id, adviser.teacherDocId)).limit(1)
+          : []
+
+        adviserWithDocs = {
+          ...adviser,
+          nationalDoc:
+            nationalDoc.length > 0
+              ? {
+                  id: nationalDoc[0].id,
+                  upload_by: nationalDoc[0].uploadBy ?? "ไม่ทราบผู้อัพโหลด",
+                  resource_type: nationalDoc[0].resourceType,
+                  upload_at: nationalDoc[0].uploadAt,
+                  name: nationalDoc[0].name,
+                  size: nationalDoc[0].size,
+                  type: nationalDoc[0].type,
+                  url: await getPresignedUrlForKey(nationalDoc[0].url),
+                }
+              : null,
+          teacherDoc:
+            teacherDoc.length > 0
+              ? {
+                  id: teacherDoc[0].id,
+                  upload_by: teacherDoc[0].uploadBy ?? "ไม่ทราบผู้อัพโหลด",
+                  resource_type: teacherDoc[0].resourceType,
+                  upload_at: teacherDoc[0].uploadAt,
+                  name: teacherDoc[0].name,
+                  size: teacherDoc[0].size,
+                  type: teacherDoc[0].type,
+                  url: await getPresignedUrlForKey(teacherDoc[0].url),
+                }
+              : null,
+        }
+      }
+
+      // Get all members
+      const allMembers = await db.select().from(member).where(eq(member.teamId, team.id))
+
+      const membersWithDocs = await Promise.all(
+        allMembers.map(async (memberData) => {
+          const nationalDoc = memberData.nationalDocId
+            ? await db.select().from(file).where(eq(file.id, memberData.nationalDocId)).limit(1)
+            : []
+
+          const p7Doc = memberData.p7DocId
+            ? await db.select().from(file).where(eq(file.id, memberData.p7DocId)).limit(1)
+            : []
+
+          const facePic = memberData.facePicId
+            ? await db.select().from(file).where(eq(file.id, memberData.facePicId)).limit(1)
+            : []
+
+          return {
+            ...memberData,
+            nationalDoc:
+              nationalDoc.length > 0
+                ? {
+                    id: nationalDoc[0].id,
+                    upload_by: nationalDoc[0].uploadBy,
+                    resource_type: nationalDoc[0].resourceType,
+                    upload_at: nationalDoc[0].uploadAt,
+                    name: nationalDoc[0].name,
+                    size: nationalDoc[0].size,
+                    type: nationalDoc[0].type,
+                    url: await getPresignedUrlForKey(nationalDoc[0].url),
+                  }
+                : null,
+            p7Doc:
+              p7Doc.length > 0
+                ? {
+                    id: p7Doc[0].id,
+                    upload_by: p7Doc[0].uploadBy,
+                    resource_type: p7Doc[0].resourceType,
+                    upload_at: p7Doc[0].uploadAt,
+                    name: p7Doc[0].name,
+                    size: p7Doc[0].size,
+                    type: p7Doc[0].type,
+                    url: await getPresignedUrlForKey(p7Doc[0].url),
+                  }
+                : null,
+            facePic:
+              facePic.length > 0
+                ? {
+                    id: facePic[0].id,
+                    upload_by: facePic[0].uploadBy,
+                    resource_type: facePic[0].resourceType,
+                    upload_at: facePic[0].uploadAt,
+                    name: facePic[0].name,
+                    size: facePic[0].size,
+                    type: facePic[0].type,
+                    url: await getPresignedUrlForKey(facePic[0].url),
+                  }
+                : null,
+          }
+        })
+      )
+
+      return {
+        success: true,
+        team: teamWithImage,
+        adviser: adviserWithDocs,
+        members: membersWithDocs,
+        message: "All team data retrieved successfully",
+      }
+    }),
+  },
   team: {
     get: protectedProcedure.handler(async ({ context }) => {
       if (!context.session?.user?.id) {
