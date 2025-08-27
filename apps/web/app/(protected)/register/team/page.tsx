@@ -2,10 +2,12 @@
 
 import RegisterStatus from "@/app/(protected)/_components/status"
 import TeamRegisterForm from "@/app/(protected)/register/team/_components/form"
-import Navbar from "@/app/(protected)/teams/navbar"
+import { Navbar } from "@/app/_components/navbar"
 import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
 import { cn } from "@workspace/ui/lib/utils"
+
+import { TeamNavMobileLinks, TeamNavMenu } from "../../_components/team-nav"
 
 function TeamRegisterPage() {
   const query = useQuery(orpc.register.team.get.queryOptions())
@@ -20,10 +22,10 @@ function TeamRegisterPage() {
   return (
     <div
       className={cn(
-        "flex h-full min-h-screen w-full flex-col items-center justify-center gap-14 pt-14",
+        "flex h-full min-h-screen w-full flex-col items-center justify-center gap-12 pt-4",
         BACKGROUND_CLASS
       )}>
-      <Navbar />
+      <Navbar links={TeamNavMobileLinks} CTA={TeamNavMenu} sections={[]} />
       <p className="text-header-2-medium">ลงทะเบียนเข้าแข่งขัน</p>
       <TeamRegisterForm
         defaultValues={

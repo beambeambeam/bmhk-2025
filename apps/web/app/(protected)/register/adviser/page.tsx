@@ -1,10 +1,12 @@
 "use client"
 
 import AdviserRegisterForm from "@/app/(protected)/register/adviser/_components/form"
-import Navbar from "@/app/(protected)/teams/navbar"
+import { Navbar } from "@/app/_components/navbar"
 import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
 import { cn } from "@workspace/ui/lib/utils"
+
+import { TeamNavMobileLinks, TeamNavMenu } from "../../_components/team-nav"
 
 function AdviserRegisterPage() {
   const query = useQuery(orpc.register.adviser.get.queryOptions())
@@ -19,10 +21,10 @@ function AdviserRegisterPage() {
   return (
     <div
       className={cn(
-        "flex h-full min-h-screen w-full flex-col items-center justify-center gap-14 pt-14",
+        "flex h-full min-h-screen w-full flex-col items-center justify-center gap-14 pt-4",
         BACKGROUND_CLASS
       )}>
-      <Navbar />
+      <Navbar links={TeamNavMobileLinks} CTA={TeamNavMenu} sections={[]} />
       <p className="text-header-2-medium">ลงทะเบียนเข้าแข่งขัน</p>
 
       <AdviserRegisterForm
