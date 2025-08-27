@@ -1,9 +1,10 @@
 "use client"
 
+import { useSubmitRegister } from "@/app/(protected)/_components/status/context"
+import Requirement from "@/app/(protected)/teams/requirement"
 import { cn } from "@workspace/ui/lib/utils"
 import { useState } from "react"
 
-import Landing from "./Landing"
 import Team from "./Team"
 import Navbar from "./navbar"
 
@@ -171,6 +172,8 @@ const BACKGROUND_CLASS =
   "bg-[url(/static/background-image/my-team/xs.webp)] md:bg-[url(/static/background-image/my-team/md.webp)] lg:bg-[url(/static/background-image/my-team/lg.webp)] 2xl:bg-[url(/static/background-image/my-team/2xl.webp)]"
 
 export default function TeamPage() {
+  const isSubmit = useSubmitRegister()
+
   return (
     <div
       className={cn(
@@ -179,13 +182,16 @@ export default function TeamPage() {
       )}>
       <Navbar />
 
-      {teams.map((team) => {
-        const members = teamMembers.filter((m) => m.teamCode === team.teamCode)
-        return (
-          // <Team key={team.teamCode} team={team} members={members} />
-          <Landing key="landing" />
-        )
-      })}
+      {!isSubmit ? (
+        <Requirement key="landing" />
+      ) : (
+        <>
+          {teams.map((team) => {
+            const members = teamMembers.filter((m) => m.teamCode === team.teamCode)
+            return <Team key={team.teamCode} team={team} members={members} />
+          })}
+        </>
+      )}
     </div>
   )
 }

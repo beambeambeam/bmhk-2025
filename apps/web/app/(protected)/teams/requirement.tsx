@@ -2,7 +2,7 @@
 
 import ArrowIcon from "@/components/ArrowIcon"
 
-export default function Landing() {
+export default function Requirement() {
   return (
     <div className="md:px-15 flex w-full flex-col items-center gap-8 px-6 pt-8 md:pt-0 lg:px-20 2xl:gap-10 2xl:px-40">
       <div className="flex w-full flex-col items-center justify-between gap-6 md:flex-row md:gap-0">
