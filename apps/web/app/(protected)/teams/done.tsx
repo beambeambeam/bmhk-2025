@@ -1,104 +1,166 @@
-"use client"
-
 import CheckIcon from "@/components/CheckIcon"
 import DocumentIcon from "@/components/DocumentIcon"
 import EducationIcon from "@/components/EducationIcon"
 import MessageIcon from "@/components/MessageIcon"
+import { orpc } from "@/utils/orpc"
+import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 
-interface TeamMember {
-  teamCode: string | null
-  role: string
-  avatar: string
-  info: {
-    general: {
-      id: string | null
-      nameTH: string[]
-      nameEN: string[]
-      allergyFood: string
-      foodType: string
-      allergyMedicine: string
-      chronicDisease: string
-    }
-    contact: { email: string; phone: string; line: string }
-    documents: { description: string; fileName: string; size: string; href: string }[]
-  }
-}
-
-interface TeamProps {
-  team: {
-    teamCode: string | null
-    teamName: string
-    teamImage: string
-    school: string
-    message: string
-  }
-  members: TeamMember[]
-}
-
-export default function Team({ team, members }: TeamProps) {
+function TeamDone() {
+  const query = useQuery(orpc.register.all.get.queryOptions())
   const [activeMember, setActiveMember] = useState<string | null>("อาจารย์ที่ปรึกษา")
 
+  if (query.isPending) {
+    return
+  }
+
+  const teamData = {
+    teamCode: query.data?.team?.id || null,
+    teamName: query.data?.team?.name || "",
+    teamImage: query.data?.team?.image?.url || "",
+    school: query.data?.team?.school || "",
+    message: query.data?.team?.quote || "",
+  }
+
+  const membersData =
+    query.data?.members?.map((member) => ({
+      teamCode: member.teamId,
+      role: member.index === 1 ? "สมาชิกคนที่ 1" : member.index === 2 ? "สมาชิกคนที่ 2" : "สมาชิกคนที่ 3",
+      avatar: `/static/teams/student${member.index}.webp`,
+      info: {
+        general: {
+          id: member.id || null,
+          nameTH: [member.thaiFirstname || "", member.thaiLastname || ""],
+          nameEN: [member.firstName || "", member.lastname || ""],
+          allergyFood: member.foodAllergy || "",
+          foodType: member.foodType || "",
+          allergyMedicine: member.drugAllergy || "",
+          chronicDisease: "",
+        },
+        contact: {
+          email: member.email || "",
+          phone: member.phoneNumber || "",
+          line: member.lineId || "",
+        },
+        documents: [
+          {
+            description: "สำเนาบัตรประชาชน",
+            fileName: member.nationalDoc?.name || "",
+            size: member.nationalDoc?.size || "",
+            href: member.nationalDoc?.url || "",
+          },
+          {
+            description: "รูปถ่ายหน้าตรง",
+            fileName: member.facePic?.name || "",
+            size: member.facePic?.size || "",
+            href: member.facePic?.url || "",
+          },
+          {
+            description: "สำเนา ป.7",
+            fileName: member.p7Doc?.name || "",
+            size: member.p7Doc?.size || "",
+            href: member.p7Doc?.url || "",
+          },
+        ].filter((doc) => doc.fileName),
+      },
+    })) || []
+
+  if (query.data?.adviser) {
+    const adviserData = {
+      teamCode: query.data.adviser.teamId || "",
+      role: "อาจารย์ที่ปรึกษา",
+      avatar: "/static/teams/team.webp",
+      info: {
+        general: {
+          id: query.data.adviser.id || null,
+          nameTH: [query.data.adviser.thaiFirstname || "", query.data.adviser.thaiLastname || ""],
+          nameEN: [query.data.adviser.firstName || "", query.data.adviser.lastname || ""],
+          allergyFood: query.data.adviser.foodAllergy || "",
+          foodType: query.data.adviser.foodType || "",
+          allergyMedicine: query.data.adviser.drugAllergy || "",
+          chronicDisease: "", // Not available in current data structure
+        },
+        contact: {
+          email: query.data.adviser.email || "",
+          phone: query.data.adviser.phoneNumber || "",
+          line: query.data.adviser.lineId || "",
+        },
+        documents: [
+          {
+            description: "สำเนาบัตรประชาชน",
+            fileName: query.data.adviser.nationalDoc?.name || "",
+            size: query.data.adviser.nationalDoc?.size || "",
+            href: query.data.adviser.nationalDoc?.url || "",
+          },
+          {
+            description: "หนังสือรับรองความเป็นครู",
+            fileName: query.data.adviser.teacherDoc?.name || "",
+            size: query.data.adviser.teacherDoc?.size || "",
+            href: query.data.adviser.teacherDoc?.url || "",
+          },
+        ].filter((doc) => doc.fileName),
+      },
+    }
+    membersData.unshift(adviserData)
+  }
+
   return (
-    <div key={team.teamCode} className="md:px-15 z-50 w-full px-6 pt-8 md:pt-0 lg:px-20 2xl:px-40">
+    <div className="md:px-15 z-50 w-full px-6 pt-8 md:pt-0 lg:px-20 2xl:px-40">
       <div
         className="liquid flex flex-col items-center gap-8 rounded-[24px] p-4 md:gap-10 md:rounded-[40px] md:p-8 lg:gap-8 2xl:gap-10 2xl:p-10"
         style={{
           background: `
                   radial-gradient(
-                    66.31% 84.48% at 52.63% 121.84%, 
-                    #9F83DC 0%, 
+                    66.31% 84.48% at 52.63% 121.84%,
+                    #9F83DC 0%,
                     rgba(2, 6, 3, 0) 10%
                   ),
                   linear-gradient(
-                    106.52deg, 
-                    rgba(255, 204, 247, 0.03) -2.48%, 
+                    106.52deg,
+                    rgba(255, 204, 247, 0.03) -2.48%,
                     rgba(159, 131, 220, 0.03) 29.08%
                   )
                 `,
         }}>
-        {/* Header */}
         <div className="flex w-full flex-col gap-5 md:flex-row md:gap-10">
           <div className="flex flex-col gap-3 md:items-center md:justify-center">
             <img
               className="h-[68px] w-[68px] rounded-full md:h-[75px] md:w-[75px] lg:h-[95px] lg:w-[95px] 2xl:h-[100px] 2xl:w-[100px]"
-              src={team.teamImage}
-              alt={team.teamName}
+              src={teamData.teamImage}
+              alt={teamData.teamName}
             />
             <div className="hidden text-[0.875rem] font-normal text-gray-50 md:block 2xl:hidden">
-              {team.teamCode}
+              {teamData.teamCode}
             </div>
           </div>
-
           <div className="flex flex-col gap-2.5 md:gap-3 2xl:gap-4">
             <div className="flex flex-col gap-2.5 md:gap-4 2xl:flex-row 2xl:items-center">
               <div className="xmd:text-[1.5rem] text-[1.25rem] font-medium lg:text-[1.875rem] 2xl:text-[2.25rem]">
-                {team.teamName}
+                {teamData.teamName}
               </div>
               <div className="block text-[0.875rem] font-normal text-gray-50 md:hidden 2xl:block 2xl:text-[1.75rem]">
-                {team.teamCode}
+                {teamData.teamCode}
               </div>
             </div>
             <div className="flex flex-col flex-wrap gap-2.5 2xl:flex-row 2xl:gap-6">
               <div className="flex items-center gap-2.5">
                 <EducationIcon className="h-[16px] w-[16px] text-gray-50 md:h-[20px] md:w-[20px] lg:h-[24px] lg:w-[24px] 2xl:h-[32px] 2xl:w-[32px]" />
                 <div className="text-[0.875rem] font-normal text-gray-50 md:text-[1rem] lg:text-[1.5rem]">
-                  {team.school}
+                  {teamData.school}
                 </div>
               </div>
               <div className="flex items-center gap-2.5">
                 <MessageIcon className="h-[16px] w-[16px] text-gray-50 md:h-[20px] md:w-[20px] lg:h-[24px] lg:w-[24px] 2xl:h-[32px] 2xl:w-[32px]" />
                 <div className="text-[0.875rem] font-normal text-gray-50 md:text-[1rem] lg:text-[1.5rem]">
-                  {team.message}
+                  {teamData.message}
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Members row */}
         <div className="flex w-full flex-wrap justify-between px-0 lg:px-20 2xl:px-40">
-          {members.map((member, idx) => (
+          {membersData.map((member, idx) => (
             <a
               key={idx}
               href="#"
@@ -111,7 +173,6 @@ export default function Team({ team, members }: TeamProps) {
                 member.info.general.id ? "cursor-pointer" : "cursor-not-allowed"
               }`}>
               <div className="relative">
-                {/* Glow behind avatar if active */}
                 {activeMember === member.role && (
                   <>
                     <div
@@ -156,16 +217,15 @@ export default function Team({ team, members }: TeamProps) {
           ))}
         </div>
 
-        {/* Member detail section */}
-        {members.map((member, idx) =>
+        {membersData.map((member, idx) =>
           activeMember === member.role ? (
             <div
               key={idx}
               className="liquid flex w-full flex-col items-start gap-4 rounded-[24px] p-4 md:gap-6 md:rounded-[32px] md:p-6 lg:rounded-[40px] 2xl:px-8"
               style={{
                 background: `
-                          linear-gradient( 
-                            #FFFFFF1A -2.48%, 
+                          linear-gradient(
+                            #FFFFFF1A -2.48%,
                             #FFFFFF10 29.08%
                           )
                         `,
@@ -240,7 +300,6 @@ export default function Team({ team, members }: TeamProps) {
                   </div>
                 </div>
 
-                {/* Contact info */}
                 <div className="flex flex-col gap-3 md:gap-6">
                   <div className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[1.75rem]">
                     2. ข้อมูลติดต่อ
@@ -273,7 +332,6 @@ export default function Team({ team, members }: TeamProps) {
                   </div>
                 </div>
 
-                {/* Documents */}
                 <div className="flex flex-col gap-5 md:gap-6">
                   <div className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[1.75rem]">
                     3. เอกสาร
@@ -287,6 +345,8 @@ export default function Team({ team, members }: TeamProps) {
                       </div>
                       <a
                         href={doc.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         download={doc.fileName}
                         className="flex flex-1 gap-2.5 text-[1rem] font-normal md:gap-3 md:text-[1.125rem] lg:text-[1.25rem] 2xl:gap-4 2xl:text-[1.375rem]">
                         <DocumentIcon className="h-[20px] w-[20px] md:h-[24px] md:w-[24px] 2xl:h-[32px] 2xl:w-[32px]" />
@@ -306,3 +366,4 @@ export default function Team({ team, members }: TeamProps) {
     </div>
   )
 }
+export default TeamDone
