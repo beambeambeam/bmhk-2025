@@ -12,7 +12,7 @@ import {
 import { MenuIcon } from "lucide-react"
 import Image from "next/image"
 import NavLink from "next/link"
-import { FC, useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 
 import { CTA } from "./cta"
 
@@ -98,7 +98,7 @@ export function Navbar({ links, CTAId, sections }: NavbarProps) {
                   {item.label}
                 </NavLink>
               )
-            } else return <></>
+            } else return <Fragment key={`${item.label}-${i}`}></Fragment>
           })}
         </div>
         <div className="flex h-[70px] items-center">
