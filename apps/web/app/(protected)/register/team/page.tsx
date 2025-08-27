@@ -27,19 +27,21 @@ function TeamRegisterPage() {
       )}>
       <Navbar links={TeamNavMobileLinks} CTAId={"regis"} sections={[]} />
       <p className="text-header-2-medium">ลงทะเบียนเข้าแข่งขัน</p>
-      <TeamRegisterForm
-        defaultValues={
-          query.data && query.data.success && query.data.team
-            ? {
-                team_name: query.data.team.name ?? "",
-                school_name: query.data.team.school ?? "",
-                member_count: query.data.team.memberCount ?? 0,
-                quote: query.data.team.quote ?? "",
-                team_image: query.data.team.image ? [query.data.team.image] : [],
-              }
-            : undefined
-        }
-      />
+      <div className="w-full px-6 md:px-[60px] lg:px-[100px] 2xl:px-80">
+        <TeamRegisterForm
+          defaultValues={
+            query.data && query.data.success && query.data.team
+              ? {
+                  team_name: query.data.team.name ?? "",
+                  school_name: query.data.team.school ?? "",
+                  member_count: query.data.team.memberCount ?? 0,
+                  quote: query.data.team.quote ?? "",
+                  team_image: query.data.team.image ? [query.data.team.image] : [],
+                }
+              : undefined
+          }
+        />
+      </div>
     </div>
   )
 }

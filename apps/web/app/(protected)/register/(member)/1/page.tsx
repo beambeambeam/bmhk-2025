@@ -47,36 +47,40 @@ function MemberPage1() {
   }
 
   return (
-    <MemberRegisterForm
-      onSubmit={handleSubmit}
-      disabled={mutation.isPending}
-      defaultValues={
-        memberQuery.data && memberQuery.data.success && memberQuery.data.member
-          ? {
-              prefix: memberQuery.data.member.prefix as "MR" | "MS" | "MRS",
-              thai_firstname: memberQuery.data.member.thaiFirstname ?? "",
-              thai_middlename: memberQuery.data.member.thaiMiddlename ?? "",
-              thai_lastname: memberQuery.data.member.thaiLastname ?? "",
-              english_firstname: memberQuery.data.member.firstName ?? "",
-              english_middlename: memberQuery.data.member.middleName ?? "",
-              english_lastname: memberQuery.data.member.lastname ?? "",
-              food_allergy: memberQuery.data.member.foodAllergy ?? "",
-              food_type: memberQuery.data.member.foodType ?? "",
-              drug_allergy: memberQuery.data.member.drugAllergy ?? "",
-              email: memberQuery.data.member.email ?? "",
-              phone_number: memberQuery.data.member.phoneNumber ?? "",
-              line_id: memberQuery.data.member.lineId ?? "",
-              parent: memberQuery.data.member.parent ?? "",
-              parent_phone: memberQuery.data.member.parentPhoneNumber ?? "",
-              national_doc: memberQuery.data.member.nationalDoc ? [memberQuery.data.member.nationalDoc] : [],
-              face_picture: memberQuery.data.member.facePic ? [memberQuery.data.member.facePic] : [],
-              p7_doc: memberQuery.data.member.p7Doc ? [memberQuery.data.member.p7Doc] : [],
-              chronic_disease: memberQuery.data.member.chronicDisease ?? "",
-            }
-          : undefined
-      }
-      index={1}
-    />
+    <div className="w-full px-6 md:px-[60px] lg:px-[100px] 2xl:px-80">
+      <MemberRegisterForm
+        onSubmit={handleSubmit}
+        disabled={mutation.isPending}
+        defaultValues={
+          memberQuery.data && memberQuery.data.success && memberQuery.data.member
+            ? {
+                prefix: memberQuery.data.member.prefix as "MR" | "MS" | "MRS",
+                thai_firstname: memberQuery.data.member.thaiFirstname ?? "",
+                thai_middlename: memberQuery.data.member.thaiMiddlename ?? "",
+                thai_lastname: memberQuery.data.member.thaiLastname ?? "",
+                english_firstname: memberQuery.data.member.firstName ?? "",
+                english_middlename: memberQuery.data.member.middleName ?? "",
+                english_lastname: memberQuery.data.member.lastname ?? "",
+                food_allergy: memberQuery.data.member.foodAllergy ?? "",
+                food_type: memberQuery.data.member.foodType ?? "",
+                drug_allergy: memberQuery.data.member.drugAllergy ?? "",
+                email: memberQuery.data.member.email ?? "",
+                phone_number: memberQuery.data.member.phoneNumber ?? "",
+                line_id: memberQuery.data.member.lineId ?? "",
+                parent: memberQuery.data.member.parent ?? "",
+                parent_phone: memberQuery.data.member.parentPhoneNumber ?? "",
+                national_doc: memberQuery.data.member.nationalDoc
+                  ? [memberQuery.data.member.nationalDoc]
+                  : [],
+                face_picture: memberQuery.data.member.facePic ? [memberQuery.data.member.facePic] : [],
+                p7_doc: memberQuery.data.member.p7Doc ? [memberQuery.data.member.p7Doc] : [],
+                chronic_disease: memberQuery.data.member.chronicDisease ?? "",
+              }
+            : undefined
+        }
+        index={1}
+      />
+    </div>
   )
 }
 export default MemberPage1

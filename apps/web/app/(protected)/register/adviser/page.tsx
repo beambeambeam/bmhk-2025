@@ -27,30 +27,32 @@ function AdviserRegisterPage() {
       <Navbar links={TeamNavMobileLinks} CTAId={"regis"} sections={[]} />
       <p className="text-header-2-medium">ลงทะเบียนเข้าแข่งขัน</p>
 
-      <AdviserRegisterForm
-        defaultValues={
-          query.data && query.data.success && query.data.adviser
-            ? {
-                prefix: query.data.adviser.prefix as "MR" | "MS" | "MRS",
-                thai_firstname: query.data.adviser.thaiFirstname ?? "",
-                thai_middlename: query.data.adviser.thaiMiddlename ?? "",
-                thai_lastname: query.data.adviser.thaiLastname ?? "",
-                english_firstname: query.data.adviser.firstName ?? "",
-                english_middlename: query.data.adviser.middleName ?? "",
-                english_lastname: query.data.adviser.lastname ?? "",
-                food_allergy: query.data.adviser.foodAllergy ?? "",
-                food_type: query.data.adviser.foodType ?? "",
-                drug_allergy: query.data.adviser.drugAllergy ?? "",
-                email: query.data.adviser.email ?? "",
-                phone_number: query.data.adviser.phoneNumber ?? "",
-                line_id: query.data.adviser.lineId ?? "",
-                national_doc: query.data.adviser.nationalDoc ? [query.data.adviser.nationalDoc] : [],
-                teacher_doc: query.data.adviser.teacherDoc ? [query.data.adviser.teacherDoc] : [],
-                chronic_disease: query.data.adviser.chronicDisease ?? "",
-              }
-            : undefined
-        }
-      />
+      <div className="w-full px-6 md:px-[60px] lg:px-[100px] 2xl:px-80">
+        <AdviserRegisterForm
+          defaultValues={
+            query.data && query.data.success && query.data.adviser
+              ? {
+                  prefix: query.data.adviser.prefix as "MR" | "MS" | "MRS",
+                  thai_firstname: query.data.adviser.thaiFirstname ?? "",
+                  thai_middlename: query.data.adviser.thaiMiddlename ?? "",
+                  thai_lastname: query.data.adviser.thaiLastname ?? "",
+                  english_firstname: query.data.adviser.firstName ?? "",
+                  english_middlename: query.data.adviser.middleName ?? "",
+                  english_lastname: query.data.adviser.lastname ?? "",
+                  food_allergy: query.data.adviser.foodAllergy ?? "",
+                  food_type: query.data.adviser.foodType ?? "",
+                  drug_allergy: query.data.adviser.drugAllergy ?? "",
+                  email: query.data.adviser.email ?? "",
+                  phone_number: query.data.adviser.phoneNumber ?? "",
+                  line_id: query.data.adviser.lineId ?? "",
+                  national_doc: query.data.adviser.nationalDoc ? [query.data.adviser.nationalDoc] : [],
+                  teacher_doc: query.data.adviser.teacherDoc ? [query.data.adviser.teacherDoc] : [],
+                  chronic_disease: query.data.adviser.chronicDisease ?? "",
+                }
+              : undefined
+          }
+        />
+      </div>
     </div>
   )
 }

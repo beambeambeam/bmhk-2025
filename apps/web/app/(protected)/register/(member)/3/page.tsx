@@ -64,7 +64,7 @@ function MemberPage3() {
     })
   }
   return (
-    <>
+    <div className="w-full px-6 md:px-[60px] lg:px-[100px] 2xl:px-80">
       <MemberRegisterForm
         onSubmit={handleSubmit}
         disabled={mutation.isPending}
@@ -98,7 +98,7 @@ function MemberPage3() {
           {submitMutation.isPending ? "กำลังส่ง..." : "ส่งใบสมัคร"}
         </Button>
       </MemberRegisterForm>
-    </>
+    </div>
   )
 }
 export default MemberPage3
