@@ -12,6 +12,7 @@ function SignInPage() {
     []
   )
   const [isTall, setIsTall] = useState(false)
+  const [redirecting, setRedirecting] = useState(false)
 
   useEffect(() => {
     // Check initial height and listen to resize
@@ -103,17 +104,24 @@ function SignInPage() {
           <GlassCard className="group relative flex w-full cursor-pointer items-center justify-center gap-6 rounded-[24px] px-3 py-3 lg:py-4 2xl:py-5">
             <div className="pointer-events-none absolute inset-0 rounded-[24px] bg-[rgba(159,131,220,0.6)] opacity-0 blur-[40px] transition-opacity duration-500 group-hover:opacity-100"></div>
             <img src="/static/icon/Google.svg" alt="Google Icon" className="relative z-10" />
-            <div
+            <button
               className="text-body-1 relative z-10 text-[var(--color-white)]"
-              onClick={() =>
-                authClient.signIn.social({
-                  provider: "google",
-                  callbackURL: `${process.env.NEXT_PUBLIC_WEB_URL}/teams`,
-                  errorCallbackURL: `${process.env.NEXT_PUBLIC_WEB_URL}/sign-in`,
-                })
-              }>
-              ดำเนินการต่อด้วย Google
-            </div>
+              disabled={redirecting}
+              onClick={() => {
+                setRedirecting(true)
+                authClient.signIn
+                  .social({
+                    provider: "google",
+                    callbackURL: `${process.env.NEXT_PUBLIC_WEB_URL}/teams`,
+                    errorCallbackURL: `${process.env.NEXT_PUBLIC_WEB_URL}/sign-in`,
+                  })
+                  .catch((e) => {
+                    setRedirecting(false)
+                    console.log(e)
+                  })
+              }}>
+              {redirecting ? "กำลังโหลด..." : "ดำเนินการต่อด้วย Google"}
+            </button>
           </GlassCard>
         </div>
 
