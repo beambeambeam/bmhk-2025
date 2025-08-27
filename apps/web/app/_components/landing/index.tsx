@@ -165,7 +165,9 @@ function LandingSection() {
           <p className="text-body-2 text-balance text-gray-50">
             โครงการนี้เปิดโอกาสให้นักเรียนมัธยมปลาย และนักศึกษาอาชีวะระดับปวช. หรือเทียบเท่า
             ได้เข้าร่วมการแข่งขัน เขียนโปรแกรมด้วย ภาษา C/C++ ในรูปแบบทีม เพื่อเสริมสร้าง ทักษะการเขียนโปรแกรม
-            พร้อมทั้งฝึกการทำงานร่วมกัน และเก็บเกี่ยวประสบการณ์ จากการลงสนามจริง
+            พร้อมทั้งฝึก
+            <br className="not-2xl:hidden" />
+            การทำงานร่วมกันและเก็บเกี่ยวประสบการณ์จากการลงสนามจริง
           </p>
           <button className="text-button-1 bg-supporting-3 text-secondary-50 h-[54px] rounded-full px-8 lg:h-[76px] 2xl:h-[87px] 2xl:px-12">
             ยังไม่เปิดรับสมัคร
@@ -174,7 +176,7 @@ function LandingSection() {
       </div>
 
       <div className="font-bai-jamjuree not-2xl:hidden absolute bottom-[110px] text-5xl text-white">
-        คุณฝันว่าอะไร..
+        คุณฝันว่าอะไร...
       </div>
     </div>
   )
