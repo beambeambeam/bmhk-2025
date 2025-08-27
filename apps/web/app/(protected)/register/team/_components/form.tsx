@@ -3,7 +3,6 @@
 import RegisterStatus from "@/app/(protected)/_components/status"
 import { useRegisterStatusActions } from "@/app/(protected)/_components/status/context"
 import AvatarUploader from "@/app/(protected)/register/team/_components/avatar"
-import ArrowIcon from "@/components/ArrowIcon"
 import FormProps from "@/types/form"
 import { orpc, queryClient } from "@/utils/orpc"
 import { zodResolver } from "@hookform/resolvers/zod"
