@@ -6,7 +6,6 @@ import Requirement from "@/app/(protected)/teams/requirement"
 import { cn } from "@workspace/ui/lib/utils"
 import { useState } from "react"
 
-import Team from "./Team"
 import Navbar from "./navbar"
 
 const teams = [
@@ -183,17 +182,7 @@ export default function TeamPage() {
       )}>
       <Navbar />
 
-      {!isSubmit ? (
-        <Requirement key="landing" />
-      ) : (
-        <>
-          {teams.map((team) => {
-            const members = teamMembers.filter((m) => m.teamCode === team.teamCode)
-            return <Team key={team.teamCode} team={team} members={members} />
-          })}
-          <TeamDone />
-        </>
-      )}
+      {!isSubmit ? <Requirement key="landing" /> : <TeamDone />}
     </div>
   )
 }
