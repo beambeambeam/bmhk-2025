@@ -22,6 +22,7 @@ import {
   AlertDialogTrigger,
 } from "@workspace/ui/components/alert-dialog"
 import { Button } from "@workspace/ui/components/button"
+import { Send } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 function MemberPage2() {
@@ -65,6 +66,9 @@ function MemberPage2() {
   const isReadyForSubmit = useIsReadyForFinalSubmit(2)
   const showFinalSubmit =
     teamQuery.data?.success && teamQuery.data.team?.memberCount === 2 && isReadyForSubmit
+
+  // Only show register button for 2-member teams (final page)
+  const shouldShowRegisterButton = teamQuery.data?.team?.memberCount === 2
 
   if (teamQuery.isPending || memberQuery.isPending) {
     return <RegisterFormSkeleton />
@@ -115,13 +119,16 @@ function MemberPage2() {
         }
         index={2}
         isPending={mutation.isPending}>
-        {showFinalSubmit && (
+        {shouldShowRegisterButton && (
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button
-                disabled={submitMutation.isPending}
-                className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
-                <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ลงทะเบียน</span>
+                disabled={submitMutation.isPending || !isReadyForSubmit}
+                className="liquid mb-8 flex h-fit w-auto min-w-0 flex-shrink items-center justify-center gap-2 rounded-[20px] px-4 py-3 text-sm md:w-auto md:gap-4 md:px-6 md:pl-8 md:pr-4 md:text-base 2xl:py-4 2xl:pl-10 2xl:pr-6">
+                <span className="truncate text-[14px] font-medium text-white md:text-[20px] 2xl:text-[22px]">
+                  ลงทะเบียน
+                </span>
+                <Send className="h-4 w-4 flex-shrink-0 text-white md:h-6 md:w-6 2xl:h-10 2xl:w-10" />
               </Button>
             </AlertDialogTrigger>
 
