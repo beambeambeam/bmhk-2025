@@ -1,6 +1,7 @@
 "use client"
 
 import GlassCard from "@/components/glassCard"
+import { Button } from "@workspace/ui/components/button"
 import {
   Drawer,
   DrawerClose,
@@ -10,14 +11,29 @@ import {
 } from "@workspace/ui/components/drawer"
 import { MenuIcon } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
+import NavLink from "next/link"
 import { FC, useEffect, useState } from "react"
 
+interface BaseLink {
+  type: "normal" | "action"
+  label: string
+}
+
+interface NormalLink extends BaseLink {
+  type: "normal"
+  href: string
+  mobileOnly?: boolean
+}
+
+interface ActionLink extends BaseLink {
+  type: "action"
+  action: () => void
+}
+
+export type NavLink = NormalLink | ActionLink
+
 interface NavbarProps {
-  links: {
-    label: string
-    href: string
-  }[]
+  links: NavLink[]
   CTA: FC<{ isMobile?: boolean }>
   sections?: string[]
 }
@@ -51,7 +67,7 @@ export function Navbar({ links, CTA, sections }: NavbarProps) {
     <div className="fixed z-50 w-full p-9 px-[24px] lg:px-[60px] 2xl:px-[160px]">
       <GlassCard className="flex items-center justify-between rounded-full pl-3 pr-5 backdrop-blur-md lg:pr-3">
         <div className="flex w-[142px] items-center justify-center pt-1 lg:w-[100px] 2xl:w-[180px]">
-          <Link href={"/"}>
+          <NavLink href={"/"}>
             <Image
               style={{ width: "100%", height: "auto", objectFit: "cover" }}
               width={500}
@@ -59,17 +75,21 @@ export function Navbar({ links, CTA, sections }: NavbarProps) {
               src="/static/logo/Logo.webp"
               alt="Bangmod Hackathon"
             />
-          </Link>
+          </NavLink>
         </div>
         <div className="hidden items-center lg:flex 2xl:justify-between 2xl:gap-2.5">
-          {links.map((item) => (
-            <a
-              key={item.label}
-              className={`rounded-full px-4 py-4 text-white 2xl:px-6 ${isActive(item.href.replace("#", "")) ? "text-nav-1-selected liquid" : "text-nav-2"}`}
-              href={item.href}>
-              {item.label}
-            </a>
-          ))}
+          {links.map((item, i) => {
+            if (item.type === "normal" && !item.mobileOnly) {
+              return (
+                <NavLink
+                  key={item.label}
+                  className={`rounded-full px-4 py-4 text-white 2xl:px-6 ${isActive(item.href.replace("#", "")) ? "text-nav-1-selected liquid" : "text-nav-2"}`}
+                  href={item.href}>
+                  {item.label}
+                </NavLink>
+              )
+            } else return <></>
+          })}
         </div>
         <div className="flex h-[70px] items-center">
           <CTA />
@@ -90,18 +110,29 @@ export function Navbar({ links, CTA, sections }: NavbarProps) {
                     src="/static/logo/Logo.webp"
                     alt="Bangmod Hackathon"
                   />
-                  {links.map((item) => (
-                    <DrawerClose key={item.href} asChild className="flex items-center justify-center">
-                      <Link href={item.href}>
-                        <button className="transition-colors">
-                          <span
-                            className={`font-prompt ${active === item.href.replace("#", "") ? "text-nav-1-selected text-pink-300" : "text-nav-2 text-white"}`}>
-                            {item.label}
-                          </span>
-                        </button>
-                      </Link>
-                    </DrawerClose>
-                  ))}
+                  {links.map((item, i) => {
+                    if (item.type === "action")
+                      return (
+                        <DrawerClose key={i} asChild className="flex items-center justify-center">
+                          <button className="transition-colors" onClick={item.action}>
+                            <span className={`font-prompt text-nav-2 text-white`}>{item.label}</span>
+                          </button>
+                        </DrawerClose>
+                      )
+                    else
+                      return (
+                        <DrawerClose key={i} asChild className="flex items-center justify-center">
+                          <NavLink href={item.href}>
+                            <button className="transition-colors">
+                              <span
+                                className={`font-prompt ${active === item.href.replace("#", "") ? "text-nav-1-selected text-pink-300" : "text-nav-2 text-white"}`}>
+                                {item.label}
+                              </span>
+                            </button>
+                          </NavLink>
+                        </DrawerClose>
+                      )
+                  })}
                   <DrawerClose asChild className="flex items-center justify-center">
                     <CTA isMobile />
                   </DrawerClose>

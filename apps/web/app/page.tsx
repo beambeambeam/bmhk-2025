@@ -76,22 +76,27 @@ export default function Page() {
             {
               label: "รายละเอียด",
               href: "#landing",
+              type: "normal",
             },
             {
               label: "คุณสมบัติ",
               href: "#qualification",
+              type: "normal",
             },
             {
               label: "รางวัล",
               href: "#award",
+              type: "normal",
             },
             {
               label: "กำหนดการ",
               href: "#dateandcontest",
+              type: "normal",
             },
             {
               label: "ติดต่อทีมงาน",
               href: "#contact",
+              type: "normal",
             },
           ]}
           CTA={NavCTA}
