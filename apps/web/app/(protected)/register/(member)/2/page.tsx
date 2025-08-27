@@ -5,7 +5,7 @@ import {
   useRegisterStatusActions,
 } from "@/app/(protected)/_components/status/context"
 import MemberRegisterForm, {
-  ProcessedMemberRegisterSchemaType,
+  memberRegisterSchemaType,
 } from "@/app/(protected)/register/(member)/_components/form"
 import { orpc, queryClient } from "@/utils/orpc"
 import { useMutation, useQuery } from "@tanstack/react-query"
@@ -62,13 +62,10 @@ function MemberPage2() {
     router.push("/register/team")
   }
 
-  const handleSubmit = (values: ProcessedMemberRegisterSchemaType) => {
+  const handleSubmit = (values: memberRegisterSchemaType) => {
     mutation.mutate({
       ...values,
-      memberIndex: 2,
-      national_doc: values.national_doc.filter((file): file is File => file !== null),
-      face_picture: values.face_picture.filter((file): file is File => file !== null),
-      p7_doc: values.p7_doc.filter((file): file is File => file !== null),
+      memberIndex: 1,
     })
   }
 
@@ -95,9 +92,11 @@ function MemberPage2() {
                 line_id: memberQuery.data.member.lineId ?? "",
                 parent: memberQuery.data.member.parent ?? "",
                 parent_phone: memberQuery.data.member.parentPhoneNumber ?? "",
-                national_doc: [],
-                face_picture: [],
-                p7_doc: [],
+                national_doc: memberQuery.data.member.nationalDoc
+                  ? [memberQuery.data.member.nationalDoc]
+                  : [],
+                face_picture: memberQuery.data.member.facePic ? [memberQuery.data.member.facePic] : [],
+                p7_doc: memberQuery.data.member.p7Doc ? [memberQuery.data.member.p7Doc] : [],
                 chronic_disease: memberQuery.data.member.chronicDisease ?? "",
               }
             : undefined
