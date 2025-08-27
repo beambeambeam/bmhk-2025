@@ -28,8 +28,12 @@ export function TeamNavMenu() {
             e.preventDefault()
             setDrawerOpen(!drawerOpen)
           }}>
-          <div className="flex items-center gap-x-3">
-            <img src="/static/icon/UserCircleFilled.svg" alt="ทีมของฉัน" />
+          <div className="flex items-center justify-between gap-x-3">
+            {teamData.teamImage ? (
+              <img src={teamData.teamImage} width={50} height={50} className="size-[50px] rounded-full" />
+            ) : (
+              <img src="/static/icon/UserCircleFilled.svg" alt="ทีมของฉัน" />
+            )}
             <span>{teamData.teamName}</span>
             {drawerOpen ? <ChevronUp /> : <ChevronDown />}
           </div>
