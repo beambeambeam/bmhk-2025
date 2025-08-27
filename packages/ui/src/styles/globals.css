@@ -115,9 +115,7 @@
 }
 
 @utility text-subheader-1 {
-  <<<<<<< HEAD @apply text-lg font-medium leading-[1.4] lg:text-2xl 2xl:text-[32px];
-  =======@apply text-lg font-medium leading-[1.4] lg:text-3xl 2xl:text-[32px];
-  >>>>>>>main
+  @apply text-lg font-medium leading-[1.4] lg:text-3xl 2xl:text-[32px];
 }
 
 @utility text-subheader-2 {
