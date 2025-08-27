@@ -5,6 +5,17 @@ import { useMember3Status } from "@/app/(protected)/_components/status/context"
 import DocumentUploader from "@/app/(protected)/register/_components/document_uploader"
 import { ExternalFormProps } from "@/types/form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@workspace/ui/components/alert-dialog"
 import { Button } from "@workspace/ui/components/button"
 import {
   Form,
@@ -523,19 +534,37 @@ function MemberRegisterForm(
             <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ย้อนกลับ</span>
           </Button>
           <div className="flex h-full items-center justify-center">
-            <Button
-              type="submit"
-              className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6"
-              disabled={props.disabled}>
-              <span className="text-[20px] font-medium text-white 2xl:text-[22px]">
-                {props.index === 3
-                  ? "บันทึก"
-                  : props.index === 2 && member3 === "NOT_HAVE"
-                    ? "บันทึก"
-                    : "ต่อไป"}
-              </span>
-              <ChevronRight className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  type="button"
+                  className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6"
+                  disabled={props.disabled}>
+                  <span className="text-[20px] font-medium text-white 2xl:text-[22px]">
+                    {props.index === 3
+                      ? "บันทึก"
+                      : props.index === 2 && member3 === "NOT_HAVE"
+                        ? "บันทึก"
+                        : "ต่อไป"}
+                  </span>
+                  <ChevronRight className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete your account and remove your
+                    data from our servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction>Continue</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+
             {props.children}
           </div>
         </div>
