@@ -1,7 +1,7 @@
 "use client"
 
 import GlassCard from "@/components/glassCard"
-import { Button } from "@workspace/ui/components/button"
+import { authClient } from "@/lib/auth-client"
 import {
   Drawer,
   DrawerClose,
@@ -13,6 +13,8 @@ import { MenuIcon } from "lucide-react"
 import Image from "next/image"
 import NavLink from "next/link"
 import { FC, useEffect, useState } from "react"
+
+import { CTA } from "./cta"
 
 interface BaseLink {
   type: "normal" | "action"
@@ -27,18 +29,26 @@ interface NormalLink extends BaseLink {
 
 interface ActionLink extends BaseLink {
   type: "action"
-  action: () => void
+  action: string
 }
 
 export type NavLink = NormalLink | ActionLink
 
 interface NavbarProps {
   links: NavLink[]
-  CTA: FC<{ isMobile?: boolean }>
+  CTAId: string
   sections?: string[]
 }
 
-export function Navbar({ links, CTA, sections }: NavbarProps) {
+type Actions = {
+  [key: string]: (...args: any[]) => any
+}
+
+const actions: Actions = {
+  signout: authClient.signOut,
+}
+
+export function Navbar({ links, CTAId, sections }: NavbarProps) {
   const [active, setActive] = useState(sections !== undefined ? sections[0] : "")
 
   useEffect(() => {
@@ -64,7 +74,7 @@ export function Navbar({ links, CTA, sections }: NavbarProps) {
 
   const isActive = (href: string) => active === href
   return (
-    <div className="fixed z-50 w-full p-9 px-[24px] lg:px-[60px] 2xl:px-[160px]">
+    <div className="z-50 w-full p-9 px-[24px] lg:px-[60px] 2xl:px-[160px]">
       <GlassCard className="flex items-center justify-between rounded-full pl-3 pr-5 backdrop-blur-md lg:pr-3">
         <div className="flex w-[142px] items-center justify-center pt-1 lg:w-[100px] 2xl:w-[180px]">
           <NavLink href={"/"}>
@@ -92,7 +102,7 @@ export function Navbar({ links, CTA, sections }: NavbarProps) {
           })}
         </div>
         <div className="flex h-[70px] items-center">
-          <CTA />
+          {CTA[CTAId]}
           <Drawer>
             <DrawerTrigger asChild>
               <button className="block text-xl lg:hidden">
@@ -114,7 +124,11 @@ export function Navbar({ links, CTA, sections }: NavbarProps) {
                     if (item.type === "action")
                       return (
                         <DrawerClose key={i} asChild className="flex items-center justify-center">
-                          <button className="transition-colors" onClick={item.action}>
+                          <button
+                            className="transition-colors"
+                            onClick={() => {
+                              actions[item.action]?.()
+                            }}>
                             <span className={`font-prompt text-nav-2 text-white`}>{item.label}</span>
                           </button>
                         </DrawerClose>
@@ -134,7 +148,7 @@ export function Navbar({ links, CTA, sections }: NavbarProps) {
                       )
                   })}
                   <DrawerClose asChild className="flex items-center justify-center">
-                    <CTA isMobile />
+                    {CTA[`${CTAId}-mobile`]}
                   </DrawerClose>
                 </div>
               </GlassCard>
