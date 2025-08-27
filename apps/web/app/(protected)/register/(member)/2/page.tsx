@@ -103,14 +103,12 @@ function MemberPage2() {
         }
         index={2}
         isPending={mutation.isPending}>
-        {showFinalSubmit && (
-          <Button
-            onClick={() => submitMutation.mutate({})}
-            disabled={submitMutation.isPending}
-            className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
-            <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ลงทะเบียน</span>
-          </Button>
-        )}
+        <Button
+          onClick={() => submitMutation.mutate({})}
+          disabled={submitMutation.isPending || showFinalSubmit}
+          className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[20px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+          <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ลงทะเบียน</span>
+        </Button>
       </MemberRegisterForm>
     </>
   )
