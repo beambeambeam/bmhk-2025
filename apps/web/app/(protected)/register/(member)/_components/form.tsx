@@ -2,11 +2,18 @@
 
 import RegisterStatus from "@/app/(protected)/_components/status"
 import DocumentUploader from "@/app/(protected)/register/_components/document_uploader"
-import ArrowIcon from "@/components/ArrowIcon"
 import { ExternalFormProps } from "@/types/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@workspace/ui/components/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@workspace/ui/components/form"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@workspace/ui/components/form"
 import { Input } from "@workspace/ui/components/input"
 import {
   Select,
@@ -204,9 +211,9 @@ function MemberRegisterForm(
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="MR">MR</SelectItem>
-                        <SelectItem value="MS">MS</SelectItem>
-                        <SelectItem value="MRS">MRS</SelectItem>
+                        <SelectItem value="MR">Mr.</SelectItem>
+                        <SelectItem value="MS">Ms.</SelectItem>
+                        <SelectItem value="MRS">Mrs.</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -368,7 +375,7 @@ function MemberRegisterForm(
                 <FormItem>
                   <FormLabel>Line ID</FormLabel>
                   <FormControl>
-                    <Input placeholder="Line ID" {...field} />
+                    <Input placeholder="ID LINE" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -415,20 +422,20 @@ function MemberRegisterForm(
             name="face_picture"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  <span>
-                    รูปถ่ายนักเรียนหน้าตรง ขนาด 1.5 นิ้ว <span className="align-super text-pink-300">*</span>
-                  </span>
-                </FormLabel>
                 <FormControl>
-                  <DocumentUploader
-                    value={field.value}
-                    onChange={field.onChange}
-                    disabled={props.disabled}
-                    multiple={false}
-                    maxFiles={1}
-                    maxSize={10 * 1024 * 1024}
-                  />
+                  <div className="grid grid-cols-2 gap-10">
+                    <FormDescription>1. รูปถ่ายนักเรียนหน้าตรง ขนาด 1.5 นิ้ว*</FormDescription>
+                    <div>
+                      <DocumentUploader
+                        value={field.value}
+                        onChange={field.onChange}
+                        disabled={props.disabled}
+                        multiple={false}
+                        maxFiles={1}
+                        maxSize={10 * 1024 * 1024}
+                      />
+                    </div>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -440,21 +447,24 @@ function MemberRegisterForm(
             name="national_doc"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  <span>
-                    2. สำเนาบัตรประจำตัวประชาชน หรือบัตรประจำตัวสำหรับ บุคคลที่ไม่ใช่สัญชาติไทย
-                    พร้อมเซ็นสำเนาถูกต้อง (เฉพาะด้านหน้า) <span className="align-super text-pink-300">*</span>
-                  </span>
-                </FormLabel>
                 <FormControl>
-                  <DocumentUploader
-                    value={field.value}
-                    onChange={field.onChange}
-                    disabled={props.disabled}
-                    multiple={false}
-                    maxFiles={1}
-                    maxSize={10 * 1024 * 1024}
-                  />
+                  <div className="grid grid-cols-2 gap-10">
+                    <FormDescription>
+                      2. สำเนาบัตรประจำตัวประชาชน หรือบัตรประจำตัวสำหรับ{" "}
+                      <span className="whitespace-nowrap">บุคคลที่ไม่ใช่สัญชาติไทย</span>
+                      พร้อมเซ็นสำเนาถูกต้อง <span className="whitespace-nowrap">(เฉพาะด้านหน้า)*</span>
+                    </FormDescription>
+                    <div>
+                      <DocumentUploader
+                        value={field.value}
+                        onChange={field.onChange}
+                        disabled={props.disabled}
+                        multiple={false}
+                        maxFiles={1}
+                        maxSize={10 * 1024 * 1024}
+                      />
+                    </div>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -466,21 +476,20 @@ function MemberRegisterForm(
             name="p7_doc"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  <span>
-                    3. สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริง
-                    <span className="align-super text-pink-300">*</span>
-                  </span>
-                </FormLabel>
                 <FormControl>
-                  <DocumentUploader
-                    value={field.value}
-                    onChange={field.onChange}
-                    disabled={props.disabled}
-                    multiple={false}
-                    maxFiles={1}
-                    maxSize={10 * 1024 * 1024}
-                  />
+                  <div className="grid grid-cols-2 gap-10">
+                    <FormDescription>3. สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริง*</FormDescription>
+                    <div>
+                      <DocumentUploader
+                        value={field.value}
+                        onChange={field.onChange}
+                        disabled={props.disabled}
+                        multiple={false}
+                        maxFiles={1}
+                        maxSize={10 * 1024 * 1024}
+                      />
+                    </div>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
