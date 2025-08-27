@@ -71,7 +71,7 @@ function MemberPage2() {
   }
 
   return (
-    <div className="w-full px-6 md:px-[60px] lg:px-[100px] 2xl:px-80">
+    <>
       <MemberRegisterForm
         onSubmit={handleSubmit}
         disabled={mutation.isPending}
@@ -112,7 +112,7 @@ function MemberPage2() {
           </Button>
         )}
       </MemberRegisterForm>
-    </div>
+    </>
   )
 }
 export default MemberPage2
