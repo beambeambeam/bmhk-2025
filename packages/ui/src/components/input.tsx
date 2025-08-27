@@ -43,7 +43,7 @@ function Input({
         onChange={handleChange}
         className={cn(
           "text-body-3 h-[38px] w-full min-w-0 rounded-xl border border-white/10 border-l-white/30 border-t-white/30 bg-white/15 px-3 py-1.5 pr-10 outline-none transition-colors placeholder:text-gray-50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-transparent disabled:placeholder:text-gray-300 group-hover:bg-white/30 lg:h-[45px] lg:rounded-2xl 2xl:h-14 2xl:py-2.5",
-          "aria-invalid:bg-[rgba(234,67,53,0.05)] aria-invalid:shadow-[inset_0px_1px_4px_rgba(234,67,53,0.6),inset_0px_-1px_4px_rgba(234,67,53,0.5)]",
+          "aria-invalid:border-none aria-invalid:bg-[rgba(234,67,53,0.05)] aria-invalid:shadow-[inset_0px_1px_4px_rgba(234,67,53,0.6),inset_0px_-1px_4px_rgba(234,67,53,0.5)]",
           className
         )}
         {...props}
