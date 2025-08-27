@@ -7,7 +7,7 @@ import { eq, and } from "drizzle-orm"
 import z from "zod"
 
 // Helper function to get or create register status for a team
-async function getOrCreateRegisterStatus(teamId: string) {
+async function getOrCreateRegisterStatus(teamId: string, memberCount?: number) {
   const existingStatus = await db
     .select()
     .from(registerStatus)
@@ -15,6 +15,20 @@ async function getOrCreateRegisterStatus(teamId: string) {
     .limit(1)
 
   if (existingStatus.length > 0) {
+    // If member count is provided and it's different from what the status expects, update it
+    if (memberCount !== undefined) {
+      const expectedMember3Status = memberCount === 3 ? "NOT_DONE" : "NOT_HAVE"
+      if (existingStatus[0].member3 !== expectedMember3Status) {
+        await db
+          .update(registerStatus)
+          .set({ member3: expectedMember3Status })
+          .where(eq(registerStatus.teamId, teamId))
+        return {
+          ...existingStatus[0],
+          member3: expectedMember3Status,
+        }
+      }
+    }
     return existingStatus[0]
   }
 
@@ -27,7 +41,7 @@ async function getOrCreateRegisterStatus(teamId: string) {
       adviser: "NOT_DONE",
       member1: "NOT_DONE",
       member2: "NOT_DONE",
-      member3: "NOT_HAVE",
+      member3: memberCount === 3 ? "NOT_DONE" : "NOT_HAVE",
     })
     .returning()
 
@@ -267,7 +281,10 @@ export const registerRouter = {
 
         // Check if registration is already submitted (for existing teams)
         if (existingTeam.length > 0) {
-          const currentStatus = await getOrCreateRegisterStatus(existingTeam[0].id)
+          const currentStatus = await getOrCreateRegisterStatus(
+            existingTeam[0].id,
+            existingTeam[0].memberCount
+          )
           if (currentStatus.submitRegister) {
             throw new Error("Cannot modify registration after submission")
           }
@@ -356,7 +373,8 @@ export const registerRouter = {
           }
         }
 
-        // Update register status with member count changes
+        // Create or get register status first, then update it
+        await getOrCreateRegisterStatus(teamResult.id, input.member_count)
         await updateRegisterStatus(teamResult.id, statusUpdates)
 
         // Clean up member records when member count decreases
@@ -493,7 +511,7 @@ export const registerRouter = {
         const team = userTeam[0]
 
         // Check if registration is already submitted
-        const currentStatus = await getOrCreateRegisterStatus(team.id)
+        const currentStatus = await getOrCreateRegisterStatus(team.id, team.memberCount)
         if (currentStatus.submitRegister) {
           throw new Error("Cannot modify registration after submission")
         }
@@ -604,7 +622,7 @@ export const registerRouter = {
         }
 
         // Update register status to mark adviser as DONE
-        await getOrCreateRegisterStatus(team.id)
+        await getOrCreateRegisterStatus(team.id, team.memberCount)
         await updateRegisterStatus(team.id, { adviser: "DONE" })
 
         return {
@@ -761,7 +779,7 @@ export const registerRouter = {
         const team = userTeam[0]
 
         // Check if registration is already submitted
-        const currentStatus = await getOrCreateRegisterStatus(team.id)
+        const currentStatus = await getOrCreateRegisterStatus(team.id, team.memberCount)
         if (currentStatus.submitRegister) {
           throw new Error("Cannot modify registration after submission")
         }
@@ -904,7 +922,7 @@ export const registerRouter = {
         }
 
         // Update register status to mark the specific member as DONE
-        await getOrCreateRegisterStatus(team.id)
+        await getOrCreateRegisterStatus(team.id, team.memberCount)
         const memberField = `member${input.memberIndex}` as "member1" | "member2" | "member3"
         await updateRegisterStatus(team.id, { [memberField]: "DONE" })
 
@@ -937,7 +955,7 @@ export const registerRouter = {
       }
 
       const team = userTeam[0]
-      const status = await getOrCreateRegisterStatus(team.id)
+      const status = await getOrCreateRegisterStatus(team.id, team.memberCount)
 
       return {
         success: true,
@@ -971,7 +989,7 @@ export const registerRouter = {
         }
 
         const team = userTeam[0]
-        const currentStatus = await getOrCreateRegisterStatus(team.id)
+        const currentStatus = await getOrCreateRegisterStatus(team.id, team.memberCount)
 
         // Validate member3 status based on team member count
         if (input.member3 !== undefined) {
@@ -1012,7 +1030,7 @@ export const registerRouter = {
       }
 
       const team = userTeam[0]
-      const status = await getOrCreateRegisterStatus(team.id)
+      const status = await getOrCreateRegisterStatus(team.id, team.memberCount)
 
       // Check if all required forms are completed
       const requiredFields = ["team", "adviser", "member1", "member2"]
