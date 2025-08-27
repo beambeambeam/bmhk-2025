@@ -86,9 +86,11 @@ function MemberPage3() {
                 line_id: memberQuery.data.member.lineId ?? "",
                 parent: memberQuery.data.member.parent ?? "",
                 parent_phone: memberQuery.data.member.parentPhoneNumber ?? "",
-                national_doc: [],
-                face_picture: [],
-                p7_doc: [],
+                national_doc: memberQuery.data.member.nationalDoc
+                  ? [memberQuery.data.member.nationalDoc]
+                  : [],
+                face_picture: memberQuery.data.member.facePic ? [memberQuery.data.member.facePic] : [],
+                p7_doc: memberQuery.data.member.p7Doc ? [memberQuery.data.member.p7Doc] : [],
                 chronic_disease: memberQuery.data.member.chronicDisease ?? "",
               }
             : undefined
