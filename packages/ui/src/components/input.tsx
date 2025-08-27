@@ -49,7 +49,7 @@ function Input({
         {...props}
       />
       {limit ? (
-        <div className="absolute right-3 top-1/2 -translate-y-1/2 text-xl text-gray-100">
+        <div className="text-body-3 absolute right-3 top-1/2 -translate-y-1/2 text-gray-100">
           {String(inputValue).length}/{limit}
         </div>
       ) : (
