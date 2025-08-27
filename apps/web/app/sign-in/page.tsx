@@ -3,11 +3,12 @@
 import GlassCard from "@/components/glassCard"
 import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 function SignInPage() {
   const { data: session, isPending } = authClient.useSession()
   const router = useRouter()
+  const cardRef = useRef<HTMLDivElement>(null) // ref for login card
   const [stars, setStars] = useState<{ id: number; top: string; left: string; size: number; src: string }[]>(
     []
   )
@@ -15,7 +16,6 @@ function SignInPage() {
   const [redirecting, setRedirecting] = useState(false)
 
   useEffect(() => {
-    // Check initial height and listen to resize
     const checkHeight = () => setIsTall(window.innerHeight >= 960)
     checkHeight()
     window.addEventListener("resize", checkHeight)
@@ -29,25 +29,57 @@ function SignInPage() {
   }, [session, isPending, router])
 
   useEffect(() => {
-    const count = 20
-    const starImages = ["/static/icon/Star.svg", "/static/icon/Star_bright.svg", "/static/icon/Star2.svg"]
+    const generateStars = () => {
+      const isLarge = window.innerWidth >= 1024
+      const count = isLarge ? 20 : 10
+      const starImages = [
+        "/static/icon/Star_small_bright.svg",
+        "/static/icon/Star_bright.svg",
+        "/static/icon/Star2.svg",
+      ]
 
-    const newStars = Array.from({ length: count }).map((_, i) => ({
-      id: i,
-      top: `${Math.random() * 100}%`,
-      left: `${Math.random() * 100}%`,
-      size: 20 + Math.random() * 40,
-      src: starImages[Math.floor(Math.random() * starImages.length)]!,
-    }))
+      const cardBox = cardRef.current?.getBoundingClientRect()
+      const margin = 40
+      const newStars = []
 
-    setStars(newStars)
+      for (let i = 0; i < count; i++) {
+        let top: number, left: number
+        let tries = 0
+        do {
+          top = Math.random() * window.innerHeight
+          left = Math.random() * window.innerWidth
+          tries++
+        } while (
+          cardBox &&
+          left > cardBox.left - margin &&
+          left < cardBox.right + margin &&
+          top > cardBox.top - margin &&
+          top < cardBox.bottom + margin &&
+          tries < 20 // safety break
+        )
+
+        newStars.push({
+          id: i,
+          top: `${(top / window.innerHeight) * 100}%`,
+          left: `${(left / window.innerWidth) * 100}%`,
+          size: 20 + Math.random() * 40,
+          src: starImages[Math.floor(Math.random() * starImages.length)]!,
+        })
+      }
+
+      setStars(newStars)
+    }
+
+    generateStars()
+    window.addEventListener("resize", generateStars)
+    return () => window.removeEventListener("resize", generateStars)
   }, [])
 
   return (
     <div
       className={`relative flex h-screen w-screen flex-col items-center justify-between px-[30px] lg:px-0 ${
         isTall ? "2xl:px-[160px]" : ""
-      } py-[60px] ${isTall ? "2xl:py-[100px]" : ""} overflow-hidden`}
+      } py-[60px] ${isTall ? "2xl:py-[100px]" : ""} select-none overflow-hidden`}
       style={{
         backgroundImage: `
           linear-gradient(rgba(255, 204, 247, 0.15), rgba(159, 131, 220, 0.15)),
@@ -91,7 +123,9 @@ function SignInPage() {
           className={`ml-[-16px] h-[118px] lg:ml-[-24px] lg:h-[178px] ${isTall ? "2xl:ml-[-32px] 2xl:h-[236px]" : ""}`}
         />
 
+        {/* login card */}
         <div
+          ref={cardRef} // ref for ensures stars don’t overlap this
           className={`flex flex-col items-center justify-between p-4 max-lg:gap-6 lg:h-[300px] lg:p-8 ${
             isTall ? "2xl:h-[368px] 2xl:p-10" : ""
           } rounded-[24px] border-2 border-white/10 bg-[linear-gradient(107deg,rgba(255,204,247,0.05)_-2.48%,rgba(159,131,220,0.05)_29.08%)]`}>
