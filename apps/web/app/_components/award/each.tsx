@@ -30,12 +30,12 @@ export function EachAwardForTopRow({ data }: TopRowAwardProps) {
 
         <div className="flex flex-col gap-6">
           <div
-            className={`${data.lqClassName} mx-auto inline-flex w-fit flex-col items-center justify-center gap-10 rounded-[40px] px-8 py-6 outline-1 outline-offset-[-1px] outline-white/10`}>
+            className={`${data.lqClassName} mx-auto inline-flex w-fit flex-col items-center justify-center gap-10 rounded-[24px] px-6 py-3 outline-1 outline-offset-[-1px] outline-white/10 backdrop-blur-3xl lg:rounded-[40px] 2xl:px-8 2xl:py-6`}>
             <div className="text-subheader-2 justify-center self-stretch text-center">{data.title}</div>
           </div>
           <div className="flex flex-col gap-x-[0.5rem] 2xl:flex-row">
-            <div className="text-body-1 justify-center text-center">{data.description}</div>
-            <div className="text-body-1 justify-center text-center">พร้อมโล่เกียรติคุณ</div>
+            <div className="text-body-1 justify-center whitespace-nowrap text-center">{data.description}</div>
+            <div className="text-body-1 justify-center whitespace-nowrap text-center">พร้อมโล่เกียรติคุณ</div>
           </div>
         </div>
       </div>
@@ -57,13 +57,13 @@ export function EachAwardForTopRow({ data }: TopRowAwardProps) {
 
         <div className="flex flex-col gap-6">
           <div
-            className={`${data.lqClassName} flex flex-col items-center justify-center gap-10 self-stretch rounded-[40px] px-6 py-6 outline-1 outline-offset-[-1px] outline-white/10 2xl:hidden 2xl:px-8`}>
+            className={`${data.lqClassName} mx-auto inline-flex w-fit flex-col items-center justify-center gap-10 self-stretch rounded-[24px] px-6 py-3 outline-1 outline-offset-[-1px] outline-white/10 backdrop-blur-3xl lg:rounded-[40px] 2xl:hidden 2xl:px-8 2xl:py-6`}>
             <div className="text-subheader-2 justify-center self-stretch text-center">
               {data.title.includes("รอง") ? data.title.replace("รางวัล", "") : data.title}
             </div>
           </div>
           <div
-            className={`${data.lqClassName} hidden flex-col items-center justify-center gap-10 self-stretch rounded-[40px] px-6 py-6 outline-1 outline-offset-[-1px] outline-white/10 2xl:flex 2xl:px-8`}>
+            className={`${data.lqClassName} mx-auto hidden w-fit flex-col items-center justify-center gap-10 self-stretch rounded-[24px] px-6 py-3 outline-1 outline-offset-[-1px] outline-white/10 backdrop-blur-3xl lg:rounded-[40px] 2xl:flex 2xl:px-8 2xl:py-6`}>
             <div className="text-subheader-2 justify-center self-stretch text-center">{data.title}</div>
           </div>
           <div className="flex flex-col gap-x-[0.5rem] 2xl:flex-row">

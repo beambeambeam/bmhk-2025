@@ -93,10 +93,10 @@ export default function Page() {
         <div id="dateandcontest" className="flex items-center justify-center">
           <DateAndContest />
         </div>
-        <div id="scope" className="flex min-h-screen items-center justify-center">
+        <div id="scope" className="flex items-center justify-center">
           <Scope />
         </div>
-        <div id="contact" className="flex min-h-screen items-center justify-center">
+        <div id="contact" className="flex items-center justify-center">
           <Contact />
         </div>
         <div id="story" className="flex min-h-screen items-center justify-center">
