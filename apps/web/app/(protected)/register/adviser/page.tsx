@@ -1,7 +1,7 @@
 "use client"
 
+import RegisterStatus from "@/app/(protected)/_components/status"
 import AdviserRegisterForm from "@/app/(protected)/register/adviser/_components/form"
-import ScrollArea from "@/app/_components/scope/ScrollArea"
 import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
 import { cn } from "@workspace/ui/lib/utils"
@@ -23,6 +23,7 @@ function AdviserRegisterPage() {
         BACKGROUND_CLASS
       )}>
       <div className="h-[50rem] w-full max-w-[62rem]">
+        <RegisterStatus />
         <AdviserRegisterForm
           defaultValues={
             query.data && query.data.success && query.data.adviser

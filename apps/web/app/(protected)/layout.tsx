@@ -7,7 +7,7 @@ import { authClient } from "@/lib/auth-client"
 import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
-import { ReactNode, useEffect, useMemo } from "react"
+import { ReactNode, useEffect } from "react"
 
 interface ProtectedLayoutProps {
   readonly children: ReactNode
@@ -21,26 +21,28 @@ function ProtectedLayout({ children }: ProtectedLayoutProps) {
     if (!session?.user && !isPending) {
       router.push("/sign-in")
     }
-  }, [session, isPending])
+  }, [session, isPending, router])
 
   const query = useQuery(orpc.register.status.get.queryOptions())
 
-  const initialState = useMemo(() => {
-    return query.data?.registerStatus
-      ? {
-          team: query.data.registerStatus.team,
-          adviser: query.data.registerStatus.adviser,
-          member1: query.data.registerStatus.member1,
-          member2: query.data.registerStatus.member2,
-          member3: query.data.registerStatus.member3,
-          submitRegister: query.data.registerStatus.submitRegister,
-        }
-      : undefined
-  }, [query.data?.registerStatus])
+  if (query.isPending) {
+    return null
+  }
 
   return (
-    <RegisterStatusProvider initialState={initialState}>
-      <RegisterStatus />
+    <RegisterStatusProvider
+      initialState={
+        query.data?.registerStatus
+          ? {
+              team: query.data.registerStatus.team,
+              adviser: query.data.registerStatus.adviser,
+              member1: query.data.registerStatus.member1,
+              member2: query.data.registerStatus.member2,
+              member3: query.data.registerStatus.member3,
+              submitRegister: query.data.registerStatus.submitRegister,
+            }
+          : undefined
+      }>
       {!query.isPending && children}
       <PolicyConsent />
     </RegisterStatusProvider>

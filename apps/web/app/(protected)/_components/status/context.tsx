@@ -85,6 +85,18 @@ export const useMember2Status = () => useRegisterStatus((state) => state.member2
 export const useMember3Status = () => useRegisterStatus((state) => state.member3)
 export const useSubmitRegister = () => useRegisterStatus((state) => state.submitRegister)
 
+export const useAllRegisterStatus = () =>
+  useRegisterStatus(
+    useShallow((state) => ({
+      team: state.team,
+      adviser: state.adviser,
+      member1: state.member1,
+      member2: state.member2,
+      member3: state.member3,
+      submitRegister: state.submitRegister,
+    }))
+  )
+
 export const useRegisterStatusActions = () =>
   useRegisterStatus(
     useShallow((state) => ({
