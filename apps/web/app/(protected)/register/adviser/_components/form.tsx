@@ -106,10 +106,10 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
         className="flex h-fit w-full max-w-[80rem] flex-col gap-14 px-4">
         <RegisterStatus />
         <div className="flex flex-col gap-6">
-          <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
+          <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-5 lg:p-6 2xl:gap-8 2xl:px-8 2xl:py-6">
             <div className="flex flex-col gap-6">
               <div className="col-span-2 grid grid-cols-2 gap-4">
-                <p className="col-span-2 w-full text-3xl text-white">1. ข้อมูลอาจารย์</p>
+                <p className="text-form-header col-span-2 w-full text-white">1. ข้อมูลอาจารย์</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4 lg:grid-cols-[1fr_2.25fr_2.25fr_2.25fr]">
@@ -322,7 +322,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
 
           <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
             <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
-              <p className="text-3xl text-white">2. ข้อมูลติดต่อ</p>
+              <p className="text-form-header text-white">2. ข้อมูลติดต่อ</p>
             </div>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -378,7 +378,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
 
           <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
             <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
-              <p className="text-3xl text-white">3. เอกสาร</p>
+              <p className="text-form-header text-white">3. เอกสาร</p>
             </div>
 
             <FormField
