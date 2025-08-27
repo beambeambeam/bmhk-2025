@@ -15,7 +15,7 @@ function TeamDone() {
   }
 
   const teamData = {
-    teamCode: query.data?.team?.id || null,
+    teamCode: `#BH${query.data?.team?.index?.toString().padStart(3, "0") || "NaN"}`,
     teamName: query.data?.team?.name || "",
     teamImage: query.data?.team?.image?.url || "",
     school: query.data?.team?.school || "",
