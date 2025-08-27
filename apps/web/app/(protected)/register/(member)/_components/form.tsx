@@ -42,7 +42,7 @@ const memberRegisterSchema = z.object({
   p7_doc: z.array(z.any()).min(1, "จำเป็นต้องอัปโหลดเอกสาร P7").max(1),
 })
 
-type memberRegisterSchemaType = Omit<
+export type memberRegisterSchemaType = Omit<
   z.infer<typeof memberRegisterSchema>,
   "national_doc" | "face_picture" | "p7_doc"
 > & {
@@ -60,7 +60,7 @@ export type ProcessedMemberRegisterSchemaType = Omit<
   p7_doc: (File | null)[]
 }
 
-function MemberRegisterForm(props: ExternalFormProps<ProcessedMemberRegisterSchemaType>) {
+function MemberRegisterForm(props: ExternalFormProps<memberRegisterSchemaType>) {
   const form = useForm<z.infer<typeof memberRegisterSchema>>({
     resolver: zodResolver(memberRegisterSchema),
     defaultValues: {
@@ -88,31 +88,7 @@ function MemberRegisterForm(props: ExternalFormProps<ProcessedMemberRegisterSche
   })
 
   const handleSubmit = (values: memberRegisterSchemaType) => {
-    const processedValues: ProcessedMemberRegisterSchemaType = {
-      ...values,
-      national_doc: values.national_doc.map((file) => {
-        if (file instanceof File) {
-          return file
-        } else {
-          return null
-        }
-      }),
-      face_picture: values.face_picture.map((file) => {
-        if (file instanceof File) {
-          return file
-        } else {
-          return null
-        }
-      }),
-      p7_doc: values.p7_doc.map((file) => {
-        if (file instanceof File) {
-          return file
-        } else {
-          return null
-        }
-      }),
-    }
-    props.onSubmit?.(processedValues)
+    props.onSubmit?.(values)
   }
 
   return (
