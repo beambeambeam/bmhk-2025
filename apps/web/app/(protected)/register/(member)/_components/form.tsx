@@ -44,21 +44,48 @@ import z from "zod"
 
 const memberRegisterSchema = z.object({
   prefix: z.enum(["MR", "MS", "MRS"]),
-  thai_firstname: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
-  thai_middlename: z.string().optional(),
-  thai_lastname: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
-  english_firstname: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
-  english_middlename: z.string().optional(),
-  english_lastname: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
+  thai_firstname: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[ก-๙\s]+$/, "กรุณากรอกชื่อเป็นภาษาไทยเท่านั้น"),
+  thai_middlename: z
+    .string()
+    .optional()
+    .refine((val) => !val || /^[ก-๙\s]+$/.test(val), "กรุณากรอกชื่อเป็นภาษาไทยเท่านั้น"),
+  thai_lastname: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[ก-๙\s]+$/, "กรุณากรอกนามสกุลเป็นภาษาไทยเท่านั้น"),
+  english_firstname: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[a-zA-Z\s]+$/, "กรุณากรอกชื่อเป็นภาษาอังกฤษเท่านั้น"),
+  english_middlename: z
+    .string()
+    .optional()
+    .refine((val) => !val || /^[a-zA-Z\s]+$/.test(val), "กรุณากรอกชื่อเป็นภาษาอังกฤษเท่านั้น"),
+  english_lastname: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[a-zA-Z\s]+$/, "กรุณากรอกนามสกุลเป็นภาษาอังกฤษเท่านั้น"),
   food_allergy: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   food_type: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   drug_allergy: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   chronic_disease: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   email: z.string().email("กรุณากรอกอีเมลให้ถูกต้อง").min(1, "จำเป็นต้องกรอกช่องนี้"),
-  phone_number: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
+  phone_number: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[0-9]{10}$/, "กรุณากรอกเบอร์โทรศัพท์ 10 หลัก"),
   line_id: z.string().optional(),
-  parent: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
-  parent_phone: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
+  parent: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[ก-๙\s]+$/, "กรุณากรอกชื่อผู้ปกครองเป็นภาษาไทยเท่านั้น"),
+  parent_phone: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[0-9]{10}$/, "กรุณากรอกเบอร์โทรศัพท์ผู้ปกครอง 10 หลัก"),
   national_doc: z.array(z.any()).min(1, "จำเป็นต้องอัปโหลดเอกสารประจำตัวประชาชน").max(1),
   face_picture: z.array(z.any()).min(1, "จำเป็นต้องอัปโหลดรูปถ่ายหน้าตรง").max(1),
   p7_doc: z.array(z.any()).min(1, "จำเป็นต้องอัปโหลดเอกสาร P7").max(1),

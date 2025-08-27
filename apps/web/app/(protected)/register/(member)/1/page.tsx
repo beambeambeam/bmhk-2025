@@ -3,6 +3,7 @@
 import MemberRegisterForm, {
   memberRegisterSchemaType,
 } from "@/app/(protected)/register/(member)/_components/form"
+import RegisterFormSkeleton from "@/app/(protected)/register/_components/skeleton"
 import { orpc, queryClient } from "@/utils/orpc"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
@@ -32,7 +33,7 @@ function MemberPage1() {
   )
 
   if (teamQuery.isPending || memberQuery.isPending) {
-    return <div>Loading...</div>
+    return <RegisterFormSkeleton />
   }
 
   if (!teamQuery.data?.team) {
