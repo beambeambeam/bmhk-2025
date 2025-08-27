@@ -152,9 +152,7 @@ function MemberRegisterForm(
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(handleSubmit)}
-        className="flex h-fit w-full max-w-[80rem] flex-col gap-14 px-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="flex h-fit w-full flex-col gap-14 px-4">
         <RegisterStatus />
         <div className="flex flex-col gap-6 px-3 md:px-[60px] lg:px-[100px] 2xl:px-80">
           <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-5 lg:p-6 2xl:gap-8 2xl:px-8 2xl:py-6">
@@ -169,9 +167,7 @@ function MemberRegisterForm(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      <span>
-                        คำนำหน้า <span className="align-super text-pink-300">*</span>
-                      </span>
+                      คำนำหน้า <span className="align-super text-pink-300">*</span>
                     </FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
@@ -195,9 +191,7 @@ function MemberRegisterForm(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      <span>
-                        ชื่อจริง (ภาษาไทย) <span className="align-super text-pink-300">*</span>
-                      </span>
+                      ชื่อจริง (ภาษาไทย) <span className="align-super text-pink-300">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input placeholder="ชื่อจริง" {...field} />
@@ -211,7 +205,9 @@ function MemberRegisterForm(
                 name="thai_middlename"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>ชื่อกลาง (ภาษาไทย)</FormLabel>
+                    <FormLabel>
+                      ชื่อกลาง (ภาษาไทย) <span className="invisible align-super text-pink-300">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="ชื่อกลาง" {...field} />
                     </FormControl>
@@ -225,9 +221,7 @@ function MemberRegisterForm(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      <span>
-                        นามสกุล (ภาษาไทย) <span className="align-super text-pink-300">*</span>
-                      </span>
+                      นามสกุล (ภาษาไทย) <span className="align-super text-pink-300">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input placeholder="นามสกุล" {...field} />
@@ -245,9 +239,7 @@ function MemberRegisterForm(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      <span>
-                        Prefix <span className="align-super text-pink-300">*</span>
-                      </span>
+                      Prefix <span className="align-super text-pink-300">*</span>
                     </FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
@@ -271,9 +263,7 @@ function MemberRegisterForm(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      <span>
-                        First Name <span className="align-super text-pink-300">*</span>
-                      </span>
+                      First Name <span className="align-super text-pink-300">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input placeholder="Name" {...field} />
@@ -287,7 +277,9 @@ function MemberRegisterForm(
                 name="english_middlename"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Middle Name</FormLabel>
+                    <FormLabel>
+                      Middle Name <span className="invisible align-super text-pink-300">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="Middle Name" {...field} />
                     </FormControl>
@@ -301,9 +293,7 @@ function MemberRegisterForm(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      <span>
-                        Last Name <span className="align-super text-pink-300">*</span>
-                      </span>
+                      Last Name <span className="align-super text-pink-300">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input placeholder="Last Name" {...field} />
@@ -320,7 +310,9 @@ function MemberRegisterForm(
                 name="food_allergy"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>อาหารที่แพ้</FormLabel>
+                    <FormLabel>
+                      อาหารที่แพ้ <span className="invisible align-super text-pink-300">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="อาหารที่แพ้" {...field} />
                     </FormControl>
@@ -333,7 +325,10 @@ function MemberRegisterForm(
                 name="food_type"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>ประเภทอาหาร (เช่น มังสวิรัติ ฮาลาล)</FormLabel>
+                    <FormLabel>
+                      ประเภทอาหาร (เช่น มังสวิรัติ ฮาลาล){" "}
+                      <span className="invisible align-super text-pink-300">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="ประเภทอาหาร" {...field} />
                     </FormControl>
@@ -346,7 +341,9 @@ function MemberRegisterForm(
                 name="drug_allergy"
                 render={({ field }) => (
                   <FormItem className="col-span-1 lg:col-span-2 2xl:col-span-1">
-                    <FormLabel>ยาที่แพ้</FormLabel>
+                    <FormLabel>
+                      ยาที่แพ้ <span className="invisible align-super text-pink-300">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="ยาที่แพ้" {...field} />
                     </FormControl>
@@ -361,7 +358,10 @@ function MemberRegisterForm(
                 name="chronic_disease"
                 render={({ field }) => (
                   <FormItem className="col-span-1 lg:col-span-2 2xl:col-span-1">
-                    <FormLabel>โรคประจำตัว และวิธีปฐมพยาบาลเบื้องต้น</FormLabel>
+                    <FormLabel>
+                      โรคประจำตัว และวิธีปฐมพยาบาลเบื้องต้น{" "}
+                      <span className="invisible align-super text-pink-300">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Textarea placeholder="รายละเอียด" {...field} className="h-28" />
                     </FormControl>
@@ -371,217 +371,226 @@ function MemberRegisterForm(
               />
             </div>
           </div>
-        </div>
+          <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
+            <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
+              <p className="text-form-header text-white">2. ข้อมูลติดต่อ</p>
+            </div>
 
-        <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
-          <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
-            <p className="text-form-header text-white">2. ข้อมูลติดต่อ</p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem className="col-span-2 lg:col-span-1">
-                  <FormLabel>
-                    <span>
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="col-span-2 lg:col-span-1">
+                    <FormLabel>
                       อีเมล <span className="align-super text-pink-300">*</span>
-                    </span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input type="email" placeholder="someone@example.com" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="phone_number"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    <span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input type="email" placeholder="someone@example.com" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="phone_number"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
                       เบอร์โทรศัพท์ <span className="align-super text-pink-300">*</span>
-                    </span>
-                  </FormLabel>
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="0812345678" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="line_id"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Line ID <span className="invisible align-super text-pink-300">*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="ID LINE" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="grid w-full gap-4 md:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="parent_phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      เบอร์โทรติดต่อฉุกเฉิน <span className="invisible align-super text-pink-300">*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="0812345678" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="parent"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      ผู้ติดต่อฉุกเฉินเกี่ยวข้องเป็น{" "}
+                      <span className="invisible align-super text-pink-300">*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="ตัวอย่าง บิดา มารดา" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+
+          <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
+            <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
+              <p className="text-form-header text-white">3. เอกสาร</p>
+            </div>
+
+            <FormField
+              control={form.control}
+              name="face_picture"
+              render={({ field }) => (
+                <FormItem>
                   <FormControl>
-                    <Input placeholder="0812345678" {...field} />
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-10">
+                      <FormDescription className="text-sm lg:text-base">
+                        1. รูปถ่ายนักเรียนหน้าตรง ขนาด 1.5 นิ้ว*
+                      </FormDescription>
+                      <div>
+                        <DocumentUploader
+                          value={field.value}
+                          onChange={field.onChange}
+                          disabled={props.disabled}
+                          multiple={false}
+                          maxFiles={1}
+                          maxSize={10 * 1024 * 1024}
+                        />
+                      </div>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
-              name="line_id"
+              name="national_doc"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Line ID</FormLabel>
                   <FormControl>
-                    <Input placeholder="ID LINE" {...field} />
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-10">
+                      <FormDescription className="text-sm lg:text-base">
+                        2. สำเนาบัตรประจำตัวประชาชน หรือบัตรประจำตัวสำหรับ{" "}
+                        <span className="whitespace-nowrap">บุคคลที่ไม่ใช่สัญชาติไทย</span>
+                        พร้อมเซ็นสำเนาถูกต้อง <span className="whitespace-nowrap">(เฉพาะด้านหน้า)*</span>
+                      </FormDescription>
+                      <div>
+                        <DocumentUploader
+                          value={field.value}
+                          onChange={field.onChange}
+                          disabled={props.disabled}
+                          multiple={false}
+                          maxFiles={1}
+                          maxSize={10 * 1024 * 1024}
+                        />
+                      </div>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="p7_doc"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-10">
+                      <FormDescription className="text-sm lg:text-base">
+                        3. สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริง*
+                      </FormDescription>
+                      <div>
+                        <DocumentUploader
+                          value={field.value}
+                          onChange={field.onChange}
+                          disabled={props.disabled}
+                          multiple={false}
+                          maxFiles={1}
+                          maxSize={10 * 1024 * 1024}
+                        />
+                      </div>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <div className="grid w-full gap-4 md:grid-cols-2">
-            <FormField
-              control={form.control}
-              name="parent_phone"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>เบอร์โทรติดต่อฉุกเฉิน</FormLabel>
-                  <FormControl>
-                    <Input placeholder="0812345678" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="parent"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>ผู้ติดต่อฉุกเฉินเกี่ยวข้องเป็น</FormLabel>
-                  <FormControl>
-                    <Input placeholder="ตัวอย่าง บิดา มารดา" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-        </div>
 
-        <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
-          <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
-            <p className="text-form-header text-white">3. เอกสาร</p>
-          </div>
-
-          <FormField
-            control={form.control}
-            name="face_picture"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-10">
-                    <FormDescription className="text-center md:text-left">
-                      1. รูปถ่ายนักเรียนหน้าตรง ขนาด 1.5 นิ้ว*
-                    </FormDescription>
-                    <div>
-                      <DocumentUploader
-                        value={field.value}
-                        onChange={field.onChange}
-                        disabled={props.disabled}
-                        multiple={false}
-                        maxFiles={1}
-                        maxSize={10 * 1024 * 1024}
-                      />
-                    </div>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="national_doc"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-10">
-                    <FormDescription className="text-center md:text-left">
-                      2. สำเนาบัตรประจำตัวประชาชน หรือบัตรประจำตัวสำหรับ{" "}
-                      <span className="whitespace-nowrap">บุคคลที่ไม่ใช่สัญชาติไทย</span>
-                      พร้อมเซ็นสำเนาถูกต้อง <span className="whitespace-nowrap">(เฉพาะด้านหน้า)*</span>
-                    </FormDescription>
-                    <div>
-                      <DocumentUploader
-                        value={field.value}
-                        onChange={field.onChange}
-                        disabled={props.disabled}
-                        multiple={false}
-                        maxFiles={1}
-                        maxSize={10 * 1024 * 1024}
-                      />
-                    </div>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="p7_doc"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-10">
-                    <FormDescription className="text-center md:text-left">
-                      3. สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริง*
-                    </FormDescription>
-                    <div>
-                      <DocumentUploader
-                        value={field.value}
-                        onChange={field.onChange}
-                        disabled={props.disabled}
-                        multiple={false}
-                        maxFiles={1}
-                        maxSize={10 * 1024 * 1024}
-                      />
-                    </div>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <div className="flex w-full justify-between">
-          <Button
-            type="button"
-            onClick={() => {
-              if (props.index === 1) {
-                router.push("/register/adviser")
-              } else if (props.index === 2) {
-                router.push("/register/1")
-              } else if (props.index === 3) {
-                router.push("/register/2")
-              } else {
-                router.push("/register/team")
-              }
-            }}
-            className="liquid mb-8 flex h-fit w-12 items-center justify-between gap-4 rounded-[20px] py-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
-            <ChevronLeft className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
-            <span className="hidden text-[20px] font-medium text-white md:block 2xl:text-[22px]">
-              ย้อนกลับ
-            </span>
-          </Button>
-          <div className="flex h-full items-center justify-center">
+          <div className="flex w-full items-center justify-between gap-2">
             <Button
-              type="submit"
-              className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[20px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6"
-              disabled={props.disabled}>
-              <span className="text-[20px] font-medium text-white 2xl:text-[22px]">
-                {props.index === 3
-                  ? "บันทึก"
-                  : props.index === 2 && member3 === "NOT_HAVE"
-                    ? "บันทึก"
-                    : "ต่อไป"}
+              type="button"
+              onClick={() => {
+                if (props.index === 1) {
+                  router.push("/register/adviser")
+                } else if (props.index === 2) {
+                  router.push("/register/1")
+                } else if (props.index === 3) {
+                  router.push("/register/2")
+                } else {
+                  router.push("/register/team")
+                }
+              }}
+              className="liquid mb-8 flex h-fit w-12 flex-shrink-0 items-center justify-center rounded-full py-3 md:w-auto md:rounded-[20px] md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+              <ChevronLeft className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
+              <span className="hidden text-[20px] font-medium text-white md:block 2xl:text-[22px]">
+                ย้อนกลับ
               </span>
-              <ChevronRight className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
             </Button>
 
-            {props.children}
+            <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
+              <Button
+                type="submit"
+                className={`liquid mb-8 flex h-fit items-center justify-center gap-2 rounded-[20px] py-3 md:w-auto md:gap-4 md:px-6 md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6 ${
+                  props.index === 3 || (props.index === 2 && member3 === "NOT_HAVE") ? "w-auto px-4" : "w-12"
+                }`}
+                disabled={props.disabled}>
+                <span className="hidden text-[16px] font-medium text-white md:block md:text-[20px] 2xl:text-[22px]">
+                  {props.index === 3
+                    ? "บันทึก"
+                    : props.index === 2 && member3 === "NOT_HAVE"
+                      ? "บันทึก"
+                      : "ต่อไป"}
+                </span>
+                {props.index === 3 || (props.index === 2 && member3 === "NOT_HAVE") ? (
+                  <span className="text-[14px] font-medium text-white md:hidden">บันทึก</span>
+                ) : (
+                  <ChevronRight className="h-4 w-4 text-white md:h-6 md:w-6 2xl:h-10 2xl:w-10" />
+                )}
+              </Button>
+
+              {props.children}
+            </div>
           </div>
         </div>
       </form>
