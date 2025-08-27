@@ -1,5 +1,4 @@
 import { NavLink } from "@/app/_components/navbar"
-import { authClient } from "@/lib/auth-client"
 import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
 
@@ -12,6 +11,11 @@ export function TeamNavMenu() {
     teamName: query.data?.team?.name || "ทีมไม่ระบุชื่อ",
     teamImage: query.data?.team?.image?.url || null,
   }
+
+  if (query.isPending) {
+    return null
+  }
+
   return <TeamNavMenuClient teamData={teamData} />
 }
 

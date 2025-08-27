@@ -27,7 +27,6 @@ function TeamDone() {
     message: query.data?.team?.quote || "",
   }
 
-  // Create all possible team member slots
   const allMemberSlots = [
     {
       teamCode: "",
@@ -165,7 +164,6 @@ function TeamDone() {
       }
       return slot
     } else {
-      // Student slots (index 1, 2, 3)
       const studentIndex = index
       const student = query.data?.members?.find((member) => member.index === studentIndex)
       if (student) {
@@ -243,7 +241,7 @@ function TeamDone() {
         <div className="flex w-full flex-col gap-5 md:flex-row md:gap-10">
           <div className="flex flex-col gap-3 md:items-center md:justify-center">
             <img
-              className="h-[68px] w-[68px] rounded-full md:h-[75px] md:w-[75px] lg:h-[95px] lg:w-[95px] 2xl:h-[100px] 2xl:w-[100px]"
+              className="h-[68px] min-h-[68px] w-[68px] min-w-[68px] rounded-full md:h-[75px] md:min-h-[75px] md:w-[75px] md:min-w-[75px] lg:h-[95px] lg:min-h-[95px] lg:w-[95px] lg:min-w-[95px] 2xl:h-[100px] 2xl:min-h-[100px] 2xl:w-[100px] 2xl:min-w-[100px]"
               src={teamData.teamImage}
               alt={teamData.teamName}
             />
