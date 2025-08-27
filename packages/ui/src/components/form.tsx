@@ -113,7 +113,7 @@ function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="form-description"
       id={formDescriptionId}
-      className={cn("text-sm text-neutral-500 dark:text-neutral-400", className)}
+      className={cn("text-[22px] text-white", className)}
       {...props}
     />
   )
