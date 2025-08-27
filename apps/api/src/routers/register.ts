@@ -473,6 +473,7 @@ export const registerRouter = {
           line_id: z.string().optional(),
           national_doc: z.array(z.any()).min(1).max(1),
           teacher_doc: z.array(z.any()).min(1).max(1),
+          chronic_disease: z.string().min(1),
         })
       )
       .handler(async ({ input, context }) => {
@@ -593,6 +594,7 @@ export const registerRouter = {
               email: input.email,
               phoneNumber: input.phone_number,
               lineId: input.line_id,
+              chronicDisease: input.chronic_disease,
               nationalDocId,
               teacherDocId,
             })
@@ -739,6 +741,7 @@ export const registerRouter = {
           national_doc: z.array(z.any()).min(1).max(1),
           face_picture: z.array(z.any()).min(1).max(1),
           p7_doc: z.array(z.any()).min(1).max(1),
+          chronic_disease: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
         })
       )
       .handler(async ({ input, context }) => {
@@ -884,11 +887,13 @@ export const registerRouter = {
               foodAllergy: input.food_allergy,
               foodType: input.food_type,
               drugAllergy: input.drug_allergy,
+              chronicDisease: input.chronic_disease,
               email: input.email,
               phoneNumber: input.phone_number,
               lineId: input.line_id,
               parent: input.parent,
               parentPhoneNumber: input.parent_phone,
+
               nationalDocId,
               facePicId,
               p7DocId,

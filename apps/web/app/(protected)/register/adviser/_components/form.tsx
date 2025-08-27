@@ -32,6 +32,7 @@ const adviserRegisterSchema = z.object({
   food_allergy: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   food_type: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   drug_allergy: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
+  chronic_disease: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   email: z.string().email("กรุณากรอกอีเมลให้ถูกต้อง").min(1, "จำเป็นต้องกรอกช่องนี้"),
   phone_number: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   line_id: z.string().optional(),

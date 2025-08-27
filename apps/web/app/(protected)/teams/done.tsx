@@ -35,7 +35,7 @@ function TeamDone() {
           allergyFood: member.foodAllergy || "",
           foodType: member.foodType || "",
           allergyMedicine: member.drugAllergy || "",
-          chronicDisease: "",
+          chronicDisease: member.chronicDisease,
         },
         contact: {
           email: member.email || "",
@@ -78,7 +78,7 @@ function TeamDone() {
           allergyFood: query.data.adviser.foodAllergy || "",
           foodType: query.data.adviser.foodType || "",
           allergyMedicine: query.data.adviser.drugAllergy || "",
-          chronicDisease: "", // Not available in current data structure
+          chronicDisease: query.data.adviser.chronicDisease || "",
         },
         contact: {
           email: query.data.adviser.email || "",
