@@ -101,7 +101,8 @@ function MemberPage2() {
                 chronic_disease: memberQuery.data.member.chronicDisease ?? "",
               }
             : undefined
-        }>
+        }
+        index={2}>
         {showFinalSubmit && (
           <Button
             onClick={() => submitMutation.mutate({})}

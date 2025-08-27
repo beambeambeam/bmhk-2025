@@ -17,6 +17,7 @@ import {
 } from "@workspace/ui/components/select"
 import { Textarea } from "@workspace/ui/components/textarea"
 import type { FileMetadata } from "@workspace/ui/hooks/use-file-upload"
+import { useRouter } from "next/navigation"
 import type { ReactNode } from "react"
 import { useForm } from "react-hook-form"
 import z from "zod"
@@ -61,7 +62,11 @@ export type ProcessedMemberRegisterSchemaType = Omit<
   p7_doc: (File | null)[]
 }
 
-function MemberRegisterForm(props: ExternalFormProps<memberRegisterSchemaType> & { children?: ReactNode }) {
+function MemberRegisterForm(
+  props: ExternalFormProps<memberRegisterSchemaType> & { children?: ReactNode; index: number }
+) {
+  const router = useRouter()
+
   const form = useForm<z.infer<typeof memberRegisterSchema>>({
     resolver: zodResolver(memberRegisterSchema),
     defaultValues: {
@@ -436,7 +441,24 @@ function MemberRegisterForm(props: ExternalFormProps<memberRegisterSchemaType> &
           />
         </div>
 
-        <div className="flex w-full justify-end">
+        <div className="flex w-full justify-between">
+          <Button
+            type="button"
+            onClick={() => {
+              if (props.index === 1) {
+                router.push("/register/adviser")
+              } else if (props.index === 2) {
+                router.push("/register/1")
+              } else if (props.index === 3) {
+                router.push("/register/2")
+              } else {
+                router.push("/register/team")
+              }
+            }}
+            className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+            <ArrowIcon className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
+            <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ย้อนกลับ</span>
+          </Button>
           <div className="flex h-full items-center justify-center">
             <Button
               type="submit"

@@ -92,7 +92,8 @@ function MemberPage3() {
                 chronic_disease: memberQuery.data.member.chronicDisease ?? "",
               }
             : undefined
-        }>
+        }
+        index={3}>
         <Button onClick={() => submitMutation.mutate({})} disabled={submitMutation.isPending}>
           {submitMutation.isPending ? "กำลังส่ง..." : "ส่งใบสมัคร"}
         </Button>
