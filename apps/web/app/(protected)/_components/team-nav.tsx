@@ -25,6 +25,6 @@ export const TeamNavMobileLinks: NavLink[] = [
   {
     label: "ออกจากระบบ",
     type: "action",
-    action: () => authClient.signOut(),
+    action: "signout",
   },
 ]

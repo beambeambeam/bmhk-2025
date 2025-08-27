@@ -1,6 +1,7 @@
 "use client"
 
 import GlassCard from "@/components/glassCard"
+import { authClient } from "@/lib/auth-client"
 import { Button } from "@workspace/ui/components/button"
 import {
   Drawer,
@@ -27,7 +28,7 @@ interface NormalLink extends BaseLink {
 
 interface ActionLink extends BaseLink {
   type: "action"
-  action: () => void
+  action: string
 }
 
 export type NavLink = NormalLink | ActionLink
@@ -36,6 +37,14 @@ interface NavbarProps {
   links: NavLink[]
   CTA: FC<{ isMobile?: boolean }>
   sections?: string[]
+}
+
+type Actions = {
+  [key: string]: (...args: any[]) => any
+}
+
+const actions: Actions = {
+  signout: authClient.signOut,
 }
 
 export function Navbar({ links, CTA, sections }: NavbarProps) {
@@ -114,7 +123,11 @@ export function Navbar({ links, CTA, sections }: NavbarProps) {
                     if (item.type === "action")
                       return (
                         <DrawerClose key={i} asChild className="flex items-center justify-center">
-                          <button className="transition-colors" onClick={item.action}>
+                          <button
+                            className="transition-colors"
+                            onClick={() => {
+                              actions[item.action]?.()
+                            }}>
                             <span className={`font-prompt text-nav-2 text-white`}>{item.label}</span>
                           </button>
                         </DrawerClose>
