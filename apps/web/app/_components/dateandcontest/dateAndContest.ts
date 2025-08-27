@@ -6,7 +6,7 @@ export const dateAndContestData: Record<string, SectionItem[]> = {
       header: "การรับสมัคร",
       content: [
         {
-          card: { textFull: "27 สิงหาคม 2025", textShort: "27 ส.ค. 2025", textColor: "#FFFF" },
+          card: { textFull: "28 สิงหาคม 2025", textShort: "28 ส.ค. 2025", textColor: "#FFFF" },
           label: { text: "เปิดรับสมัคร", textColor: "#FFFF" },
           isActive: true,
           themeColor: "#9F83DC",
