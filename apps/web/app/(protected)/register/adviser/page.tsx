@@ -4,6 +4,7 @@ import AdviserRegisterForm from "@/app/(protected)/register/adviser/_components/
 import ScrollArea from "@/app/_components/scope/ScrollArea"
 import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
+import { cn } from "@workspace/ui/lib/utils"
 
 function AdviserRegisterPage() {
   const query = useQuery(orpc.register.adviser.get.queryOptions())
@@ -12,8 +13,15 @@ function AdviserRegisterPage() {
     return
   }
 
+  const BACKGROUND_CLASS =
+    "bg-[url(/static/background-image/register-form/xs.webp)] md:bg-[url(/static/background-image/register-form/md.webp)] lg:bg-[url(/static/background-image/register-form/lg.webp)] 2xl:bg-[url(/static/background-image/register-form/2xl.webp)]"
+
   return (
-    <div className="flex h-full max-h-screen min-h-screen w-full items-center justify-center bg-black">
+    <div
+      className={cn(
+        "flex h-full max-h-screen min-h-screen w-full items-center justify-center",
+        BACKGROUND_CLASS
+      )}>
       <div className="h-[50rem] w-full max-w-[62rem]">
         <AdviserRegisterForm
           defaultValues={

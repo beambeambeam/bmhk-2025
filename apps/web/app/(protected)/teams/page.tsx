@@ -1,5 +1,6 @@
 "use client"
 
+import { cn } from "@workspace/ui/lib/utils"
 import { useState } from "react"
 
 import Landing from "./Landing"
@@ -166,9 +167,16 @@ const teamMembers = [
   },
 ]
 
+const BACKGROUND_CLASS =
+  "bg-[url(/static/background-image/my-team/xs.webp)] md:bg-[url(/static/background-image/my-team/md.webp)] lg:bg-[url(/static/background-image/my-team/lg.webp)] 2xl:bg-[url(/static/background-image/my-team/2xl.webp)]"
+
 export default function TeamPage() {
   return (
-    <div className="md:pt-15 pb-15 flex min-h-screen w-full flex-col items-center gap-0 overflow-hidden bg-black pt-8 text-white md:gap-10 2xl:gap-20">
+    <div
+      className={cn(
+        "md:pt-15 pb-15 flex min-h-screen w-full flex-col items-center gap-0 overflow-hidden bg-black pt-8 text-white md:gap-10 2xl:gap-20",
+        BACKGROUND_CLASS
+      )}>
       <Navbar />
 
       {teams.map((team) => {

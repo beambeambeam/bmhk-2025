@@ -3,6 +3,7 @@
 import TeamRegisterForm from "@/app/(protected)/register/team/_components/form"
 import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
+import { cn } from "@workspace/ui/lib/utils"
 
 function TeamRegisterPage() {
   const query = useQuery(orpc.register.team.get.queryOptions())
@@ -11,8 +12,11 @@ function TeamRegisterPage() {
     return null
   }
 
+  const BACKGROUND_CLASS =
+    "bg-[url(/static/background-image/register-form/xs.webp)] md:bg-[url(/static/background-image/register-form/md.webp)] lg:bg-[url(/static/background-image/register-form/lg.webp)] 2xl:bg-[url(/static/background-image/register-form/2xl.webp)]"
+
   return (
-    <div className="flex h-full min-h-screen w-full items-center justify-center bg-black">
+    <div className={cn("flex h-full min-h-screen w-full items-center justify-center", BACKGROUND_CLASS)}>
       <TeamRegisterForm
         defaultValues={
           query.data && query.data.success && query.data.team
