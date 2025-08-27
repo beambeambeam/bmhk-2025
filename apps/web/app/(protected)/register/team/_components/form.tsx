@@ -1,6 +1,7 @@
 "use client"
 
 import RegisterStatus from "@/app/(protected)/_components/status"
+import { useRegisterStatusActions } from "@/app/(protected)/_components/status/context"
 import AvatarUploader from "@/app/(protected)/register/team/_components/avatar"
 import ArrowIcon from "@/components/ArrowIcon"
 import FormProps from "@/types/form"
@@ -37,6 +38,7 @@ type TeamRegisterSchemaType = Omit<z.infer<typeof teamRegisterSchema>, "team_ima
 
 function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
   const router = useRouter()
+  const { setStatus } = useRegisterStatusActions()
 
   const mutation = useMutation(
     orpc.register.team.set.mutationOptions({
@@ -61,6 +63,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
     },
     mode: "onChange",
     reValidateMode: "onChange",
+    disabled: mutation.isPending || mutation.isSuccess,
   })
 
   const onSubmit = (values: TeamRegisterSchemaType) => {
@@ -144,7 +147,17 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
                     จำนวนสมาชิก <span className="align-super text-pink-300">*</span>
                   </FormLabel>
                   <Select
-                    onValueChange={(value) => field.onChange(Number(value))}
+                    onValueChange={(value) => {
+                      const memberCount = Number(value)
+                      field.onChange(memberCount)
+
+                      // Update status context based on member count
+                      if (memberCount === 2) {
+                        setStatus("member3", "NOT_HAVE")
+                      } else if (memberCount === 3) {
+                        setStatus("member3", "NOT_DONE")
+                      }
+                    }}
                     defaultValue={String(field.value)}>
                     <FormControl>
                       <SelectTrigger className="w-full">

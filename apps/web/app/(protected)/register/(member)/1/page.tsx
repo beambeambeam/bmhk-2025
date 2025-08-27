@@ -76,6 +76,7 @@ function MemberPage1() {
           : undefined
       }
       index={1}
+      isPending={mutation.isPending}
     />
   )
 }

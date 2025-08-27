@@ -1,6 +1,9 @@
 "use client"
 
-import { useRegisterStatusActions } from "@/app/(protected)/_components/status/context"
+import {
+  useIsReadyForFinalSubmit,
+  useRegisterStatusActions,
+} from "@/app/(protected)/_components/status/context"
 import MemberRegisterForm, {
   memberRegisterSchemaType,
 } from "@/app/(protected)/register/(member)/_components/form"
@@ -32,6 +35,10 @@ function MemberPage3() {
       },
     })
   )
+
+  const isReadyForSubmit = useIsReadyForFinalSubmit(2)
+  const showFinalSubmit =
+    teamQuery.data?.success && teamQuery.data.team?.memberCount === 2 && isReadyForSubmit
 
   const submitMutation = useMutation(
     orpc.register.status.submit.mutationOptions({
@@ -86,17 +93,25 @@ function MemberPage3() {
                 line_id: memberQuery.data.member.lineId ?? "",
                 parent: memberQuery.data.member.parent ?? "",
                 parent_phone: memberQuery.data.member.parentPhoneNumber ?? "",
-                national_doc: [],
-                face_picture: [],
-                p7_doc: [],
+                national_doc: memberQuery.data.member.nationalDoc
+                  ? [memberQuery.data.member.nationalDoc]
+                  : [],
+                face_picture: memberQuery.data.member.facePic ? [memberQuery.data.member.facePic] : [],
+                p7_doc: memberQuery.data.member.p7Doc ? [memberQuery.data.member.p7Doc] : [],
                 chronic_disease: memberQuery.data.member.chronicDisease ?? "",
               }
             : undefined
         }
-        index={3}>
-        <Button onClick={() => submitMutation.mutate({})} disabled={submitMutation.isPending}>
-          {submitMutation.isPending ? "กำลังส่ง..." : "ส่งใบสมัคร"}
-        </Button>
+        index={3}
+        isPending={mutation.isPending}>
+        {showFinalSubmit && (
+          <Button
+            onClick={() => submitMutation.mutate({})}
+            disabled={submitMutation.isPending}
+            className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+            <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ลงทะเบียน</span>
+          </Button>
+        )}
       </MemberRegisterForm>
     </>
   )

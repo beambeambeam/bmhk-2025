@@ -30,7 +30,12 @@ export function TeamNavMenuClient({ teamData }: { teamData: TeamData }) {
           }}>
           <div className="flex items-center justify-between gap-x-3">
             {teamData.teamImage ? (
-              <img src={teamData.teamImage} width={50} height={50} className="size-[50px] rounded-full" />
+              <img
+                src={teamData.teamImage}
+                width={50}
+                height={50}
+                className="object-fit size-[50px] rounded-full"
+              />
             ) : (
               <img src="/static/icon/UserCircleFilled.svg" alt="ทีมของฉัน" />
             )}

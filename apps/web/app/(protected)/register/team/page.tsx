@@ -1,13 +1,12 @@
 "use client"
 
-import RegisterStatus from "@/app/(protected)/_components/status"
 import TeamRegisterForm from "@/app/(protected)/register/team/_components/form"
 import { Navbar } from "@/app/_components/navbar"
 import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
 import { cn } from "@workspace/ui/lib/utils"
 
-import { TeamNavMobileLinks, TeamNavMenu } from "../../_components/team-nav"
+import { TeamNavMobileLinks } from "../../_components/team-nav"
 
 function TeamRegisterPage() {
   const query = useQuery(orpc.register.team.get.queryOptions())
@@ -26,7 +25,7 @@ function TeamRegisterPage() {
         BACKGROUND_CLASS
       )}>
       <Navbar links={TeamNavMobileLinks} CTAId={"regis"} sections={[]} />
-      <p className="text-header-2-medium">ลงทะเบียนเข้าแข่งขัน</p>
+      <p className="text-header-2-medium text-white">ลงทะเบียนเข้าแข่งขัน</p>
       <TeamRegisterForm
         defaultValues={
           query.data && query.data.success && query.data.team

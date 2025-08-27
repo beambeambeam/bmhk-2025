@@ -1,12 +1,31 @@
 "use client"
 
 import RegisterStatus from "@/app/(protected)/_components/status"
+import { useMember3Status } from "@/app/(protected)/_components/status/context"
 import DocumentUploader from "@/app/(protected)/register/_components/document_uploader"
-import ArrowIcon from "@/components/ArrowIcon"
 import { ExternalFormProps } from "@/types/form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@workspace/ui/components/alert-dialog"
 import { Button } from "@workspace/ui/components/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@workspace/ui/components/form"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@workspace/ui/components/form"
 import { Input } from "@workspace/ui/components/input"
 import {
   Select,
@@ -64,7 +83,10 @@ export type ProcessedMemberRegisterSchemaType = Omit<
 }
 
 function MemberRegisterForm(
-  props: ExternalFormProps<memberRegisterSchemaType> & { children?: ReactNode; index: number }
+  props: ExternalFormProps<memberRegisterSchemaType> & {
+    children?: ReactNode
+    index: number
+  }
 ) {
   const router = useRouter()
 
@@ -92,11 +114,14 @@ function MemberRegisterForm(
       chronic_disease: "",
       ...props.defaultValues,
     },
+    disabled: props.disabled,
   })
 
   const handleSubmit = (values: memberRegisterSchemaType) => {
     props.onSubmit?.(values)
   }
+
+  const member3 = useMember3Status()
 
   return (
     <Form {...form}>
@@ -204,9 +229,9 @@ function MemberRegisterForm(
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="MR">MR</SelectItem>
-                        <SelectItem value="MS">MS</SelectItem>
-                        <SelectItem value="MRS">MRS</SelectItem>
+                        <SelectItem value="MR">Mr.</SelectItem>
+                        <SelectItem value="MS">Ms.</SelectItem>
+                        <SelectItem value="MRS">Mrs.</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -311,7 +336,7 @@ function MemberRegisterForm(
                   <FormItem className="col-span-1 lg:col-span-2 2xl:col-span-1">
                     <FormLabel>โรคประจำตัว และวิธีปฐมพยาบาลเบื้องต้น</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="รายละเอียด" {...field} />
+                      <Textarea placeholder="รายละเอียด" {...field} className="h-28" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -368,7 +393,7 @@ function MemberRegisterForm(
                 <FormItem>
                   <FormLabel>Line ID</FormLabel>
                   <FormControl>
-                    <Input placeholder="Line ID" {...field} />
+                    <Input placeholder="ID LINE" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -415,20 +440,20 @@ function MemberRegisterForm(
             name="face_picture"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  <span>
-                    รูปถ่ายนักเรียนหน้าตรง ขนาด 1.5 นิ้ว <span className="align-super text-pink-300">*</span>
-                  </span>
-                </FormLabel>
                 <FormControl>
-                  <DocumentUploader
-                    value={field.value}
-                    onChange={field.onChange}
-                    disabled={props.disabled}
-                    multiple={false}
-                    maxFiles={1}
-                    maxSize={10 * 1024 * 1024}
-                  />
+                  <div className="grid grid-cols-2 gap-10">
+                    <FormDescription>1. รูปถ่ายนักเรียนหน้าตรง ขนาด 1.5 นิ้ว*</FormDescription>
+                    <div>
+                      <DocumentUploader
+                        value={field.value}
+                        onChange={field.onChange}
+                        disabled={props.disabled}
+                        multiple={false}
+                        maxFiles={1}
+                        maxSize={10 * 1024 * 1024}
+                      />
+                    </div>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -440,21 +465,24 @@ function MemberRegisterForm(
             name="national_doc"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  <span>
-                    2. สำเนาบัตรประจำตัวประชาชน หรือบัตรประจำตัวสำหรับ บุคคลที่ไม่ใช่สัญชาติไทย
-                    พร้อมเซ็นสำเนาถูกต้อง (เฉพาะด้านหน้า) <span className="align-super text-pink-300">*</span>
-                  </span>
-                </FormLabel>
                 <FormControl>
-                  <DocumentUploader
-                    value={field.value}
-                    onChange={field.onChange}
-                    disabled={props.disabled}
-                    multiple={false}
-                    maxFiles={1}
-                    maxSize={10 * 1024 * 1024}
-                  />
+                  <div className="grid grid-cols-2 gap-10">
+                    <FormDescription>
+                      2. สำเนาบัตรประจำตัวประชาชน หรือบัตรประจำตัวสำหรับ{" "}
+                      <span className="whitespace-nowrap">บุคคลที่ไม่ใช่สัญชาติไทย</span>
+                      พร้อมเซ็นสำเนาถูกต้อง <span className="whitespace-nowrap">(เฉพาะด้านหน้า)*</span>
+                    </FormDescription>
+                    <div>
+                      <DocumentUploader
+                        value={field.value}
+                        onChange={field.onChange}
+                        disabled={props.disabled}
+                        multiple={false}
+                        maxFiles={1}
+                        maxSize={10 * 1024 * 1024}
+                      />
+                    </div>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -466,21 +494,20 @@ function MemberRegisterForm(
             name="p7_doc"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  <span>
-                    3. สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริง
-                    <span className="align-super text-pink-300">*</span>
-                  </span>
-                </FormLabel>
                 <FormControl>
-                  <DocumentUploader
-                    value={field.value}
-                    onChange={field.onChange}
-                    disabled={props.disabled}
-                    multiple={false}
-                    maxFiles={1}
-                    maxSize={10 * 1024 * 1024}
-                  />
+                  <div className="grid grid-cols-2 gap-10">
+                    <FormDescription>3. สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริง*</FormDescription>
+                    <div>
+                      <DocumentUploader
+                        value={field.value}
+                        onChange={field.onChange}
+                        disabled={props.disabled}
+                        multiple={false}
+                        maxFiles={1}
+                        maxSize={10 * 1024 * 1024}
+                      />
+                    </div>
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -511,12 +538,18 @@ function MemberRegisterForm(
           <div className="flex h-full items-center justify-center">
             <Button
               type="submit"
-              className="liquid mb-8 flex h-fit w-12 items-center justify-between gap-4 rounded-[32px] py-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
-              <span className="hidden text-[20px] font-medium text-white md:block 2xl:text-[22px]">
-                ต่อไป
+              className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6"
+              disabled={props.disabled}>
+              <span className="text-[20px] font-medium text-white 2xl:text-[22px]">
+                {props.index === 3
+                  ? "บันทึก"
+                  : props.index === 2 && member3 === "NOT_HAVE"
+                    ? "บันทึก"
+                    : "ต่อไป"}
               </span>
               <ChevronRight className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
             </Button>
+
             {props.children}
           </div>
         </div>
