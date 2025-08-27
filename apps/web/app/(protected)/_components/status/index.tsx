@@ -81,7 +81,7 @@ function RegisterStatus() {
           )
         })}
       </div>
-      <div className="relative z-0 mt-4 flex w-full justify-between">
+      <div className="relative z-0 mt-4 hidden w-full justify-between md:flex">
         {NODES.filter((node) => node.status !== "NOT_HAVE").map((node) => (
           <div key={node.pattern} className="flex w-full items-center justify-center">
             <div className={cn("h-full max-h-[0.5rem] min-h-[0.5rem] w-full bg-transparent")} />

@@ -33,18 +33,39 @@ import z from "zod"
 
 const adviserRegisterSchema = z.object({
   prefix: z.enum(["MR", "MS", "MRS"]),
-  thai_firstname: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
-  thai_middlename: z.string().optional(),
-  thai_lastname: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
-  english_firstname: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
-  english_middlename: z.string().optional(),
-  english_lastname: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
+  thai_firstname: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[ก-๙\s]+$/, "กรุณากรอกชื่อเป็นภาษาไทยเท่านั้น"),
+  thai_middlename: z
+    .string()
+    .optional()
+    .refine((val) => !val || /^[ก-๙\s]+$/.test(val), "กรุณากรอกชื่อเป็นภาษาไทยเท่านั้น"),
+  thai_lastname: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[ก-๙\s]+$/, "กรุณากรอกนามสกุลเป็นภาษาไทยเท่านั้น"),
+  english_firstname: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[a-zA-Z\s]+$/, "กรุณากรอกชื่อเป็นภาษาอังกฤษเท่านั้น"),
+  english_middlename: z
+    .string()
+    .optional()
+    .refine((val) => !val || /^[a-zA-Z\s]+$/.test(val), "กรุณากรอกชื่อเป็นภาษาอังกฤษเท่านั้น"),
+  english_lastname: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[a-zA-Z\s]+$/, "กรุณากรอกนามสกุลเป็นภาษาอังกฤษเท่านั้น"),
   food_allergy: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   food_type: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   drug_allergy: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   chronic_disease: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   email: z.string().email("กรุณากรอกอีเมลให้ถูกต้อง").min(1, "จำเป็นต้องกรอกช่องนี้"),
-  phone_number: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
+  phone_number: z
+    .string()
+    .min(1, "จำเป็นต้องกรอกช่องนี้")
+    .regex(/^[0-9]{10}$/, "กรุณากรอกเบอร์โทรศัพท์ 10 หลัก"),
   line_id: z.string().optional(),
   national_doc: z.array(z.any()).min(1, "จำเป็นต้องอัปโหลดเอกสารประจำตัวประชาชน").max(1),
   teacher_doc: z.array(z.any()).min(1, "จำเป็นต้องอัปโหลดเอกสารครู").max(1),
