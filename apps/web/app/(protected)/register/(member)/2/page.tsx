@@ -10,6 +10,17 @@ import MemberRegisterForm, {
 import RegisterFormSkeleton from "@/app/(protected)/register/_components/skeleton"
 import { orpc, queryClient } from "@/utils/orpc"
 import { useMutation, useQuery } from "@tanstack/react-query"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@workspace/ui/components/alert-dialog"
 import { Button } from "@workspace/ui/components/button"
 import { useRouter } from "next/navigation"
 
@@ -104,12 +115,39 @@ function MemberPage2() {
         }
         index={2}
         isPending={mutation.isPending}>
-        <Button
-          onClick={() => submitMutation.mutate({})}
-          disabled={submitMutation.isPending || showFinalSubmit}
-          className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[20px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
-          <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ลงทะเบียน</span>
-        </Button>
+        {showFinalSubmit && (
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                disabled={submitMutation.isPending}
+                className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+                <span className="text-[20px] font-medium text-white 2xl:text-[22px]">ลงทะเบียน</span>
+              </Button>
+            </AlertDialogTrigger>
+
+            <AlertDialogContent className="liquid max-w-md rounded-3xl border border-white/10 bg-white/10 px-6 py-8 text-white shadow-xl backdrop-blur-2xl">
+              <AlertDialogHeader className="space-y-2 text-center">
+                <AlertDialogTitle className="text-center text-base font-medium text-white lg:text-lg 2xl:text-2xl">
+                  ยืนยันการลงทะเบียนหรือไม่
+                </AlertDialogTitle>
+                <AlertDialogDescription className="text-center text-sm text-white/70 lg:text-base 2xl:text-lg">
+                  หากยืนยันแล้ว จะไม่สามารถแก้ไขข้อมูลได้อีก
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+
+              <AlertDialogFooter className="mt-6 flex justify-end gap-3">
+                <AlertDialogCancel className="rounded-full border border-white/20 bg-white/5 px-6 py-2 text-sm text-white hover:bg-white/10">
+                  ยกเลิก
+                </AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={() => submitMutation.mutate({})}
+                  className="text-nav-2 rounded-full !bg-green-600 px-6 py-2 text-sm font-medium !text-white shadow-lg hover:opacity-90">
+                  ยืนยัน
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        )}
       </MemberRegisterForm>
     </>
   )
