@@ -61,6 +61,7 @@ export default function RootLayout({
               transform: translateX(-50%) !important;
               margin-left: 0 !important;
               margin-right: 0 !important;
+                z-index: 99999 !important;
             }
           `}</style>
           <CookieConsent />
