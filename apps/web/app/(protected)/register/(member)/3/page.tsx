@@ -23,6 +23,7 @@ import {
   AlertDialogTrigger,
 } from "@workspace/ui/components/alert-dialog"
 import { Button } from "@workspace/ui/components/button"
+import { Spinner } from "@workspace/ui/components/spinner"
 import { Send } from "lucide-react"
 import { useRouter } from "next/navigation"
 
@@ -147,10 +148,16 @@ function MemberPage3() {
               <Button
                 disabled={submitMutation.isPending || !isReadyForSubmit}
                 className="liquid mb-8 flex h-fit w-auto min-w-0 flex-shrink cursor-pointer items-center justify-center gap-2 rounded-[20px] px-4 py-3 text-sm md:w-auto md:gap-4 md:px-6 md:pl-8 md:pr-4 md:text-base 2xl:py-4 2xl:pl-10 2xl:pr-6">
-                <span className="truncate text-[14px] font-medium text-white md:text-[20px] 2xl:text-[22px]">
-                  ลงทะเบียน
-                </span>
-                <Send className="h-4 w-4 flex-shrink-0 text-white md:h-6 md:w-6 2xl:h-10 2xl:w-10" />
+                {submitMutation.isPending ? (
+                  <Spinner className="h-4 w-4 flex-shrink-0 text-white md:h-6 md:w-6 2xl:h-10 2xl:w-10" />
+                ) : (
+                  <>
+                    <span className="truncate text-[14px] font-medium text-white md:text-[20px] 2xl:text-[22px]">
+                      ลงทะเบียน
+                    </span>
+                    <Send className="h-4 w-4 flex-shrink-0 text-white md:h-6 md:w-6 2xl:h-10 2xl:w-10" />
+                  </>
+                )}
               </Button>
             </AlertDialogTrigger>
 

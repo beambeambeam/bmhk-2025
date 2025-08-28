@@ -16,10 +16,9 @@ async function getOrCreateRegisterStatus(teamId: string, memberCount?: number) {
     .limit(1)
 
   if (existingStatus.length > 0) {
-    // If member count is provided and it's different from what the status expects, update it
     if (memberCount !== undefined) {
       const expectedMember3Status = memberCount === 3 ? "NOT_DONE" : "NOT_HAVE"
-      if (existingStatus[0].member3 !== expectedMember3Status) {
+      if (existingStatus[0].member3 !== expectedMember3Status && existingStatus[0].member3 !== "DONE") {
         await db
           .update(registerStatus)
           .set({ member3: expectedMember3Status })
