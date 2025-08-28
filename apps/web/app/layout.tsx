@@ -6,6 +6,7 @@ import "@workspace/ui/globals.css"
 import { cn } from "@workspace/ui/lib/utils"
 import type { Metadata } from "next"
 import { Bai_Jamjuree, Prompt } from "next/font/google"
+import { Toaster } from "sonner"
 
 const fontPrompt = Prompt({
   subsets: ["thai"],
@@ -46,6 +47,17 @@ export default function RootLayout({
       <body className={cn("font-prompt antialiased", fontPrompt.variable, fontBaiJamjuree.variable)}>
         <Providers>
           {children}
+          <Toaster
+            position="top-center"
+            expand={false}
+            visibleToasts={1}
+            offset={{
+              bottom: 0,
+              top: 80,
+              left: 0,
+              right: 0,
+            }}
+          />
           <CookieConsent />
           <BreakpointIndicator />
         </Providers>
