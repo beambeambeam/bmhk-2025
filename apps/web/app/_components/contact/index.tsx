@@ -8,7 +8,7 @@ function Contact() {
     <div className="2xl:gap-15 flex w-full flex-col content-center items-center justify-center gap-8 px-6 sm:px-20 lg:max-h-[834] lg:gap-10 2xl:max-h-[1080] 2xl:px-40">
       <Heading text="ติดต่อทีมงาน" />
       <div className="flex w-full gap-10 2xl:max-w-[1326]">
-        <div className="flex w-full flex-row justify-center gap-8 2xl:gap-10">
+        <div className="2xl:gap-18 flex w-full flex-row justify-center gap-8">
           <div className="flex flex-1 flex-col gap-6 lg:gap-8 2xl:gap-10">
             {" "}
             {/* Left Section */}
@@ -55,7 +55,7 @@ function Contact() {
                   ภัทรธร มหัตกีรติ (จิตอล)
                 </div>
                 <div className="text-body-1 text-[18px] lg:text-[20px] 2xl:text-[24px]">095 553 1132</div>
-                <div className="text-body-1 whitespace-normal break-words text-[18px] lg:text-[20px] 2xl:text-[24px]">
+                <div className="text-body-1 whitespace-nowrap break-words text-[18px] lg:text-[20px] 2xl:text-[24px]">
                   phattaratorn.mahatk@mail.kmutt.ac.th
                 </div>
               </div>
