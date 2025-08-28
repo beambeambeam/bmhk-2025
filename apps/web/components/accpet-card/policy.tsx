@@ -58,7 +58,7 @@ export default function PolicyConsent({ demo = false }) {
           : "translate-y-0 opacity-100 transition-[opacity,transform]",
         hide && "hidden"
       )}>
-      <div className="liquid mx-4 flex h-full max-h-[90vh] w-full max-w-[90vw] justify-between rounded-[2rem] shadow-[0_0_100px_0_rgba(255,255,255,0.25)] backdrop-blur-lg sm:mx-8 sm:max-w-[80rem] sm:rounded-[3rem]">
+      <div className="liquid mx-4 flex h-full max-h-[90vh] w-full max-w-[90vw] justify-between rounded-[2rem] !bg-black/80 shadow-[0_0_100px_0_rgba(255,255,255,0.25)] backdrop-blur-lg sm:mx-8 sm:max-w-[80rem] sm:rounded-[3rem]">
         <div className="grid h-full w-full grid-rows-[auto_1fr_auto] gap-6 p-6 text-white sm:gap-8 sm:p-10">
           <div className="flex h-full items-center gap-4 sm:gap-6">
             <div className="liquid flex size-[2.5rem] min-h-[2.5rem] min-w-[2.5rem] items-center justify-center rounded-[1rem] shadow-[0_0_100px_0_rgba(255,255,255,0.25)] sm:size-[3rem] sm:min-h-[3rem] sm:min-w-[3rem] sm:rounded-[1.25rem] lg:size-[3.75rem]">
