@@ -44,8 +44,12 @@ type Actions = {
   [key: string]: (...args: any[]) => any
 }
 
+function signOutWithBA() {
+  authClient.signOut()
+}
+
 const actions: Actions = {
-  signout: authClient.signOut,
+  signout: signOutWithBA,
 }
 
 export function Navbar({ links, CTAId, sections }: NavbarProps) {

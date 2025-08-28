@@ -1,0 +1,1 @@
+ALTER TABLE "teams" ALTER COLUMN "team_image_id" DROP NOT NULL;
