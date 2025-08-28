@@ -430,7 +430,7 @@ function MemberRegisterForm(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      เบอร์โทรติดต่อฉุกเฉิน <span className="invisible align-super text-pink-300">*</span>
+                      เบอร์โทรติดต่อฉุกเฉิน <span className="align-super text-pink-300">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input placeholder="0812345678" {...field} />
@@ -445,8 +445,7 @@ function MemberRegisterForm(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      ผู้ติดต่อฉุกเฉินเกี่ยวข้องเป็น{" "}
-                      <span className="invisible align-super text-pink-300">*</span>
+                      ผู้ติดต่อฉุกเฉินเกี่ยวข้องเป็น <span className="align-super text-pink-300">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input placeholder="ตัวอย่าง บิดา มารดา" {...field} />
