@@ -22,7 +22,7 @@ function TeamRegisterPage() {
         BACKGROUND_CLASS
       )}>
       <Navbar links={TeamNavMobileLinks} CTAId={"regis"} sections={[]} />
-      <p className="text-header-2-medium text-white">ลงทะเบียนเข้าแข่งขัน</p>
+      <p className="text-header-1 text-white">ลงทะเบียนเข้าแข่งขัน</p>
       {query.isPending ? (
         <RegisterFormSkeleton />
       ) : (
