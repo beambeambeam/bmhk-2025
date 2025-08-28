@@ -7,11 +7,15 @@ type ToastVariant = "positive" | "negative"
 export function showToast({ variant, title }: { variant: ToastVariant; title: string }) {
   toast.custom(() => (
     <div
-      className="inline-flex w-full max-w-[90vw] items-center justify-center gap-[40px] rounded-[48px] border border-white/10 bg-white/10 px-[60px] py-[32px] pr-[60px] shadow-[0_0_100px_0_rgba(255,255,255,0.25)] backdrop-blur-3xl"
+      className="inline-flex w-full max-w-[90vw] items-center justify-center gap-[40px] rounded-[48px] border border-white/10 bg-white/10 py-4 shadow-[0_0_100px_0_rgba(255,255,255,0.25)] backdrop-blur-3xl lg:px-[60px] lg:py-[32px]"
       role="status"
       aria-live="polite">
       {variant == "positive" ? (
-        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="size-12 lg:size-14"
+          viewBox="0 0 60 60"
+          fill="none">
           <rect width="60" height="60" rx="30" fill="#00C951" />
           <path
             d="M15 32L23.5715 40L45 20"
@@ -39,7 +43,7 @@ export function showToast({ variant, title }: { variant: ToastVariant; title: st
           </defs>
         </svg>
       )}
-      <div className="font-prompt max-w-[70vw] truncate whitespace-nowrap text-[40px] font-medium">
+      <div className="font-prompt max-w-[70vw] truncate whitespace-nowrap text-[20px] font-medium lg:text-[40px]">
         {title}
       </div>
     </div>
