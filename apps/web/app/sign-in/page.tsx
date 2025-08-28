@@ -160,7 +160,7 @@ function SignInPage() {
         </div>
 
         <img
-          src="/static/logo/KMUTT_CPE.wep"
+          src="/static/logo/KMUTT_CPE.webp"
           alt="KMUTT CPE Logo"
           className={`h-[50px] lg:h-[60px] ${isTall ? "2xl:h-[90px]" : ""}`}
         />
