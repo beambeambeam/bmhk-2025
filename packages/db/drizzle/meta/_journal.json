@@ -36,6 +36,20 @@
       "when": 1756277686779,
       "tag": "0004_yielding_serpent_society",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1756356094549,
+      "tag": "0005_hard_captain_flint",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1756356697338,
+      "tag": "0006_public_grandmaster",
+      "breakpoints": true
     }
   ]
 }

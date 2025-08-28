@@ -483,15 +483,15 @@ export const registerRouter = {
           english_firstname: z.string().min(1),
           english_middlename: z.string().optional(),
           english_lastname: z.string().min(1),
-          food_allergy: z.string().min(1),
-          food_type: z.string().min(1),
-          drug_allergy: z.string().min(1),
+          food_allergy: z.string().optional(),
+          food_type: z.string().optional(),
+          drug_allergy: z.string().optional(),
           email: z.string().email().min(1),
           phone_number: z.string().min(1),
           line_id: z.string().optional(),
           national_doc: z.array(z.any()).min(1).max(1),
           teacher_doc: z.array(z.any()).min(1).max(1),
-          chronic_disease: z.string().min(1),
+          chronic_disease: z.string().optional(),
         })
       )
       .handler(async ({ input, context }) => {
@@ -748,9 +748,9 @@ export const registerRouter = {
           english_firstname: z.string().min(1),
           english_middlename: z.string().optional(),
           english_lastname: z.string().min(1),
-          food_allergy: z.string().min(1),
-          food_type: z.string().min(1),
-          drug_allergy: z.string().min(1),
+          food_allergy: z.string().optional(),
+          food_type: z.string().optional(),
+          drug_allergy: z.string().optional(),
           email: z.string().email().min(1),
           phone_number: z.string().min(1),
           line_id: z.string().optional(),
@@ -759,7 +759,7 @@ export const registerRouter = {
           national_doc: z.array(z.any()).min(1).max(1),
           face_picture: z.array(z.any()).min(1).max(1),
           p7_doc: z.array(z.any()).min(1).max(1),
-          chronic_disease: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
+          chronic_disease: z.string().optional(),
         })
       )
       .handler(async ({ input, context }) => {

@@ -57,10 +57,10 @@ const adviserRegisterSchema = z.object({
     .string()
     .min(1, "จำเป็นต้องกรอกช่องนี้")
     .regex(/^[a-zA-Z\s]+$/, "กรุณากรอกนามสกุลเป็นภาษาอังกฤษเท่านั้น"),
-  food_allergy: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
-  food_type: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
-  drug_allergy: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
-  chronic_disease: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
+  food_allergy: z.string(),
+  food_type: z.string(),
+  drug_allergy: z.string(),
+  chronic_disease: z.string(),
   email: z.string().email("กรุณากรอกอีเมลให้ถูกต้อง").min(1, "จำเป็นต้องกรอกช่องนี้"),
   phone_number: z
     .string()
