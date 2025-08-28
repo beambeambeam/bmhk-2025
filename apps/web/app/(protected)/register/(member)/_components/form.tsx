@@ -34,6 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/components/select"
+import { Spinner } from "@workspace/ui/components/spinner"
 import { Textarea } from "@workspace/ui/components/textarea"
 import type { FileMetadata } from "@workspace/ui/hooks/use-file-upload"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -576,6 +577,7 @@ function MemberRegisterForm(
                   props.index === 3 || (props.index === 2 && member3 === "NOT_HAVE") ? "w-auto px-4" : "w-12"
                 }`}
                 disabled={props.disabled}>
+                <Spinner show={props.isPending} size="small" className="text-white" />
                 <span className="hidden text-[16px] font-medium text-white md:block md:text-[20px] 2xl:text-[22px]">
                   {props.index === 3
                     ? "บันทึก"

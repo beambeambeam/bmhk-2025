@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/components/select"
+import { Spinner } from "@workspace/ui/components/spinner"
 import { Textarea } from "@workspace/ui/components/textarea"
 import type { FileMetadata } from "@workspace/ui/hooks/use-file-upload"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -488,6 +489,7 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
             <Button
               type="submit"
               className="liquid mb-8 flex h-fit w-12 cursor-pointer items-center justify-between gap-4 rounded-[20px] py-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+              <Spinner show={props.disabled} size="small" className="text-white" />
               <span className="hidden text-[20px] font-medium text-white md:block 2xl:text-[22px]">
                 ต่อไป
               </span>
