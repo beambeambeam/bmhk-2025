@@ -366,36 +366,38 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="phone_number"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      เบอร์โทรศัพท์ <span className="align-super text-pink-300">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="0812345678" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="line_id"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      Line ID <span className="invisible align-super text-pink-300">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="ID LINE" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="col-span-2 grid grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="phone_number"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        เบอร์โทรศัพท์ <span className="align-super text-pink-300">*</span>
+                      </FormLabel>
+                      <FormControl>
+                        <Input placeholder="0812345678" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="line_id"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        Line ID <span className="invisible align-super text-pink-300">*</span>
+                      </FormLabel>
+                      <FormControl>
+                        <Input placeholder="ID LINE" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
           </div>
 
