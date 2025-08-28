@@ -82,7 +82,7 @@ function DocumentUploader({
 
   return (
     <div className="space-y-4">
-      <p className="text-body-3 block text-center text-white md:hidden">
+      <p className="block text-center text-xs text-white md:hidden">
         อัปโหลดเอกสารไม่เกิน {formatBytes(maxSize)} (รูปภาพและ PDF เท่านั้น)
       </p>
       {/* Upload Area */}
@@ -118,7 +118,7 @@ function DocumentUploader({
       </div>
 
       {/* Helper Text */}
-      <p className="text-body-3 hidden text-left text-white lg:block">
+      <p className="hidden text-left text-xs text-white lg:block">
         อัปโหลดเอกสารไม่เกิน {formatBytes(maxSize)} (รูปภาพและ PDF เท่านั้น)
       </p>
 
