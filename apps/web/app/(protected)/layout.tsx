@@ -1,6 +1,9 @@
 "use client"
 
-import { RegisterStatusProvider } from "@/app/(protected)/_components/status/context"
+import {
+  RegisterStatusProvider,
+  useRegisterStatusActions,
+} from "@/app/(protected)/_components/status/context"
 import PolicyConsent from "@/components/accpet-card/policy"
 import { authClient } from "@/lib/auth-client"
 import { orpc } from "@/utils/orpc"
@@ -10,6 +13,26 @@ import { ReactNode, useEffect } from "react"
 
 interface ProtectedLayoutProps {
   readonly children: ReactNode
+}
+
+function StatusUpdater() {
+  const query = useQuery(orpc.register.status.get.queryOptions())
+  const { updateFromData } = useRegisterStatusActions()
+
+  useEffect(() => {
+    if (query.data?.registerStatus) {
+      updateFromData({
+        team: query.data.registerStatus.team,
+        adviser: query.data.registerStatus.adviser,
+        member1: query.data.registerStatus.member1,
+        member2: query.data.registerStatus.member2,
+        member3: query.data.registerStatus.member3,
+        submitRegister: query.data.registerStatus.submitRegister,
+      })
+    }
+  }, [query.data?.registerStatus, updateFromData])
+
+  return null
 }
 
 function ProtectedLayout({ children }: ProtectedLayoutProps) {
@@ -33,15 +56,16 @@ function ProtectedLayout({ children }: ProtectedLayoutProps) {
       initialState={
         query.data?.registerStatus
           ? {
-            team: query.data.registerStatus.team,
-            adviser: query.data.registerStatus.adviser,
-            member1: query.data.registerStatus.member1,
-            member2: query.data.registerStatus.member2,
-            member3: query.data.registerStatus.member3,
-            submitRegister: query.data.registerStatus.submitRegister,
-          }
+              team: query.data.registerStatus.team,
+              adviser: query.data.registerStatus.adviser,
+              member1: query.data.registerStatus.member1,
+              member2: query.data.registerStatus.member2,
+              member3: query.data.registerStatus.member3,
+              submitRegister: query.data.registerStatus.submitRegister,
+            }
           : undefined
       }>
+      <StatusUpdater />
       {!query.isPending && children}
       <PolicyConsent />
     </RegisterStatusProvider>

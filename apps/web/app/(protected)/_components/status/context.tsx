@@ -102,6 +102,7 @@ export const useRegisterStatusActions = () =>
     useShallow((state) => ({
       setStatus: state.setStatus,
       setSubmitRegister: state.setSubmitRegister,
+      updateFromData: state.updateFromData,
     }))
   )
 
