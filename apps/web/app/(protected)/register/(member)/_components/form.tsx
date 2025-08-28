@@ -564,7 +564,7 @@ function MemberRegisterForm(
                 }
               }}
               className="liquid mb-8 flex h-fit w-12 flex-shrink-0 cursor-pointer items-center justify-center rounded-full py-3 md:w-auto md:rounded-[20px] md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
-              <ChevronLeft className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
+              <ChevronLeft className="size-6 text-white md:size-8 2xl:size-10" />
               <span className="hidden text-[20px] font-medium text-white md:block 2xl:text-[22px]">
                 ย้อนกลับ
               </span>
@@ -587,7 +587,7 @@ function MemberRegisterForm(
                 {props.index === 3 || (props.index === 2 && member3 === "NOT_HAVE") ? (
                   <span className="text-[14px] font-medium text-white md:hidden">บันทึก</span>
                 ) : (
-                  <ChevronRight className="h-4 w-4 text-white md:h-6 md:w-6 2xl:h-10 2xl:w-10" />
+                  <ChevronRight className="size-4 text-white md:size-6 2xl:size-10" />
                 )}
               </Button>
 
