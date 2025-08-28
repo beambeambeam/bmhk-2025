@@ -196,6 +196,9 @@ function LandingSection() {
           src="/static/hero/landing/landinglogo-compressed.webp"
           alt="logo"
           className="mx-auto h-full object-cover object-center"
+          style={{
+            animation: "float 4s ease-in-out infinite",
+          }}
         />
       </div>
 
