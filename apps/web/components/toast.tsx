@@ -7,7 +7,7 @@ type ToastVariant = "positive" | "negative"
 export function showToast({ variant, title }: { variant: ToastVariant; title: string }) {
   toast.custom(() => (
     <div
-      className="inline-flex w-full items-center justify-center gap-[40px] rounded-[48px] border border-white/10 bg-white/10 px-[60px] py-[32px] pr-[60px] shadow-[0_0_100px_0_rgba(255,255,255,0.25)] backdrop-blur-3xl"
+      className="inline-flex w-full max-w-[90vw] items-center justify-center gap-[40px] rounded-[48px] border border-white/10 bg-white/10 px-[60px] py-[32px] pr-[60px] shadow-[0_0_100px_0_rgba(255,255,255,0.25)] backdrop-blur-3xl"
       role="status"
       aria-live="polite">
       {variant == "positive" ? (
@@ -39,7 +39,9 @@ export function showToast({ variant, title }: { variant: ToastVariant; title: st
           </defs>
         </svg>
       )}
-      <div className="font-prompt flex-1 text-[40px] font-medium">{title}</div>
+      <div className="font-prompt max-w-[70vw] truncate whitespace-nowrap text-[40px] font-medium">
+        {title}
+      </div>
     </div>
   ))
 }

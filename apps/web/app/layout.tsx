@@ -52,12 +52,17 @@ export default function RootLayout({
             expand={false}
             visibleToasts={1}
             offset={{
-              bottom: 0,
               top: 80,
-              left: 0,
-              right: 0,
             }}
           />
+          <style>{`
+            [data-sonner-toast] {
+              left: 50% !important;
+              transform: translateX(-50%) !important;
+              margin-left: 0 !important;
+              margin-right: 0 !important;
+            }
+          `}</style>
           <CookieConsent />
           <BreakpointIndicator />
         </Providers>
