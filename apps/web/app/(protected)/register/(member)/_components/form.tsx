@@ -561,7 +561,7 @@ function MemberRegisterForm(
                   router.push("/register/team")
                 }
               }}
-              className="liquid mb-8 flex h-fit w-12 flex-shrink-0 items-center justify-center rounded-full py-3 md:w-auto md:rounded-[20px] md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+              className="liquid mb-8 flex h-fit w-12 flex-shrink-0 cursor-pointer items-center justify-center rounded-full py-3 md:w-auto md:rounded-[20px] md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
               <ChevronLeft className="h-6 w-6 text-white md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
               <span className="hidden text-[20px] font-medium text-white md:block 2xl:text-[22px]">
                 ย้อนกลับ
@@ -571,7 +571,7 @@ function MemberRegisterForm(
             <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
               <Button
                 type="submit"
-                className={`liquid mb-8 flex h-fit items-center justify-center gap-2 rounded-[20px] py-3 md:w-auto md:gap-4 md:px-6 md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6 ${
+                className={`liquid mb-8 flex h-fit cursor-pointer items-center justify-center gap-2 rounded-[20px] py-3 md:w-auto md:gap-4 md:px-6 md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6 ${
                   props.index === 3 || (props.index === 2 && member3 === "NOT_HAVE") ? "w-auto px-4" : "w-12"
                 }`}
                 disabled={props.disabled}>

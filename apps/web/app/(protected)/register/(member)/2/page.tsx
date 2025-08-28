@@ -124,7 +124,7 @@ function MemberPage2() {
             <AlertDialogTrigger asChild>
               <Button
                 disabled={submitMutation.isPending || !isReadyForSubmit}
-                className="liquid mb-8 flex h-fit w-auto min-w-0 flex-shrink items-center justify-center gap-2 rounded-[20px] px-4 py-3 text-sm md:w-auto md:gap-4 md:px-6 md:pl-8 md:pr-4 md:text-base 2xl:py-4 2xl:pl-10 2xl:pr-6">
+                className="liquid mb-8 flex h-fit w-auto min-w-0 flex-shrink cursor-pointer items-center justify-center gap-2 rounded-[20px] px-4 py-3 text-sm md:w-auto md:gap-4 md:px-6 md:pl-8 md:pr-4 md:text-base 2xl:py-4 2xl:pl-10 2xl:pr-6">
                 <span className="truncate text-[14px] font-medium text-white md:text-[20px] 2xl:text-[22px]">
                   ลงทะเบียน
                 </span>
@@ -143,12 +143,12 @@ function MemberPage2() {
               </AlertDialogHeader>
 
               <AlertDialogFooter className="mt-6 flex justify-end gap-3">
-                <AlertDialogCancel className="rounded-full border border-white/20 bg-white/5 px-6 py-2 text-sm text-white hover:bg-white/10">
+                <AlertDialogCancel className="cursor-pointer rounded-full border border-white/20 bg-white/5 px-6 py-2 text-sm text-white hover:bg-white/10">
                   ยกเลิก
                 </AlertDialogCancel>
                 <AlertDialogAction
                   onClick={() => submitMutation.mutate({})}
-                  className="text-nav-2 rounded-full !bg-green-600 px-6 py-2 text-sm font-medium !text-white shadow-lg hover:opacity-90">
+                  className="text-nav-2 cursor-pointer rounded-full !bg-green-600 px-6 py-2 text-sm font-medium !text-white shadow-lg hover:opacity-90">
                   ยืนยัน
                 </AlertDialogAction>
               </AlertDialogFooter>

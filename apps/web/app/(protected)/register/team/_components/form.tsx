@@ -183,7 +183,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
             <Button
               type="button"
               onClick={() => router.push("/teams")}
-              className="liquid mb-8 flex h-fit w-12 items-center gap-4 rounded-[20px] py-3 md:w-[182px] md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+              className="liquid mb-8 flex h-fit w-12 cursor-pointer items-center gap-4 rounded-[20px] py-3 md:w-[182px] md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
               <ChevronLeft className="size-6 text-white md:size-8 2xl:size-10" />
               <span className="hidden text-[20px] font-medium text-white md:block 2xl:text-[22px]">
                 ย้อนกลับ
@@ -191,7 +191,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
             </Button>
             <Button
               type="submit"
-              className="liquid mb-8 flex h-fit w-12 items-center gap-4 rounded-[20px] py-3 md:w-[182px] md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+              className="liquid mb-8 flex h-fit w-12 cursor-pointer items-center gap-4 rounded-[20px] py-3 md:w-[182px] md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
               <span className="hidden text-[20px] font-medium text-white md:block 2xl:text-[22px]">
                 ต่อไป
               </span>
