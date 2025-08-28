@@ -80,7 +80,7 @@ export function Navbar({ links, CTAId, sections }: NavbarProps) {
   return (
     <div className="z-100 sticky top-0 w-full p-9 px-[24px] lg:px-[60px] 2xl:px-[160px]">
       <GlassCard className="flex items-center justify-between rounded-full pl-3 pr-5 backdrop-blur-md lg:pr-3">
-        <div className="flex w-[142px] items-center justify-center pt-1 lg:w-[100px] 2xl:w-[180px]">
+        <div className="flex w-[142px] items-center justify-center pt-1 lg:w-[120px] 2xl:w-[180px]">
           <NavLink href={"/"}>
             <Image
               style={{ width: "100%", height: "auto", objectFit: "cover" }}
@@ -91,13 +91,13 @@ export function Navbar({ links, CTAId, sections }: NavbarProps) {
             />
           </NavLink>
         </div>
-        <div className="hidden items-center lg:flex 2xl:justify-between 2xl:gap-2.5">
+        <div className="hidden items-center lg:flex lg:gap-2 2xl:justify-between 2xl:gap-2.5">
           {links.map((item, i) => {
             if (item.type === "normal" && !item.mobileOnly) {
               return (
                 <NavLink
                   key={item.label}
-                  className={`rounded-full px-4 py-4 text-white 2xl:px-6 ${isActive(item.href.replace("#", "")) ? "text-nav-1-selected liquid" : "text-nav-2"}`}
+                  className={`rounded-full px-3 py-3 text-white lg:px-3 2xl:px-6 ${isActive(item.href.replace("#", "")) ? "text-nav-1-selected liquid" : "text-nav-2"}`}
                   href={item.href}>
                   {item.label}
                 </NavLink>
