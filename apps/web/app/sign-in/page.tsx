@@ -1,6 +1,7 @@
 "use client"
 
 import GlassCard from "@/components/glassCard"
+import { showToast } from "@/components/toast"
 import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
@@ -158,6 +159,16 @@ function SignInPage() {
             </button>
           </GlassCard>
         </div>
+
+        <button
+          onClick={() =>
+            showToast({
+              title: "ทดสอบ",
+              variant: "positive",
+            })
+          }>
+          ทดสออยบบบ
+        </button>
 
         <img
           src="/static/logo/KMUTT_CPE.webp"

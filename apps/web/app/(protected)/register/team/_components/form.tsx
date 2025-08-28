@@ -3,6 +3,7 @@
 import RegisterStatus from "@/app/(protected)/_components/status"
 import { useRegisterStatusActions } from "@/app/(protected)/_components/status/context"
 import AvatarUploader from "@/app/(protected)/register/team/_components/avatar"
+import { showToast } from "@/components/toast"
 import FormProps from "@/types/form"
 import { orpc, queryClient } from "@/utils/orpc"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -45,7 +46,17 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
         queryClient.invalidateQueries({
           queryKey: orpc.register.status.get.key(),
         })
+        showToast({
+          variant: "positive",
+          title: "บันทึกสำเร็จ",
+        })
         router.push("/register/adviser")
+      },
+      onError: () => {
+        showToast({
+          variant: "negative",
+          title: "บันทึกล้มเหลว กรุณาลองอีกครั้ง",
+        })
       },
     })
   )
