@@ -19,11 +19,13 @@ function Requirement({ title, items, imgSrc }: RequirementProps) {
         className="lg:size-65 mx-auto size-40 2xl:size-[378px]"
       />
 
-      <div className="relative z-10 min-h-[265px] w-full lg:min-h-[269px] 2xl:min-h-[374px]">
-        <div className="liquid absolute inset-x-0 top-[30px] z-10 mx-auto flex !h-fit !min-h-[235px] w-full max-w-[643px] flex-col items-center rounded-[24px] border border-white/10 px-4 pb-6 pt-8 lg:h-[303px] lg:rounded-[40px] lg:px-8 lg:pt-7 2xl:top-[50px] 2xl:h-[326px] 2xl:pt-14">
+      <div className="relative z-10 min-h-[265px] w-full lg:min-h-[320px] 2xl:min-h-[420px]">
+        <div className="liquid absolute inset-x-0 top-[30px] z-10 mx-auto flex !h-fit !min-h-[235px] w-full max-w-[643px] flex-col items-center rounded-[24px] border border-white/10 px-4 pb-6 pt-8 lg:h-[354px] lg:rounded-[40px] lg:px-8 lg:pt-7 2xl:top-[50px] 2xl:h-[372px] 2xl:pt-14">
           <ul className="text-body-2 m-0 mx-auto flex h-full flex-1 list-outside list-disc flex-col pl-6">
             {items.map((item, i) => (
-              <li key={i}>{item}</li>
+              <li key={i} className="break-words">
+                {item}
+              </li>
             ))}
           </ul>
         </div>

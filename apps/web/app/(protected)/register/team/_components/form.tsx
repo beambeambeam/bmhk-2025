@@ -74,7 +74,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex h-fit w-full flex-col gap-14">
         <RegisterStatus />
         <div className="flex flex-col gap-6 px-3 md:px-[60px] lg:px-[100px] 2xl:px-80">
-          <div className="liquid grid w-full gap-5 rounded-[40px] p-5 lg:grid-rows-[auto_1fr] lg:p-6 2xl:grid-cols-[auto_1fr] 2xl:gap-8 2xl:px-8 2xl:py-6">
+          <div className="liquid grid w-full gap-5 rounded-[24px] p-5 lg:grid-rows-[auto_1fr] lg:p-6 2xl:grid-cols-[auto_1fr] 2xl:gap-8 2xl:px-8 2xl:py-6">
             <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
               <p className="text-form-header text-white">1. ข้อมูลทีม</p>
             </div>
@@ -83,7 +83,7 @@ function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
                 control={form.control}
                 name="team_image"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex items-center justify-center">
                     <FormControl>
                       <AvatarUploader
                         value={field.value}

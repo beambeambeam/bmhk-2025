@@ -155,7 +155,7 @@ function MemberRegisterForm(
       <form onSubmit={form.handleSubmit(handleSubmit)} className="flex h-fit w-full flex-col gap-14 px-4">
         <RegisterStatus />
         <div className="flex flex-col gap-6 px-3 md:px-[60px] lg:px-[100px] 2xl:px-80">
-          <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-5 lg:p-6 2xl:gap-8 2xl:px-8 2xl:py-6">
+          <div className="liquid flex w-full flex-col gap-5 rounded-[24px] p-5 lg:p-6 2xl:gap-8 2xl:px-8 2xl:py-6">
             <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
               <p className="text-form-header text-white">1. ข้อมูลนักเรียน</p>
             </div>
@@ -371,7 +371,7 @@ function MemberRegisterForm(
               />
             </div>
           </div>
-          <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
+          <div className="liquid flex w-full flex-col gap-5 rounded-[24px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
             <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
               <p className="text-form-header text-white">2. ข้อมูลติดต่อ</p>
             </div>
@@ -458,7 +458,7 @@ function MemberRegisterForm(
             </div>
           </div>
 
-          <div className="liquid flex w-full flex-col gap-5 rounded-[40px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
+          <div className="liquid flex w-full flex-col gap-5 rounded-[24px] p-4 2xl:gap-8 2xl:px-8 2xl:py-6">
             <div className="grid grid-cols-2 gap-4 2xl:col-span-2">
               <p className="text-form-header text-white">3. เอกสาร</p>
             </div>
@@ -471,7 +471,7 @@ function MemberRegisterForm(
                   <FormControl>
                     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-10">
                       <FormDescription className="text-sm lg:text-base">
-                        1. รูปถ่ายนักเรียนหน้าตรง ขนาด 1.5 นิ้ว*
+                        1. รูปถ่ายนักเรียนหน้าตรง ขนาด 1.5 นิ้ว <span className="text-pink-300">*</span>
                       </FormDescription>
                       <div>
                         <DocumentUploader
@@ -500,7 +500,8 @@ function MemberRegisterForm(
                       <FormDescription className="text-sm lg:text-base">
                         2. สำเนาบัตรประจำตัวประชาชน หรือบัตรประจำตัวสำหรับ{" "}
                         <span className="whitespace-nowrap">บุคคลที่ไม่ใช่สัญชาติไทย</span>
-                        พร้อมเซ็นสำเนาถูกต้อง <span className="whitespace-nowrap">(เฉพาะด้านหน้า)*</span>
+                        พร้อมเซ็นสำเนาถูกต้อง <span className="whitespace-nowrap">(เฉพาะด้านหน้า)</span>{" "}
+                        <span className="text-pink-300">*</span>
                       </FormDescription>
                       <div>
                         <DocumentUploader
@@ -527,7 +528,8 @@ function MemberRegisterForm(
                   <FormControl>
                     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-10">
                       <FormDescription className="text-sm lg:text-base">
-                        3. สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริง*
+                        3. สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริง{" "}
+                        <span className="text-pink-300">*</span>
                       </FormDescription>
                       <div>
                         <DocumentUploader
