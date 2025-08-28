@@ -24,7 +24,7 @@ import { useForm } from "react-hook-form"
 import z from "zod"
 
 const teamRegisterSchema = z.object({
-  team_image: z.array(z.any()).min(1, "จำเป็นต้องกรอกช่องนี้").max(1),
+  team_image: z.array(z.any()).max(1).optional(),
   team_name: z.string().min(1, "จำเป็นต้องกรอกช่องนี้").max(20, "ชื่อทีมต้องมีไม่เกิน 20 ตัวอักษร"),
   school_name: z.string().min(1, "จำเป็นต้องกรอกช่องนี้"),
   quote: z.string().max(50, "คำคมประจำทีมต้องมีไม่เกิน 50 ตัวอักษร"),
@@ -32,7 +32,7 @@ const teamRegisterSchema = z.object({
 })
 
 type TeamRegisterSchemaType = Omit<z.infer<typeof teamRegisterSchema>, "team_image"> & {
-  team_image: (File | FileMetadata)[]
+  team_image?: (File | FileMetadata)[]
 }
 
 function TeamRegisterForm(props: FormProps<TeamRegisterSchemaType>) {
