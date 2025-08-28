@@ -86,7 +86,7 @@ function RegisterStatus() {
         {NODES.filter((node) => node.status !== "NOT_HAVE").map((node) => (
           <div key={node.pattern} className="flex w-full items-center justify-center">
             <div className={cn("h-full max-h-[0.5rem] min-h-[0.5rem] w-full bg-transparent")} />
-            <div className="whitespace-nowrap text-center text-2xl font-medium text-white">{node.name}</div>
+            <div className="text-body-2 whitespace-nowrap text-center text-white">{node.name}</div>
             <div className={cn("h-full max-h-[0.5rem] min-h-[0.5rem] w-full bg-transparent")} />
           </div>
         ))}
