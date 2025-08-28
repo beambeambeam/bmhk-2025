@@ -160,16 +160,6 @@ function SignInPage() {
           </GlassCard>
         </div>
 
-        <button
-          onClick={() =>
-            showToast({
-              title: "ทดสอบ",
-              variant: "positive",
-            })
-          }>
-          ทดสออยบบบ
-        </button>
-
         <img
           src="/static/logo/KMUTT_CPE.webp"
           alt="KMUTT CPE Logo"
