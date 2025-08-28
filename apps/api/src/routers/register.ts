@@ -1,3 +1,4 @@
+import { AWARD_ENUM } from "@/enum"
 import { protectedProcedure } from "@/lib/orpc"
 import { getPresignedUrlForKey } from "@/lib/s3"
 import { uploadFileToS3 } from "@/lib/upload"
@@ -326,7 +327,7 @@ export const registerRouter = {
               school: input.school_name,
               memberCount: input.member_count,
               quote: input.quote,
-              award: "",
+              award: AWARD_ENUM.FIRST_ROUND,
               ...(fileId && { imageId: fileId }),
             })
             .where(eq(teams.userId, userId))
@@ -343,7 +344,7 @@ export const registerRouter = {
               school: input.school_name,
               memberCount: input.member_count,
               quote: input.quote,
-              award: "", // Default empty award, will be set later
+              award: AWARD_ENUM.FIRST_ROUND,
             })
             .returning()
 
