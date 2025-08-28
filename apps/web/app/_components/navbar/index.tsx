@@ -109,7 +109,7 @@ export function Navbar({ links, CTAId, sections }: NavbarProps) {
           {CTA[CTAId]}
           <Drawer>
             <DrawerTrigger asChild>
-              <button className="block text-xl lg:hidden">
+              <button className="block cursor-pointer text-xl lg:hidden">
                 <MenuIcon color="#d1d5dc" />
               </button>
             </DrawerTrigger>
@@ -129,7 +129,7 @@ export function Navbar({ links, CTAId, sections }: NavbarProps) {
                       return (
                         <DrawerClose key={i} asChild className="flex items-center justify-center">
                           <button
-                            className="transition-colors"
+                            className="cursor-pointer transition-colors"
                             onClick={() => {
                               actions[item.action]?.()
                             }}>
@@ -141,7 +141,7 @@ export function Navbar({ links, CTAId, sections }: NavbarProps) {
                       return (
                         <DrawerClose key={i} asChild className="flex items-center justify-center">
                           <NavLink href={item.href}>
-                            <button className="transition-colors">
+                            <button className="cursor-pointer transition-colors">
                               <span
                                 className={`font-prompt ${active === item.href.replace("#", "") ? "text-nav-1-selected text-pink-300" : "text-nav-2 text-white"}`}>
                                 {item.label}
