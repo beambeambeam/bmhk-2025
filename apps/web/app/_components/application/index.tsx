@@ -9,7 +9,7 @@ interface RequirementProps {
 
 function Requirement({ title, items, imgSrc }: RequirementProps) {
   return (
-    <div className="group relative isolate flex w-[313px] flex-col justify-center gap-y-6 before:absolute before:-inset-10 before:-z-10 before:rounded-[48px] before:bg-[radial-gradient(80%_80%_at_50%_40%,rgba(159,131,220,0.55)_0%,rgba(159,131,220,0.25)_40%,transparent_70%)] before:opacity-0 before:blur-3xl before:transition before:duration-500 before:ease-out before:content-[''] hover:before:scale-105 hover:before:opacity-100 lg:w-[437px] 2xl:w-[643px]">
+    <div className="group relative isolate flex w-[313px] flex-col justify-center gap-y-12 before:absolute before:-inset-10 before:-z-10 before:rounded-[48px] before:bg-[radial-gradient(80%_80%_at_50%_40%,rgba(159,131,220,0.55)_0%,rgba(159,131,220,0.25)_40%,transparent_70%)] before:opacity-0 before:blur-3xl before:transition before:duration-500 before:ease-out before:content-[''] hover:before:scale-105 hover:before:opacity-100 lg:w-[437px] 2xl:w-[643px]">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={imgSrc}
@@ -19,8 +19,18 @@ function Requirement({ title, items, imgSrc }: RequirementProps) {
         className="lg:size-65 mx-auto size-40 2xl:size-[378px]"
       />
 
-      <div className="relative z-10 min-h-[265px] w-full lg:min-h-[320px] 2xl:min-h-[420px]">
-        <div className="liquid absolute inset-x-0 top-[30px] z-10 mx-auto flex !h-fit !min-h-[235px] w-full max-w-[643px] flex-col items-center rounded-[24px] border border-white/10 px-4 pb-6 pt-8 lg:h-[354px] lg:rounded-[40px] lg:px-8 lg:pt-7 2xl:top-[50px] 2xl:h-[372px] 2xl:pt-14">
+      <div className="relative z-10 flex min-h-[265px] w-full justify-center lg:min-h-[269px] 2xl:min-h-[374px]">
+        {/* content box */}
+        <div className="liquid relative mx-auto flex !h-fit !min-h-[235px] w-full max-w-[643px] flex-col items-center rounded-[24px] border border-white/10 px-4 pb-6 pt-12 lg:h-[303px] lg:rounded-[40px] lg:px-8 lg:pt-14 2xl:h-[326px] 2xl:pt-16">
+          {/* title box (absolute inside content box) */}
+          <div className="liquid absolute -top-0 inline-flex w-fit -translate-y-1/2 flex-col items-center justify-center gap-10 rounded-[24px] px-6 py-3 outline-1 outline-offset-[-1px] outline-white/10 backdrop-blur-3xl lg:rounded-[40px] 2xl:px-8 2xl:py-6">
+            <div
+              className="text-subheader-1 whitespace-nowrap text-center"
+              dangerouslySetInnerHTML={{ __html: title }}
+            />
+          </div>
+
+          {/* list items */}
           <ul className="text-body-2 m-0 mx-auto flex h-full flex-1 list-outside list-disc flex-col pl-6">
             {items.map((item, i) => (
               <li key={i} className="break-words">
@@ -28,13 +38,6 @@ function Requirement({ title, items, imgSrc }: RequirementProps) {
               </li>
             ))}
           </ul>
-        </div>
-
-        <div className="liquid absolute left-1/2 top-0 z-20 mx-auto inline-flex w-fit -translate-x-1/2 transform flex-col items-center justify-center gap-10 rounded-[24px] px-6 py-3 outline-1 outline-offset-[-1px] outline-white/10 backdrop-blur-3xl lg:rounded-[40px] 2xl:px-8 2xl:py-6">
-          <div
-            className="text-subheader-1 whitespace-nowrap text-center"
-            dangerouslySetInnerHTML={{ __html: title }}
-          />
         </div>
       </div>
     </div>
