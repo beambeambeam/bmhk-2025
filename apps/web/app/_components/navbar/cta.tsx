@@ -1,4 +1,5 @@
 import { TeamNavMenu } from "@/app/(protected)/_components/team-nav"
+import Link from "next/link"
 import { JSX } from "react"
 
 const Landing = ({ isMobile }: { isMobile?: boolean }) => {
@@ -16,15 +17,17 @@ const Landing = ({ isMobile }: { isMobile?: boolean }) => {
     ) */
   if (isMobile) {
     return (
-      <button className="text-button-2 h-full rounded-full bg-[radial-gradient(ellipse_99.36%_78.93%_at_50.23%_99.36%,_rgba(198,_60,_81,_0.80)_9%,_rgba(198,_60,_81,_0.32)_100%)] px-10 py-2.5 text-white shadow-[0px_0px_20px_rgba(0,0,0,0.25),inset_-1px_-1px_30px_rgba(93,47,60,0.6)]">
-        ยังไม่เปิดรับสมัคร
+      <button className="flex items-center justify-center gap-6 self-stretch rounded-full bg-gradient-to-r from-purple-400/50 to-pink-300/50 px-10 py-2.5 shadow-xl shadow-black/25">
+        ลงทะเบียน
       </button>
     )
   }
   return (
-    <button className="text-button-2 hidden h-[52px] cursor-not-allowed rounded-full bg-[radial-gradient(ellipse_99.36%_78.93%_at_50.23%_99.36%,_rgba(198,_60,_81,_0.80)_9%,_rgba(198,_60,_81,_0.32)_100%)] px-4 py-0 text-white shadow-[0px_0px_20px_rgba(0,0,0,0.25),inset_-1px_-1px_30px_rgba(93,47,60,0.6)] lg:block 2xl:h-[70px] 2xl:px-10 2xl:py-2.5">
-      ยังไม่เปิดรับสมัคร
-    </button>
+    <Link href="/sign-in" className="h-full">
+      <button className="hidden h-full cursor-pointer items-center justify-center gap-6 self-stretch rounded-full bg-gradient-to-r from-purple-400/50 to-pink-300/50 px-10 py-2.5 text-lg shadow-xl shadow-black/25 lg:flex">
+        ลงทะเบียน
+      </button>
+    </Link>
   )
 }
 

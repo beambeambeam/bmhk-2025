@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 function Stat({ title, description }: { title: string; description: string | React.ReactElement }) {
   return (
     <div className="max-w-[372.54px]">
@@ -215,9 +217,11 @@ function LandingSection() {
 
           <p className="text-body-2 hidden whitespace-nowrap text-gray-50 2xl:block">{descriptions.xl2}</p>
 
-          <button className="text-button-1 bg-supporting-3 text-secondary-50 h-[54px] rounded-full px-8 lg:h-[76px] 2xl:h-[87px] 2xl:px-12">
-            ยังไม่เปิดรับสมัคร
-          </button>
+          <Link href="/sign-in" className="h-full">
+            <button className="liquid flex-shrink-0RetryClaude does not have the ability to run the code it generates yet.Claude can make mistakes. Please double-check responses. inline-flex h-[87px] cursor-pointer items-center justify-center gap-2.5 rounded-[100px] px-12 text-[32px] font-medium">
+              ลงทะเบียน
+            </button>
+          </Link>
         </div>
       </div>
 
