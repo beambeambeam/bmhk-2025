@@ -4,6 +4,7 @@ import MemberRegisterForm, {
   memberRegisterSchemaType,
 } from "@/app/(protected)/register/(member)/_components/form"
 import RegisterFormSkeleton from "@/app/(protected)/register/_components/skeleton"
+import { showToast } from "@/components/toast"
 import { orpc, queryClient } from "@/utils/orpc"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
@@ -27,6 +28,16 @@ function MemberPage1() {
         router.push("/register/2")
         queryClient.invalidateQueries({
           queryKey: orpc.register.status.get.key(),
+        })
+        showToast({
+          variant: "positive",
+          title: "บันทึกสำเร็จ",
+        })
+      },
+      onError: () => {
+        showToast({
+          variant: "negative",
+          title: "บันทึกล้มเหลว กรุณาลองอีกครั้ง",
         })
       },
     })

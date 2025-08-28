@@ -2,6 +2,7 @@
 
 import RegisterStatus from "@/app/(protected)/_components/status"
 import DocumentUploader from "@/app/(protected)/register/_components/document_uploader"
+import { showToast } from "@/components/toast"
 import FormProps from "@/types/form"
 import { orpc, queryClient } from "@/utils/orpc"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -88,7 +89,17 @@ function AdviserRegisterForm(props: FormProps<AdviserRegisterSchemaType>) {
         queryClient.invalidateQueries({
           queryKey: orpc.register.status.get.key(),
         })
+        showToast({
+          variant: "positive",
+          title: "บันทึกสำเร็จ",
+        })
         router.push("/register/1")
+      },
+      onError: () => {
+        showToast({
+          variant: "negative",
+          title: "บันทึกล้มเหลว กรุณาลองอีกครั้ง",
+        })
       },
     })
   )
