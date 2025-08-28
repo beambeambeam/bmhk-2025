@@ -274,12 +274,14 @@ function TeamDone() {
                     {teamData.school}
                   </div>
                 </div>
-                <div className="flex items-center gap-2.5">
-                  <MessageIcon className="h-[16px] w-[16px] text-gray-50 md:h-[20px] md:w-[20px] lg:h-[24px] lg:w-[24px] 2xl:h-[32px] 2xl:w-[32px]" />
-                  <div className="text-[0.875rem] font-normal text-gray-50 md:text-[1rem] lg:text-[1.5rem]">
-                    {teamData.message}
+                {teamData.message.length > 1 && (
+                  <div className="flex items-center gap-2.5">
+                    <MessageIcon className="h-[16px] w-[16px] text-gray-50 md:h-[20px] md:w-[20px] lg:h-[24px] lg:w-[24px] 2xl:h-[32px] 2xl:w-[32px]" />
+                    <div className="text-[0.875rem] font-normal text-gray-50 md:text-[1rem] lg:text-[1.5rem]">
+                      {teamData.message}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
 
