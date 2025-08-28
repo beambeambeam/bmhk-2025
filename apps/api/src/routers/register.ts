@@ -78,7 +78,8 @@ export const registerRouter = {
       const team = userTeam[0]
 
       // Get team image
-      const teamImage = await db.select().from(file).where(eq(file.id, team.imageId)).limit(1)
+      const teamImage =
+        team.imageId !== null ? await db.select().from(file).where(eq(file.id, team.imageId)).limit(1) : []
 
       const teamWithImage = {
         ...team,
@@ -234,7 +235,8 @@ export const registerRouter = {
 
       const team = existingTeam[0]
 
-      const teamImage = await db.select().from(file).where(eq(file.id, team.imageId)).limit(1)
+      const teamImage =
+        team.imageId !== null ? await db.select().from(file).where(eq(file.id, team.imageId)).limit(1) : []
 
       const teamWithImage = {
         ...team,
