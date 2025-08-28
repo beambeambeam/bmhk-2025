@@ -111,7 +111,7 @@ const RegisterBlob = (
       )}
     />
 
-    <Link href={props.status === "DONE" ? props.pattern.replace("/*", "") : "#"}>
+    <Link href={props.status === "DONE" ? `/register${props.pattern.replace("/*", "")}` : "#"}>
       <div className="flex flex-col items-center justify-center">
         <div className="relative">
           {typeof window !== "undefined" &&
