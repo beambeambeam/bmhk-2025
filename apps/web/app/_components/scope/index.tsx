@@ -20,7 +20,11 @@ export default function Scope() {
           <p className="whitespace-nowrap text-[1rem] font-medium text-white lg:text-[1.5rem] 2xl:text-[1.75rem]">
             ขอบเขตเนื้อหาการแข่งขันฉบับเต็ม (PDF)
           </p>
-          <a href="path to file" download="file name" className="flex items-center gap-x-4">
+          <a
+            href="https://dekcpe.link/bmhk2025scope"
+            target="_blank"
+            rel="noopener, noreferrer"
+            className="flex items-center gap-x-4">
             <DownloadIcon className="text-hover-100 h-5 w-5 lg:h-8 lg:w-8 2xl:h-9 2xl:w-9" />
             <p className="text-hover-100 text-[1rem] font-medium underline lg:text-[1.5rem] 2xl:text-[1.75rem]">
               ดาวน์โหลด

@@ -1,16 +1,50 @@
+"use client"
+
+import { RegisterStatusProvider } from "@/app/(protected)/_components/status/context"
 import PolicyConsent from "@/components/accpet-card/policy"
-import { ReactNode } from "react"
+import { authClient } from "@/lib/auth-client"
+import { orpc } from "@/utils/orpc"
+import { useQuery } from "@tanstack/react-query"
+import { useRouter } from "next/navigation"
+import { ReactNode, useEffect } from "react"
 
 interface ProtectedLayoutProps {
   readonly children: ReactNode
 }
 
 function ProtectedLayout({ children }: ProtectedLayoutProps) {
+  const { data: session, isPending } = authClient.useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!session?.user && !isPending) {
+      router.push("/sign-in")
+    }
+  }, [session, isPending, router])
+
+  const query = useQuery(orpc.register.status.get.queryOptions())
+
+  if (query.isPending) {
+    return null
+  }
+
   return (
-    <>
-      {children}
+    <RegisterStatusProvider
+      initialState={
+        query.data?.registerStatus
+          ? {
+            team: query.data.registerStatus.team,
+            adviser: query.data.registerStatus.adviser,
+            member1: query.data.registerStatus.member1,
+            member2: query.data.registerStatus.member2,
+            member3: query.data.registerStatus.member3,
+            submitRegister: query.data.registerStatus.submitRegister,
+          }
+          : undefined
+      }>
+      {!query.isPending && children}
       <PolicyConsent />
-    </>
+    </RegisterStatusProvider>
   )
 }
 export default ProtectedLayout

@@ -139,8 +139,7 @@
 }
 
 @utility text-label-1 {
-  /* have not been used yet so no idea what size it should be in other screen size kub - jakka */
-  @apply text-2xl font-medium leading-[1.6];
+  @apply text-base font-normal leading-[1.6] lg:text-xl 2xl:text-[22px];
 }
 
 @utility text-button-1 {
@@ -157,6 +156,10 @@
 
 @utility text-nav-2 {
   @apply text-base font-normal leading-[1.4] 2xl:text-xl;
+}
+
+@utility text-form-header {
+  @apply text-xl font-medium leading-[1.4] lg:text-[28px] 2xl:text-[32px];
 }
 
 @utility no-scrollbar {
@@ -235,17 +238,15 @@
   }
 
   .group::before {
-    background: radial-gradient(
-      80% 80% at 50% 50%,
-      var(--glow-color, rgba(159, 131, 220, 0.5)) 0%,
-      transparent 70%
-    );
+    background: radial-gradient(80% 80% at 50% 50%,
+        var(--glow-color, rgba(159, 131, 220, 0.5)) 0%,
+        transparent 70%);
   }
 
   .bg-home {
     background-image: url("/static/background-image/Home-phone.webp");
     background-size: cover;
-    background-position: center;
+    background-position: top;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-color: #000000;

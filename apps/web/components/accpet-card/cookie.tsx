@@ -1,6 +1,8 @@
 "use client"
 
 import { cn } from "@workspace/ui/lib/utils"
+
+import { CookieIcon } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
@@ -44,22 +46,28 @@ export default function CookieConsent({ demo = false }) {
           : "translate-y-0 opacity-100 transition-[opacity,transform]",
         hide && "hidden"
       )}>
-      <div className="border border-white/10">
+      <div className="rounded-3xl border border-white/10 backdrop-blur-2xl">
         <div className="grid gap-2 text-white">
-          <div className="p-4">
-            <p className="text-start text-sm font-normal">
-              เราใช้คุกกี้ (Cookies) ที่จำเป็นเพื่อให้เว็บไซต์ทำงานได้อย่างถูกต้องและช่วยให้คุณใช้งาน
-              ฟีเจอร์พื้นฐาน และเข้าถึงพื้นที่ปลอดภัยของเว็บไซต์ อ่านเพิ่มเติมได้ที่
-              <Link href="/privacy-policy" className="text-vermilion">
-                นโยบายความเป็นส่วนตัวล
+          <div className="m-4 flex items-center gap-6">
+            <div className="liquid boder-white/10 flex size-[40px] items-center justify-center rounded-xl bg-transparent 2xl:size-[60px] 2xl:rounded-3xl">
+              <CookieIcon />
+            </div>
+            <span className="text-xl font-medium 2xl:text-2xl">เราใช้คุกกี้</span>
+          </div>
+          <div className="px-4">
+            <p className="text-start text-sm font-normal 2xl:text-base">
+              เราใช้คุกกี้ (Cookies) ที่จำเป็นเพื่อให้เว็บไซต์ทำงานได้อย่างถูกต้อง และช่วยให้คุณใช้งาน
+              ฟีเจอร์พื้นฐานและเข้าถึงพื้นที่ปลอดภัยของเว็บไซต์ อ่านเพิ่มเติมได้ที่{" "}
+              <Link href="/privacy-policy" className="text-pink-300 underline hover:text-pink-200">
+                นโยบายความเป็นส่วนตัว
               </Link>
               <br />
             </p>
           </div>
-          <div className="flex gap-2 border-t border-white/10">
+          <div className="mx-6 mb-6 flex gap-2 border-t border-white/10">
             <button
               onClick={accept}
-              className="hover:text-vermilion h-full w-full cursor-pointer py-5 transition-colors">
+              className="hover:text-vermilion liquid h-full w-full cursor-pointer rounded-3xl py-5 transition-colors">
               ยอมรับ
             </button>
           </div>

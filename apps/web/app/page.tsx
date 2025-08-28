@@ -44,7 +44,39 @@ export default function Page() {
       <div
         className="no-scrollbar bg-home flex min-h-screen w-full snap-y snap-always flex-col gap-20 overflow-hidden overflow-y-hidden text-white"
         style={{ scrollBehavior: "smooth" }}>
-        <Navbar />
+        <div className="fixed z-50 w-full">
+          <Navbar
+            links={[
+              {
+                label: "รายละเอียด",
+                href: "#landing",
+                type: "normal",
+              },
+              {
+                label: "คุณสมบัติ",
+                href: "#qualification",
+                type: "normal",
+              },
+              {
+                label: "รางวัล",
+                href: "#award",
+                type: "normal",
+              },
+              {
+                label: "กำหนดการ",
+                href: "#dateandcontest",
+                type: "normal",
+              },
+              {
+                label: "ติดต่อทีมงาน",
+                href: "#contact",
+                type: "normal",
+              },
+            ]}
+            CTAId={"landing"}
+            sections={["landing", "qualification", "award", "dateandcontest", "contact"]}
+          />
+        </div>
 
         <div id="landing" className="flex min-h-screen items-center justify-center">
           <LandingSection />
@@ -61,10 +93,10 @@ export default function Page() {
         <div id="dateandcontest" className="flex items-center justify-center">
           <DateAndContest />
         </div>
-        <div id="scope" className="flex min-h-screen items-center justify-center">
+        <div id="scope" className="flex items-center justify-center">
           <Scope />
         </div>
-        <div id="contact" className="flex min-h-screen items-center justify-center">
+        <div id="contact" className="flex items-center justify-center">
           <Contact />
         </div>
         <div id="story" className="flex min-h-screen items-center justify-center">

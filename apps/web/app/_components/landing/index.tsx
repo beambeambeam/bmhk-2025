@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 function Stat({ title, description }: { title: string; description: string | React.ReactElement }) {
   return (
     <div className="max-w-[372.54px]">
@@ -8,6 +10,50 @@ function Stat({ title, description }: { title: string; description: string | Rea
 }
 
 function LandingSection() {
+  const descriptions = {
+    base: (
+      <>
+        โครงการนี้เปิดโอกาสให้นักเรียนมัธยมปลาย
+        <br />
+        และนักศึกษาอาชีวะระดับปวช. หรือเทียบเท่าได้เข้าร่วม
+        <br />
+        การแข่งขันเขียนโปรแกรมด้วยภาษา C/C++ ในรูปแบบทีม
+        <br />
+        เพื่อเสริมสร้างทักษะการเขียนโปรแกรม พร้อมทั้งฝึก
+        <br />
+        การทำงานร่วมกัน และเก็บเกี่ยวประสบการณ์จาก
+        <br />
+        การลงสนามจริง
+      </>
+    ),
+    lg: (
+      <>
+        โครงการนี้เปิดโอกาสให้นักเรียนมัธยมปลาย และนักศึกษาอาชีวะระดับปวช. หรือเทียบเท่าได้เข้าร่วมการแข่งขัน
+        <br />
+        เขียนโปรแกรมด้วยภาษา C/C++ ในรูปแบบทีม เพื่อเสริมสร้างทักษะการเขียนโปรแกรม พร้อมทั้งฝึกการทำงานร่วมกัน
+        <br />
+        และเก็บเกี่ยวประสบการณ์จากการลงสนามจริง
+      </>
+    ),
+    xl2: (
+      <>
+        โครงการนี้เปิดโอกาสให้นักเรียนมัธยมปลาย
+        <br />
+        และนักศึกษาอาชีวะระดับปวช. หรือเทียบเท่า
+        <br />
+        ได้เข้าร่วมการแข่งขัน เขียนโปรแกรมด้วย
+        <br />
+        ภาษา C/C++ ในรูปแบบทีม เพื่อเสริมสร้าง
+        <br />
+        ทักษะการเขียนโปรแกรม พร้อมทั้งฝึก
+        <br />
+        การทำงานร่วมกันและเก็บเกี่ยวประสบการณ์
+        <br />
+        จากการลงสนามจริง
+      </>
+    ),
+  }
+
   return (
     <div className="relative flex h-[1080px] w-full flex-col items-center justify-center gap-8 lg:gap-10 2xl:flex-row 2xl:gap-[60px]">
       {/* perspective grid */}
@@ -128,7 +174,7 @@ function LandingSection() {
             }
           />
           <Stat
-            title="54,000 บาท"
+            title="60,000 บาท"
             description={
               <>
                 เข้าแข่งขันเพื่อชิงเงินรางวัล
@@ -147,7 +193,7 @@ function LandingSection() {
       <div className="z-10 h-[312px] w-[340px] shrink-0 lg:h-[420px] lg:w-[477px] 2xl:h-[650px] 2xl:w-[563px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/static/hero/landing/logo.webp"
+          src="/static/hero/landing/landinglogo-compressed.webp"
           alt="logo"
           className="mx-auto h-full object-cover object-center"
         />
@@ -156,25 +202,31 @@ function LandingSection() {
       <div className="relative flex w-full items-start justify-center gap-8 text-center 2xl:w-[494px] 2xl:text-left">
         <div className="not-2xl:hidden mt-5 h-[2px] w-[30px] shrink-0 bg-white" />
 
-        <div className="flex max-w-full flex-col items-center gap-6 md:max-w-[971px] 2xl:max-w-[466px] 2xl:items-start 2xl:gap-8">
+        <div className="flex flex-col items-center gap-6 md:max-w-[971px] 2xl:max-w-[466px] 2xl:items-start 2xl:gap-8">
           <div className="text-header-2-medium text-white">
             การแข่งขัน
             <br className="not-2xl:hidden" />
-            เขียนโปรแกรมคอมพิวเตอร์ BangMod Hackathon 2025
+            เขียนโปรแกรมคอมพิวเตอร์ <br className="lg:hidden" /> BangMod Hackathon 2025
           </div>
-          <p className="text-body-2 text-balance text-gray-50">
-            โครงการนี้เปิดโอกาสให้นักเรียนมัธยมปลาย และนักศึกษาอาชีวะระดับปวช. หรือเทียบเท่า
-            ได้เข้าร่วมการแข่งขัน เขียนโปรแกรมด้วย ภาษา C/C++ ในรูปแบบทีม เพื่อเสริมสร้าง ทักษะการเขียนโปรแกรม
-            พร้อมทั้งฝึกการทำงานร่วมกัน และเก็บเกี่ยวประสบการณ์ จากการลงสนามจริง
+
+          <p className="text-body-2 block whitespace-nowrap text-gray-50 lg:hidden">{descriptions.base}</p>
+
+          <p className="text-body-2 hidden whitespace-nowrap text-gray-50 lg:block 2xl:hidden">
+            {descriptions.lg}
           </p>
-          <button className="text-button-1 bg-supporting-3 text-secondary-50 h-[54px] rounded-full px-8 lg:h-[76px] 2xl:h-[87px] 2xl:px-12">
-            ยังไม่เปิดรับสมัคร
-          </button>
+
+          <p className="text-body-2 hidden whitespace-nowrap text-gray-50 2xl:block">{descriptions.xl2}</p>
+
+          <Link href="/sign-in">
+            <button className="text-button-1 h-[54px] cursor-pointer rounded-full bg-[linear-gradient(0deg,rgba(38,38,38,0.002),rgba(38,38,38,0.002)),radial-gradient(78.68%_99.36%_at_50%_0%,rgba(255,135,237,0.5)_0%,rgba(255,135,237,0)_100%),radial-gradient(79.19%_100%_at_50.05%_100%,#9f83dc_0%,rgba(159,131,220,0)_100%),linear-gradient(106.52deg,rgba(255,204,247,0.09)_-2.48%,rgba(159,131,220,0.09)_29.08%)] px-8 py-0 text-white shadow-[0px_0px_20px_rgba(0,0,0,0.25),inset_-1px_-1px_30px_rgba(255,204,247,0.6)] lg:h-[76px] 2xl:h-[87px] 2xl:px-12">
+              ลงทะเบียน
+            </button>
+          </Link>
         </div>
       </div>
 
       <div className="font-bai-jamjuree not-2xl:hidden absolute bottom-[110px] text-5xl text-white">
-        คุณฝันว่าอะไร..
+        คุณฝันว่าอะไร...
       </div>
     </div>
   )

@@ -1,8 +1,9 @@
 import { Heading } from "@/components/heading"
+import { ReactNode } from "react"
 
 interface RequirementProps {
   title: string
-  items: string[]
+  items: ReactNode[]
   imgSrc: string
 }
 
@@ -19,16 +20,19 @@ function Requirement({ title, items, imgSrc }: RequirementProps) {
       />
 
       <div className="relative z-10 min-h-[265px] w-full lg:min-h-[269px] 2xl:min-h-[374px]">
-        <div className="liquid absolute inset-x-0 top-[48px] z-10 mx-auto flex !h-fit !min-h-[235px] w-full max-w-[643px] flex-col items-center rounded-[40px] border border-white/10 px-4 pb-6 pt-8 lg:h-[303px] lg:px-8 lg:pt-12 2xl:h-[326px] 2xl:pt-14">
-          <ul className="text-body-2 m-0 mx-auto flex h-full flex-1 list-inside list-disc flex-col">
+        <div className="liquid absolute inset-x-0 top-[30px] z-10 mx-auto flex !h-fit !min-h-[235px] w-full max-w-[643px] flex-col items-center rounded-[24px] border border-white/10 px-4 pb-6 pt-8 lg:h-[303px] lg:rounded-[40px] lg:px-8 lg:pt-7 2xl:top-[50px] 2xl:h-[326px] 2xl:pt-14">
+          <ul className="text-body-2 m-0 mx-auto flex h-full flex-1 list-outside list-disc flex-col pl-6">
             {items.map((item, i) => (
               <li key={i}>{item}</li>
             ))}
           </ul>
         </div>
 
-        <div className="liquid absolute left-1/2 top-0 z-20 inline-flex -translate-x-1/2 transform flex-col items-center justify-center gap-10 rounded-[40px] !bg-black px-8 py-6 outline-1 outline-offset-[-1px] outline-white/10">
-          <div className="text-subheader-1 whitespace-nowrap text-center">{title}</div>
+        <div className="liquid absolute left-1/2 top-0 z-20 mx-auto inline-flex w-fit -translate-x-1/2 transform flex-col items-center justify-center gap-10 rounded-[24px] px-6 py-3 outline-1 outline-offset-[-1px] outline-white/10 backdrop-blur-3xl lg:rounded-[40px] 2xl:px-8 2xl:py-6">
+          <div
+            className="text-subheader-1 whitespace-nowrap text-center"
+            dangerouslySetInnerHTML={{ __html: title }}
+          />
         </div>
       </div>
     </div>
@@ -39,7 +43,10 @@ const req: RequirementProps[] = [
   {
     title: "สำหรับนักเรียนผู้เข้าแข่งขัน",
     items: [
-      "สำเนาบัตรประชาชน หรือบัตรประจำตัวสำหรับบุคคลที่ไม่ใช่สัญชาติไทย (เฉพาะด้านหน้า)",
+      <span>
+        สำเนาบัตรประชาชน หรือบัตรประจำตัวสำหรับบุคคลที่ไม่ใช่สัญชาติไทย <br />
+        (เฉพาะด้านหน้า)
+      </span>,
       "สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริงของผู้เข้าแข่งขัน",
       "รูปถ่าย 1.5 นิ้ว ชุดนักเรียนของนักเรียนผู้เข้าแข่งขัน",
     ],
@@ -48,7 +55,10 @@ const req: RequirementProps[] = [
   {
     title: "สำหรับอาจารย์ที่ปรึกษา",
     items: [
-      "สำเนาบัตรประชาชน หรือบัตรประจำตัวสำหรับบุคคลที่ไม่ใช่สัญชาติไทย (เฉพาะด้านหน้า)",
+      <span>
+        สำเนาบัตรประชาชน หรือบัตรประจำตัวสำหรับบุคคลที่ไม่ใช่สัญชาติไทย <br />
+        (เฉพาะด้านหน้า)
+      </span>,
       "เอกสารแสดงสถานภาพการเป็นอาจารย์ประจำในสถานศึกษา เช่น บัตรประจำตัวอาจารย์, บัตรข้าราชการครู, หรือหนังสือรับรองจากสถานศึกษา",
     ],
     imgSrc: "/static/required-docs/2.webp",

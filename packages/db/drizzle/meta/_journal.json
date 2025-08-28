@@ -8,6 +8,34 @@
       "when": 1756149173905,
       "tag": "0000_white_dagger",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1756183999763,
+      "tag": "0001_unique_shotgun",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1756186499867,
+      "tag": "0002_material_newton_destine",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1756277245018,
+      "tag": "0003_dusty_hex",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1756277686779,
+      "tag": "0004_yielding_serpent_society",
+      "breakpoints": true
     }
   ]
 }

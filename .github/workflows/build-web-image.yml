@@ -59,6 +59,9 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            NEXT_PUBLIC_SERVER_URL=${{ github.ref_name == 'main' && 'https://api.bangmodhackathon.com' || 'https://api-staging.bangmodhackathon.com' }}
+            NEXT_PUBLIC_WEB_URL=${{ github.ref_name == 'main' && 'https://bangmodhackathon.com' || 'https://develop.bangmodhackathon.com' }}
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
