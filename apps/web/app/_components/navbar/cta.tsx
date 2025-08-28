@@ -22,19 +22,17 @@ const Landing = ({ isMobile }: { isMobile?: boolean }) => {
 
   if (isMobile) {
     return (
-      <Link href="/sign-in">
-        <button className="text-button-2 h-full w-full cursor-pointer rounded-full bg-red-500 px-10 py-2.5 text-white hover:bg-red-400">
-          ยังไม่เปิดรับสมัคร
-        </button>
-      </Link>
+      <button className="text-button-2 h-full w-full cursor-pointer rounded-full bg-red-500 px-10 py-2.5 text-white hover:bg-red-400">
+        ยังไม่เปิดรับสมัคร
+      </button>
     )
   }
   return (
-    <Link href="/sign-in" className="2xl:h-full">
+    <div className="2xl:h-full">
       <button className="hidden cursor-pointer items-center justify-center gap-4 rounded-full bg-red-500 px-6 py-2 text-base shadow-xl shadow-black/25 hover:bg-red-400 lg:flex lg:gap-6 lg:px-8 lg:py-2.5 lg:text-lg 2xl:h-full 2xl:self-stretch 2xl:px-10 2xl:text-lg">
         ยังไม่เปิดรับสมัคร
       </button>
-    </Link>
+    </div>
   )
 }
 
