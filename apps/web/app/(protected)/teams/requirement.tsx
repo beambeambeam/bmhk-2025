@@ -28,11 +28,11 @@ export default function Requirement() {
           <div className="flex flex-col items-center gap-6 md:items-start">
             <h3 className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[1.75rem]">สำหรับอาจารย์</h3>
             <ol className="flex list-decimal flex-col gap-3 pl-6 md:gap-5">
-              <li className="text-[1rem] font-light md:text-[1.125rem] lg:text-[1.25rem] lg:font-normal 2xl:text-[1.375rem]">
+              <li className="break-words text-[1rem] font-light md:text-[1.125rem] lg:text-[1.25rem] lg:font-normal 2xl:text-[1.375rem]">
                 สำเนาบัตรประจำตัวประชาชน หรือบัตรประจำตัวสำหรับ บุคคลที่ไม่ใช่สัญชาติไทย พร้อมเซ็นสำเนาถูกต้อง
                 (เฉพาะด้านหน้า)
               </li>
-              <li className="text-[1rem] font-light md:text-[1.125rem] lg:text-[1.25rem] lg:font-normal 2xl:text-[1.375rem]">
+              <li className="break-words text-[1rem] font-light md:text-[1.125rem] lg:text-[1.25rem] lg:font-normal 2xl:text-[1.375rem]">
                 เอกสารแสดงสถานภาพการเป็นอาจารย์ประจำ ในสถานศึกษา เช่น บัตรประจำตัวอาจารย์ บัตรข้าราชการครู
                 หรือหนังสือรับรองจากสถานศึกษา
               </li>
@@ -52,14 +52,14 @@ export default function Requirement() {
               สำหรับผู้เข้าแข่งขัน
             </h3>
             <ol className="flex list-decimal flex-col gap-3 pl-6 md:gap-5">
-              <li className="text-[1rem] font-light md:text-[1.125rem] lg:text-[1.25rem] lg:font-normal 2xl:text-[1.375rem]">
+              <li className="break-words text-[1rem] font-light md:text-[1.125rem] lg:text-[1.25rem] lg:font-normal 2xl:text-[1.375rem]">
                 รูปถ่ายนักเรียนหน้าตรง ขนาด 1.5 นิ้ว
               </li>
-              <li className="text-[1rem] font-light md:text-[1.125rem] lg:text-[1.25rem] lg:font-normal 2xl:text-[1.375rem]">
+              <li className="break-words text-[1rem] font-light md:text-[1.125rem] lg:text-[1.25rem] lg:font-normal 2xl:text-[1.375rem]">
                 สำเนาบัตรประจำตัวประชาชน หรือบัตรประจำตัวสำหรับ บุคคลที่ไม่ใช่สัญชาติไทย พร้อมเซ็นสำเนาถูกต้อง
                 (เฉพาะด้านหน้า)
               </li>
-              <li className="text-[1rem] font-light md:text-[1.125rem] lg:text-[1.25rem] lg:font-normal 2xl:text-[1.375rem]">
+              <li className="break-words text-[1rem] font-light md:text-[1.125rem] lg:text-[1.25rem] lg:font-normal 2xl:text-[1.375rem]">
                 สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริง
               </li>
             </ol>
