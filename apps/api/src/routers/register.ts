@@ -1,3 +1,4 @@
+import { AWARD_ENUM } from "@/enum"
 import { protectedProcedure } from "@/lib/orpc"
 import { getPresignedUrlForKey } from "@/lib/s3"
 import { uploadFileToS3 } from "@/lib/upload"
@@ -265,7 +266,7 @@ export const registerRouter = {
     set: protectedProcedure
       .input(
         z.object({
-          team_image: z.array(z.any()).min(1).max(1),
+          team_image: z.array(z.any()).max(1).optional(),
           team_name: z.string().min(1).max(20),
           school_name: z.string().min(1),
           quote: z.string().max(50),
@@ -292,7 +293,7 @@ export const registerRouter = {
           }
         }
 
-        const teamImageFile = input.team_image.find((file): file is File => file instanceof File)
+        const teamImageFile = input.team_image?.find((file): file is File => file instanceof File)
 
         let fileId: string | undefined
 
@@ -326,7 +327,7 @@ export const registerRouter = {
               school: input.school_name,
               memberCount: input.member_count,
               quote: input.quote,
-              award: "",
+              award: AWARD_ENUM.FIRST_ROUND,
               ...(fileId && { imageId: fileId }),
             })
             .where(eq(teams.userId, userId))
@@ -334,20 +335,16 @@ export const registerRouter = {
 
           teamResult = updatedTeam[0]
         } else {
-          if (!fileId) {
-            throw new Error("Team image is required")
-          }
-
           const teamRecord = await db
             .insert(teams)
             .values({
               userId: userId,
-              imageId: fileId,
+              ...(fileId && { imageId: fileId }),
               name: input.team_name,
               school: input.school_name,
               memberCount: input.member_count,
               quote: input.quote,
-              award: "", // Default empty award, will be set later
+              award: AWARD_ENUM.FIRST_ROUND,
             })
             .returning()
 
