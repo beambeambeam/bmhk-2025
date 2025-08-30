@@ -9,10 +9,12 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { useTheme } from "next-themes"
 import { usePathname } from "next/navigation"
 
 function Navbar() {
   const pathname = usePathname()
+  const { theme, setTheme } = useTheme()
 
   const navigationLinks = [
     { href: "/dashboard", label: "Overview" },
@@ -93,7 +95,10 @@ function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          <ThemeSwitcher />
+          <ThemeSwitcher
+            value={theme === "light" || theme === "dark" || theme === "system" ? theme : "system"}
+            onChange={setTheme}
+          />
         </div>
       </div>
     </header>
