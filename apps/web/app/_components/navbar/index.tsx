@@ -79,8 +79,8 @@ export function Navbar({ links, CTAId, sections }: NavbarProps) {
   const isActive = (href: string) => active === href
   return (
     <div className="z-100 sticky top-0 w-full p-9 px-[24px] lg:px-[60px] 2xl:px-[160px]">
-      <GlassCard className="flex items-center justify-between rounded-full pl-3 pr-5 backdrop-blur-md lg:pr-3">
-        <div className="flex w-[142px] items-center justify-center pt-1 lg:w-[120px] 2xl:w-[180px]">
+      <GlassCard className="flex items-center rounded-full pl-3 pr-5 backdrop-blur-md lg:pr-3">
+        <div className="flex w-[142px] items-center justify-center lg:w-[120px] 2xl:w-[180px]">
           <NavLink href={"/"}>
             <Image
               style={{ width: "100%", height: "auto", objectFit: "cover" }}
@@ -91,21 +91,23 @@ export function Navbar({ links, CTAId, sections }: NavbarProps) {
             />
           </NavLink>
         </div>
-        <div className="hidden items-center lg:flex lg:gap-2 2xl:justify-between 2xl:gap-2.5">
-          {links.map((item, i) => {
-            if (item.type === "normal" && !item.mobileOnly) {
-              return (
-                <NavLink
-                  key={item.label}
-                  className={`rounded-full px-3 py-3 text-white lg:px-3 2xl:px-6 ${isActive(item.href.replace("#", "")) ? "text-nav-1-selected liquid" : "text-nav-2"}`}
-                  href={item.href}>
-                  {item.label}
-                </NavLink>
-              )
-            } else return <Fragment key={`${item.label}-${i}`}></Fragment>
-          })}
+        <div className="flex flex-1 items-center justify-center">
+          <div className="hidden items-center lg:flex lg:gap-2 2xl:gap-2.5">
+            {links.map((item, i) => {
+              if (item.type === "normal" && !item.mobileOnly) {
+                return (
+                  <NavLink
+                    key={item.label}
+                    className={`rounded-full px-4 py-3 text-white 2xl:px-6 2xl:py-4 ${isActive(item.href.replace("#", "")) ? "text-nav-1-selected liquid" : "text-nav-2"}`}
+                    href={item.href}>
+                    {item.label}
+                  </NavLink>
+                )
+              } else return <Fragment key={`${item.label}-${i}`}></Fragment>
+            })}
+          </div>
         </div>
-        <div className="flex h-[70px] items-center">
+        <div className="flex h-[70px] w-[142px] items-center justify-end lg:w-[120px] 2xl:w-[180px]">
           {CTA[CTAId]}
           <Drawer>
             <DrawerTrigger asChild>
