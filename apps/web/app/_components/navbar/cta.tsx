@@ -14,7 +14,7 @@ const Landing = ({ isMobile }: { isMobile?: boolean }) => {
   }
   return (
     <Link href="/sign-in" className="2xl:h-full">
-      <button className="hidden cursor-pointer items-center justify-center gap-4 rounded-full bg-gradient-to-r from-purple-400/50 to-pink-300/50 px-6 py-2 text-base shadow-xl shadow-black/25 lg:flex lg:gap-6 lg:px-8 lg:py-2.5 lg:text-lg 2xl:h-full 2xl:self-stretch 2xl:px-10 2xl:text-lg">
+      <button className="text-button-2 hidden cursor-pointer items-center justify-center gap-4 whitespace-nowrap rounded-full bg-gradient-to-r from-purple-400/50 to-pink-300/50 shadow-xl shadow-black/25 lg:flex lg:h-full lg:px-8 lg:py-3 2xl:px-10 2xl:py-2.5">
         ลงทะเบียน
       </button>
     </Link>
