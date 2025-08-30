@@ -1,4 +1,4 @@
-import { TeamsChart } from "@/app/(protected)/dashboard/_components/dotted-multi-line"
+import { TeamsChart } from "@/app/(protected)/dashboard/_components/teams-chart"
 import { teamsData } from "@/app/(protected)/dashboard/_lib/user-v-done"
 
 async function Dashboard() {
