@@ -44,7 +44,7 @@ export function TeamNavMenuClient({ teamData }: { teamData: TeamData }) {
           </div>
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="!border-1 w-[270px] rounded-[24px] !border-white/20 !bg-[#262626] p-2">
+      <DropdownMenuContent className="!border-1 z-101 w-[270px] rounded-[24px] !border-white/20 !bg-[#262626] p-2">
         <Link href="/teams">
           <DropdownMenuItem className="flex w-full cursor-pointer items-center justify-between rounded-[24px] px-5 py-3 !text-white">
             <span className="text-nav-2">ทีมของฉัน</span>
