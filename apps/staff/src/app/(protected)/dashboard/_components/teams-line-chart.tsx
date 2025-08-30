@@ -18,11 +18,11 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-interface TeamsChartProps {
+interface TeamsLineChartProps {
   initialData: TeamsResponse
 }
 
-export function TeamsChart({ initialData }: TeamsChartProps) {
+export function TeamsLineChart({ initialData }: TeamsLineChartProps) {
   const chartData = initialData.data
   const summary = initialData.summary
 
@@ -71,7 +71,7 @@ export function TeamsChart({ initialData }: TeamsChartProps) {
                 axisLine={false}
                 tickMargin={8}
                 tickFormatter={(value) => {
-                  const [year, month, day] = value.split("-")
+                  const [, month, day] = value.split("-")
                   return `${month}/${day}`
                 }}
               />

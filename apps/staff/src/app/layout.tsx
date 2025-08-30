@@ -1,3 +1,4 @@
+import { BreakpointIndicator } from "@/components/breakpoint-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 import type { Metadata } from "next"
 import { Sarabun } from "next/font/google"
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={`${sarabunSans.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
+          <BreakpointIndicator />
         </ThemeProvider>
       </body>
     </html>
