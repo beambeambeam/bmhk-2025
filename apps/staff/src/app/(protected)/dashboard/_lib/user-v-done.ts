@@ -1,49 +1,79 @@
 "use server"
 
 import { os } from "@orpc/server"
+import { db, teams, registerStatus, sql } from "@workspace/db"
 import { z } from "zod"
 
-export interface ChartDataPoint {
+export interface TeamsDataPoint {
   date: string
-  users: number
-  completed: number
+  registered: number
+  submitted: number
 }
 
-export interface ChartSummary {
-  totalUsers: number
-  totalCompleted: number
-  growthRate: string
+export interface TeamsSummary {
+  totalRegistered: number
+  totalSubmitted: number
+  submissionRate: string
 }
 
-export interface UserVdoneResponse {
-  data: ChartDataPoint[]
-  summary: ChartSummary
+export interface TeamsResponse {
+  data: TeamsDataPoint[]
+  summary: TeamsSummary
 }
 
-export const userVdone = os
+export const teamsData = os
   .input(z.object({}))
-  .handler(async (): Promise<UserVdoneResponse> => {
-    const data: ChartDataPoint[] = await Promise.resolve([
-      { date: "2024-01", users: 45, completed: 120 },
-      { date: "2024-02", users: 52, completed: 145 },
-      { date: "2024-03", users: 48, completed: 138 },
-      { date: "2024-04", users: 61, completed: 167 },
-      { date: "2024-05", users: 58, completed: 189 },
-      { date: "2024-06", users: 67, completed: 203 },
-      { date: "2024-07", users: 73, completed: 218 },
-      { date: "2024-08", users: 69, completed: 195 },
-      { date: "2024-09", users: 81, completed: 234 },
-      { date: "2024-10", users: 85, completed: 251 },
-      { date: "2024-11", users: 92, completed: 267 },
-      { date: "2024-12", users: 98, completed: 289 },
-    ])
+  .handler(async (): Promise<TeamsResponse> => {
+    const teamsWithStatus = await db
+      .select({
+        id: teams.id,
+        name: teams.name,
+        school: teams.school,
+        createdAt: teams.createdAt,
+        submitRegister: registerStatus.submitRegister,
+      })
+      .from(teams)
+      .leftJoin(registerStatus, sql`${teams.id} = ${registerStatus.teamId}`)
+
+    // Group by day and count registered vs submitted
+    const dailyData = new Map<string, { registered: number; submitted: number }>()
+
+    teamsWithStatus.forEach((team) => {
+      const createdDate = new Date(team.createdAt)
+      const dayKey = `${createdDate.getFullYear()}-${String(createdDate.getMonth() + 1).padStart(2, "0")}-${String(createdDate.getDate()).padStart(2, "0")}`
+
+      if (!dailyData.has(dayKey)) {
+        dailyData.set(dayKey, { registered: 0, submitted: 0 })
+      }
+
+      const dayData = dailyData.get(dayKey)
+      if (dayData) {
+        dayData.registered += 1
+
+        if (team.submitRegister) {
+          dayData.submitted += 1
+        }
+      }
+    })
+
+    const data: TeamsDataPoint[] = Array.from(dailyData.entries())
+      .map(([date, counts]) => ({
+        date,
+        registered: counts.registered,
+        submitted: counts.submitted,
+      }))
+      .sort((a, b) => a.date.localeCompare(b.date))
+
+    const totalRegistered = teamsWithStatus.length
+    const totalSubmitted = teamsWithStatus.filter((team) => team.submitRegister).length
+    const submissionRate = totalRegistered > 0 ? ((totalSubmitted / totalRegistered) * 100).toFixed(1) : "0.0"
 
     return {
       data,
       summary: {
-        totalUsers: data[data.length - 1].users,
-        totalCompleted: data[data.length - 1].completed,
-        growthRate: (((data[data.length - 1].users - data[0].users) / data[0].users) * 100).toFixed(1),
+        totalRegistered,
+        totalSubmitted,
+        submissionRate,
       },
     }
   })
