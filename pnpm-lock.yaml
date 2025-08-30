@@ -118,6 +118,9 @@ importers:
 
   apps/staff:
     dependencies:
+      '@workspace/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       next:
         specifier: 15.5.2
         version: 15.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
