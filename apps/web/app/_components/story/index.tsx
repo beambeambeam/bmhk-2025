@@ -144,7 +144,7 @@ function Story() {
             </div>
           </div>
 
-          <div className="hidden items-center gap-5 2xl:flex">
+          <div className="z-10 hidden items-center gap-5 2xl:flex">
             <div className="gradient-border-left h-[1px] w-[200px]" />
             {stories.map((_, index) =>
               index === currentIndex ? (
