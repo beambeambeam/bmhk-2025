@@ -1,5 +1,6 @@
 "use client"
 
+import { ThemeSwitcher } from "@/components/theme-switcher"
 import { Button } from "@/components/ui/button"
 import {
   NavigationMenu,
@@ -91,7 +92,9 @@ function Navbar() {
           </div>
         </div>
 
-        <div className="flex items-center gap-4">d</div>
+        <div className="flex items-center gap-4">
+          <ThemeSwitcher />
+        </div>
       </div>
     </header>
   )
