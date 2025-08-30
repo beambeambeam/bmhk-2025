@@ -35,7 +35,6 @@ export const teamsData = os
       .from(teams)
       .leftJoin(registerStatus, sql`${teams.id} = ${registerStatus.teamId}`)
 
-    // Group by day and count registered vs submitted
     const dailyData = new Map<string, { registered: number; submitted: number }>()
 
     teamsWithStatus.forEach((team) => {
