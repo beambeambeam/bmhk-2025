@@ -53,7 +53,7 @@ export function TeamsPieChart({ data }: TeamsPieChartProps) {
   const trendBgColor = isPositive ? "bg-green-500/10" : "bg-red-500/10"
 
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col overflow-hidden">
       <CardHeader className="items-center pb-0">
         <CardTitle>
           Teams Overview
@@ -66,10 +66,10 @@ export function TeamsPieChart({ data }: TeamsPieChartProps) {
           {totalRegistered} total teams • {totalSubmitted} submitted
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 pb-0">
+      <CardContent className="flex-1 overflow-hidden pb-0">
         <ChartContainer
           config={chartConfig}
-          className="[&_.recharts-text]:fill-background mx-auto aspect-square max-h-full">
+          className="[&_.recharts-text]:fill-background mx-auto aspect-square max-h-full max-w-full">
           <PieChart>
             <ChartTooltip content={<ChartTooltipContent nameKey="count" hideLabel />} />
             {sortedChartData.map((entry, index) => (

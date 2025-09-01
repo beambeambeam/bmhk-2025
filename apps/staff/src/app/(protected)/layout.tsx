@@ -18,7 +18,7 @@ function ProtectedLayout(props: { children: ReactNode }) {
   }, [session, isPending, router])
 
   return (
-    <div className="h-full w-screen">
+    <div className="h-full w-full overflow-x-hidden">
       <Component />
       {props.children}
     </div>
