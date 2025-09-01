@@ -21,6 +21,7 @@ function Navbar() {
     { href: "/dashboard", label: "Overview" },
     { href: "/round-1", label: "Round 1 Verification" },
     { href: "/round-2", label: "Round 2 Verification" },
+    { href: "/admin", label: "Admin" },
   ].map((link) => ({
     ...link,
     active: pathname === link.href,
