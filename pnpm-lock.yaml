@@ -145,6 +145,9 @@ importers:
       '@radix-ui/react-use-controllable-state':
         specifier: ^1.2.2
         version: 1.2.2(@types/react@19.1.10)(react@19.1.0)
+      '@workspace/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@workspace/db':
         specifier: workspace:*
         version: link:../../packages/db
