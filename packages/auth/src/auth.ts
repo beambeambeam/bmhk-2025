@@ -37,5 +37,8 @@ export const auth = betterAuth({
       adminRoles: [Roles.ADMIN, Roles.SUPER_ADMIN],
     }),
   ],
-  trustedOrigins: [process.env.API_CORS_ORIGIN || "http://localhost:3000"],
+  trustedOrigins: [
+    process.env.API_CORS_ORIGIN || "http://localhost:3000",
+    process.env.STAFF_URL || "http://localhost:3002",
+  ],
 })
