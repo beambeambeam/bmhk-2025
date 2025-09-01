@@ -33,7 +33,7 @@ export function TeamsLineChart({ initialData }: TeamsLineChartProps) {
   const trendBgColor = isPositive ? "bg-green-500/10" : "bg-red-500/10"
 
   return (
-    <Card>
+    <Card className="overflow-hidden">
       <CardHeader>
         <CardTitle>
           Teams Registration Dashboard
@@ -52,7 +52,7 @@ export function TeamsLineChart({ initialData }: TeamsLineChartProps) {
           )}
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="overflow-hidden">
         <ChartContainer config={chartConfig}>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart

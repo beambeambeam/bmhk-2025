@@ -1,8 +1,8 @@
 "use server"
 
-import { os } from "@orpc/server"
+import { protectedActionContext } from "@/lib/orpc/actionable"
+import { protectedProcedure } from "@/lib/orpc/procedures"
 import { db, teams, registerStatus, sql } from "@workspace/db"
-import { z } from "zod"
 
 export interface TeamsDataPoint {
   date: string
@@ -21,8 +21,7 @@ export interface TeamsResponse {
   summary: TeamsSummary
 }
 
-export const teamsData = os
-  .input(z.object({}))
+export const teamsData = protectedProcedure
   .handler(async (): Promise<TeamsResponse> => {
     const teamsWithStatus = await db
       .select({
@@ -76,4 +75,6 @@ export const teamsData = os
       },
     }
   })
-  .actionable()
+  .actionable({
+    context: protectedActionContext,
+  })

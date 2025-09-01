@@ -4,9 +4,9 @@ import { TeamsPieChart } from "@/app/(protected)/dashboard/_components/teams-pie
 import { teamsData } from "@/app/(protected)/dashboard/_lib/user-v-done"
 
 async function Dashboard() {
-  const [error, data] = await teamsData({})
+  const [error, data] = await teamsData()
 
-  if (error) {
+  if (error || !data) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <div className="text-center">
@@ -18,14 +18,14 @@ async function Dashboard() {
   }
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="space-y-6 md:w-[60vw] md:p-20">
+    <div className="flex w-full items-center justify-center overflow-x-hidden">
+      <div className="w-full max-w-7xl space-y-6 p-4 md:p-8 lg:p-12">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[2fr_1fr]">
           <TeamsLineChart initialData={data} />
           <TeamsPieChart data={data} />
         </div>
 
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <TeamNumberCard
             number={data.summary.totalRegistered}
             title="Overall Registered Teams"

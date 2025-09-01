@@ -1,5 +1,6 @@
 "use client"
 
+import UserNavbar from "@/app/(protected)/_components/user"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 import { Button } from "@/components/ui/button"
 import {
@@ -19,7 +20,7 @@ function Navbar() {
   const navigationLinks = [
     { href: "/dashboard", label: "Overview" },
     { href: "/round-1", label: "Round 1 Verification" },
-    { href: "/round-2", label: "Round 2 Verification" },
+    { href: "/admin", label: "Admin" },
   ].map((link) => ({
     ...link,
     active: pathname === link.href,
@@ -99,6 +100,7 @@ function Navbar() {
             value={theme === "light" || theme === "dark" || theme === "system" ? theme : "system"}
             onChange={setTheme}
           />
+          <UserNavbar />
         </div>
       </div>
     </header>
