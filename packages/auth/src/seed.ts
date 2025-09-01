@@ -52,7 +52,7 @@ async function createAdmin() {
 
     console.log(`✅ SuperAdmin user created successfully! at ${createCurrentDate()}`)
   } catch (error) {
-    console.error(`❌ Failed to create admin user at with ${createCurrentDate()} \n error : `, error)
+    console.error(`❌ Failed to create admin user at ${createCurrentDate()} \n error : `, error)
   } finally {
     process.exit()
   }
