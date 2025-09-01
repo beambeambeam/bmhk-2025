@@ -1,5 +1,6 @@
 "use client"
 
+import UserNavbar from "@/app/(protected)/_components/user"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 import { Button } from "@/components/ui/button"
 import {
@@ -99,6 +100,7 @@ function Navbar() {
             value={theme === "light" || theme === "dark" || theme === "system" ? theme : "system"}
             onChange={setTheme}
           />
+          <UserNavbar />
         </div>
       </div>
     </header>
