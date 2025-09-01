@@ -12,12 +12,12 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/bmhk-2025-web
+  IMAGE_NAME: ${{ github.repository_owner }}/bmhk-2025-kirin
   CI: true
 
 jobs:
-  build-web-image:
-    name: Build Web Docker image
+  build-staffapp-image:
+    name: Build StaffApp Docker image
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -55,13 +55,12 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: apps/web/Dockerfile
+          file: apps/staff/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            NEXT_PUBLIC_SERVER_URL=${{ github.ref_name == 'main' && 'https://api.bangmodhackathon.com' || 'https://api-staging.bangmodhackathon.com' }}
-            NEXT_PUBLIC_WEB_URL=${{ github.ref_name == 'main' && 'https://bangmodhackathon.com' || 'https://develop.bangmodhackathon.com' }}
+            NEXT_PUBLIC_STAFFAPP_URL='https://kirin.bangmodhackathon.com'
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
