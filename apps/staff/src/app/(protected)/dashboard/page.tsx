@@ -4,9 +4,9 @@ import { TeamsPieChart } from "@/app/(protected)/dashboard/_components/teams-pie
 import { teamsData } from "@/app/(protected)/dashboard/_lib/user-v-done"
 
 async function Dashboard() {
-  const [error, data] = await teamsData({})
+  const [error, data] = await teamsData()
 
-  if (error) {
+  if (error || !data) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <div className="text-center">

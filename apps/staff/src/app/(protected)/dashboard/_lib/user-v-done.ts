@@ -1,8 +1,8 @@
 "use server"
 
-import { os } from "@orpc/server"
+import { auth } from "@workspace/auth"
 import { db, teams, registerStatus, sql } from "@workspace/db"
-import { z } from "zod"
+import { headers } from "next/headers"
 
 export interface TeamsDataPoint {
   date: string
@@ -21,9 +21,18 @@ export interface TeamsResponse {
   summary: TeamsSummary
 }
 
-export const teamsData = os
-  .input(z.object({}))
-  .handler(async (): Promise<TeamsResponse> => {
+export async function teamsData(): Promise<[Error | null, TeamsResponse | null]> {
+  try {
+    const headersList = await headers()
+
+    const session = await auth.api.getSession({
+      headers: headersList,
+    })
+
+    if (!session?.user) {
+      return [new Error("UNAUTHORIZED"), null]
+    }
+
     const teamsWithStatus = await db
       .select({
         id: teams.id,
@@ -67,7 +76,7 @@ export const teamsData = os
     const totalSubmitted = teamsWithStatus.filter((team) => team.submitRegister).length
     const submissionRate = totalRegistered > 0 ? ((totalSubmitted / totalRegistered) * 100).toFixed(1) : "0.0"
 
-    return {
+    const result: TeamsResponse = {
       data,
       summary: {
         totalRegistered,
@@ -75,5 +84,10 @@ export const teamsData = os
         submissionRate,
       },
     }
-  })
-  .actionable()
+
+    return [null, result]
+  } catch (error) {
+    console.error("Error in teamsData server action:", error)
+    return [error as Error, null]
+  }
+}

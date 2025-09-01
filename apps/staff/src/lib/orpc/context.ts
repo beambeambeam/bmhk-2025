@@ -1,19 +1,10 @@
 import { auth } from "@workspace/auth"
 import type { NextRequest } from "next/server"
 
-export type CreateContextOptions = {
-  request?: NextRequest
-}
-
-export async function createContext({ request }: CreateContextOptions = {}) {
-  let session = null
-
-  if (request) {
-    session = await auth.api.getSession({
-      headers: request.headers,
-    })
-  }
-
+export async function createContext(req: NextRequest) {
+  const session = await auth.api.getSession({
+    headers: req.headers,
+  })
   return {
     session,
   }
