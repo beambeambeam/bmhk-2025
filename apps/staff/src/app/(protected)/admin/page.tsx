@@ -1,8 +1,7 @@
-"use client"
-
 import UserTable from "@/app/(protected)/admin/_components/user-table"
+import { authClient } from "@/lib/auth-client"
 
-function Admin() {
+async function Admin() {
   return (
     <div>
       <UserTable />

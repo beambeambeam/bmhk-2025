@@ -1,3 +1,5 @@
+"use client"
+
 import { columns } from "@/app/(protected)/admin/_components/user-table/columns"
 import { DataTable } from "@/components/data-table/data-table"
 import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
