@@ -61,7 +61,7 @@ export async function getUsers(input: GetUsersSchema) {
 
         const pageCount = Math.ceil(total / input.perPage)
         return { data, pageCount }
-      } catch (_error) {
+      } catch {
         return { data: [], pageCount: 0 }
       }
     },

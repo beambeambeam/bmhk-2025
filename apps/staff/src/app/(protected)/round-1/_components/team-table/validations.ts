@@ -5,7 +5,9 @@ import * as z from "zod"
 export const searchParamsCache = createSearchParamsCache({
   page: parseAsInteger.withDefault(1),
   perPage: parseAsInteger.withDefault(10),
-  sort: getSortingStateParser<any>().withDefault([{ id: "createdAt", desc: true }]),
+  sort: getSortingStateParser<"name" | "school" | "memberCount" | "award" | "createdAt">().withDefault([
+    { id: "createdAt", desc: true },
+  ]),
   name: parseAsString.withDefault(""),
   school: parseAsString.withDefault(""),
   memberCount: parseAsArrayOf(z.enum(["2", "3"])).withDefault([]),
