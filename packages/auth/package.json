@@ -14,11 +14,13 @@
   ],
   "scripts": {
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "auth:seed": "tsx src/seed.ts"
   },
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",
-    "dotenv": "^17.2.1"
+    "dotenv": "^17.2.1",
+    "tsx": "^4.20.5"
   },
   "dependencies": {
     "@workspace/db": "workspace:*",

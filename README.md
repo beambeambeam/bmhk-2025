@@ -61,6 +61,10 @@ Before setting up the development environment, make sure you have the following 
   pnpm dev          # Start all services in development mode
   ```
 
+  ```bash
+  pnpm --filter auth auth:seed <email> <username> # Add admin user for staffapp
+  ```
+
 - **Database**
 
   ```bash
