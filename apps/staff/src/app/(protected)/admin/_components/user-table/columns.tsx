@@ -48,15 +48,6 @@ export const columns = [
     enableSorting: true,
     enableColumnFilter: true,
   }),
-  columnHelper.accessor("createdAt", {
-    id: "createdAt",
-    header: "Created",
-    cell: (info) => {
-      const date = info.getValue()
-      return date ? new Date(date).toLocaleDateString() : "N/A"
-    },
-    enableSorting: true,
-  }),
   columnHelper.display({
     id: "actions",
     header: "Actions",
