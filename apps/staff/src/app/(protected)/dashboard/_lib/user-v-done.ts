@@ -1,8 +1,8 @@
 "use server"
 
-import { auth } from "@workspace/auth"
+import { protectedActionContext } from "@/lib/orpc/actionable"
+import { protectedProcedure } from "@/lib/orpc/procedures"
 import { db, teams, registerStatus, sql } from "@workspace/db"
-import { headers } from "next/headers"
 
 export interface TeamsDataPoint {
   date: string
@@ -21,18 +21,8 @@ export interface TeamsResponse {
   summary: TeamsSummary
 }
 
-export async function teamsData(): Promise<[Error | null, TeamsResponse | null]> {
-  try {
-    const headersList = await headers()
-
-    const session = await auth.api.getSession({
-      headers: headersList,
-    })
-
-    if (!session?.user) {
-      return [new Error("UNAUTHORIZED"), null]
-    }
-
+export const teamsData = protectedProcedure
+  .handler(async (): Promise<TeamsResponse> => {
     const teamsWithStatus = await db
       .select({
         id: teams.id,
@@ -76,7 +66,7 @@ export async function teamsData(): Promise<[Error | null, TeamsResponse | null]>
     const totalSubmitted = teamsWithStatus.filter((team) => team.submitRegister).length
     const submissionRate = totalRegistered > 0 ? ((totalSubmitted / totalRegistered) * 100).toFixed(1) : "0.0"
 
-    const result: TeamsResponse = {
+    return {
       data,
       summary: {
         totalRegistered,
@@ -84,10 +74,7 @@ export async function teamsData(): Promise<[Error | null, TeamsResponse | null]>
         submissionRate,
       },
     }
-
-    return [null, result]
-  } catch (error) {
-    console.error("Error in teamsData server action:", error)
-    return [error as Error, null]
-  }
-}
+  })
+  .actionable({
+    context: protectedActionContext,
+  })

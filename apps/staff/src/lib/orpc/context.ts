@@ -9,5 +9,3 @@ export async function createContext(req: NextRequest) {
     session,
   }
 }
-
-export type Context = Awaited<ReturnType<typeof createContext>>
