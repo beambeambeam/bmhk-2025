@@ -11,17 +11,16 @@ const rl = readline.createInterface({
   output: process.stdout,
 })
 
-const email = process.argv[2]!
-const username = process.argv[3]!
-
-console.log(`Email: ${email}`)
-console.log(`User: ${username}`)
-
-if (!email || !username) {
+if (!process.argv[2] || !process.argv[3]) {
   console.error("Usage: pnpm auth:seed <email> <username>")
   process.exit(1)
 }
 
+const email = process.argv[2]
+const username = process.argv[3]
+
+console.log(`Email: ${email}`)
+console.log(`User: ${username}`)
 const password = await rl.question("Set Your Password: ")
 
 function createCurrentDate() {
