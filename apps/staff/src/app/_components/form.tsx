@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Spinner } from "@/components/ui/spinner"
+import { authClient } from "@/lib/auth-client"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import z from "zod"
@@ -29,9 +30,11 @@ function SignInForm() {
     reValidateMode: "onChange",
   })
 
-  const onSubmit = (values: SignInSchemaType) => {
-    console.log("Form submitted:", values)
-    // Handle form submission here
+  const onSubmit = async (values: SignInSchemaType) => {
+    authClient.signIn.email({
+      email: values.email,
+      password: values.password,
+    })
   }
 
   return (
