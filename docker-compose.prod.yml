@@ -65,6 +65,7 @@ services:
     restart: unless-stopped
     networks:
       - app_network
+  
   api:
     image: ghcr.io/beambeambeam/bmhk-2025-api:main
     labels:
@@ -82,6 +83,21 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+
+  staff:
+    image: ghcr.io/beambeambeam/bmhk-2025-kirin:main
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`kirin.bangmodhackathon.com`)"
+      - "traefik.http.services.web.loadbalancer.server.port=3000"
+      - "com.centurylinklabs.watchtower.enable=true"
+    env_file: ".env"
+    deploy:
+      mode: replicated
+      replicas: 2
+    restart: unless-stopped
+    networks:
+      - app_network
 
 volumes:
   postgres_data:
