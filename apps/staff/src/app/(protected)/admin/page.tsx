@@ -24,17 +24,22 @@ async function Admin(props: AdminPageProps) {
   ])
 
   return (
-    <Suspense
-      fallback={
-        <DataTableSkeleton
-          columnCount={7}
-          filterCount={2}
-          cellWidths={["10rem", "30rem", "10rem", "10rem", "6rem", "6rem", "6rem"]}
-          shrinkZero
-        />
-      }>
-      <UserTable promises={promises} />
-    </Suspense>
+    <div className="flex flex-col items-center justify-center gap-2">
+      <div className="flex w-full max-w-7xl flex-col gap-2 px-4 pt-12">
+        <h1 className="w-full text-start text-2xl font-bold">Users</h1>
+        <Suspense
+          fallback={
+            <DataTableSkeleton
+              columnCount={7}
+              filterCount={2}
+              cellWidths={["10rem", "30rem", "10rem", "10rem", "6rem", "6rem", "6rem"]}
+              shrinkZero
+            />
+          }>
+          <UserTable promises={promises} />
+        </Suspense>
+      </div>
+    </div>
   )
 }
 export default Admin

@@ -14,12 +14,6 @@ import { Text } from "lucide-react"
 const columnHelper = createColumnHelper<typeof authClient.$Infer.Session.user>()
 
 export const columns = [
-  columnHelper.accessor("id", {
-    id: "id",
-    header: "ID",
-    cell: (info) => <div className="font-mono text-sm">{info.getValue()}</div>,
-    enableSorting: true,
-  }),
   columnHelper.accessor("email", {
     id: "email",
     header: "Email",
