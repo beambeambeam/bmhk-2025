@@ -16,15 +16,13 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
           input.school ? ilike(teams.school, `%${input.school}%`) : undefined,
           input.memberCount.length > 0
             ? or(...input.memberCount.map((count) => eq(teams.memberCount, parseInt(count))))
-            : undefined,
-          input.award.length > 0 ? or(...input.award.map((award) => eq(teams.award, award))) : undefined
+            : undefined
         )
 
         const sortableColumns = {
           name: teams.name,
           school: teams.school,
           memberCount: teams.memberCount,
-          award: teams.award,
           createdAt: teams.createdAt,
         } as const
 

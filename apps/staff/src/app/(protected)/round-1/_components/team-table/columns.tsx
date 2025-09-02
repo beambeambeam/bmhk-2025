@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -7,19 +6,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { createColumnHelper } from "@tanstack/react-table"
+import { teams } from "@workspace/db/schema"
 import { MoreHorizontal, Building2, Users, Trophy, School } from "lucide-react"
 import { Text } from "lucide-react"
 
-// Define the team type based on the schema
-type Team = {
-  id: string
-  name: string
-  school: string
-  memberCount: number
-  award: string
-  createdAt: Date
-  updatedAt: Date
-}
+type Team = typeof teams.$inferSelect
 
 const columnHelper = createColumnHelper<Team>()
 
@@ -74,34 +65,6 @@ export const columns = [
       options: [
         { label: "2 Members", value: "2" },
         { label: "3 Members", value: "3" },
-      ],
-    },
-  }),
-  columnHelper.accessor("award", {
-    id: "award",
-    header: "Award",
-    cell: (info) => {
-      const award = info.getValue()
-      const isFirstRound = award === "FIRST_ROUND"
-      const isSecondRound = award === "SECOND_ROUND"
-
-      return (
-        <Badge
-          variant={isFirstRound ? "default" : isSecondRound ? "secondary" : "outline"}
-          className="capitalize">
-          <Trophy className="mr-1 h-3 w-3" />
-          {award === "FIRST_ROUND" ? "First Round" : "Second Round"}
-        </Badge>
-      )
-    },
-    enableSorting: true,
-    enableColumnFilter: true,
-    meta: {
-      label: "Award",
-      variant: "select",
-      options: [
-        { label: "First Round", value: "FIRST_ROUND" },
-        { label: "Second Round", value: "SECOND_ROUND" },
       ],
     },
   }),
