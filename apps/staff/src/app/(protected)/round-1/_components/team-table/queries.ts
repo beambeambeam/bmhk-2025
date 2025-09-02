@@ -2,7 +2,7 @@
 
 import { GetRound1TeamsSchema } from "@/app/(protected)/round-1/_components/team-table/validations"
 import { unstable_cache } from "@/lib/unstable-cache"
-import { db, teams } from "@workspace/db"
+import { db, teams, registerStatus } from "@workspace/db"
 import { and, asc, count, desc, ilike, eq, or } from "@workspace/db/orm"
 
 export async function getRound1Teams(input: GetRound1TeamsSchema) {
@@ -16,6 +16,21 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
           input.school ? ilike(teams.school, `%${input.school}%`) : undefined,
           input.memberCount.length > 0
             ? or(...input.memberCount.map((count) => eq(teams.memberCount, parseInt(count))))
+            : undefined,
+          input.regisStatusTeam && input.regisStatusTeam.length > 0
+            ? or(...input.regisStatusTeam.map((status) => eq(registerStatus.team, status)))
+            : undefined,
+          input.regisStatusAdviser && input.regisStatusAdviser.length > 0
+            ? or(...input.regisStatusAdviser.map((status) => eq(registerStatus.adviser, status)))
+            : undefined,
+          input.regisStatusMember1 && input.regisStatusMember1.length > 0
+            ? or(...input.regisStatusMember1.map((status) => eq(registerStatus.member1, status)))
+            : undefined,
+          input.regisStatusMember2 && input.regisStatusMember2.length > 0
+            ? or(...input.regisStatusMember2.map((status) => eq(registerStatus.member2, status)))
+            : undefined,
+          input.regisStatusMember3 && input.regisStatusMember3.length > 0
+            ? or(...input.regisStatusMember3.map((status) => eq(registerStatus.member3, status)))
             : undefined
         )
 
@@ -24,6 +39,11 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
           school: teams.school,
           memberCount: teams.memberCount,
           createdAt: teams.createdAt,
+          regisStatusTeam: registerStatus.team,
+          regisStatusAdviser: registerStatus.adviser,
+          regisStatusMember1: registerStatus.member1,
+          regisStatusMember2: registerStatus.member2,
+          regisStatusMember3: registerStatus.member3,
         } as const
 
         const orderBy =
@@ -39,8 +59,20 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
 
         const { data, total } = await db.transaction(async (tx) => {
           const data = await tx
-            .select()
+            .select({
+              id: teams.id,
+              name: teams.name,
+              school: teams.school,
+              memberCount: teams.memberCount,
+              createdAt: teams.createdAt,
+              regisStatusTeam: registerStatus.team,
+              regisStatusAdviser: registerStatus.adviser,
+              regisStatusMember1: registerStatus.member1,
+              regisStatusMember2: registerStatus.member2,
+              regisStatusMember3: registerStatus.member3,
+            })
             .from(teams)
+            .leftJoin(registerStatus, eq(registerStatus.teamId, teams.id))
             .limit(input.perPage)
             .offset(offset)
             .where(where)
@@ -51,6 +83,7 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
               count: count(),
             })
             .from(teams)
+            .leftJoin(registerStatus, eq(registerStatus.teamId, teams.id))
             .where(where)
             .execute()
             .then((res) => res[0]?.count ?? 0)
