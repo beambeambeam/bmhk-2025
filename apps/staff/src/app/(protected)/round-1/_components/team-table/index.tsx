@@ -21,6 +21,7 @@ function Round1TeamTable({ promises }: Round1TeamTableProps) {
     pageCount,
     initialState: {
       columnPinning: { right: ["actions"] },
+      sorting: [],
     },
     shallow: false,
     clearOnDefault: true,

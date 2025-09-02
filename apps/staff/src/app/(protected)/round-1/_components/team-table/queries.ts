@@ -3,7 +3,22 @@
 import { GetRound1TeamsSchema } from "@/app/(protected)/round-1/_components/team-table/validations"
 import { unstable_cache } from "@/lib/unstable-cache"
 import { db, teams, registerStatus } from "@workspace/db"
-import { and, asc, count, desc, ilike, eq, or } from "@workspace/db/orm"
+import {
+  and,
+  asc,
+  count,
+  desc,
+  ilike,
+  eq,
+  or,
+  lt,
+  lte,
+  gt,
+  gte,
+  isNull,
+  isNotNull,
+  ne,
+} from "@workspace/db/orm"
 
 export async function getRound1Teams(input: GetRound1TeamsSchema) {
   return await unstable_cache(
@@ -11,7 +26,7 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
       try {
         const offset = (input.page - 1) * input.perPage
 
-        const where = and(
+        const baseWhere = and(
           input.name ? ilike(teams.name, `%${input.name}%`) : undefined,
           input.school ? ilike(teams.school, `%${input.school}%`) : undefined,
           input.memberCount.length > 0
@@ -31,31 +46,42 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
             : undefined,
           input.regisStatusMember3 && input.regisStatusMember3.length > 0
             ? or(...input.regisStatusMember3.map((status) => eq(registerStatus.member3, status)))
-            : undefined
+            : undefined,
+          // submitRegister filter from query param (?submitRegister=start,end)
+          (() => {
+            const sr = input.submitRegister
+            if (!sr || typeof sr !== "string") return undefined
+            const parts = sr.split(",")
+            const toDate = (v: string) => {
+              const n = Number(v)
+              if (!Number.isNaN(n)) return new Date(n)
+              const d = new Date(v)
+              return isNaN(d.getTime()) ? undefined : d
+            }
+            if (parts.length === 1) {
+              const d = toDate(parts[0]!)
+              return d
+                ? and(isNotNull(registerStatus.submitRegister), eq(registerStatus.submitRegister, d))
+                : undefined
+            }
+            if (parts.length >= 2) {
+              const start = toDate(parts[0]!)
+              const end = toDate(parts[1]!)
+              if (start && end) {
+                return and(
+                  isNotNull(registerStatus.submitRegister),
+                  gte(registerStatus.submitRegister, start),
+                  lte(registerStatus.submitRegister, end)
+                )
+              }
+            }
+            return undefined
+          })()
         )
 
-        const sortableColumns = {
-          name: teams.name,
-          school: teams.school,
-          memberCount: teams.memberCount,
-          createdAt: teams.createdAt,
-          regisStatusTeam: registerStatus.team,
-          regisStatusAdviser: registerStatus.adviser,
-          regisStatusMember1: registerStatus.member1,
-          regisStatusMember2: registerStatus.member2,
-          regisStatusMember3: registerStatus.member3,
-        } as const
+        // No advancedWhere; filtering handled in baseWhere or direct params
 
-        const orderBy =
-          input.sort.length > 0
-            ? input.sort
-                .filter((item) => item.id in sortableColumns)
-                .map((item) =>
-                  item.desc
-                    ? desc(sortableColumns[item.id as keyof typeof sortableColumns])
-                    : asc(sortableColumns[item.id as keyof typeof sortableColumns])
-                )
-            : [asc(teams.createdAt)]
+        const orderBy = [asc(teams.createdAt)]
 
         const { data, total } = await db.transaction(async (tx) => {
           const data = await tx
@@ -70,12 +96,13 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
               regisStatusMember1: registerStatus.member1,
               regisStatusMember2: registerStatus.member2,
               regisStatusMember3: registerStatus.member3,
+              submitRegister: registerStatus.submitRegister,
             })
             .from(teams)
             .leftJoin(registerStatus, eq(registerStatus.teamId, teams.id))
             .limit(input.perPage)
             .offset(offset)
-            .where(where)
+            .where(baseWhere)
             .orderBy(...orderBy)
 
           const total = await tx
@@ -84,7 +111,7 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
             })
             .from(teams)
             .leftJoin(registerStatus, eq(registerStatus.teamId, teams.id))
-            .where(where)
+            .where(baseWhere)
             .execute()
             .then((res) => res[0]?.count ?? 0)
 

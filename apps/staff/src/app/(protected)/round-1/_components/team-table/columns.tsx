@@ -1,21 +1,15 @@
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { createColumnHelper } from "@tanstack/react-table"
 import { teams, registerStatusEnum } from "@workspace/db/schema"
-import { MoreHorizontal, Building2, Users, Trophy, School } from "lucide-react"
+import { Building2, Users, School } from "lucide-react"
 import { Text } from "lucide-react"
 
-type Team = typeof teams.$inferSelect & {
-  regisStatusTeam: (typeof registerStatusEnum.enumValues)[number]
-  regisStatusAdviser: (typeof registerStatusEnum.enumValues)[number]
-  regisStatusMember1: (typeof registerStatusEnum.enumValues)[number]
-  regisStatusMember2: (typeof registerStatusEnum.enumValues)[number]
-  regisStatusMember3: (typeof registerStatusEnum.enumValues)[number]
+type Team = Pick<typeof teams.$inferSelect, "id" | "name" | "school" | "memberCount" | "createdAt"> & {
+  regisStatusTeam: (typeof registerStatusEnum.enumValues)[number] | null
+  regisStatusAdviser: (typeof registerStatusEnum.enumValues)[number] | null
+  regisStatusMember1: (typeof registerStatusEnum.enumValues)[number] | null
+  regisStatusMember2: (typeof registerStatusEnum.enumValues)[number] | null
+  regisStatusMember3: (typeof registerStatusEnum.enumValues)[number] | null
+  submitRegister: Date | null
 }
 
 const columnHelper = createColumnHelper<Team>()
@@ -25,7 +19,7 @@ export const columns = [
     id: "name",
     header: "Team Name",
     cell: (info) => <div className="font-medium">{info.getValue()}</div>,
-    enableSorting: true,
+    enableSorting: false,
     enableColumnFilter: true,
     meta: {
       label: "Team Name",
@@ -43,7 +37,7 @@ export const columns = [
         {info.getValue()}
       </div>
     ),
-    enableSorting: true,
+    enableSorting: false,
     enableColumnFilter: true,
     meta: {
       label: "School",
@@ -61,7 +55,7 @@ export const columns = [
         {info.getValue()}
       </div>
     ),
-    enableSorting: true,
+    enableSorting: false,
     enableColumnFilter: true,
     meta: {
       label: "Member Count",
@@ -82,7 +76,7 @@ export const columns = [
       const label = value === "DONE" ? "Done" : value === "NOT_DONE" ? "Not Done" : "Not Have"
       return <div className="flex items-center gap-2">{label}</div>
     },
-    enableSorting: true,
+    enableSorting: false,
     enableColumnFilter: true,
     meta: {
       label: "Team Status",
@@ -102,7 +96,7 @@ export const columns = [
       const label = value === "DONE" ? "Done" : value === "NOT_DONE" ? "Not Done" : "Not Have"
       return <div className="flex items-center gap-2">{label}</div>
     },
-    enableSorting: true,
+    enableSorting: false,
     enableColumnFilter: true,
     meta: {
       label: "Adviser Status",
@@ -122,7 +116,7 @@ export const columns = [
       const label = value === "DONE" ? "Done" : value === "NOT_DONE" ? "Not Done" : "Not Have"
       return <div className="flex items-center gap-2">{label}</div>
     },
-    enableSorting: true,
+    enableSorting: false,
     enableColumnFilter: true,
     meta: {
       label: "Member 1 Status",
@@ -142,7 +136,7 @@ export const columns = [
       const label = value === "DONE" ? "Done" : value === "NOT_DONE" ? "Not Done" : "Not Have"
       return <div className="flex items-center gap-2">{label}</div>
     },
-    enableSorting: true,
+    enableSorting: false,
     enableColumnFilter: true,
     meta: {
       label: "Member 2 Status",
@@ -162,7 +156,7 @@ export const columns = [
       const label = value === "DONE" ? "Done" : value === "NOT_DONE" ? "Not Done" : "Not Have"
       return <div className="flex items-center gap-2">{label}</div>
     },
-    enableSorting: true,
+    enableSorting: false,
     enableColumnFilter: true,
     meta: {
       label: "Member 3 Status",
@@ -171,27 +165,33 @@ export const columns = [
       options: [
         { label: "Done", value: "DONE" },
         { label: "Not Done", value: "NOT_DONE" },
+        { label: "Not Have", value: "NOT_HAVE" },
       ],
     },
   }),
-  columnHelper.display({
-    id: "actions",
-    header: "Actions",
-    cell: (_info) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon">
-            <MoreHorizontal className="h-4 w-4" />
-            <span className="sr-only">Open menu</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem>View Details</DropdownMenuItem>
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
-    size: 32,
+  columnHelper.accessor("submitRegister", {
+    id: "submitRegister",
+    header: "Submit Date",
+    cell: (info) => {
+      const value = info.getValue() as Date | null
+      if (!value) {
+        return <div className="flex items-center gap-2">-</div>
+      }
+      const date = new Date(value)
+      const dd = String(date.getDate()).padStart(2, "0")
+      const mm = String(date.getMonth() + 1).padStart(2, "0")
+      const yyyy = date.getFullYear()
+      const HH = String(date.getHours()).padStart(2, "0")
+      const MM = String(date.getMinutes()).padStart(2, "0")
+      const formatted = `${dd}/${mm}/${yyyy} ${HH}:${MM}`
+      return <div className="flex items-center gap-2">{formatted}</div>
+    },
+    enableSorting: false,
+    enableColumnFilter: true,
+    meta: {
+      label: "Submit Date",
+      placeholder: "Filter by date...",
+      variant: "dateRange",
+    },
   }),
 ]

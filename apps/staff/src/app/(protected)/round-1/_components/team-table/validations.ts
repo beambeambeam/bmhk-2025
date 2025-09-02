@@ -1,25 +1,14 @@
-import { getFiltersStateParser, getSortingStateParser } from "@/lib/parsers"
+import { getFiltersStateParser } from "@/lib/parsers"
 import { createSearchParamsCache, parseAsArrayOf, parseAsInteger, parseAsString } from "nuqs/server"
 import * as z from "zod"
 
 export const searchParamsCache = createSearchParamsCache({
   page: parseAsInteger.withDefault(1),
   perPage: parseAsInteger.withDefault(10),
-  sort: getSortingStateParser<
-    | "name"
-    | "school"
-    | "memberCount"
-    | "award"
-    | "createdAt"
-    | "regisStatusTeam"
-    | "regisStatusAdviser"
-    | "regisStatusMember1"
-    | "regisStatusMember2"
-    | "regisStatusMember3"
-  >().withDefault([{ id: "createdAt", desc: true }]),
   name: parseAsString.withDefault(""),
   school: parseAsString.withDefault(""),
   memberCount: parseAsArrayOf(z.enum(["2", "3"])).withDefault([]),
+  submitRegister: parseAsString.withDefault(""),
   regisStatusTeam: parseAsArrayOf(z.enum(["DONE", "NOT_DONE", "NOT_HAVE"])).withDefault([]),
   regisStatusAdviser: parseAsArrayOf(z.enum(["DONE", "NOT_DONE", "NOT_HAVE"])).withDefault([]),
   regisStatusMember1: parseAsArrayOf(z.enum(["DONE", "NOT_DONE", "NOT_HAVE"])).withDefault([]),
