@@ -58,20 +58,34 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
               const d = new Date(v)
               return isNaN(d.getTime()) ? undefined : d
             }
+            const startOfDay = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0)
+            const endOfDay = (d: Date) =>
+              new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999)
             if (parts.length === 1) {
               const d = toDate(parts[0]!)
-              return d
-                ? and(isNotNull(registerStatus.submitRegister), eq(registerStatus.submitRegister, d))
-                : undefined
+              if (!d) return undefined
+              const start = startOfDay(d)
+              const end = endOfDay(d)
+              return and(
+                isNotNull(registerStatus.submitRegister),
+                gte(registerStatus.submitRegister, start),
+                lte(registerStatus.submitRegister, end)
+              )
             }
             if (parts.length >= 2) {
               const start = toDate(parts[0]!)
               const end = toDate(parts[1]!)
               if (start && end) {
+                let rangeStart = start
+                let rangeEnd = end
+                if (rangeStart.getTime() === rangeEnd.getTime()) {
+                  rangeStart = startOfDay(rangeStart)
+                  rangeEnd = endOfDay(rangeEnd)
+                }
                 return and(
                   isNotNull(registerStatus.submitRegister),
-                  gte(registerStatus.submitRegister, start),
-                  lte(registerStatus.submitRegister, end)
+                  gte(registerStatus.submitRegister, rangeStart),
+                  lte(registerStatus.submitRegister, rangeEnd)
                 )
               }
             }
