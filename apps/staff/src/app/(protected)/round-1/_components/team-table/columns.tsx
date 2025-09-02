@@ -3,6 +3,8 @@ import { teams, registerStatusEnum } from "@workspace/db/schema"
 import { Building2, Users, School } from "lucide-react"
 import { Text } from "lucide-react"
 
+import { RegsiterStatusToIcon, RegisterStatusToColorClass } from "./format"
+
 type Team = Pick<typeof teams.$inferSelect, "id" | "name" | "school" | "memberCount" | "createdAt"> & {
   regisStatusTeam: (typeof registerStatusEnum.enumValues)[number] | null
   regisStatusAdviser: (typeof registerStatusEnum.enumValues)[number] | null
@@ -73,8 +75,13 @@ export const columns = [
     header: "Team Status",
     cell: (info) => {
       const value = info.getValue()
-      const label = value === "DONE" ? "Done" : value === "NOT_DONE" ? "Not Done" : "Not Have"
-      return <div className="flex items-center gap-2">{label}</div>
+      const status = (value ?? "NOT_HAVE") as "DONE" | "NOT_DONE" | "NOT_HAVE"
+      const Icon = RegsiterStatusToIcon(status)
+      return (
+        <div className="flex items-center gap-2">
+          <Icon className={`h-4 w-4 ${RegisterStatusToColorClass(status)}`} />
+        </div>
+      )
     },
     enableSorting: false,
     enableColumnFilter: true,
@@ -93,8 +100,13 @@ export const columns = [
     header: "Adviser Status",
     cell: (info) => {
       const value = info.getValue()
-      const label = value === "DONE" ? "Done" : value === "NOT_DONE" ? "Not Done" : "Not Have"
-      return <div className="flex items-center gap-2">{label}</div>
+      const status = (value ?? "NOT_HAVE") as "DONE" | "NOT_DONE" | "NOT_HAVE"
+      const Icon = RegsiterStatusToIcon(status)
+      return (
+        <div className="flex items-center gap-2">
+          <Icon className={`h-4 w-4 ${RegisterStatusToColorClass(status)}`} />
+        </div>
+      )
     },
     enableSorting: false,
     enableColumnFilter: true,
@@ -113,8 +125,13 @@ export const columns = [
     header: "Member 1 Status",
     cell: (info) => {
       const value = info.getValue()
-      const label = value === "DONE" ? "Done" : value === "NOT_DONE" ? "Not Done" : "Not Have"
-      return <div className="flex items-center gap-2">{label}</div>
+      const status = (value ?? "NOT_HAVE") as "DONE" | "NOT_DONE" | "NOT_HAVE"
+      const Icon = RegsiterStatusToIcon(status)
+      return (
+        <div className="flex items-center gap-2">
+          <Icon className={`h-4 w-4 ${RegisterStatusToColorClass(status)}`} />
+        </div>
+      )
     },
     enableSorting: false,
     enableColumnFilter: true,
@@ -133,8 +150,13 @@ export const columns = [
     header: "Member 2 Status",
     cell: (info) => {
       const value = info.getValue()
-      const label = value === "DONE" ? "Done" : value === "NOT_DONE" ? "Not Done" : "Not Have"
-      return <div className="flex items-center gap-2">{label}</div>
+      const status = (value ?? "NOT_HAVE") as "DONE" | "NOT_DONE" | "NOT_HAVE"
+      const Icon = RegsiterStatusToIcon(status)
+      return (
+        <div className="flex items-center gap-2">
+          <Icon className={`h-4 w-4 ${RegisterStatusToColorClass(status)}`} />
+        </div>
+      )
     },
     enableSorting: false,
     enableColumnFilter: true,
@@ -153,8 +175,13 @@ export const columns = [
     header: "Member 3 Status",
     cell: (info) => {
       const value = info.getValue()
-      const label = value === "DONE" ? "Done" : value === "NOT_DONE" ? "Not Done" : "Not Have"
-      return <div className="flex items-center gap-2">{label}</div>
+      const status = (value ?? "NOT_HAVE") as "DONE" | "NOT_DONE" | "NOT_HAVE"
+      const Icon = RegsiterStatusToIcon(status)
+      return (
+        <div className="flex items-center gap-2">
+          <Icon className={`h-4 w-4 ${RegisterStatusToColorClass(status)}`} />
+        </div>
+      )
     },
     enableSorting: false,
     enableColumnFilter: true,
