@@ -6,6 +6,7 @@ export const searchParamsCache = createSearchParamsCache({
   page: parseAsInteger.withDefault(1),
   perPage: parseAsInteger.withDefault(10),
   name: parseAsString.withDefault(""),
+  codeName: parseAsString.withDefault(""),
   school: parseAsString.withDefault(""),
   memberCount: parseAsArrayOf(z.enum(["2", "3"])).withDefault([]),
   submitRegister: parseAsString.withDefault(""),

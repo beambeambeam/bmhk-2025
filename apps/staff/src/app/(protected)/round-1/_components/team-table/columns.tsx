@@ -1,11 +1,15 @@
+import { RelativeTimeCard } from "@/components/ui/relative-time-card"
 import { createColumnHelper } from "@tanstack/react-table"
 import { teams, registerStatusEnum } from "@workspace/db/schema"
-import { Building2, Users, School } from "lucide-react"
+import { Building2, Users, School, CircleOffIcon } from "lucide-react"
 import { Text } from "lucide-react"
 
 import { RegsiterStatusToIcon, RegisterStatusToColorClass } from "./format"
 
-type Team = Pick<typeof teams.$inferSelect, "id" | "name" | "school" | "memberCount" | "createdAt"> & {
+type Team = Pick<
+  typeof teams.$inferSelect,
+  "id" | "name" | "school" | "memberCount" | "createdAt" | "index"
+> & {
   regisStatusTeam: (typeof registerStatusEnum.enumValues)[number] | null
   regisStatusAdviser: (typeof registerStatusEnum.enumValues)[number] | null
   regisStatusMember1: (typeof registerStatusEnum.enumValues)[number] | null
@@ -16,7 +20,35 @@ type Team = Pick<typeof teams.$inferSelect, "id" | "name" | "school" | "memberCo
 
 const columnHelper = createColumnHelper<Team>()
 
+function formatCodeName(index: number) {
+  const number = String(index).padStart(3, "0")
+  return `BMHK${number}`
+}
+
 export const columns = [
+  columnHelper.accessor("index", {
+    id: "codeName",
+    header: "Code Name",
+    cell: (info) => {
+      const code = formatCodeName(info.row.original.index)
+      const prefix = "BMHK"
+      const suffix = code.replace(prefix, "")
+      return (
+        <div className="font-mono">
+          <span className="text-muted-foreground">{prefix}</span>
+          <span>{suffix}</span>
+        </div>
+      )
+    },
+    enableSorting: false,
+    enableColumnFilter: true,
+    meta: {
+      label: "Code Name",
+      placeholder: "Search code names...",
+      variant: "text",
+      icon: Text,
+    },
+  }),
   columnHelper.accessor("name", {
     id: "name",
     header: "Team Name",
@@ -202,16 +234,11 @@ export const columns = [
     cell: (info) => {
       const value = info.getValue() as Date | null
       if (!value) {
-        return <div className="flex items-center gap-2">-</div>
+        return <CircleOffIcon className="h-4 w-4 text-rose-500" />
       }
       const date = new Date(value)
-      const dd = String(date.getDate()).padStart(2, "0")
-      const mm = String(date.getMonth() + 1).padStart(2, "0")
-      const yyyy = date.getFullYear()
-      const HH = String(date.getHours()).padStart(2, "0")
-      const MM = String(date.getMinutes()).padStart(2, "0")
-      const formatted = `${dd}/${mm}/${yyyy} ${HH}:${MM}`
-      return <div className="flex items-center gap-2">{formatted}</div>
+
+      return <RelativeTimeCard date={date} className="font-semibold text-green-600 hover:text-green-800" />
     },
     enableSorting: false,
     enableColumnFilter: true,

@@ -3,22 +3,7 @@
 import { GetRound1TeamsSchema } from "@/app/(protected)/round-1/_components/team-table/validations"
 import { unstable_cache } from "@/lib/unstable-cache"
 import { db, teams, registerStatus } from "@workspace/db"
-import {
-  and,
-  asc,
-  count,
-  desc,
-  ilike,
-  eq,
-  or,
-  lt,
-  lte,
-  gt,
-  gte,
-  isNull,
-  isNotNull,
-  ne,
-} from "@workspace/db/orm"
+import { and, asc, count, ilike, eq, or, lte, gte, isNotNull } from "@workspace/db/orm"
 
 export async function getRound1Teams(input: GetRound1TeamsSchema) {
   return await unstable_cache(
@@ -28,6 +13,13 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
 
         const baseWhere = and(
           input.name ? ilike(teams.name, `%${input.name}%`) : undefined,
+          (() => {
+            const q = input.codeName?.trim()
+            if (!q) return undefined
+            const digits = q.replace(/\D/g, "")
+            if (!digits) return undefined
+            return eq(teams.index, parseInt(digits, 10))
+          })(),
           input.school ? ilike(teams.school, `%${input.school}%`) : undefined,
           input.memberCount.length > 0
             ? or(...input.memberCount.map((count) => eq(teams.memberCount, parseInt(count))))
@@ -104,6 +96,7 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
               name: teams.name,
               school: teams.school,
               memberCount: teams.memberCount,
+              index: teams.index,
               createdAt: teams.createdAt,
               regisStatusTeam: registerStatus.team,
               regisStatusAdviser: registerStatus.adviser,
