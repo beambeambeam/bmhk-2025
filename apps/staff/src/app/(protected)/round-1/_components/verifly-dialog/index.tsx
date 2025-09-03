@@ -57,7 +57,7 @@ function VerifyDialog(props: VerifyDialogProps) {
             </DialogDescription>
             <div className="grid h-full min-h-0 w-[80vw] grid-rows-2 overflow-y-auto lg:grid-cols-[2.5fr_1fr]">
               <Tabs defaultValue="team" value={tab} onValueChange={onTabChange} className="h-full">
-                <TabsList className="h-full w-fit">
+                <TabsList className="h-fit w-fit">
                   <TabsTrigger value="team">Team</TabsTrigger>
                   <TabsTrigger value="adviser">Adviser</TabsTrigger>
                   <TabsTrigger value="member 1">

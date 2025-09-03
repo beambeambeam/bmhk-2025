@@ -83,10 +83,18 @@ function TeamDisplay() {
             </div>
           </div>
         </div>
-        <div className="flex w-full flex-col gap-2">
-          <Label>Quotes</Label>
-          <div className="rounded-lg border p-2 px-3">
-            {data.quote ? <span className="italic">{data.quote}</span> : "No quotes"}
+        <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="flex flex-col gap-2">
+            <Label>Quotes</Label>
+            <div className="rounded-lg border p-2 px-3">
+              {data.quote ? <span className="italic">{data.quote}</span> : "No quotes"}
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>Member Count</Label>
+            <div className="rounded-lg border p-2 px-3">
+              {typeof data.memberCount === "number" ? data.memberCount : "N/A"}
+            </div>
           </div>
         </div>
       </div>
