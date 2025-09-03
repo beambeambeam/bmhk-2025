@@ -1,4 +1,7 @@
+import { Button } from "@/components/ui/button"
 import { RelativeTimeCard } from "@/components/ui/relative-time-card"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { cn } from "@/lib/utils"
 import { createColumnHelper } from "@tanstack/react-table"
 import { teams, registerStatusEnum } from "@workspace/db/schema"
 import { Building2, Users, School, CircleOffIcon } from "lucide-react"
@@ -100,6 +103,21 @@ export const columns = [
         { label: "2 Members", value: "2" },
         { label: "3 Members", value: "3" },
       ],
+    },
+  }),
+  columnHelper.display({
+    id: "allStatus",
+    header: "Register Status",
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center gap-2">
+          {registerStatusIcon(row.original.regisStatusTeam, "team")}
+          {registerStatusIcon(row.original.regisStatusAdviser, "adviser")}
+          {registerStatusIcon(row.original.regisStatusMember1, "member 1")}
+          {registerStatusIcon(row.original.regisStatusMember2, "member 2")}
+          {registerStatusIcon(row.original.regisStatusMember3, "member 3")}
+        </div>
+      )
     },
   }),
   columnHelper.accessor("regisStatusTeam", {
@@ -249,3 +267,21 @@ export const columns = [
     },
   }),
 ]
+
+const registerStatusIcon = (value: "NOT_DONE" | "DONE" | "NOT_HAVE" | null, tooltip: string) => {
+  const status = (value ?? "NOT_HAVE") as "DONE" | "NOT_DONE" | "NOT_HAVE"
+  const Icon = RegsiterStatusToIcon(status)
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="outline" size="icon">
+          <Icon className={cn("h-4 min-h-4 w-4 min-w-4", RegisterStatusToColorClass(status))} />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>{tooltip}</p>
+      </TooltipContent>
+    </Tooltip>
+  )
+}

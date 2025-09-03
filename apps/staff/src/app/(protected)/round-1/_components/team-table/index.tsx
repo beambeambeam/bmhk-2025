@@ -21,7 +21,13 @@ function Round1TeamTable({ promises }: Round1TeamTableProps) {
     pageCount,
     initialState: {
       columnPinning: { right: ["actions"] },
-      sorting: [],
+      columnVisibility: {
+        regisStatusTeam: false,
+        regisStatusAdviser: false,
+        regisStatusMember1: false,
+        regisStatusMember2: false,
+        regisStatusMember3: false,
+      },
     },
     shallow: false,
     clearOnDefault: true,
