@@ -189,6 +189,72 @@ export function MemberLayout(props: MemberLayoutProps) {
 
 export default MemberLayout
 
+export function MemberSkeleton({ title }: { title: string }) {
+  return (
+    <div className="grid min-h-0 lg:grid-cols-[3fr_1fr]">
+      <div className="flex min-h-0 flex-col gap-2 p-4">
+        <h1 className="flex flex-col text-2xl font-bold">
+          <span className="text-4xl">{title}</span>
+        </h1>
+        <div className="flex h-[72vh] flex-col gap-10">
+          <div className="flex flex-col gap-3">
+            <div className="bg-muted h-5 w-40 animate-pulse rounded" />
+            <div className="grid w-full grid-cols-1 items-start gap-4 lg:grid-cols-[180px_1fr]">
+              <div className="flex w-full flex-col gap-2">
+                <div className="bg-muted h-4 w-24 animate-pulse rounded" />
+                <div className="bg-muted h-[240px] w-full animate-pulse rounded-lg border md:h-[200px] lg:h-[180px] lg:w-[160px]" />
+              </div>
+              <div className="flex flex-col gap-3">
+                <div className="flex w-full flex-col gap-2">
+                  <div className="bg-muted h-4 w-24 animate-pulse rounded" />
+                  <div className="bg-muted h-9 w-full animate-pulse rounded-lg border" />
+                </div>
+                <div className="flex w-full flex-col gap-2">
+                  <div className="bg-muted h-4 w-24 animate-pulse rounded" />
+                  <div className="bg-muted h-9 w-full animate-pulse rounded-lg border" />
+                </div>
+              </div>
+            </div>
+            <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-3">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="flex w-full flex-col gap-2">
+                  <div className="bg-muted h-4 w-24 animate-pulse rounded" />
+                  <div className="bg-muted h-9 w-full animate-pulse rounded-lg border" />
+                </div>
+              ))}
+            </div>
+            <div className="flex w-full flex-col gap-2">
+              <div className="bg-muted h-4 w-32 animate-pulse rounded" />
+              <div className="bg-muted h-9 w-full animate-pulse rounded-lg border" />
+            </div>
+          </div>
+          <div className="flex flex-col gap-3">
+            <div className="bg-muted h-5 w-24 animate-pulse rounded" />
+            <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-3">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="flex w-full flex-col gap-2">
+                  <div className="bg-muted h-4 w-24 animate-pulse rounded" />
+                  <div className="bg-muted h-9 w-full animate-pulse rounded-lg border" />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="">
+            <div className="bg-muted h-5 w-16 animate-pulse rounded" />
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+              {[0, 1].map((i) => (
+                <div key={i} className="bg-muted h-40 w-full animate-pulse rounded-lg border" />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Right side slot skeleton */}
+      <div className="hidden lg:block" />
+    </div>
+  )
+}
+
 function isImage(mime: string) {
   return mime.startsWith("image/")
 }

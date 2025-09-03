@@ -1,6 +1,7 @@
 "use client"
 
 import { formatCodeName } from "@/app/(protected)/round-1/_components/team-table/format"
+import { MemberSkeleton } from "@/app/(protected)/round-1/_components/verifly-dialog/member-layout"
 import { getTeam } from "@/app/(protected)/round-1/_components/verifly-dialog/queries"
 import { Label } from "@/components/ui/label"
 import { useQuery } from "@tanstack/react-query"
@@ -23,6 +24,10 @@ function TeamDisplay(props: TeamDisplayProps) {
       return data[1]?.team
     },
   })
+
+  if (isPending) {
+    return <MemberSkeleton title="Team" />
+  }
 
   if (!data) {
     return (

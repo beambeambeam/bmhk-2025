@@ -1,6 +1,8 @@
 "use client"
 
-import MemberLayout from "@/app/(protected)/round-1/_components/verifly-dialog/member-layout"
+import MemberLayout, {
+  MemberSkeleton,
+} from "@/app/(protected)/round-1/_components/verifly-dialog/member-layout"
 import { getMember } from "@/app/(protected)/round-1/_components/verifly-dialog/queries"
 import { useQuery } from "@tanstack/react-query"
 import { UserIcon } from "lucide-react"
@@ -21,6 +23,10 @@ function Member2Display(props: Member2DisplayProps) {
       return data[1]?.member
     },
   })
+
+  if (isPending) {
+    return <MemberSkeleton title="Member 2" />
+  }
 
   if (!data) {
     return (
