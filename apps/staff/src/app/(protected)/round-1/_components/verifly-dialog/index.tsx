@@ -54,13 +54,15 @@ function VerifyDialog(props: VerifyDialogProps) {
             className="h-full min-h-0 w-[80vw]"
             value={tab}
             onValueChange={onTabChange}>
-            <TabsList>
-              <TabsTrigger value="team">Team</TabsTrigger>
-              <TabsTrigger value="adviser">Adviser</TabsTrigger>
-              <TabsTrigger value="member 1">Member 1</TabsTrigger>
-              <TabsTrigger value="member 2">Member 2</TabsTrigger>
-              <TabsTrigger value="member 3">Member 3</TabsTrigger>
-            </TabsList>
+            <div className="overflow-auto overflow-y-hidden">
+              <TabsList>
+                <TabsTrigger value="team">Team</TabsTrigger>
+                <TabsTrigger value="adviser">Adviser</TabsTrigger>
+                <TabsTrigger value="member 1">Member 1</TabsTrigger>
+                <TabsTrigger value="member 2">Member 2</TabsTrigger>
+                <TabsTrigger value="member 3">Member 3</TabsTrigger>
+              </TabsList>
+            </div>
             <TabsContent value="team">
               <TeamDisplay id={props.id} />
             </TabsContent>
