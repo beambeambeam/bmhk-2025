@@ -8,6 +8,25 @@ type VerifyFormProps = {
   id: string
 }
 
+const memberOptions = [
+  {
+    label: "ข้อมูลไม่ตรง",
+    value: "data-mismatch",
+  },
+  {
+    label: "ปพ.7 มีปัญหา",
+    value: "p7-problem",
+  },
+  {
+    label: "บัตรประชาชนมีบัญหา",
+    value: "id-card-problem",
+  },
+  {
+    label: "รูปมีปัญหา",
+    value: "face-image-problem",
+  },
+]
+
 function VerifyForm(_props: VerifyFormProps) {
   return (
     <div className="flex flex-col gap-4">
@@ -48,20 +67,7 @@ function VerifyForm(_props: VerifyFormProps) {
         hideClearAllButton
         hidePlaceholderWhenSelected
         emptyIndicator={<p className="text-center text-sm">No problems found</p>}
-        options={[
-          {
-            label: "ข้อมูลไม่ตรง",
-            value: "data-mismatch",
-          },
-          {
-            label: "ปพ.7 มีปัญหา",
-            value: "p7-problem",
-          },
-          {
-            label: "บัตรประชาชนมีบัญหา",
-            value: "id-card-problem",
-          },
-        ]}
+        options={memberOptions}
       />
       <Label>Member 2</Label>
       <MultipleSelector
@@ -72,20 +78,7 @@ function VerifyForm(_props: VerifyFormProps) {
         hideClearAllButton
         hidePlaceholderWhenSelected
         emptyIndicator={<p className="text-center text-sm">No problems found</p>}
-        options={[
-          {
-            label: "ข้อมูลไม่ตรง",
-            value: "data-mismatch",
-          },
-          {
-            label: "ปพ.7 มีปัญหา",
-            value: "p7-problem",
-          },
-          {
-            label: "บัตรประชาชนมีบัญหา",
-            value: "id-card-problem",
-          },
-        ]}
+        options={memberOptions}
       />
       <Label>Member 3</Label>
       <MultipleSelector
@@ -96,20 +89,7 @@ function VerifyForm(_props: VerifyFormProps) {
         hideClearAllButton
         hidePlaceholderWhenSelected
         emptyIndicator={<p className="text-center text-sm">No problems found</p>}
-        options={[
-          {
-            label: "ข้อมูลไม่ตรง",
-            value: "data-mismatch",
-          },
-          {
-            label: "ปพ.7 มีปัญหา",
-            value: "p7-problem",
-          },
-          {
-            label: "บัตรประชาชนมีบัญหา",
-            value: "id-card-problem",
-          },
-        ]}
+        options={memberOptions}
       />
       <Label>หมายเหตุ</Label>
       <Textarea className="h-50" />
