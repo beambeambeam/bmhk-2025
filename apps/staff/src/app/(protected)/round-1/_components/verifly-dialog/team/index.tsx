@@ -28,7 +28,7 @@ function TeamDisplay(props: TeamDisplayProps) {
 
   return (
     <div className="grid grid-cols-[2fr_1fr]">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 p-4">
         <h1 className="flex flex-col text-2xl font-bold">
           <span className="flex-col">
             {data?.index !== undefined &&
@@ -49,7 +49,22 @@ function TeamDisplay(props: TeamDisplayProps) {
           </span>
         </h1>
         <div className="flex flex-col gap-5 p-2">
-          <div className="flex w-full flex-col gap-2 pt-4">
+          <div className="flex flex-col gap-2">
+            <Label>Team Image</Label>
+            <div className="rounded-lg border p-2">
+              {data.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={data.image.url}
+                  alt={data.image.name}
+                  className="max-h-[78vh] w-full rounded object-contain"
+                />
+              ) : (
+                <div className="text-muted-foreground">No image</div>
+              )}
+            </div>
+          </div>
+          <div className="flex w-full flex-col gap-2">
             <Label>School</Label>
             <div className="rounded-lg border p-2 px-3">{data.school}</div>
           </div>

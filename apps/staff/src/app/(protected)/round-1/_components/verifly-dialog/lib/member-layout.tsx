@@ -22,6 +22,11 @@ export interface MemberData {
   foodType?: string | null
   drugAllergy?: string | null
   chronicDisease?: string | null
+  // Attached server fields with presigned URLs
+  nationalDoc?: { id: string; name: string; size: number; type: string; url: string } | null
+  teacherDoc?: { id: string; name: string; size: number; type: string; url: string } | null
+  p7Doc?: { id: string; name: string; size: number; type: string; url: string } | null
+  facePic?: { id: string; name: string; size: number; type: string; url: string } | null
 }
 
 interface MemberLayoutProps {
@@ -108,6 +113,18 @@ export function MemberLayout(props: MemberLayoutProps) {
               <Separator />
             </>
           )}
+          <div className="">
+            <h2 className="text-muted-foreground text-lg font-bold">Files</h2>
+            <div className="flex flex-col gap-4">
+              {member.facePic && <FilePreview label="Face Picture" file={member.facePic} />}
+              {member.nationalDoc && <FilePreview label="National Document" file={member.nationalDoc} />}
+              {member.teacherDoc && <FilePreview label="Teacher Document" file={member.teacherDoc} />}
+              {member.p7Doc && <FilePreview label="P7 Document" file={member.p7Doc} />}
+              {!member.facePic && !member.nationalDoc && !member.teacherDoc && !member.p7Doc && (
+                <div className="text-muted-foreground">No files uploaded</div>
+              )}
+            </div>
+          </div>
         </Scroller>
       </div>
       {props.children}
@@ -116,3 +133,37 @@ export function MemberLayout(props: MemberLayoutProps) {
 }
 
 export default MemberLayout
+
+function isImage(mime: string) {
+  return mime.startsWith("image/")
+}
+
+function isPdf(mime: string) {
+  return mime === "application/pdf"
+}
+
+function FilePreview({
+  label,
+  file,
+}: {
+  label: string
+  file: { id: string; name: string; size: number; type: string; url: string }
+}) {
+  return (
+    <div className="flex w-full flex-col gap-2">
+      <Label>{label}</Label>
+      <div className="w-full rounded-lg border p-2">
+        {isImage(file.type) ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={file.url} alt={file.name} className="max-h-[78vh] w-full rounded object-contain" />
+        ) : isPdf(file.type) ? (
+          <iframe src={file.url} className="h-[78vh] w-full rounded" title={file.name} />
+        ) : (
+          <a href={file.url} target="_blank" rel="noreferrer" className="underline">
+            View file: {file.name}
+          </a>
+        )}
+      </div>
+    </div>
+  )
+}

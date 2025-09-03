@@ -118,6 +118,9 @@ importers:
 
   apps/staff:
     dependencies:
+      '@aws-sdk/s3-request-presigner':
+        specifier: ^3.873.0
+        version: 3.873.0
       '@hookform/resolvers':
         specifier: ^5.2.1
         version: 5.2.1(react-hook-form@7.62.0(react@19.1.0))
