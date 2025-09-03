@@ -49,31 +49,11 @@ const adviserOptions = [
 
 // Define the form schema using Zod
 const formSchema = z.object({
-  adviser: z.array(
-    z.object({
-      value: z.string(),
-      label: z.string(),
-    })
-  ),
-  member1: z.array(
-    z.object({
-      value: z.string(),
-      label: z.string(),
-    })
-  ),
-  member2: z.array(
-    z.object({
-      value: z.string(),
-      label: z.string(),
-    })
-  ),
-  member3: z.array(
-    z.object({
-      value: z.string(),
-      label: z.string(),
-    })
-  ),
-  notes: z.string().optional(),
+  adviser: z.array(z.string()),
+  member1: z.array(z.string()),
+  member2: z.array(z.string()),
+  member3: z.array(z.string()),
+  notes: z.string(),
   status: z.string(),
 })
 
@@ -88,7 +68,10 @@ function VerifyForm(_props: VerifyFormProps) {
       member2: [],
       member3: [],
       notes: "",
+      status: "NOT_DONE",
     },
+    mode: "onChange",
+    reValidateMode: "onChange",
   })
 
   function onSubmit(values: FormValues) {
@@ -110,11 +93,13 @@ function VerifyForm(_props: VerifyFormProps) {
                     label: "Select problems",
                   }}
                   placeholder="Select problems"
-                  hideClearAllButton
                   hidePlaceholderWhenSelected
                   emptyIndicator={<p className="text-center text-sm">No problems found</p>}
                   options={adviserOptions}
-                  {...field}
+                  value={adviserOptions.filter((option) => field.value.includes(option.value))}
+                  onChange={(selectedOptions) => {
+                    field.onChange(selectedOptions.map((option) => option.value))
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -134,11 +119,13 @@ function VerifyForm(_props: VerifyFormProps) {
                     label: "Select problems",
                   }}
                   placeholder="Select problems"
-                  hideClearAllButton
                   hidePlaceholderWhenSelected
                   emptyIndicator={<p className="text-center text-sm">No problems found</p>}
                   options={memberOptions}
-                  {...field}
+                  value={memberOptions.filter((option) => field.value.includes(option.value))}
+                  onChange={(selectedOptions) => {
+                    field.onChange(selectedOptions.map((option) => option.value))
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -158,11 +145,13 @@ function VerifyForm(_props: VerifyFormProps) {
                     label: "Select problems",
                   }}
                   placeholder="Select problems"
-                  hideClearAllButton
                   hidePlaceholderWhenSelected
                   emptyIndicator={<p className="text-center text-sm">No problems found</p>}
                   options={memberOptions}
-                  {...field}
+                  value={memberOptions.filter((option) => field.value.includes(option.value))}
+                  onChange={(selectedOptions) => {
+                    field.onChange(selectedOptions.map((option) => option.value))
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -182,11 +171,13 @@ function VerifyForm(_props: VerifyFormProps) {
                     label: "Select problems",
                   }}
                   placeholder="Select problems"
-                  hideClearAllButton
                   hidePlaceholderWhenSelected
                   emptyIndicator={<p className="text-center text-sm">No problems found</p>}
                   options={memberOptions}
-                  {...field}
+                  value={memberOptions.filter((option) => field.value.includes(option.value))}
+                  onChange={(selectedOptions) => {
+                    field.onChange(selectedOptions.map((option) => option.value))
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -210,28 +201,38 @@ function VerifyForm(_props: VerifyFormProps) {
         <FormField
           control={form.control}
           name="status"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>สถานะ</FormLabel>
-              <FormControl>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="สถานะ" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="DONE">ผ่าน</SelectItem>
-                    <SelectItem value="NOT_DONE">ยังไม่ผ่าน</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          render={({ field }) => {
+            const hasProblems =
+              form.watch("adviser").length > 0 ||
+              form.watch("member1").length > 0 ||
+              form.watch("member2").length > 0 ||
+              form.watch("member3").length > 0
+
+            return (
+              <FormItem>
+                <FormLabel>สถานะ</FormLabel>
+                <FormControl>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="สถานะ" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="DONE" disabled={hasProblems}>
+                        ผ่าน {hasProblems && "(ต้องลบปัญหาทั้งหมดออกก่อน)"}
+                      </SelectItem>
+                      <SelectItem value="NOT_DONE">ยังไม่ผ่าน</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
         />
 
-        <Button type="submit" className="mt-4">
+        <Button type="submit" className="mt-4" disabled={!form.formState.isValid || !form.formState.isDirty}>
           Submit Verification
         </Button>
       </form>
