@@ -17,8 +17,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { SearchCheckIcon } from "lucide-react"
+import { SearchCheckIcon, UserIcon } from "lucide-react"
 import { parseAsString, useQueryState } from "nuqs"
 import { ReactNode } from "react"
 
@@ -54,17 +55,21 @@ function VerifyDialog(props: VerifyDialogProps) {
               This action cannot be undone. This will permanently delete your account and remove your data
               from our servers.
             </DialogDescription>
-            <div className="grid h-full min-h-0 w-[80vw] grid-cols-[3fr_1fr]">
-              <Tabs defaultValue="team" className="h-full min-h-0" value={tab} onValueChange={onTabChange}>
-                <div className="overflow-auto overflow-y-hidden">
-                  <TabsList>
-                    <TabsTrigger value="team">Team</TabsTrigger>
-                    <TabsTrigger value="adviser">Adviser</TabsTrigger>
-                    <TabsTrigger value="member 1">Member 1</TabsTrigger>
-                    <TabsTrigger value="member 2">Member 2</TabsTrigger>
-                    <TabsTrigger value="member 3">Member 3</TabsTrigger>
-                  </TabsList>
-                </div>
+            <div className="grid h-full min-h-0 w-[80vw] grid-rows-2 overflow-y-auto lg:grid-cols-[2.5fr_1fr]">
+              <Tabs defaultValue="team" value={tab} onValueChange={onTabChange} className="h-full">
+                <TabsList className="h-full w-fit">
+                  <TabsTrigger value="team">Team</TabsTrigger>
+                  <TabsTrigger value="adviser">Adviser</TabsTrigger>
+                  <TabsTrigger value="member 1">
+                    <UserIcon /> 1
+                  </TabsTrigger>
+                  <TabsTrigger value="member 2">
+                    <UserIcon /> 2
+                  </TabsTrigger>
+                  <TabsTrigger value="member 3">
+                    <UserIcon /> 3
+                  </TabsTrigger>
+                </TabsList>
                 <TabsContent value="team" className="mt-0">
                   <TeamDisplay />
                 </TabsContent>
@@ -81,7 +86,7 @@ function VerifyDialog(props: VerifyDialogProps) {
                   <Member3Display />
                 </TabsContent>
               </Tabs>
-              <div className="border-l-2 p-4">
+              <div className="h-full pt-20 lg:p-4 lg:pt-0">
                 <VerifyFormParent id={props.id} closeDialog={() => setVerify("")} />
               </div>
             </div>
