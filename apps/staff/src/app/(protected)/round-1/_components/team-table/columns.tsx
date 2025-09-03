@@ -11,7 +11,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { cn } from "@/lib/utils"
 import { createColumnHelper } from "@tanstack/react-table"
 import { teams, registerStatusEnum } from "@workspace/db/schema"
-import { Building2, Users, School, CircleOffIcon } from "lucide-react"
+import { Building2, Users, School, CircleOffIcon, CheckIcon } from "lucide-react"
 import { Text } from "lucide-react"
 
 type Team = Pick<
@@ -24,6 +24,7 @@ type Team = Pick<
   regisStatusMember2: (typeof registerStatusEnum.enumValues)[number] | null
   regisStatusMember3: (typeof registerStatusEnum.enumValues)[number] | null
   submitRegister: Date | null
+  verificationStatus: "DONE" | "NOT_DONE" | null
 }
 
 const columnHelper = createColumnHelper<Team>()
@@ -266,9 +267,57 @@ export const columns = [
       variant: "dateRange",
     },
   }),
+  columnHelper.accessor("verificationStatus", {
+    id: "verifyStatus",
+    header: "Verify",
+    cell: ({ row }) => {
+      const status = row.original.verificationStatus
+
+      if (status === null) {
+        // No verification found - show empty checkbox
+        return (
+          <div className="flex items-center justify-center">
+            <div className="h-4 w-4 rounded border border-gray-300 bg-white" />
+          </div>
+        )
+      } else if (status === "NOT_DONE") {
+        // Verification exists but not done - show gray checkbox with white mark
+        return (
+          <div className="flex items-center justify-center">
+            <div className="flex h-4 w-4 items-center justify-center rounded border border-gray-300 bg-gray-400">
+              <CheckIcon className="h-3 w-3 text-white" />
+            </div>
+          </div>
+        )
+      } else if (status === "DONE") {
+        // Verification done - show green checkbox with white mark
+        return (
+          <div className="flex items-center justify-center">
+            <div className="flex h-4 w-4 items-center justify-center rounded border border-gray-300 bg-green-500">
+              <CheckIcon className="h-3 w-3 text-white" />
+            </div>
+          </div>
+        )
+      }
+
+      return null
+    },
+    enableSorting: false,
+    enableColumnFilter: true,
+    meta: {
+      label: "Verification Status",
+      placeholder: "Filter by verification status...",
+      variant: "select",
+      options: [
+        { label: "No Verification", value: "NO_CHECK" },
+        { label: "Not Done", value: "NOT_DONE" },
+        { label: "Done", value: "DONE" },
+      ],
+    },
+  }),
   columnHelper.display({
-    id: "verify",
-    header: "veify",
+    id: "verifyAction",
+    header: "Action",
     cell: ({ row }) => <VerifyDialog id={row.original.id} />,
   }),
 ]
@@ -285,7 +334,7 @@ const registerStatusIcon = (value: "NOT_DONE" | "DONE" | "NOT_HAVE" | null, tool
         </Button>
       </TooltipTrigger>
       <TooltipContent>
-        <p>{tooltip}</p>
+        <p className="capitalize">{tooltip}</p>
       </TooltipContent>
     </Tooltip>
   )

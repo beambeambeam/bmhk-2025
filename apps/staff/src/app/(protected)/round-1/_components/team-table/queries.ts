@@ -2,8 +2,8 @@
 
 import { GetRound1TeamsSchema } from "@/app/(protected)/round-1/_components/team-table/validations"
 import { unstable_cache } from "@/lib/unstable-cache"
-import { db, teams, registerStatus } from "@workspace/db"
-import { and, asc, count, ilike, eq, or, lte, gte, isNotNull } from "@workspace/db/orm"
+import { db, teams, registerStatus, round1Verification } from "@workspace/db"
+import { and, asc, count, ilike, eq, or, lte, gte, isNotNull, isNull } from "@workspace/db/orm"
 
 export async function getRound1Teams(input: GetRound1TeamsSchema) {
   return await unstable_cache(
@@ -39,7 +39,15 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
           input.regisStatusMember3 && input.regisStatusMember3.length > 0
             ? or(...input.regisStatusMember3.map((status) => eq(registerStatus.member3, status)))
             : undefined,
-          // submitRegister filter from query param (?submitRegister=start,end)
+          input.verifyStatus && input.verifyStatus.length > 0
+            ? or(
+                ...input.verifyStatus.map((status) =>
+                  status === "NO_CHECK"
+                    ? isNull(round1Verification.id)
+                    : eq(round1Verification.status, status)
+                )
+              )
+            : undefined,
           (() => {
             const sr = input.submitRegister
             if (!sr || typeof sr !== "string") return undefined
@@ -104,9 +112,11 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
               regisStatusMember2: registerStatus.member2,
               regisStatusMember3: registerStatus.member3,
               submitRegister: registerStatus.submitRegister,
+              verificationStatus: round1Verification.status,
             })
             .from(teams)
             .leftJoin(registerStatus, eq(registerStatus.teamId, teams.id))
+            .leftJoin(round1Verification, eq(round1Verification.teamId, teams.id))
             .limit(input.perPage)
             .offset(offset)
             .where(baseWhere)
@@ -118,6 +128,7 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
             })
             .from(teams)
             .leftJoin(registerStatus, eq(registerStatus.teamId, teams.id))
+            .leftJoin(round1Verification, eq(round1Verification.teamId, teams.id))
             .where(baseWhere)
             .execute()
             .then((res) => res[0]?.count ?? 0)
