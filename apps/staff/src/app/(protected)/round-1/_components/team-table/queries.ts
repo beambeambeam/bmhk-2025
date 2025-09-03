@@ -113,6 +113,7 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
               regisStatusMember3: registerStatus.member3,
               submitRegister: registerStatus.submitRegister,
               verificationStatus: round1Verification.status,
+              verificationTime: round1Verification.verifiedAt,
             })
             .from(teams)
             .leftJoin(registerStatus, eq(registerStatus.teamId, teams.id))

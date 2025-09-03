@@ -25,6 +25,7 @@ type Team = Pick<
   regisStatusMember3: (typeof registerStatusEnum.enumValues)[number] | null
   submitRegister: Date | null
   verificationStatus: "DONE" | "NOT_DONE" | null
+  verificationTime: Date | null
 }
 
 const columnHelper = createColumnHelper<Team>()
@@ -272,35 +273,49 @@ export const columns = [
     header: "Verify",
     cell: ({ row }) => {
       const status = row.original.verificationStatus
+      const verificationTime = row.original.verificationTime
 
       if (status === null) {
-        // No verification found - show empty checkbox
         return (
-          <div className="flex items-center justify-center">
+          <div className="flex flex-col items-center justify-center gap-1">
             <div className="h-4 w-4 rounded border border-gray-300 bg-white" />
-          </div>
-        )
-      } else if (status === "NOT_DONE") {
-        // Verification exists but not done - show gray checkbox with white mark
-        return (
-          <div className="flex items-center justify-center">
-            <div className="flex h-4 w-4 items-center justify-center rounded border border-gray-300 bg-gray-400">
-              <CheckIcon className="h-3 w-3 text-white" />
-            </div>
-          </div>
-        )
-      } else if (status === "DONE") {
-        // Verification done - show green checkbox with white mark
-        return (
-          <div className="flex items-center justify-center">
-            <div className="flex h-4 w-4 items-center justify-center rounded border border-gray-300 bg-green-500">
-              <CheckIcon className="h-3 w-3 text-white" />
-            </div>
           </div>
         )
       }
 
-      return null
+      const getCheckboxStyle = () => {
+        switch (status) {
+          case "NOT_DONE":
+            return "bg-gray-400"
+          case "DONE":
+            return "bg-green-500"
+          default:
+            return "bg-white"
+        }
+      }
+
+      const getTimeColor = () => {
+        switch (status) {
+          case "NOT_DONE":
+            return "text-gray-500"
+          case "DONE":
+            return "text-green-600"
+          default:
+            return "text-gray-500"
+        }
+      }
+
+      return (
+        <div className="flex flex-col items-center justify-center gap-1">
+          <div
+            className={`flex h-4 w-4 items-center justify-center rounded border border-gray-300 ${getCheckboxStyle()}`}>
+            {status !== null && <CheckIcon className="h-3 w-3 text-white" />}
+          </div>
+          {verificationTime && (
+            <RelativeTimeCard date={verificationTime} className={`text-xs ${getTimeColor()}`} />
+          )}
+        </div>
+      )
     },
     enableSorting: false,
     enableColumnFilter: true,

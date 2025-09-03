@@ -37,7 +37,7 @@ export const submitRound1Verification = protectedProcedure
         notes: input.notes || null,
         status: input.status,
         verifiedBy: context.session.user.id,
-        verifiedAt: input.status === "DONE" ? new Date() : null,
+        verifiedAt: new Date(), // Always set timestamp when verification is created/updated
         updatedAt: new Date(),
       }
 
