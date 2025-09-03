@@ -7,6 +7,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import MultipleSelector from "@/components/ui/multiselect"
+import { RelativeTimeCard } from "@/components/ui/relative-time-card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { cacheUtils } from "@/lib/cache"
@@ -67,6 +68,26 @@ type VerifyFormProps = {
   id: string
   defaultValues?: FormValues
   closeDialog?: () => void
+  verificationData?: {
+    id: string
+    teamId: string
+    adviser: string[] | null
+    member1: string[] | null
+    member2: string[] | null
+    member3: string[] | null
+    notes: string | null
+    status: "DONE" | "NOT_DONE"
+    verifiedBy: string | null
+    verifiedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    userInfo?: {
+      id: string
+      name: string
+      displayUsername: string | null
+      username: string | null
+    } | null
+  }
 }
 
 function VerifyForm(props: VerifyFormProps) {
@@ -118,6 +139,31 @@ function VerifyForm(props: VerifyFormProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        {/* Show updater info and last update time if data exists */}
+        {props.defaultValues && props.verificationData && (
+          <div className="text-muted-foreground bg-muted/50 mb-4 space-y-2 rounded-lg border p-3 text-sm">
+            <div className="flex items-center justify-between">
+              <span>Last updated by:</span>
+              <span className="font-medium">
+                {props.verificationData.userInfo?.displayUsername ||
+                  props.verificationData.userInfo?.username ||
+                  props.verificationData.userInfo?.name ||
+                  "Unknown"}
+              </span>
+            </div>
+            {props.verificationData.updatedAt && (
+              <div className="flex items-center justify-between">
+                <span>Last updated:</span>
+                <RelativeTimeCard
+                  date={new Date(props.verificationData.updatedAt)}
+                  variant="ghost"
+                  type="button"
+                />
+              </div>
+            )}
+          </div>
+        )}
+
         <FormField
           control={form.control}
           name="adviser"
@@ -311,7 +357,7 @@ function VerifyFormParent(props: VerifyFormProps) {
       }
     : undefined
 
-  return <VerifyForm {...props} defaultValues={defaultValues} />
+  return <VerifyForm {...props} defaultValues={defaultValues} verificationData={data || undefined} />
 }
 
 export { VerifyFormParent }

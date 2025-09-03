@@ -2,7 +2,7 @@
 
 import { protectedActionContext } from "@/lib/orpc/actionable"
 import { protectedProcedure } from "@/lib/orpc/procedures"
-import { db, round1Verification } from "@workspace/db"
+import { db, round1Verification, user } from "@workspace/db"
 import { eq } from "@workspace/db/orm"
 import { z } from "zod"
 
@@ -99,8 +99,31 @@ export const getRound1Verification = protectedProcedure
         }
       }
 
+      const verificationData = verification[0]
+
+      let userInfo = null
+      if (verificationData.verifiedBy) {
+        const userData = await db
+          .select({
+            id: user.id,
+            name: user.name,
+            displayUsername: user.displayUsername,
+            username: user.username,
+          })
+          .from(user)
+          .where(eq(user.id, verificationData.verifiedBy))
+          .limit(1)
+
+        if (userData.length > 0) {
+          userInfo = userData[0]
+        }
+      }
+
       return {
-        verification: verification[0],
+        verification: {
+          ...verificationData,
+          userInfo,
+        },
       }
     } catch (error) {
       console.error("Error fetching verification:", error)
