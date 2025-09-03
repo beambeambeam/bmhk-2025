@@ -2,7 +2,8 @@
 
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import MultipleSelector, { Option } from "@/components/ui/multiselect"
+import MultipleSelector from "@/components/ui/multiselect"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -73,6 +74,7 @@ const formSchema = z.object({
     })
   ),
   notes: z.string().optional(),
+  status: z.string(),
 })
 
 type FormValues = z.infer<typeof formSchema>
@@ -200,6 +202,29 @@ function VerifyForm(_props: VerifyFormProps) {
               <FormLabel>หมายเหตุ</FormLabel>
               <FormControl>
                 <Textarea className="h-50" placeholder="Enter additional notes..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="status"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>สถานะ</FormLabel>
+              <FormControl>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="สถานะ" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="DONE">ผ่าน</SelectItem>
+                    <SelectItem value="NOT_DONE">ยังไม่ผ่าน</SelectItem>
+                  </SelectContent>
+                </Select>
               </FormControl>
               <FormMessage />
             </FormItem>
