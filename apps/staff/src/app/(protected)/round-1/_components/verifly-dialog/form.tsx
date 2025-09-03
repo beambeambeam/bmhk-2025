@@ -1,17 +1,16 @@
 "use client"
 
+import { submitRound1Verification } from "@/app/(protected)/round-1/_components/verifly-dialog/action"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import MultipleSelector from "@/components/ui/multiselect"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { isDefinedError, onError, onSuccess } from "@orpc/client"
+import { useServerAction } from "@orpc/react/hooks"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-
-type VerifyFormProps = {
-  id: string
-}
 
 const memberOptions = [
   {
@@ -54,28 +53,51 @@ const formSchema = z.object({
   member2: z.array(z.string()),
   member3: z.array(z.string()),
   notes: z.string(),
-  status: z.string(),
+  status: z.enum(["DONE", "NOT_DONE"]),
 })
 
 type FormValues = z.infer<typeof formSchema>
 
-function VerifyForm(_props: VerifyFormProps) {
+type VerifyFormProps = {
+  id: string
+  defaultValues?: FormValues
+}
+
+function VerifyForm(props: VerifyFormProps) {
+  const { execute, isPending } = useServerAction(submitRound1Verification, {
+    interceptors: [
+      onError((error) => {
+        if (isDefinedError(error)) {
+          console.error("Verification failed:", error)
+        }
+        console.error("Verification failed:", error)
+      }),
+      onSuccess(async (success) => {
+        console.log(success)
+      }),
+    ],
+  })
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      adviser: [],
-      member1: [],
-      member2: [],
-      member3: [],
-      notes: "",
-      status: "NOT_DONE",
+      adviser: props.defaultValues?.adviser ?? [],
+      member1: props.defaultValues?.member1 ?? [],
+      member2: props.defaultValues?.member2 ?? [],
+      member3: props.defaultValues?.member3 ?? [],
+      notes: props.defaultValues?.notes ?? "",
+      status: props.defaultValues?.status ?? "NOT_DONE",
     },
     mode: "onChange",
     reValidateMode: "onChange",
+    disabled: isPending,
   })
 
-  function onSubmit(values: FormValues) {
-    console.log("Form values:", values)
+  async function onSubmit(values: FormValues) {
+    execute({
+      teamId: props.id,
+      ...values,
+    })
   }
 
   return (
@@ -89,6 +111,7 @@ function VerifyForm(_props: VerifyFormProps) {
               <FormLabel>Adviser</FormLabel>
               <FormControl>
                 <MultipleSelector
+                  {...field}
                   commandProps={{
                     label: "Select problems",
                   }}
@@ -115,6 +138,7 @@ function VerifyForm(_props: VerifyFormProps) {
               <FormLabel>Member 1</FormLabel>
               <FormControl>
                 <MultipleSelector
+                  {...field}
                   commandProps={{
                     label: "Select problems",
                   }}
@@ -141,6 +165,7 @@ function VerifyForm(_props: VerifyFormProps) {
               <FormLabel>Member 2</FormLabel>
               <FormControl>
                 <MultipleSelector
+                  {...field}
                   commandProps={{
                     label: "Select problems",
                   }}
@@ -167,6 +192,7 @@ function VerifyForm(_props: VerifyFormProps) {
               <FormLabel>Member 3</FormLabel>
               <FormControl>
                 <MultipleSelector
+                  {...field}
                   commandProps={{
                     label: "Select problems",
                   }}
@@ -232,7 +258,11 @@ function VerifyForm(_props: VerifyFormProps) {
           }}
         />
 
-        <Button type="submit" className="mt-4" disabled={!form.formState.isValid || !form.formState.isDirty}>
+        <Button
+          type="submit"
+          className="mt-4"
+          disabled={!form.formState.isValid || !form.formState.isDirty || isPending}
+          variant="outline">
           Submit Verification
         </Button>
       </form>
