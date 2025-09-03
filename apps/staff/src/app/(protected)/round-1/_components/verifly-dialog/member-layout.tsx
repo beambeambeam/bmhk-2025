@@ -48,54 +48,34 @@ export function MemberLayout(props: MemberLayoutProps) {
   }
 
   return (
-    <div className="grid min-h-0 lg:grid-cols-[3fr_1fr]">
-      <div className="flex min-h-0 flex-col gap-2 border-r-2 p-4">
-        <h1 className="flex flex-col text-2xl font-bold">
-          <span className="text-4xl">{title}</span>
-        </h1>
-        <Scroller className="flex h-[72vh] flex-col gap-10" hideScrollbar withNavigation>
-          <div className="flex flex-col gap-3">
-            <h2 className="text-muted-foreground text-lg font-bold">Personal Information</h2>
-            {showGuardian ? (
-              <div className="grid w-full grid-cols-1 items-start gap-4 lg:grid-cols-[180px_1fr]">
-                <div className="flex w-full flex-col gap-2">
-                  <Label>Face Picture</Label>
-                  <div className="rounded-lg border p-2">
-                    {member.facePic ? (
-                      <img
-                        src={member.facePic.url}
-                        alt={member.facePic.name}
-                        className="h-[240px] w-full rounded object-contain md:h-[200px] lg:h-[180px] lg:w-[160px]"
-                      />
-                    ) : (
-                      <div className="text-muted-foreground">No face picture</div>
-                    )}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-3">
-                  <div className="flex w-full flex-col gap-2">
-                    <Label>English Name</Label>
-                    <div className="rounded-lg border p-2 px-3">
-                      {member.prefix} {member.firstName} {member.middleName ? `${member.middleName} ` : ""}
-                      {member.lastname}
-                    </div>
-                  </div>
-                  <div className="flex w-full flex-col gap-2">
-                    <Label>Thai Name</Label>
-                    <div className="rounded-lg border p-2 px-3">
-                      {mapPrefixToThai(member.prefix)} {member.thaiFirstname}{" "}
-                      {member.thaiMiddlename ? `${member.thaiMiddlename} ` : ""}
-                      {member.thaiLastname}
-                    </div>
-                  </div>
+    <div className="flex min-h-0 flex-col gap-2 p-4">
+      <h1 className="flex flex-col text-2xl font-bold">
+        <span className="text-4xl">{title}</span>
+      </h1>
+      <Scroller className="flex h-[72vh] flex-col gap-10" hideScrollbar withNavigation>
+        <div className="flex flex-col gap-3">
+          <h2 className="text-muted-foreground text-lg font-bold">Personal Information</h2>
+          {showGuardian ? (
+            <div className="grid w-full grid-cols-1 items-start gap-4 lg:grid-cols-[180px_1fr]">
+              <div className="flex w-full flex-col gap-2">
+                <Label>Face Picture</Label>
+                <div className="rounded-lg border p-2">
+                  {member.facePic ? (
+                    <img
+                      src={member.facePic.url}
+                      alt={member.facePic.name}
+                      className="h-[240px] w-full rounded object-contain md:h-[200px] lg:h-[180px] lg:w-[160px]"
+                    />
+                  ) : (
+                    <div className="text-muted-foreground">No face picture</div>
+                  )}
                 </div>
               </div>
-            ) : (
               <div className="flex flex-col gap-3">
                 <div className="flex w-full flex-col gap-2">
                   <Label>English Name</Label>
                   <div className="rounded-lg border p-2 px-3">
-                    {member.firstName} {member.middleName ? `${member.middleName} ` : ""}
+                    {member.prefix} {member.firstName} {member.middleName ? `${member.middleName} ` : ""}
                     {member.lastname}
                   </div>
                 </div>
@@ -108,81 +88,96 @@ export function MemberLayout(props: MemberLayoutProps) {
                   </div>
                 </div>
               </div>
-            )}
-            <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-3">
+            </div>
+          ) : (
+            <div className="flex flex-col gap-3">
               <div className="flex w-full flex-col gap-2">
-                <Label>Food Allergy</Label>
-                <div className="rounded-lg border p-2 px-3">{member.foodAllergy || "None"}</div>
+                <Label>English Name</Label>
+                <div className="rounded-lg border p-2 px-3">
+                  {member.firstName} {member.middleName ? `${member.middleName} ` : ""}
+                  {member.lastname}
+                </div>
               </div>
               <div className="flex w-full flex-col gap-2">
-                <Label>Food Type</Label>
-                <div className="rounded-lg border p-2 px-3">{member.foodType || "Not specified"}</div>
+                <Label>Thai Name</Label>
+                <div className="rounded-lg border p-2 px-3">
+                  {mapPrefixToThai(member.prefix)} {member.thaiFirstname}{" "}
+                  {member.thaiMiddlename ? `${member.thaiMiddlename} ` : ""}
+                  {member.thaiLastname}
+                </div>
               </div>
-              <div className="flex w-full flex-col gap-2">
-                <Label>Drug Allergy</Label>
-                <div className="rounded-lg border p-2 px-3">{member.drugAllergy || "None"}</div>
-              </div>
+            </div>
+          )}
+          <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-3">
+            <div className="flex w-full flex-col gap-2">
+              <Label>Food Allergy</Label>
+              <div className="rounded-lg border p-2 px-3">{member.foodAllergy || "None"}</div>
             </div>
             <div className="flex w-full flex-col gap-2">
-              <Label>Chronic Disease</Label>
-              <div className="rounded-lg border p-2 px-3">{member.chronicDisease || "None"}</div>
+              <Label>Food Type</Label>
+              <div className="rounded-lg border p-2 px-3">{member.foodType || "Not specified"}</div>
+            </div>
+            <div className="flex w-full flex-col gap-2">
+              <Label>Drug Allergy</Label>
+              <div className="rounded-lg border p-2 px-3">{member.drugAllergy || "None"}</div>
             </div>
           </div>
-          <Separator />
-          <div className="flex flex-col gap-3">
-            <h2 className="text-muted-foreground text-lg font-bold">Contact</h2>
-            <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-3">
-              <div className="flex w-full flex-col gap-2">
-                <Label>Email</Label>
-                <div className="rounded-lg border p-2 px-3">{member.email}</div>
-              </div>
-              <div className="flex w-full flex-col gap-2">
-                <Label>Phone Number</Label>
-                <div className="rounded-lg border p-2 px-3">{formatPhone(member.phoneNumber)}</div>
-              </div>
-              <div className="flex w-full flex-col gap-2">
-                <Label>Line ID</Label>
-                <div className="rounded-lg border p-2 px-3">
-                  {member.lineId ? member.lineId : "No Line Id"}
+          <div className="flex w-full flex-col gap-2">
+            <Label>Chronic Disease</Label>
+            <div className="rounded-lg border p-2 px-3">{member.chronicDisease || "None"}</div>
+          </div>
+        </div>
+        <Separator />
+        <div className="flex flex-col gap-3">
+          <h2 className="text-muted-foreground text-lg font-bold">Contact</h2>
+          <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-3">
+            <div className="flex w-full flex-col gap-2">
+              <Label>Email</Label>
+              <div className="rounded-lg border p-2 px-3">{member.email}</div>
+            </div>
+            <div className="flex w-full flex-col gap-2">
+              <Label>Phone Number</Label>
+              <div className="rounded-lg border p-2 px-3">{formatPhone(member.phoneNumber)}</div>
+            </div>
+            <div className="flex w-full flex-col gap-2">
+              <Label>Line ID</Label>
+              <div className="rounded-lg border p-2 px-3">{member.lineId ? member.lineId : "No Line Id"}</div>
+            </div>
+          </div>
+        </div>
+        <Separator />
+        {showGuardian && (
+          <>
+            <div className="flex flex-col gap-3">
+              <h2 className="text-muted-foreground text-lg font-bold">Guardian</h2>
+              <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-2">
+                <div className="flex w-full flex-col gap-2">
+                  <Label>Parent Name</Label>
+                  <div className="rounded-lg border p-2 px-3">{member.parent}</div>
+                </div>
+                <div className="flex w-full flex-col gap-2">
+                  <Label>Parent Phone Number</Label>
+                  <div className="rounded-lg border p-2 px-3">{formatPhone(member.parentPhoneNumber)}</div>
                 </div>
               </div>
             </div>
+            <Separator />
+          </>
+        )}
+        <div className="">
+          <h2 className="text-muted-foreground text-lg font-bold">Files</h2>
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            {/* Face picture moved to Personal Information */}
+            {member.nationalDoc && <FilePreview label="National Document" file={member.nationalDoc} />}
+            {member.teacherDoc && <FilePreview label="Teacher Document" file={member.teacherDoc} />}
+            {member.p7Doc && <FilePreview label="P7 Document" file={member.p7Doc} />}
+            {!member.nationalDoc && !member.teacherDoc && !member.p7Doc && (
+              <div className="text-muted-foreground">No files uploaded</div>
+            )}
           </div>
-          <Separator />
-          {showGuardian && (
-            <>
-              <div className="flex flex-col gap-3">
-                <h2 className="text-muted-foreground text-lg font-bold">Guardian</h2>
-                <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-2">
-                  <div className="flex w-full flex-col gap-2">
-                    <Label>Parent Name</Label>
-                    <div className="rounded-lg border p-2 px-3">{member.parent}</div>
-                  </div>
-                  <div className="flex w-full flex-col gap-2">
-                    <Label>Parent Phone Number</Label>
-                    <div className="rounded-lg border p-2 px-3">{formatPhone(member.parentPhoneNumber)}</div>
-                  </div>
-                </div>
-              </div>
-              <Separator />
-            </>
-          )}
-          <div className="">
-            <h2 className="text-muted-foreground text-lg font-bold">Files</h2>
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-              {/* Face picture moved to Personal Information */}
-              {member.nationalDoc && <FilePreview label="National Document" file={member.nationalDoc} />}
-              {member.teacherDoc && <FilePreview label="Teacher Document" file={member.teacherDoc} />}
-              {member.p7Doc && <FilePreview label="P7 Document" file={member.p7Doc} />}
-              {!member.nationalDoc && !member.teacherDoc && !member.p7Doc && (
-                <div className="text-muted-foreground">No files uploaded</div>
-              )}
-            </div>
-          </div>
-          <Separator />
-        </Scroller>
-      </div>
-      {props.children}
+        </div>
+        <Separator />
+      </Scroller>
     </div>
   )
 }
@@ -191,66 +186,62 @@ export default MemberLayout
 
 export function MemberSkeleton({ title }: { title: string }) {
   return (
-    <div className="grid min-h-0 lg:grid-cols-[3fr_1fr]">
-      <div className="flex min-h-0 flex-col gap-2 p-4">
-        <h1 className="flex flex-col text-2xl font-bold">
-          <span className="text-4xl">{title}</span>
-        </h1>
-        <div className="flex h-[72vh] flex-col gap-10">
-          <div className="flex flex-col gap-3">
-            <div className="bg-muted h-5 w-40 animate-pulse rounded" />
-            <div className="grid w-full grid-cols-1 items-start gap-4 lg:grid-cols-[180px_1fr]">
+    <div className="flex min-h-0 flex-col gap-2 p-4">
+      <h1 className="flex flex-col text-2xl font-bold">
+        <span className="text-4xl">{title}</span>
+      </h1>
+      <div className="flex h-[72vh] flex-col gap-10">
+        <div className="flex flex-col gap-3">
+          <div className="bg-muted h-5 w-40 animate-pulse rounded" />
+          <div className="grid w-full grid-cols-1 items-start gap-4 lg:grid-cols-[180px_1fr]">
+            <div className="flex w-full flex-col gap-2">
+              <div className="bg-muted h-4 w-24 animate-pulse rounded" />
+              <div className="bg-muted h-[240px] w-full animate-pulse rounded-lg border md:h-[200px] lg:h-[180px] lg:w-[160px]" />
+            </div>
+            <div className="flex flex-col gap-3">
               <div className="flex w-full flex-col gap-2">
                 <div className="bg-muted h-4 w-24 animate-pulse rounded" />
-                <div className="bg-muted h-[240px] w-full animate-pulse rounded-lg border md:h-[200px] lg:h-[180px] lg:w-[160px]" />
+                <div className="bg-muted h-9 w-full animate-pulse rounded-lg border" />
               </div>
-              <div className="flex flex-col gap-3">
-                <div className="flex w-full flex-col gap-2">
-                  <div className="bg-muted h-4 w-24 animate-pulse rounded" />
-                  <div className="bg-muted h-9 w-full animate-pulse rounded-lg border" />
-                </div>
-                <div className="flex w-full flex-col gap-2">
-                  <div className="bg-muted h-4 w-24 animate-pulse rounded" />
-                  <div className="bg-muted h-9 w-full animate-pulse rounded-lg border" />
-                </div>
+              <div className="flex w-full flex-col gap-2">
+                <div className="bg-muted h-4 w-24 animate-pulse rounded" />
+                <div className="bg-muted h-9 w-full animate-pulse rounded-lg border" />
               </div>
             </div>
-            <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-3">
-              {[0, 1, 2].map((i) => (
-                <div key={i} className="flex w-full flex-col gap-2">
-                  <div className="bg-muted h-4 w-24 animate-pulse rounded" />
-                  <div className="bg-muted h-9 w-full animate-pulse rounded-lg border" />
-                </div>
-              ))}
-            </div>
-            <div className="flex w-full flex-col gap-2">
-              <div className="bg-muted h-4 w-32 animate-pulse rounded" />
-              <div className="bg-muted h-9 w-full animate-pulse rounded-lg border" />
-            </div>
           </div>
-          <div className="flex flex-col gap-3">
-            <div className="bg-muted h-5 w-24 animate-pulse rounded" />
-            <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-3">
-              {[0, 1, 2].map((i) => (
-                <div key={i} className="flex w-full flex-col gap-2">
-                  <div className="bg-muted h-4 w-24 animate-pulse rounded" />
-                  <div className="bg-muted h-9 w-full animate-pulse rounded-lg border" />
-                </div>
-              ))}
-            </div>
+          <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-3">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="flex w-full flex-col gap-2">
+                <div className="bg-muted h-4 w-24 animate-pulse rounded" />
+                <div className="bg-muted h-9 w-full animate-pulse rounded-lg border" />
+              </div>
+            ))}
           </div>
-          <div className="">
-            <div className="bg-muted h-5 w-16 animate-pulse rounded" />
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-              {[0, 1].map((i) => (
-                <div key={i} className="bg-muted h-40 w-full animate-pulse rounded-lg border" />
-              ))}
-            </div>
+          <div className="flex w-full flex-col gap-2">
+            <div className="bg-muted h-4 w-32 animate-pulse rounded" />
+            <div className="bg-muted h-9 w-full animate-pulse rounded-lg border" />
+          </div>
+        </div>
+        <div className="flex flex-col gap-3">
+          <div className="bg-muted h-5 w-24 animate-pulse rounded" />
+          <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-3">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="flex w-full flex-col gap-2">
+                <div className="bg-muted h-4 w-24 animate-pulse rounded" />
+                <div className="bg-muted h-9 w-full animate-pulse rounded-lg border" />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="">
+          <div className="bg-muted h-5 w-16 animate-pulse rounded" />
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            {[0, 1].map((i) => (
+              <div key={i} className="bg-muted h-40 w-full animate-pulse rounded-lg border" />
+            ))}
           </div>
         </div>
       </div>
-      {/* Right side slot skeleton */}
-      <div className="hidden lg:block" />
     </div>
   )
 }

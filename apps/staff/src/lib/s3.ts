@@ -1,14 +1,6 @@
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 
-const requiredEnv = ["S3_ACCESS_KEY_ID", "S3_SECRET_KEY", "S3_ENDPOINT", "S3_BUCKET_NAME"] as const
-
-for (const key of requiredEnv) {
-  if (!process.env[key]) {
-    throw new Error(`Missing required env: ${key}`)
-  }
-}
-
 export const s3Client = new S3Client({
   region: "auto",
   endpoint: process.env.S3_ENDPOINT!,

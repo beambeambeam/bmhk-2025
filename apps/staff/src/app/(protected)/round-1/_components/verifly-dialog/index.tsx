@@ -53,36 +53,35 @@ function VerifyDialog(props: VerifyDialogProps) {
               This action cannot be undone. This will permanently delete your account and remove your data
               from our servers.
             </DialogDescription>
-            <Tabs
-              defaultValue="team"
-              className="h-full min-h-0 w-[80vw]"
-              value={tab}
-              onValueChange={onTabChange}>
-              <div className="overflow-auto overflow-y-hidden">
-                <TabsList>
-                  <TabsTrigger value="team">Team</TabsTrigger>
-                  <TabsTrigger value="adviser">Adviser</TabsTrigger>
-                  <TabsTrigger value="member 1">Member 1</TabsTrigger>
-                  <TabsTrigger value="member 2">Member 2</TabsTrigger>
-                  <TabsTrigger value="member 3">Member 3</TabsTrigger>
-                </TabsList>
-              </div>
-              <TabsContent value="team">
-                <TeamDisplay />
-              </TabsContent>
-              <TabsContent value="adviser">
-                <AdviserDisplay />
-              </TabsContent>
-              <TabsContent value="member 1">
-                <Member1Display />
-              </TabsContent>
-              <TabsContent value="member 2">
-                <Member2Display />
-              </TabsContent>
-              <TabsContent value="member 3">
-                <Member3Display />
-              </TabsContent>
-            </Tabs>
+            <div className="grid h-full min-h-0 w-[80vw] grid-cols-[3fr_1fr]">
+              <Tabs defaultValue="team" className="h-full min-h-0" value={tab} onValueChange={onTabChange}>
+                <div className="overflow-auto overflow-y-hidden">
+                  <TabsList>
+                    <TabsTrigger value="team">Team</TabsTrigger>
+                    <TabsTrigger value="adviser">Adviser</TabsTrigger>
+                    <TabsTrigger value="member 1">Member 1</TabsTrigger>
+                    <TabsTrigger value="member 2">Member 2</TabsTrigger>
+                    <TabsTrigger value="member 3">Member 3</TabsTrigger>
+                  </TabsList>
+                </div>
+                <TabsContent value="team" className="mt-0">
+                  <TeamDisplay />
+                </TabsContent>
+                <TabsContent value="adviser" className="mt-0">
+                  <AdviserDisplay />
+                </TabsContent>
+                <TabsContent value="member 1" className="mt-0">
+                  <Member1Display />
+                </TabsContent>
+                <TabsContent value="member 2" className="mt-0">
+                  <Member2Display />
+                </TabsContent>
+                <TabsContent value="member 3" className="mt-0">
+                  <Member3Display />
+                </TabsContent>
+              </Tabs>
+              <div className="border-l-2 p-4">{props.form}</div>
+            </div>
           </DialogHeader>
         </DialogContent>
       </Dialog>
