@@ -2,7 +2,7 @@
 
 import { GetRound1TeamsSchema } from "@/app/(protected)/round-1/_components/team-table/validations"
 import { unstable_cache } from "@/lib/unstable-cache"
-import { db, teams, registerStatus, round1Verification } from "@workspace/db"
+import { db, teams, registerStatus, round1Verification, user } from "@workspace/db"
 import { and, asc, count, ilike, eq, or, lte, gte, isNotNull, isNull } from "@workspace/db/orm"
 
 export async function getRound1Teams(input: GetRound1TeamsSchema) {
@@ -114,10 +114,13 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
               submitRegister: registerStatus.submitRegister,
               verificationStatus: round1Verification.status,
               verificationTime: round1Verification.verifiedAt,
+              verifiedBy: round1Verification.verifiedBy,
+              verifiedByUsername: user.name,
             })
             .from(teams)
             .leftJoin(registerStatus, eq(registerStatus.teamId, teams.id))
             .leftJoin(round1Verification, eq(round1Verification.teamId, teams.id))
+            .leftJoin(user, eq(user.id, round1Verification.verifiedBy))
             .limit(input.perPage)
             .offset(offset)
             .where(baseWhere)

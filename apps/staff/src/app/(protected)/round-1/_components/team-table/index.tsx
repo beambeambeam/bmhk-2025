@@ -14,6 +14,8 @@ interface Round1TeamTableProps {
 function Round1TeamTable({ promises }: Round1TeamTableProps) {
   const [{ data, pageCount }] = use(promises)
 
+  console.log(data)
+
   const { table } = useDataTable({
     data,
     columns,

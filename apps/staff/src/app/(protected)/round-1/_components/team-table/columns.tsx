@@ -26,6 +26,7 @@ type Team = Pick<
   submitRegister: Date | null
   verificationStatus: "DONE" | "NOT_DONE" | null
   verificationTime: Date | null
+  verifiedByUsername: string | null
 }
 
 const columnHelper = createColumnHelper<Team>()
@@ -274,6 +275,7 @@ export const columns = [
     cell: ({ row }) => {
       const status = row.original.verificationStatus
       const verificationTime = row.original.verificationTime
+      const verifiedByUsername = row.original.verifiedByUsername
 
       if (status === null) {
         return (
@@ -312,7 +314,12 @@ export const columns = [
             {status !== null && <CheckIcon className="h-3 w-3 text-white" />}
           </div>
           {verificationTime && (
-            <RelativeTimeCard date={verificationTime} className={`text-xs ${getTimeColor()}`} />
+            <>
+              <RelativeTimeCard date={verificationTime} className={`text-xs ${getTimeColor()}`} />
+              {verifiedByUsername && (
+                <span className={`text-xs ${getTimeColor()} opacity-75`}>by {verifiedByUsername}</span>
+              )}
+            </>
           )}
         </div>
       )
