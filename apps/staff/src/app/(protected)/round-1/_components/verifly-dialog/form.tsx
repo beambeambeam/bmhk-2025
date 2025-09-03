@@ -1,8 +1,12 @@
 "use client"
 
-import { Label } from "@/components/ui/label"
-import MultipleSelector from "@/components/ui/multiselect"
+import { Button } from "@/components/ui/button"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import MultipleSelector, { Option } from "@/components/ui/multiselect"
 import { Textarea } from "@/components/ui/textarea"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 
 type VerifyFormProps = {
   id: string
@@ -27,73 +31,187 @@ const memberOptions = [
   },
 ]
 
+const adviserOptions = [
+  {
+    label: "ข้อมูลไม่ตรง",
+    value: "data-mismatch",
+  },
+  {
+    label: "บัตรประชาชนมีบัญหา",
+    value: "id-card-problem",
+  },
+  {
+    label: "บัตรอาจารย์มีบัญหา",
+    value: "teacher-card-problem",
+  },
+]
+
+// Define the form schema using Zod
+const formSchema = z.object({
+  adviser: z.array(
+    z.object({
+      value: z.string(),
+      label: z.string(),
+    })
+  ),
+  member1: z.array(
+    z.object({
+      value: z.string(),
+      label: z.string(),
+    })
+  ),
+  member2: z.array(
+    z.object({
+      value: z.string(),
+      label: z.string(),
+    })
+  ),
+  member3: z.array(
+    z.object({
+      value: z.string(),
+      label: z.string(),
+    })
+  ),
+  notes: z.string().optional(),
+})
+
+type FormValues = z.infer<typeof formSchema>
+
 function VerifyForm(_props: VerifyFormProps) {
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      adviser: [],
+      member1: [],
+      member2: [],
+      member3: [],
+      notes: "",
+    },
+  })
+
+  function onSubmit(values: FormValues) {
+    console.log("Form values:", values)
+  }
+
   return (
-    <div className="flex flex-col gap-4">
-      <Label>Adviser</Label>
-      <MultipleSelector
-        commandProps={{
-          label: "Select problems",
-        }}
-        placeholder="Select problems"
-        hideClearAllButton
-        hidePlaceholderWhenSelected
-        emptyIndicator={<p className="text-center text-sm">No problems found</p>}
-        options={[
-          {
-            label: "ข้อมูลไม่ตรง",
-            value: "data-mismatch",
-          },
-          // {
-          //   label: "ปพ.7 มีปัญหา",
-          //   value: "p7-problem",
-          // },
-          {
-            label: "บัตรประชาชนมีบัญหา",
-            value: "id-card-problem",
-          },
-          {
-            label: "บัตรอาจารย์มีบัญหา",
-            value: "teacher-card-problem",
-          },
-        ]}
-      />
-      <Label>Member 1</Label>
-      <MultipleSelector
-        commandProps={{
-          label: "Select problems",
-        }}
-        placeholder="Select problems"
-        hideClearAllButton
-        hidePlaceholderWhenSelected
-        emptyIndicator={<p className="text-center text-sm">No problems found</p>}
-        options={memberOptions}
-      />
-      <Label>Member 2</Label>
-      <MultipleSelector
-        commandProps={{
-          label: "Select problems",
-        }}
-        placeholder="Select problems"
-        hideClearAllButton
-        hidePlaceholderWhenSelected
-        emptyIndicator={<p className="text-center text-sm">No problems found</p>}
-        options={memberOptions}
-      />
-      <Label>Member 3</Label>
-      <MultipleSelector
-        commandProps={{
-          label: "Select problems",
-        }}
-        placeholder="Select problems"
-        hideClearAllButton
-        hidePlaceholderWhenSelected
-        emptyIndicator={<p className="text-center text-sm">No problems found</p>}
-        options={memberOptions}
-      />
-      <Label>หมายเหตุ</Label>
-      <Textarea className="h-50" />
-    </div>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <FormField
+          control={form.control}
+          name="adviser"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Adviser</FormLabel>
+              <FormControl>
+                <MultipleSelector
+                  commandProps={{
+                    label: "Select problems",
+                  }}
+                  placeholder="Select problems"
+                  hideClearAllButton
+                  hidePlaceholderWhenSelected
+                  emptyIndicator={<p className="text-center text-sm">No problems found</p>}
+                  options={adviserOptions}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="member1"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Member 1</FormLabel>
+              <FormControl>
+                <MultipleSelector
+                  commandProps={{
+                    label: "Select problems",
+                  }}
+                  placeholder="Select problems"
+                  hideClearAllButton
+                  hidePlaceholderWhenSelected
+                  emptyIndicator={<p className="text-center text-sm">No problems found</p>}
+                  options={memberOptions}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="member2"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Member 2</FormLabel>
+              <FormControl>
+                <MultipleSelector
+                  commandProps={{
+                    label: "Select problems",
+                  }}
+                  placeholder="Select problems"
+                  hideClearAllButton
+                  hidePlaceholderWhenSelected
+                  emptyIndicator={<p className="text-center text-sm">No problems found</p>}
+                  options={memberOptions}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="member3"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Member 3</FormLabel>
+              <FormControl>
+                <MultipleSelector
+                  commandProps={{
+                    label: "Select problems",
+                  }}
+                  placeholder="Select problems"
+                  hideClearAllButton
+                  hidePlaceholderWhenSelected
+                  emptyIndicator={<p className="text-center text-sm">No problems found</p>}
+                  options={memberOptions}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="notes"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>หมายเหตุ</FormLabel>
+              <FormControl>
+                <Textarea className="h-50" placeholder="Enter additional notes..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button type="submit" className="mt-4">
+          Submit Verification
+        </Button>
+      </form>
+    </Form>
   )
 }
+
 export default VerifyForm
