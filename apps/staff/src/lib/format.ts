@@ -12,3 +12,12 @@ export function formatDate(date: Date | string | number | undefined, opts: Intl.
     return ""
   }
 }
+
+export function mapPrefixToThai(prefix?: string | null) {
+  if (!prefix) return ""
+  const upper = prefix.toUpperCase()
+  if (upper === "MR") return "นาย"
+  if (upper === "MS") return "นางสาว"
+  if (upper === "MRS") return "นาง"
+  return prefix
+}

@@ -3,6 +3,7 @@
 import { Label } from "@/components/ui/label"
 import { Scroller } from "@/components/ui/scroller"
 import { Separator } from "@/components/ui/separator"
+import { mapPrefixToThai } from "@/lib/format"
 import { ReactNode } from "react"
 
 export interface MemberData {
@@ -82,7 +83,7 @@ export function MemberLayout(props: MemberLayoutProps) {
                   <div className="flex w-full flex-col gap-2">
                     <Label>Thai Name</Label>
                     <div className="rounded-lg border p-2 px-3">
-                      {member.prefix} {member.thaiFirstname}{" "}
+                      {mapPrefixToThai(member.prefix)} {member.thaiFirstname}{" "}
                       {member.thaiMiddlename ? `${member.thaiMiddlename} ` : ""}
                       {member.thaiLastname}
                     </div>
@@ -101,7 +102,7 @@ export function MemberLayout(props: MemberLayoutProps) {
                 <div className="flex w-full flex-col gap-2">
                   <Label>Thai Name</Label>
                   <div className="rounded-lg border p-2 px-3">
-                    {member.prefix} {member.thaiFirstname}{" "}
+                    {mapPrefixToThai(member.prefix)} {member.thaiFirstname}{" "}
                     {member.thaiMiddlename ? `${member.thaiMiddlename} ` : ""}
                     {member.thaiLastname}
                   </div>
