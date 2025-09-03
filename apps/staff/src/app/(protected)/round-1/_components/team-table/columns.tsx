@@ -1,3 +1,4 @@
+import VerifyDialog from "@/app/(protected)/round-1/_components/verifly-dialog"
 import { Button } from "@/components/ui/button"
 import { RelativeTimeCard } from "@/components/ui/relative-time-card"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
@@ -265,6 +266,11 @@ export const columns = [
       placeholder: "Filter by date...",
       variant: "dateRange",
     },
+  }),
+  columnHelper.display({
+    id: "verify",
+    header: "veify",
+    cell: ({ row }) => <VerifyDialog id={row.original.id} />,
   }),
 ]
 
