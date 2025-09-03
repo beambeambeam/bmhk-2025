@@ -40,7 +40,7 @@ export function MemberLayout(props: MemberLayoutProps) {
   const { title, member, showGuardian = true } = props
 
   return (
-    <div className="grid min-h-0 lg:grid-cols-[2fr_1fr]">
+    <div className="grid min-h-0 lg:grid-cols-[3fr_1fr]">
       <div className="flex min-h-0 flex-col gap-2 p-4">
         <h1 className="flex flex-col text-2xl font-bold">
           <span className="text-4xl">{title}</span>
@@ -101,17 +101,19 @@ export function MemberLayout(props: MemberLayoutProps) {
                 </div>
               </div>
             )}
-            <div className="flex w-full flex-col gap-2">
-              <Label>Food Allergy</Label>
-              <div className="rounded-lg border p-2 px-3">{member.foodAllergy || "None"}</div>
-            </div>
-            <div className="flex w-full flex-col gap-2">
-              <Label>Food Type</Label>
-              <div className="rounded-lg border p-2 px-3">{member.foodType || "Not specified"}</div>
-            </div>
-            <div className="flex w-full flex-col gap-2">
-              <Label>Drug Allergy</Label>
-              <div className="rounded-lg border p-2 px-3">{member.drugAllergy || "None"}</div>
+            <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-3">
+              <div className="flex w-full flex-col gap-2">
+                <Label>Food Allergy</Label>
+                <div className="rounded-lg border p-2 px-3">{member.foodAllergy || "None"}</div>
+              </div>
+              <div className="flex w-full flex-col gap-2">
+                <Label>Food Type</Label>
+                <div className="rounded-lg border p-2 px-3">{member.foodType || "Not specified"}</div>
+              </div>
+              <div className="flex w-full flex-col gap-2">
+                <Label>Drug Allergy</Label>
+                <div className="rounded-lg border p-2 px-3">{member.drugAllergy || "None"}</div>
+              </div>
             </div>
             <div className="flex w-full flex-col gap-2">
               <Label>Chronic Disease</Label>
@@ -121,17 +123,21 @@ export function MemberLayout(props: MemberLayoutProps) {
           <Separator />
           <div className="flex flex-col gap-3">
             <h2 className="text-muted-foreground text-lg font-bold">Contact</h2>
-            <div className="flex w-full flex-col gap-2">
-              <Label>Email</Label>
-              <div className="rounded-lg border p-2 px-3">{member.email}</div>
-            </div>
-            <div className="flex w-full flex-col gap-2">
-              <Label>Phone Number</Label>
-              <div className="rounded-lg border p-2 px-3">{member.phoneNumber}</div>
-            </div>
-            <div className="flex w-full flex-col gap-2">
-              <Label>Line ID</Label>
-              <div className="rounded-lg border p-2 px-3">{member.lineId ? member.lineId : "No Line Id"}</div>
+            <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-3">
+              <div className="flex w-full flex-col gap-2">
+                <Label>Email</Label>
+                <div className="rounded-lg border p-2 px-3">{member.email}</div>
+              </div>
+              <div className="flex w-full flex-col gap-2">
+                <Label>Phone Number</Label>
+                <div className="rounded-lg border p-2 px-3">{member.phoneNumber}</div>
+              </div>
+              <div className="flex w-full flex-col gap-2">
+                <Label>Line ID</Label>
+                <div className="rounded-lg border p-2 px-3">
+                  {member.lineId ? member.lineId : "No Line Id"}
+                </div>
+              </div>
             </div>
           </div>
           <Separator />
@@ -139,13 +145,15 @@ export function MemberLayout(props: MemberLayoutProps) {
             <>
               <div className="flex flex-col gap-3">
                 <h2 className="text-muted-foreground text-lg font-bold">Guardian</h2>
-                <div className="flex w-full flex-col gap-2">
-                  <Label>Parent Name</Label>
-                  <div className="rounded-lg border p-2 px-3">{member.parent}</div>
-                </div>
-                <div className="flex w-full flex-col gap-2">
-                  <Label>Parent Phone Number</Label>
-                  <div className="rounded-lg border p-2 px-3">{member.parentPhoneNumber}</div>
+                <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-2">
+                  <div className="flex w-full flex-col gap-2">
+                    <Label>Parent Name</Label>
+                    <div className="rounded-lg border p-2 px-3">{member.parent}</div>
+                  </div>
+                  <div className="flex w-full flex-col gap-2">
+                    <Label>Parent Phone Number</Label>
+                    <div className="rounded-lg border p-2 px-3">{member.parentPhoneNumber}</div>
+                  </div>
                 </div>
               </div>
               <Separator />
@@ -153,7 +161,7 @@ export function MemberLayout(props: MemberLayoutProps) {
           )}
           <div className="">
             <h2 className="text-muted-foreground text-lg font-bold">Files</h2>
-            <div className="flex flex-col gap-4">
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
               {/* Face picture moved to Personal Information */}
               {member.nationalDoc && <FilePreview label="National Document" file={member.nationalDoc} />}
               {member.teacherDoc && <FilePreview label="Teacher Document" file={member.teacherDoc} />}
@@ -163,6 +171,7 @@ export function MemberLayout(props: MemberLayoutProps) {
               )}
             </div>
           </div>
+          <Separator />
         </Scroller>
       </div>
       {props.children}
@@ -193,9 +202,9 @@ function FilePreview({
       <div className="w-full rounded-lg border p-2">
         {isImage(file.type) ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={file.url} alt={file.name} className="max-h-[78vh] w-full rounded object-contain" />
+          <img src={file.url} alt={file.name} className="max-h-[60vh] w-full rounded object-contain" />
         ) : isPdf(file.type) ? (
-          <iframe src={file.url} className="h-[78vh] w-full rounded" title={file.name} />
+          <iframe src={file.url} className="h-[60vh] w-full rounded" title={file.name} />
         ) : (
           <a href={file.url} target="_blank" rel="noreferrer" className="underline">
             View file: {file.name}

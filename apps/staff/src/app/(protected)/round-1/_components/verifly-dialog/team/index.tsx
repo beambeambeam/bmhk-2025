@@ -36,7 +36,7 @@ function TeamDisplay(props: TeamDisplayProps) {
   }
 
   return (
-    <div className="grid lg:grid-cols-[2fr_1fr]">
+    <div className="grid lg:grid-cols-[3fr_1fr]">
       <div className="flex flex-col gap-2 p-4">
         <h1 className="flex flex-col text-2xl font-bold">
           <span className="flex-col">
