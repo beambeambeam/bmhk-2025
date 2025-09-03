@@ -4,7 +4,7 @@ import { formatCodeName } from "@/app/(protected)/round-1/_components/team-table
 import { getTeam } from "@/app/(protected)/round-1/_components/verifly-dialog/lib/queries"
 import { Label } from "@/components/ui/label"
 import { useQuery } from "@tanstack/react-query"
-import { SchoolIcon } from "lucide-react"
+import { SchoolIcon, UsersIcon } from "lucide-react"
 
 interface TeamDisplayProps {
   id: string
@@ -23,7 +23,14 @@ function TeamDisplay(props: TeamDisplayProps) {
   })
 
   if (!data) {
-    return
+    return (
+      <div className="flex h-full items-center justify-center">
+        <div className="text-center">
+          <UsersIcon className="text-muted-foreground mx-auto h-12 w-12" />
+          <p className="text-muted-foreground mt-2">No Team Users data found</p>
+        </div>
+      </div>
+    )
   }
 
   return (
