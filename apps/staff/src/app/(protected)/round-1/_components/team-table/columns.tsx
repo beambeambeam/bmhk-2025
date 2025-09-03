@@ -269,7 +269,7 @@ export const columns = [
   columnHelper.display({
     id: "verify",
     header: "veify",
-    cell: ({ row }) => <VerifyDialog id={row.original.id} form={<VerifyForm id={row.original.id} />} />,
+    cell: ({ row }) => <VerifyDialog id={row.original.id} />,
   }),
 ]
 

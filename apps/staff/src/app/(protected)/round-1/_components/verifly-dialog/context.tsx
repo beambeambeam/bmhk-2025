@@ -2,7 +2,6 @@ import { ReactNode, createContext, useContext } from "react"
 
 export interface VerifyDialogContextValue {
   id: string
-  form?: ReactNode
 }
 
 export const VerifyDialogContext = createContext<VerifyDialogContextValue | undefined>(undefined)

@@ -3,6 +3,7 @@ import {
   VerifyDialogContext,
   VerifyDialogContextValue,
 } from "@/app/(protected)/round-1/_components/verifly-dialog/context"
+import VerifyForm from "@/app/(protected)/round-1/_components/verifly-dialog/form"
 import Member1Display from "@/app/(protected)/round-1/_components/verifly-dialog/member1"
 import Member2Display from "@/app/(protected)/round-1/_components/verifly-dialog/member2"
 import Member3Display from "@/app/(protected)/round-1/_components/verifly-dialog/member3"
@@ -32,7 +33,7 @@ function VerifyDialog(props: VerifyDialogProps) {
   const onTabChange = (value: string) => setTab(value)
 
   return (
-    <VerifyDialogContext.Provider value={{ id: props.id, form: props.form }}>
+    <VerifyDialogContext.Provider value={{ id: props.id }}>
       <Dialog
         open={verify === props.id}
         onOpenChange={(isOpen) => {
@@ -80,7 +81,9 @@ function VerifyDialog(props: VerifyDialogProps) {
                   <Member3Display />
                 </TabsContent>
               </Tabs>
-              <div className="border-l-2 p-4">{props.form}</div>
+              <div className="border-l-2 p-4">
+                <VerifyForm id={props.id} />
+              </div>
             </div>
           </DialogHeader>
         </DialogContent>
