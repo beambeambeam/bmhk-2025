@@ -1,14 +1,19 @@
 "use client"
 
-import { submitRound1Verification } from "@/app/(protected)/round-1/_components/verifly-dialog/action"
+import {
+  submitRound1Verification,
+  getRound1Verification,
+} from "@/app/(protected)/round-1/_components/verifly-dialog/action"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import MultipleSelector from "@/components/ui/multiselect"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
+import { cacheUtils } from "@/lib/cache"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { isDefinedError, onError, onSuccess } from "@orpc/client"
 import { useServerAction } from "@orpc/react/hooks"
+import { useQuery } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -61,6 +66,7 @@ type FormValues = z.infer<typeof formSchema>
 type VerifyFormProps = {
   id: string
   defaultValues?: FormValues
+  closeDialog?: () => void
 }
 
 function VerifyForm(props: VerifyFormProps) {
@@ -73,6 +79,15 @@ function VerifyForm(props: VerifyFormProps) {
         console.error("Verification failed:", error)
       }),
       onSuccess(async (success) => {
+        // Invalidate the verification query so fresh data is fetched next time
+        cacheUtils.invalidateQueries([props.id, "round1-verification"])
+        cacheUtils.invalidateQueries([props.id, "team"])
+        cacheUtils.invalidateQueries([props.id, "adviser"])
+        cacheUtils.invalidateQueries([props.id, "member1"])
+        cacheUtils.invalidateQueries([props.id, "member2"])
+        cacheUtils.invalidateQueries([props.id, "member3"])
+
+        props.closeDialog?.()
         console.log(success)
       }),
     ],
@@ -270,4 +285,34 @@ function VerifyForm(props: VerifyFormProps) {
   )
 }
 
-export default VerifyForm
+function VerifyFormParent(props: VerifyFormProps) {
+  const { data, isPending } = useQuery({
+    queryKey: [props.id, "round1-verification"],
+    queryFn: async () => {
+      const data = await getRound1Verification({
+        teamId: props.id,
+      })
+      return data[1]?.verification
+    },
+  })
+
+  if (isPending) {
+    return <div>Loading verification data...</div>
+  }
+
+  const defaultValues = data
+    ? {
+        adviser: data.adviser || [],
+        member1: data.member1 || [],
+        member2: data.member2 || [],
+        member3: data.member3 || [],
+        notes: data.notes || "",
+        status: data.status || "NOT_DONE",
+      }
+    : undefined
+
+  return <VerifyForm {...props} defaultValues={defaultValues} />
+}
+
+export { VerifyFormParent }
+export default VerifyFormParent
