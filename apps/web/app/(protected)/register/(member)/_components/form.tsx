@@ -528,7 +528,7 @@ function MemberRegisterForm(
                   <FormControl>
                     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-10">
                       <FormDescription className="text-sm lg:text-base">
-                        3. สำเนา ปพ.7 (ระเบียนแสดงผลการเรียน) ฉบับจริง{" "}
+                        3. สำเนา ปพ.7 (ใบรับรองสถานภาพทางการเรียน) ฉบับจริง{" "}
                         <span className="text-pink-300">*</span>
                       </FormDescription>
                       <div>
