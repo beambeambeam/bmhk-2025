@@ -7,10 +7,10 @@ export interface VerifyDialogContextValue {
 
 export const VerifyDialogContext = createContext<VerifyDialogContextValue | undefined>(undefined)
 
-export function useVerifyDialog(): VerifyDialogContextValue {
+export function useVerifyDialogContext(): VerifyDialogContextValue {
   const context = useContext(VerifyDialogContext)
   if (!context) {
-    throw new Error("useVerifyDialog must be used within a VerifyDialogContext.Provider")
+    throw new Error("useVerifyDialogContext must be used within a VerifyDialogContext.Provider")
   }
   return context
 }

@@ -4,6 +4,7 @@ import {
   RegisterStatusToColorClass,
 } from "@/app/(protected)/round-1/_components/team-table/format"
 import VerifyDialog from "@/app/(protected)/round-1/_components/verifly-dialog"
+import VerifyForm from "@/app/(protected)/round-1/_components/verifly-dialog/form"
 import { Button } from "@/components/ui/button"
 import { RelativeTimeCard } from "@/components/ui/relative-time-card"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
@@ -268,7 +269,7 @@ export const columns = [
   columnHelper.display({
     id: "verify",
     header: "veify",
-    cell: ({ row }) => <VerifyDialog id={row.original.id} />,
+    cell: ({ row }) => <VerifyDialog id={row.original.id} form={<VerifyForm id={row.original.id} />} />,
   }),
 ]
 

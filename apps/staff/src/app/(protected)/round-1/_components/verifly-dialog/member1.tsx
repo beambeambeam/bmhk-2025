@@ -1,5 +1,6 @@
 "use client"
 
+import { useVerifyDialogContext } from "@/app/(protected)/round-1/_components/verifly-dialog/context"
 import MemberLayout, {
   MemberSkeleton,
 } from "@/app/(protected)/round-1/_components/verifly-dialog/member-layout"
@@ -7,16 +8,13 @@ import { getMember } from "@/app/(protected)/round-1/_components/verifly-dialog/
 import { useQuery } from "@tanstack/react-query"
 import { UserIcon } from "lucide-react"
 
-interface Member1DisplayProps {
-  id: string
-}
-
-function Member1Display(props: Member1DisplayProps) {
+function Member1Display() {
+  const { id } = useVerifyDialogContext()
   const { data, isPending } = useQuery({
-    queryKey: [props.id, "member1"],
+    queryKey: [id, "member1"],
     queryFn: async () => {
       const data = await getMember({
-        id: props.id,
+        id,
         index: 1,
       })
 

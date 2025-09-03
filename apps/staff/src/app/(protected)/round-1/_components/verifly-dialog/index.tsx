@@ -68,19 +68,19 @@ function VerifyDialog(props: VerifyDialogProps) {
                 </TabsList>
               </div>
               <TabsContent value="team">
-                <TeamDisplay id={props.id} />
+                <TeamDisplay />
               </TabsContent>
               <TabsContent value="adviser">
-                <AdviserDisplay id={props.id} />
+                <AdviserDisplay />
               </TabsContent>
               <TabsContent value="member 1">
-                <Member1Display id={props.id} />
+                <Member1Display />
               </TabsContent>
               <TabsContent value="member 2">
-                <Member2Display id={props.id} />
+                <Member2Display />
               </TabsContent>
               <TabsContent value="member 3">
-                <Member3Display id={props.id} />
+                <Member3Display />
               </TabsContent>
             </Tabs>
           </DialogHeader>

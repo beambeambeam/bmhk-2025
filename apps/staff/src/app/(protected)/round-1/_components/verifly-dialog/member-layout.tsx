@@ -49,7 +49,7 @@ export function MemberLayout(props: MemberLayoutProps) {
 
   return (
     <div className="grid min-h-0 lg:grid-cols-[3fr_1fr]">
-      <div className="flex min-h-0 flex-col gap-2 p-4">
+      <div className="flex min-h-0 flex-col gap-2 border-r-2 p-4">
         <h1 className="flex flex-col text-2xl font-bold">
           <span className="text-4xl">{title}</span>
         </h1>

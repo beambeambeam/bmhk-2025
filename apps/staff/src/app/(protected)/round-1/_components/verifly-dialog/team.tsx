@@ -1,6 +1,7 @@
 "use client"
 
 import { formatCodeName } from "@/app/(protected)/round-1/_components/team-table/format"
+import { useVerifyDialogContext } from "@/app/(protected)/round-1/_components/verifly-dialog/context"
 import { MemberSkeleton } from "@/app/(protected)/round-1/_components/verifly-dialog/member-layout"
 import { getTeam } from "@/app/(protected)/round-1/_components/verifly-dialog/queries"
 import { Label } from "@/components/ui/label"
@@ -9,16 +10,16 @@ import { SchoolIcon, UsersIcon } from "lucide-react"
 import { ReactNode } from "react"
 
 interface TeamDisplayProps {
-  id: string
   children?: ReactNode
 }
 
 function TeamDisplay(props: TeamDisplayProps) {
+  const { id } = useVerifyDialogContext()
   const { data, isPending } = useQuery({
-    queryKey: [props.id, "team"],
+    queryKey: [id, "team"],
     queryFn: async () => {
       const data = await getTeam({
-        id: props.id,
+        id,
       })
 
       return data[1]?.team
@@ -42,7 +43,7 @@ function TeamDisplay(props: TeamDisplayProps) {
 
   return (
     <div className="grid lg:grid-cols-[3fr_1fr]">
-      <div className="flex flex-col gap-2 p-4">
+      <div className="flex flex-col gap-2 border-r-2 p-4">
         <h1 className="flex flex-col text-2xl font-bold">
           <span className="flex-col">
             {data?.index !== undefined &&
