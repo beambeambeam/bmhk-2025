@@ -1,7 +1,7 @@
 "use client"
 
 import { formatCodeName } from "@/app/(protected)/round-1/_components/team-table/format"
-import { getTeam } from "@/app/(protected)/round-1/_components/verifly-dialog/lib/queries"
+import { getTeam } from "@/app/(protected)/round-1/_components/verifly-dialog/queries"
 import { Label } from "@/components/ui/label"
 import { useQuery } from "@tanstack/react-query"
 import { SchoolIcon, UsersIcon } from "lucide-react"

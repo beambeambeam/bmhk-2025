@@ -1,7 +1,7 @@
 "use client"
 
-import MemberLayout from "@/app/(protected)/round-1/_components/verifly-dialog/lib/member-layout"
-import { getMember } from "@/app/(protected)/round-1/_components/verifly-dialog/lib/queries"
+import MemberLayout from "@/app/(protected)/round-1/_components/verifly-dialog/member-layout"
+import { getMember } from "@/app/(protected)/round-1/_components/verifly-dialog/queries"
 import { useQuery } from "@tanstack/react-query"
 import { UserIcon } from "lucide-react"
 
