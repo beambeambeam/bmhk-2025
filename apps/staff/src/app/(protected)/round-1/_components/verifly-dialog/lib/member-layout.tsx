@@ -39,6 +39,13 @@ interface MemberLayoutProps {
 export function MemberLayout(props: MemberLayoutProps) {
   const { title, member, showGuardian = true } = props
 
+  function formatPhone(num?: string | null) {
+    if (!num) return ""
+    const digits = num.replace(/\D/g, "")
+    if (digits.length !== 10) return num
+    return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`
+  }
+
   return (
     <div className="grid min-h-0 lg:grid-cols-[3fr_1fr]">
       <div className="flex min-h-0 flex-col gap-2 p-4">
@@ -130,7 +137,7 @@ export function MemberLayout(props: MemberLayoutProps) {
               </div>
               <div className="flex w-full flex-col gap-2">
                 <Label>Phone Number</Label>
-                <div className="rounded-lg border p-2 px-3">{member.phoneNumber}</div>
+                <div className="rounded-lg border p-2 px-3">{formatPhone(member.phoneNumber)}</div>
               </div>
               <div className="flex w-full flex-col gap-2">
                 <Label>Line ID</Label>
@@ -152,7 +159,7 @@ export function MemberLayout(props: MemberLayoutProps) {
                   </div>
                   <div className="flex w-full flex-col gap-2">
                     <Label>Parent Phone Number</Label>
-                    <div className="rounded-lg border p-2 px-3">{member.parentPhoneNumber}</div>
+                    <div className="rounded-lg border p-2 px-3">{formatPhone(member.parentPhoneNumber)}</div>
                   </div>
                 </div>
               </div>
