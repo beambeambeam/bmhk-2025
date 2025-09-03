@@ -1,7 +1,7 @@
 "use client"
 
 import { formatCodeName } from "@/app/(protected)/round-1/_components/team-table/format"
-import { getTeam } from "@/app/(protected)/round-1/_components/verifly-dialog/team/query"
+import { getTeam } from "@/app/(protected)/round-1/_components/verifly-dialog/lib/queries"
 import { Label } from "@/components/ui/label"
 import { useQuery } from "@tanstack/react-query"
 import { SchoolIcon } from "lucide-react"
@@ -27,7 +27,7 @@ function TeamDisplay(props: TeamDisplayProps) {
   }
 
   return (
-    <div className="grid grid-cols-[1.5fr_1fr]">
+    <div className="grid grid-cols-[2fr_1fr]">
       <div className="flex flex-col gap-2">
         <h1 className="flex flex-col text-2xl font-bold">
           <span className="flex-col">
@@ -48,7 +48,7 @@ function TeamDisplay(props: TeamDisplayProps) {
             <span className="text-muted-foreground">Team:</span> {data?.name}
           </span>
         </h1>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 p-2">
           <div className="flex w-full flex-col gap-2 pt-4">
             <Label>School</Label>
             <div className="rounded-lg border p-2 px-3">{data.school}</div>

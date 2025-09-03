@@ -1,3 +1,7 @@
+import AdviserDisplay from "@/app/(protected)/round-1/_components/verifly-dialog/adviser"
+import Member1Display from "@/app/(protected)/round-1/_components/verifly-dialog/member1"
+import Member2Display from "@/app/(protected)/round-1/_components/verifly-dialog/member2"
+import Member3Display from "@/app/(protected)/round-1/_components/verifly-dialog/member3"
 import TeamDisplay from "@/app/(protected)/round-1/_components/verifly-dialog/team"
 import { Button } from "@/components/ui/button"
 import {
@@ -39,13 +43,17 @@ function VerifyDialog(props: VerifyDialogProps) {
         )}
       </DialogTrigger>
       <DialogContent className="h-[90vh] !max-w-fit">
-        <DialogHeader>
+        <DialogHeader className="h-full min-h-0">
           <DialogTitle hidden>Are you absolutely sure?</DialogTitle>
           <DialogDescription hidden>
             This action cannot be undone. This will permanently delete your account and remove your data from
             our servers.
           </DialogDescription>
-          <Tabs defaultValue="team" className="h-full w-[80vw]" value={tab} onValueChange={onTabChange}>
+          <Tabs
+            defaultValue="team"
+            className="h-full min-h-0 w-[80vw]"
+            value={tab}
+            onValueChange={onTabChange}>
             <TabsList>
               <TabsTrigger value="team">Team</TabsTrigger>
               <TabsTrigger value="adviser">Adviser</TabsTrigger>
@@ -56,10 +64,18 @@ function VerifyDialog(props: VerifyDialogProps) {
             <TabsContent value="team">
               <TeamDisplay id={props.id} />
             </TabsContent>
-            <TabsContent value="adviser">Adviser</TabsContent>
-            <TabsContent value="member 1">Member 1</TabsContent>
-            <TabsContent value="member 2">Member 2</TabsContent>
-            <TabsContent value="member 3">Member 3</TabsContent>
+            <TabsContent value="adviser">
+              <AdviserDisplay id={props.id} />
+            </TabsContent>
+            <TabsContent value="member 1">
+              <Member1Display id={props.id} />
+            </TabsContent>
+            <TabsContent value="member 2">
+              <Member2Display id={props.id} />
+            </TabsContent>
+            <TabsContent value="member 3">
+              <Member3Display id={props.id} />
+            </TabsContent>
           </Tabs>
         </DialogHeader>
       </DialogContent>
