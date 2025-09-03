@@ -48,21 +48,59 @@ export function MemberLayout(props: MemberLayoutProps) {
         <Scroller className="flex h-[72vh] flex-col gap-10" hideScrollbar withNavigation>
           <div className="flex flex-col gap-3">
             <h2 className="text-muted-foreground text-lg font-bold">Personal Information</h2>
-            <div className="flex w-full flex-col gap-2">
-              <Label>English Name</Label>
-              <div className="rounded-lg border p-2 px-3">
-                {member.firstName} {member.middleName ? `${member.middleName} ` : ""}
-                {member.lastname}
+            {showGuardian ? (
+              <div className="grid w-full grid-cols-1 items-start gap-4 lg:grid-cols-[180px_1fr]">
+                <div className="flex w-full flex-col gap-2">
+                  <Label>Face Picture</Label>
+                  <div className="rounded-lg border p-2">
+                    {member.facePic ? (
+                      <img
+                        src={member.facePic.url}
+                        alt={member.facePic.name}
+                        className="h-[240px] w-full rounded object-contain md:h-[200px] lg:h-[180px] lg:w-[160px]"
+                      />
+                    ) : (
+                      <div className="text-muted-foreground">No face picture</div>
+                    )}
+                  </div>
+                </div>
+                <div className="flex flex-col gap-3">
+                  <div className="flex w-full flex-col gap-2">
+                    <Label>English Name</Label>
+                    <div className="rounded-lg border p-2 px-3">
+                      {member.prefix} {member.firstName} {member.middleName ? `${member.middleName} ` : ""}
+                      {member.lastname}
+                    </div>
+                  </div>
+                  <div className="flex w-full flex-col gap-2">
+                    <Label>Thai Name</Label>
+                    <div className="rounded-lg border p-2 px-3">
+                      {member.prefix} {member.thaiFirstname}{" "}
+                      {member.thaiMiddlename ? `${member.thaiMiddlename} ` : ""}
+                      {member.thaiLastname}
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="flex w-full flex-col gap-2">
-              <Label>Thai Name</Label>
-              <div className="rounded-lg border p-2 px-3">
-                {member.prefix} {member.thaiFirstname}{" "}
-                {member.thaiMiddlename ? `${member.thaiMiddlename} ` : ""}
-                {member.thaiLastname}
+            ) : (
+              <div className="flex flex-col gap-3">
+                <div className="flex w-full flex-col gap-2">
+                  <Label>English Name</Label>
+                  <div className="rounded-lg border p-2 px-3">
+                    {member.firstName} {member.middleName ? `${member.middleName} ` : ""}
+                    {member.lastname}
+                  </div>
+                </div>
+                <div className="flex w-full flex-col gap-2">
+                  <Label>Thai Name</Label>
+                  <div className="rounded-lg border p-2 px-3">
+                    {member.prefix} {member.thaiFirstname}{" "}
+                    {member.thaiMiddlename ? `${member.thaiMiddlename} ` : ""}
+                    {member.thaiLastname}
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
             <div className="flex w-full flex-col gap-2">
               <Label>Food Allergy</Label>
               <div className="rounded-lg border p-2 px-3">{member.foodAllergy || "None"}</div>
@@ -116,11 +154,11 @@ export function MemberLayout(props: MemberLayoutProps) {
           <div className="">
             <h2 className="text-muted-foreground text-lg font-bold">Files</h2>
             <div className="flex flex-col gap-4">
-              {member.facePic && <FilePreview label="Face Picture" file={member.facePic} />}
+              {/* Face picture moved to Personal Information */}
               {member.nationalDoc && <FilePreview label="National Document" file={member.nationalDoc} />}
               {member.teacherDoc && <FilePreview label="Teacher Document" file={member.teacherDoc} />}
               {member.p7Doc && <FilePreview label="P7 Document" file={member.p7Doc} />}
-              {!member.facePic && !member.nationalDoc && !member.teacherDoc && !member.p7Doc && (
+              {!member.nationalDoc && !member.teacherDoc && !member.p7Doc && (
                 <div className="text-muted-foreground">No files uploaded</div>
               )}
             </div>
