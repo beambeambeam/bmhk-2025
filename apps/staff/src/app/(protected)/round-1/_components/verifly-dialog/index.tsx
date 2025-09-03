@@ -8,10 +8,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { SearchCheckIcon } from "lucide-react"
 import { parseAsString, useQueryState } from "nuqs"
+import { ReactNode } from "react"
 
 interface VerifyDialogProps {
   id: string
+  children?: ReactNode
 }
 
 function VerifyDialog(props: VerifyDialogProps) {
@@ -28,7 +31,11 @@ function VerifyDialog(props: VerifyDialogProps) {
         setTab(null)
       }}>
       <DialogTrigger asChild>
-        <Button>d</Button>
+        {props.children ?? (
+          <Button variant="outline" size="icon">
+            <SearchCheckIcon />
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="h-[90vh] !max-w-fit">
         <DialogHeader>
