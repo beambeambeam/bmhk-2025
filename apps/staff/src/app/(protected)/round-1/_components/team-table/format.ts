@@ -26,3 +26,8 @@ export function RegisterStatusToColorClass(status: "DONE" | "NOT_DONE" | "NOT_HA
       return "text-muted-foreground"
   }
 }
+
+export function formatCodeName(index: number) {
+  const number = String(index).padStart(3, "0")
+  return `BMHK${number}`
+}

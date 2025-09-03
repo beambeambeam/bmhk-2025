@@ -14,6 +14,7 @@ export const getTeam = protectedProcedure
   )
   .handler(async ({ input }) => {
     try {
+      console.log("d")
       const teamData = await db.select().from(teams).where(eq(teams.id, input.id)).limit(1)
 
       if (teamData.length === 0) {

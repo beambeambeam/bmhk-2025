@@ -1,3 +1,8 @@
+import {
+  formatCodeName,
+  RegsiterStatusToIcon,
+  RegisterStatusToColorClass,
+} from "@/app/(protected)/round-1/_components/team-table/format"
 import VerifyDialog from "@/app/(protected)/round-1/_components/verifly-dialog"
 import { Button } from "@/components/ui/button"
 import { RelativeTimeCard } from "@/components/ui/relative-time-card"
@@ -7,8 +12,6 @@ import { createColumnHelper } from "@tanstack/react-table"
 import { teams, registerStatusEnum } from "@workspace/db/schema"
 import { Building2, Users, School, CircleOffIcon } from "lucide-react"
 import { Text } from "lucide-react"
-
-import { RegsiterStatusToIcon, RegisterStatusToColorClass } from "./format"
 
 type Team = Pick<
   typeof teams.$inferSelect,
@@ -23,11 +26,6 @@ type Team = Pick<
 }
 
 const columnHelper = createColumnHelper<Team>()
-
-function formatCodeName(index: number) {
-  const number = String(index).padStart(3, "0")
-  return `BMHK${number}`
-}
 
 export const columns = [
   columnHelper.accessor("index", {

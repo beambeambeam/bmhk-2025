@@ -1,3 +1,4 @@
+import TeamDisplay from "@/app/(protected)/round-1/_components/verifly-dialog/team"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -52,21 +53,13 @@ function VerifyDialog(props: VerifyDialogProps) {
               <TabsTrigger value="member 2">Member 2</TabsTrigger>
               <TabsTrigger value="member 3">Member 3</TabsTrigger>
             </TabsList>
-            <TabsContent value="team" className="rounded-lg border p-2 px-3">
-              Team
+            <TabsContent value="team">
+              <TeamDisplay id={props.id} />
             </TabsContent>
-            <TabsContent value="adviser" className="rounded-lg border p-2 px-3">
-              Adviser
-            </TabsContent>
-            <TabsContent value="member 1" className="rounded-lg border p-2 px-3">
-              Member 1
-            </TabsContent>
-            <TabsContent value="member 2" className="rounded-lg border p-2 px-3">
-              Member 2
-            </TabsContent>
-            <TabsContent value="member 3" className="rounded-lg border p-2 px-3">
-              Member 3
-            </TabsContent>
+            <TabsContent value="adviser">Adviser</TabsContent>
+            <TabsContent value="member 1">Member 1</TabsContent>
+            <TabsContent value="member 2">Member 2</TabsContent>
+            <TabsContent value="member 3">Member 3</TabsContent>
           </Tabs>
         </DialogHeader>
       </DialogContent>
