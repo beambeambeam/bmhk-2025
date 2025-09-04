@@ -27,9 +27,6 @@ async function Round1Page(props: Round1PageProps) {
     <div className="flex flex-col items-center justify-center gap-2">
       <div className="flex w-full max-w-[90rem] flex-col gap-2 px-4 pt-12">
         <h1 className="w-full text-start text-2xl font-bold">Round 1 Teams</h1>
-        <p className="text-muted-foreground">
-          View and manage teams participating in the first round of the competition.
-        </p>
         <Suspense
           fallback={
             <DataTableSkeleton
