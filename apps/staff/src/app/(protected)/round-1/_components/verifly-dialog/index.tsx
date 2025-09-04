@@ -55,7 +55,7 @@ function VerifyDialog(props: VerifyDialogProps) {
               This action cannot be undone. This will permanently delete your account and remove your data
               from our servers.
             </DialogDescription>
-            <div className="grid h-full min-h-0 w-[80vw] grid-rows-2 overflow-y-auto lg:grid-cols-[2.5fr_1fr]">
+            <div className="grid h-full min-h-0 w-[98vw] grid-rows-2 overflow-y-auto transition-all md:w-[85vw] md:grid-cols-[2fr_1fr]">
               <Tabs defaultValue="team" value={tab} onValueChange={onTabChange} className="h-full">
                 <TabsList className="h-fit w-fit">
                   <TabsTrigger value="team">Team</TabsTrigger>
