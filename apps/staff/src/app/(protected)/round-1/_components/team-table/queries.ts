@@ -3,7 +3,7 @@
 import { GetRound1TeamsSchema } from "@/app/(protected)/round-1/_components/team-table/validations"
 import { unstable_cache } from "@/lib/unstable-cache"
 import { db, teams, registerStatus, round1Verification, user } from "@workspace/db"
-import { and, asc, count, ilike, eq, or, lte, gte, isNotNull, isNull } from "@workspace/db/orm"
+import { and, asc, count, ilike, eq, or, lte, gte, isNotNull, isNull, sql } from "@workspace/db/orm"
 
 export async function getRound1Teams(input: GetRound1TeamsSchema) {
   return await unstable_cache(
@@ -12,6 +12,7 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
         const offset = (input.page - 1) * input.perPage
 
         const baseWhere = and(
+          isNotNull(registerStatus.submitRegister),
           input.name ? ilike(teams.name, `%${input.name}%`) : undefined,
           (() => {
             const q = input.codeName?.trim()
@@ -95,7 +96,7 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
 
         // No advancedWhere; filtering handled in baseWhere or direct params
 
-        const orderBy = [asc(teams.createdAt)]
+        const orderBy = [asc(registerStatus.submitRegister)]
 
         const { data, total } = await db.transaction(async (tx) => {
           const data = await tx
@@ -116,6 +117,7 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
               verificationTime: round1Verification.verifiedAt,
               verifiedBy: round1Verification.verifiedBy,
               verifiedByUsername: user.name,
+              submissionRank: sql<number>`ROW_NUMBER() OVER (ORDER BY ${registerStatus.submitRegister} ASC)`,
             })
             .from(teams)
             .leftJoin(registerStatus, eq(registerStatus.teamId, teams.id))

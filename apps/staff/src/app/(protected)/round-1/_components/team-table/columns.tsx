@@ -4,7 +4,6 @@ import {
   RegisterStatusToColorClass,
 } from "@/app/(protected)/round-1/_components/team-table/format"
 import VerifyDialog from "@/app/(protected)/round-1/_components/verifly-dialog"
-import VerifyForm from "@/app/(protected)/round-1/_components/verifly-dialog/form"
 import { Button } from "@/components/ui/button"
 import { RelativeTimeCard } from "@/components/ui/relative-time-card"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
@@ -27,11 +26,25 @@ type Team = Pick<
   verificationStatus: "DONE" | "NOT_DONE" | null
   verificationTime: Date | null
   verifiedByUsername: string | null
+  submissionRank: number
 }
 
 const columnHelper = createColumnHelper<Team>()
 
 export const columns = [
+  columnHelper.accessor("submissionRank", {
+    id: "submissionRank",
+    header: "Rank",
+    cell: (info) => info.getValue(),
+    enableSorting: false,
+    enableColumnFilter: true,
+    meta: {
+      label: "Submission Rank",
+      placeholder: "Search by rank...",
+      variant: "text",
+      icon: Text,
+    },
+  }),
   columnHelper.accessor("index", {
     id: "codeName",
     header: "Code Name",
@@ -263,11 +276,6 @@ export const columns = [
     },
     enableSorting: false,
     enableColumnFilter: true,
-    meta: {
-      label: "Submit Date",
-      placeholder: "Filter by date...",
-      variant: "dateRange",
-    },
   }),
   columnHelper.accessor("verificationStatus", {
     id: "verifyStatus",
