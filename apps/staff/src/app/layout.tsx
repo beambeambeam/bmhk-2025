@@ -1,5 +1,6 @@
 import { BreakpointIndicator } from "@/components/breakpoint-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/sonner"
 import QueryProvider from "@/provider/query"
 import type { Metadata } from "next"
 import { Sarabun } from "next/font/google"
@@ -29,6 +30,7 @@ export default function RootLayout({
           <NuqsAdapter>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
               {children}
+              <Toaster />
               <BreakpointIndicator />
             </ThemeProvider>
           </NuqsAdapter>

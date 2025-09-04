@@ -1,15 +1,10 @@
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { authClient } from "@/lib/auth-client"
 import { createColumnHelper } from "@tanstack/react-table"
-import { MoreHorizontal, CheckCircle, XCircle } from "lucide-react"
+import { CheckCircle, XCircle } from "lucide-react"
 import { Text } from "lucide-react"
+
+import { ActionMenu } from "./action-menu"
 
 const columnHelper = createColumnHelper<typeof authClient.$Infer.Session.user>()
 
@@ -67,20 +62,7 @@ export const columns = [
   columnHelper.display({
     id: "actions",
     header: "Actions",
-    cell: (_info) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon">
-            <MoreHorizontal className="h-4 w-4" />
-            <span className="sr-only">Open menu</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
+    cell: (info) => <ActionMenu user={info.row.original} />,
     size: 32,
   }),
 ]
