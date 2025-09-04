@@ -61,6 +61,7 @@ function TeamDisplay() {
             <Label>Team Image</Label>
             <div className="rounded-lg border p-2">
               {data.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
                 <img src={data.image.url} alt={data.image.name} className="h-40 w-20" />
               ) : (
                 <div className="text-muted-foreground h-40 w-20">No image</div>

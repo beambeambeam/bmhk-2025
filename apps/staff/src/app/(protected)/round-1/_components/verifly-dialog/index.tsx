@@ -3,7 +3,7 @@ import {
   VerifyDialogContext,
   VerifyDialogContextValue,
 } from "@/app/(protected)/round-1/_components/verifly-dialog/context"
-import VerifyForm, { VerifyFormParent } from "@/app/(protected)/round-1/_components/verifly-dialog/form"
+import { VerifyFormParent } from "@/app/(protected)/round-1/_components/verifly-dialog/form"
 import Member1Display from "@/app/(protected)/round-1/_components/verifly-dialog/member1"
 import Member2Display from "@/app/(protected)/round-1/_components/verifly-dialog/member2"
 import Member3Display from "@/app/(protected)/round-1/_components/verifly-dialog/member3"
@@ -17,7 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Separator } from "@/components/ui/separator"
+// import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { SearchCheckIcon, UserIcon } from "lucide-react"
 import { parseAsString, useQueryState } from "nuqs"

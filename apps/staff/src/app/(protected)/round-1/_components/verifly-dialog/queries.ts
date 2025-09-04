@@ -53,7 +53,7 @@ export const getTeam = protectedProcedure
       return {
         team: teamWithImage,
       }
-    } catch (error) {
+    } catch {
       return { team: null }
     }
   })
@@ -125,7 +125,7 @@ export const getAdviser = protectedProcedure
           updatedAt: adviser.updatedAt,
         },
       }
-    } catch (error) {
+    } catch {
       return { adviser: null }
     }
   })
@@ -212,7 +212,7 @@ export const getMember = protectedProcedure
           updatedAt: m.updatedAt,
         },
       }
-    } catch (error) {
+    } catch {
       return { member: null }
     }
   })

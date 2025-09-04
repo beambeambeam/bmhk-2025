@@ -61,6 +61,7 @@ export function MemberLayout(props: MemberLayoutProps) {
                 <Label>Face Picture</Label>
                 <div className="rounded-lg border p-2">
                   {member.facePic ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
                     <img
                       src={member.facePic.url}
                       alt={member.facePic.name}

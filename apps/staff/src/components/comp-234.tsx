@@ -1,6 +1,7 @@
 import { Label } from "@/components/ui/label"
 import MultipleSelector, { Option } from "@/components/ui/multiselect"
-import { useId } from "react"
+
+// import { useId } from "react"
 
 const frameworks: Option[] = [
   {
@@ -72,7 +73,7 @@ const frameworks: Option[] = [
 ]
 
 export default function Component() {
-  const id = useId()
+  // const id = useId()
   return (
     <div className="*:not-first:mt-2">
       <Label>Multiselect</Label>
