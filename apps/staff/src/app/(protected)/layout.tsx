@@ -12,8 +12,14 @@ function ProtectedLayout(props: { children: ReactNode }) {
   const router = useRouter()
 
   useEffect(() => {
-    if (!session?.user && !isPending) {
-      router.push("/")
+    if (!isPending) {
+      type StaffRole = "super_admin" | "admin" | "staff"
+      const ALLOWED_ROLES: readonly StaffRole[] = ["super_admin", "admin", "staff"] as const
+      const role = session?.user?.role as StaffRole | undefined
+      const isStaff = role ? ALLOWED_ROLES.includes(role) : false
+      if (!session?.user || !isStaff) {
+        router.push("/")
+      }
     }
   }, [session, isPending, router])
 
@@ -24,4 +30,5 @@ function ProtectedLayout(props: { children: ReactNode }) {
     </div>
   )
 }
+
 export default ProtectedLayout
