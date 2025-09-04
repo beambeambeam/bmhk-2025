@@ -4,6 +4,7 @@ import { protectedActionContext } from "@/lib/orpc/actionable"
 import { protectedProcedure } from "@/lib/orpc/procedures"
 import { db, round1Verification, user } from "@workspace/db"
 import { eq } from "@workspace/db/orm"
+import { revalidateTag } from "next/cache"
 import { z } from "zod"
 
 // Input validation schema for the verification form
@@ -49,6 +50,8 @@ export const submitRound1Verification = protectedProcedure
           .where(eq(round1Verification.id, existingVerification[0].id))
           .returning()
 
+        revalidateTag("round1-teams")
+
         return {
           success: true,
           verification: updatedVerification,
@@ -57,6 +60,8 @@ export const submitRound1Verification = protectedProcedure
       } else {
         // Create new verification
         const [newVerification] = await db.insert(round1Verification).values(verificationData).returning()
+
+        revalidateTag("round1-teams")
 
         return {
           success: true,
