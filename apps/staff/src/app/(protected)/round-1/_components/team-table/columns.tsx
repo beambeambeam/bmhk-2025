@@ -35,15 +35,11 @@ export const columns = [
   columnHelper.accessor("submissionRank", {
     id: "submissionRank",
     header: "Rank",
-    cell: (info) => info.getValue(),
-    enableSorting: false,
-    enableColumnFilter: true,
-    meta: {
-      label: "Submission Rank",
-      placeholder: "Search by rank...",
-      variant: "text",
-      icon: Text,
+    cell: (info) => {
+      const rank = info.getValue<number>()
+      return rank != null ? rank.toString().padStart(3, "0") : ""
     },
+    enableSorting: false,
   }),
   columnHelper.accessor("index", {
     id: "codeName",
@@ -134,132 +130,6 @@ export const columns = [
           {registerStatusIcon(row.original.regisStatusMember3, "member 3")}
         </div>
       )
-    },
-  }),
-  columnHelper.accessor("regisStatusTeam", {
-    id: "regisStatusTeam",
-    header: "Team Status",
-    cell: (info) => {
-      const value = info.getValue()
-      const status = (value ?? "NOT_HAVE") as "DONE" | "NOT_DONE" | "NOT_HAVE"
-      const Icon = RegsiterStatusToIcon(status)
-      return (
-        <div className="flex items-center gap-2">
-          <Icon className={`h-4 w-4 ${RegisterStatusToColorClass(status)}`} />
-        </div>
-      )
-    },
-    enableSorting: false,
-    enableColumnFilter: true,
-    meta: {
-      label: "Team Status",
-      placeholder: "Filter by status...",
-      variant: "select",
-      options: [
-        { label: "Done", value: "DONE" },
-        { label: "Not Done", value: "NOT_DONE" },
-      ],
-    },
-  }),
-  columnHelper.accessor("regisStatusAdviser", {
-    id: "regisStatusAdviser",
-    header: "Adviser Status",
-    cell: (info) => {
-      const value = info.getValue()
-      const status = (value ?? "NOT_HAVE") as "DONE" | "NOT_DONE" | "NOT_HAVE"
-      const Icon = RegsiterStatusToIcon(status)
-      return (
-        <div className="flex items-center gap-2">
-          <Icon className={`h-4 w-4 ${RegisterStatusToColorClass(status)}`} />
-        </div>
-      )
-    },
-    enableSorting: false,
-    enableColumnFilter: true,
-    meta: {
-      label: "Adviser Status",
-      placeholder: "Filter by status...",
-      variant: "select",
-      options: [
-        { label: "Done", value: "DONE" },
-        { label: "Not Done", value: "NOT_DONE" },
-      ],
-    },
-  }),
-  columnHelper.accessor("regisStatusMember1", {
-    id: "regisStatusMember1",
-    header: "Member 1 Status",
-    cell: (info) => {
-      const value = info.getValue()
-      const status = (value ?? "NOT_HAVE") as "DONE" | "NOT_DONE" | "NOT_HAVE"
-      const Icon = RegsiterStatusToIcon(status)
-      return (
-        <div className="flex items-center gap-2">
-          <Icon className={`h-4 w-4 ${RegisterStatusToColorClass(status)}`} />
-        </div>
-      )
-    },
-    enableSorting: false,
-    enableColumnFilter: true,
-    meta: {
-      label: "Member 1 Status",
-      placeholder: "Filter by status...",
-      variant: "select",
-      options: [
-        { label: "Done", value: "DONE" },
-        { label: "Not Done", value: "NOT_DONE" },
-      ],
-    },
-  }),
-  columnHelper.accessor("regisStatusMember2", {
-    id: "regisStatusMember2",
-    header: "Member 2 Status",
-    cell: (info) => {
-      const value = info.getValue()
-      const status = (value ?? "NOT_HAVE") as "DONE" | "NOT_DONE" | "NOT_HAVE"
-      const Icon = RegsiterStatusToIcon(status)
-      return (
-        <div className="flex items-center gap-2">
-          <Icon className={`h-4 w-4 ${RegisterStatusToColorClass(status)}`} />
-        </div>
-      )
-    },
-    enableSorting: false,
-    enableColumnFilter: true,
-    meta: {
-      label: "Member 2 Status",
-      placeholder: "Filter by status...",
-      variant: "select",
-      options: [
-        { label: "Done", value: "DONE" },
-        { label: "Not Done", value: "NOT_DONE" },
-      ],
-    },
-  }),
-  columnHelper.accessor("regisStatusMember3", {
-    id: "regisStatusMember3",
-    header: "Member 3 Status",
-    cell: (info) => {
-      const value = info.getValue()
-      const status = (value ?? "NOT_HAVE") as "DONE" | "NOT_DONE" | "NOT_HAVE"
-      const Icon = RegsiterStatusToIcon(status)
-      return (
-        <div className="flex items-center gap-2">
-          <Icon className={`h-4 w-4 ${RegisterStatusToColorClass(status)}`} />
-        </div>
-      )
-    },
-    enableSorting: false,
-    enableColumnFilter: true,
-    meta: {
-      label: "Member 3 Status",
-      placeholder: "Filter by status...",
-      variant: "select",
-      options: [
-        { label: "Done", value: "DONE" },
-        { label: "Not Done", value: "NOT_DONE" },
-        { label: "Not Have", value: "NOT_HAVE" },
-      ],
     },
   }),
   columnHelper.accessor("submitRegister", {
