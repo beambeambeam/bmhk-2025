@@ -9,11 +9,10 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Spinner } from "@/components/ui/spinner"
 import { authClient } from "@/lib/auth-client"
-import { createAuthClient } from "better-auth/react"
 import { LogOutIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
 
-const { useSession } = createAuthClient()
+const { useSession } = authClient
 
 function UserNavbar() {
   const { data: session, isPending } = useSession()

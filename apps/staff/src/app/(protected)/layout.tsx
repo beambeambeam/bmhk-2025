@@ -1,11 +1,11 @@
 "use client"
 
 import Component from "@/app/(protected)/_components/navbar"
-import { createAuthClient } from "better-auth/react"
+import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
 import { useEffect, type ReactNode } from "react"
 
-const { useSession } = createAuthClient()
+const { useSession } = authClient
 
 function ProtectedLayout(props: { children: ReactNode }) {
   const { data: session, isPending } = useSession()
