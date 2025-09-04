@@ -344,9 +344,7 @@ function VerifyFormParent(props: VerifyFormProps) {
     },
   })
 
-  if (isPending) {
-    return <div>Loading verification data...</div>
-  }
+  if (isPending) return <VerifyFormSkeleton />
 
   const defaultValues = data
     ? {
@@ -364,3 +362,43 @@ function VerifyFormParent(props: VerifyFormProps) {
 
 export { VerifyFormParent }
 export default VerifyFormParent
+
+function VerifyFormSkeleton() {
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="text-muted-foreground bg-muted/50 mb-4 space-y-2 rounded-lg border p-3 text-sm">
+        <div className="flex items-center justify-between">
+          <div className="bg-muted h-4 w-28 animate-pulse rounded" />
+          <div className="bg-muted h-4 w-40 animate-pulse rounded" />
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="bg-muted h-4 w-24 animate-pulse rounded" />
+          <div className="bg-muted h-6 w-28 animate-pulse rounded" />
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-4 px-2">
+        {["Adviser", "Member 1", "Member 2", "Member 3"].map((label) => (
+          <div key={label} className="flex flex-col gap-2">
+            <div className="bg-muted h-4 w-24 animate-pulse rounded" />
+            <div className="bg-muted h-10 w-full animate-pulse rounded-lg border" />
+          </div>
+        ))}
+
+        <div className="flex flex-col gap-2">
+          <div className="bg-muted h-4 w-20 animate-pulse rounded" />
+          <div className="bg-muted h-32 w-full animate-pulse rounded-lg border" />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <div className="bg-muted h-4 w-16 animate-pulse rounded" />
+          <div className="bg-muted h-10 w-full animate-pulse rounded-lg border" />
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <div className="bg-muted h-10 w-40 animate-pulse rounded border" />
+      </div>
+    </div>
+  )
+}
