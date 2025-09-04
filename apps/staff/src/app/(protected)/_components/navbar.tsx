@@ -10,6 +10,7 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Skeleton } from "@/components/ui/skeleton"
 import { authClient } from "@/lib/auth-client"
 import { useTheme } from "next-themes"
 import { usePathname } from "next/navigation"
@@ -22,7 +23,14 @@ function Navbar() {
   const { isPending, data } = useSession()
 
   if (isPending) {
-    return
+    return (
+      <header className="border-b px-4 md:px-6">
+        <div className="flex h-16 items-center justify-between gap-4">
+          <Skeleton className="w-30 h-12" />
+          <Skeleton className="w-30 h-12" />
+        </div>
+      </header>
+    )
   }
 
   const navigationLinks = [
