@@ -1,5 +1,6 @@
 import { BreakpointIndicator } from "@/components/breakpoint-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
+import QueryProvider from "@/provider/query"
 import type { Metadata } from "next"
 import { Sarabun } from "next/font/google"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
@@ -24,12 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${sarabunSans.variable} antialiased`}>
-        <NuqsAdapter>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            {children}
-            <BreakpointIndicator />
-          </ThemeProvider>
-        </NuqsAdapter>
+        <QueryProvider>
+          <NuqsAdapter>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+              {children}
+              <BreakpointIndicator />
+            </ThemeProvider>
+          </NuqsAdapter>
+        </QueryProvider>
       </body>
     </html>
   )

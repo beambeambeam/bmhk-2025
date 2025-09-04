@@ -14,6 +14,8 @@ interface Round1TeamTableProps {
 function Round1TeamTable({ promises }: Round1TeamTableProps) {
   const [{ data, pageCount }] = use(promises)
 
+  console.log(data)
+
   const { table } = useDataTable({
     data,
     columns,
@@ -21,6 +23,13 @@ function Round1TeamTable({ promises }: Round1TeamTableProps) {
     pageCount,
     initialState: {
       columnPinning: { right: ["actions"] },
+      columnVisibility: {
+        regisStatusTeam: false,
+        regisStatusAdviser: false,
+        regisStatusMember1: false,
+        regisStatusMember2: false,
+        regisStatusMember3: false,
+      },
     },
     shallow: false,
     clearOnDefault: true,

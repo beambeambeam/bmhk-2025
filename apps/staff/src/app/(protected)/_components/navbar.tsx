@@ -10,17 +10,35 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Skeleton } from "@/components/ui/skeleton"
+import { authClient } from "@/lib/auth-client"
 import { useTheme } from "next-themes"
 import { usePathname } from "next/navigation"
+
+const { useSession } = authClient
 
 function Navbar() {
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
+  const { isPending, data } = useSession()
+
+  if (isPending) {
+    return (
+      <header className="border-b px-4 md:px-6">
+        <div className="flex h-16 items-center justify-between gap-4">
+          <Skeleton className="w-30 h-12" />
+          <Skeleton className="w-30 h-12" />
+        </div>
+      </header>
+    )
+  }
 
   const navigationLinks = [
     { href: "/dashboard", label: "Overview" },
     { href: "/round-1", label: "Round 1 Verification" },
-    { href: "/admin", label: "Admin" },
+    ...(data?.user && typeof data.user.role === "string" && ["super_admin", "admin"].includes(data.user.role)
+      ? [{ href: "/admin", label: "Admin" }]
+      : []),
   ].map((link) => ({
     ...link,
     active: pathname === link.href,

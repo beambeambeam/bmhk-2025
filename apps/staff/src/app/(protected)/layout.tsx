@@ -1,19 +1,25 @@
 "use client"
 
 import Component from "@/app/(protected)/_components/navbar"
-import { createAuthClient } from "better-auth/react"
+import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
 import { useEffect, type ReactNode } from "react"
 
-const { useSession } = createAuthClient()
+const { useSession } = authClient
 
 function ProtectedLayout(props: { children: ReactNode }) {
   const { data: session, isPending } = useSession()
   const router = useRouter()
 
   useEffect(() => {
-    if (!session?.user && !isPending) {
-      router.push("/")
+    if (!isPending) {
+      type StaffRole = "super_admin" | "admin" | "staff"
+      const ALLOWED_ROLES: readonly StaffRole[] = ["super_admin", "admin", "staff"] as const
+      const role = session?.user?.role as StaffRole | undefined
+      const isStaff = role ? ALLOWED_ROLES.includes(role) : false
+      if (!session?.user || !isStaff) {
+        router.push("/")
+      }
     }
   }, [session, isPending, router])
 
@@ -24,4 +30,5 @@ function ProtectedLayout(props: { children: ReactNode }) {
     </div>
   )
 }
+
 export default ProtectedLayout

@@ -34,6 +34,7 @@ function SignInForm() {
     authClient.signIn.email({
       email: values.email,
       password: values.password,
+      callbackURL: "/dashboard",
     })
   }
 

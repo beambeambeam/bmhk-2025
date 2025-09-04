@@ -1,34 +1,74 @@
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+  formatCodeName,
+  RegsiterStatusToIcon,
+  RegisterStatusToColorClass,
+} from "@/app/(protected)/round-1/_components/team-table/format"
+import VerifyDialog from "@/app/(protected)/round-1/_components/verifly-dialog"
+import { Button } from "@/components/ui/button"
+import { RelativeTimeCard } from "@/components/ui/relative-time-card"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { cn } from "@/lib/utils"
 import { createColumnHelper } from "@tanstack/react-table"
-import { MoreHorizontal, Building2, Users, Trophy, School } from "lucide-react"
+import { teams, registerStatusEnum } from "@workspace/db/schema"
+import { Building2, Users, School, CircleOffIcon, CheckIcon } from "lucide-react"
 import { Text } from "lucide-react"
 
-// Define the team type based on the schema
-type Team = {
-  id: string
-  name: string
-  school: string
-  memberCount: number
-  award: string
-  createdAt: Date
-  updatedAt: Date
+type Team = Pick<
+  typeof teams.$inferSelect,
+  "id" | "name" | "school" | "memberCount" | "createdAt" | "index"
+> & {
+  regisStatusTeam: (typeof registerStatusEnum.enumValues)[number] | null
+  regisStatusAdviser: (typeof registerStatusEnum.enumValues)[number] | null
+  regisStatusMember1: (typeof registerStatusEnum.enumValues)[number] | null
+  regisStatusMember2: (typeof registerStatusEnum.enumValues)[number] | null
+  regisStatusMember3: (typeof registerStatusEnum.enumValues)[number] | null
+  submitRegister: Date | null
+  verificationStatus: "DONE" | "NOT_DONE" | null
+  verificationTime: Date | null
+  verifiedByUsername: string | null
+  submissionRank: number
 }
 
 const columnHelper = createColumnHelper<Team>()
 
 export const columns = [
+  columnHelper.accessor("submissionRank", {
+    id: "submissionRank",
+    header: "Rank",
+    cell: (info) => {
+      const rank = info.getValue<number>()
+      return rank != null ? rank.toString().padStart(3, "0") : ""
+    },
+    enableSorting: false,
+  }),
+  columnHelper.accessor("index", {
+    id: "codeName",
+    header: "Code Name",
+    cell: (info) => {
+      const code = formatCodeName(info.row.original.index)
+      const prefix = "BMHK"
+      const suffix = code.replace(prefix, "")
+      return (
+        <div className="font-mono">
+          <span className="text-muted-foreground">{prefix}</span>
+          <span>{suffix}</span>
+        </div>
+      )
+    },
+    enableSorting: false,
+    enableColumnFilter: true,
+    meta: {
+      label: "Code Name",
+      placeholder: "Search code names...",
+      variant: "text",
+      icon: Text,
+    },
+  }),
   columnHelper.accessor("name", {
     id: "name",
     header: "Team Name",
     cell: (info) => <div className="font-medium">{info.getValue()}</div>,
-    enableSorting: true,
+    enableSorting: false,
     enableColumnFilter: true,
     meta: {
       label: "Team Name",
@@ -46,7 +86,7 @@ export const columns = [
         {info.getValue()}
       </div>
     ),
-    enableSorting: true,
+    enableSorting: false,
     enableColumnFilter: true,
     meta: {
       label: "School",
@@ -64,7 +104,7 @@ export const columns = [
         {info.getValue()}
       </div>
     ),
-    enableSorting: true,
+    enableSorting: false,
     enableColumnFilter: true,
     meta: {
       label: "Member Count",
@@ -77,52 +117,125 @@ export const columns = [
       ],
     },
   }),
-  columnHelper.accessor("award", {
-    id: "award",
-    header: "Award",
-    cell: (info) => {
-      const award = info.getValue()
-      const isFirstRound = award === "FIRST_ROUND"
-      const isSecondRound = award === "SECOND_ROUND"
-
+  columnHelper.display({
+    id: "allStatus",
+    header: "Register Status",
+    cell: ({ row }) => {
       return (
-        <Badge
-          variant={isFirstRound ? "default" : isSecondRound ? "secondary" : "outline"}
-          className="capitalize">
-          <Trophy className="mr-1 h-3 w-3" />
-          {award === "FIRST_ROUND" ? "First Round" : "Second Round"}
-        </Badge>
+        <div className="flex items-center gap-2">
+          {registerStatusIcon(row.original.regisStatusTeam, "team")}
+          {registerStatusIcon(row.original.regisStatusAdviser, "adviser")}
+          {registerStatusIcon(row.original.regisStatusMember1, "member 1")}
+          {registerStatusIcon(row.original.regisStatusMember2, "member 2")}
+          {registerStatusIcon(row.original.regisStatusMember3, "member 3")}
+        </div>
       )
     },
-    enableSorting: true,
+  }),
+  columnHelper.accessor("submitRegister", {
+    id: "submitRegister",
+    header: "Submit Date",
+    cell: (info) => {
+      const value = info.getValue() as Date | null
+      if (!value) {
+        return <CircleOffIcon className="h-4 w-4 text-rose-500" />
+      }
+      const date = new Date(value)
+
+      return <RelativeTimeCard date={date} className="font-semibold text-green-600 hover:text-green-800" />
+    },
+    enableSorting: false,
+    enableColumnFilter: true,
+  }),
+  columnHelper.accessor("verificationStatus", {
+    id: "verifyStatus",
+    header: "Verify",
+    cell: ({ row }) => {
+      const status = row.original.verificationStatus
+      const verificationTime = row.original.verificationTime
+      const verifiedByUsername = row.original.verifiedByUsername
+
+      if (status === null) {
+        return (
+          <div className="flex flex-col items-center justify-center gap-1">
+            <div className="h-4 w-4 rounded border border-gray-300 bg-white" />
+          </div>
+        )
+      }
+
+      const getCheckboxStyle = () => {
+        switch (status) {
+          case "NOT_DONE":
+            return "bg-gray-400"
+          case "DONE":
+            return "bg-green-500"
+          default:
+            return "bg-white"
+        }
+      }
+
+      const getTimeColor = () => {
+        switch (status) {
+          case "NOT_DONE":
+            return "text-gray-500"
+          case "DONE":
+            return "text-green-600"
+          default:
+            return "text-gray-500"
+        }
+      }
+
+      return (
+        <div className="flex flex-col items-center justify-center gap-1">
+          <div
+            className={`flex h-4 w-4 items-center justify-center rounded border border-gray-300 ${getCheckboxStyle()}`}>
+            {status !== null && <CheckIcon className="h-3 w-3 text-white" />}
+          </div>
+          {verificationTime && (
+            <>
+              <RelativeTimeCard date={verificationTime} className={`text-xs ${getTimeColor()}`} />
+              {verifiedByUsername && (
+                <span className={`text-xs ${getTimeColor()} opacity-75`}>by {verifiedByUsername}</span>
+              )}
+            </>
+          )}
+        </div>
+      )
+    },
+    enableSorting: false,
     enableColumnFilter: true,
     meta: {
-      label: "Award",
+      label: "Verification Status",
+      placeholder: "Filter by verification status...",
       variant: "select",
       options: [
-        { label: "First Round", value: "FIRST_ROUND" },
-        { label: "Second Round", value: "SECOND_ROUND" },
+        { label: "No Verification", value: "NO_CHECK" },
+        { label: "Not Done", value: "NOT_DONE" },
+        { label: "Done", value: "DONE" },
       ],
     },
   }),
   columnHelper.display({
-    id: "actions",
-    header: "Actions",
-    cell: (_info) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon">
-            <MoreHorizontal className="h-4 w-4" />
-            <span className="sr-only">Open menu</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem>View Details</DropdownMenuItem>
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
-    size: 32,
+    id: "verifyAction",
+    header: "Action",
+    cell: ({ row }) => <VerifyDialog id={row.original.id} />,
   }),
 ]
+
+const registerStatusIcon = (value: "NOT_DONE" | "DONE" | "NOT_HAVE" | null, tooltip: string) => {
+  const status = (value ?? "NOT_HAVE") as "DONE" | "NOT_DONE" | "NOT_HAVE"
+  const Icon = RegsiterStatusToIcon(status)
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button variant="outline" size="icon">
+          <Icon className={cn("h-4 min-h-4 w-4 min-w-4", RegisterStatusToColorClass(status))} />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p className="capitalize">{tooltip}</p>
+      </TooltipContent>
+    </Tooltip>
+  )
+}
