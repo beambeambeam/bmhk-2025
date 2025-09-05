@@ -3,7 +3,7 @@
 import { adminActionContext } from "@/lib/orpc/actionable"
 import { adminProcedure } from "@/lib/orpc/procedures"
 import { ORPCError } from "@orpc/client"
-import { auth, StaffRolesEnum } from "@workspace/auth"
+import { auth, Roles, StaffRolesEnum } from "@workspace/auth"
 import { db } from "@workspace/db"
 import { eq } from "@workspace/db/orm"
 import { user } from "@workspace/db/schema"
@@ -69,6 +69,7 @@ export const addUser = adminProcedure
     if (existingEmail)
       throw new ORPCError("BAD_REQUEST", {
         message: `User with email ${input.email} already existed!`,
+        defined: true,
         data: {
           bmhkIntErr: "EMAIL_EXISTED",
         },
@@ -79,6 +80,7 @@ export const addUser = adminProcedure
     if (existingUser)
       throw new ORPCError("BAD_REQUEST", {
         message: `User ${input.username} already existed!`,
+        defined: true,
         data: {
           bmhkIntErr: "USERNAME_EXISTED",
         },
@@ -86,6 +88,7 @@ export const addUser = adminProcedure
     if (!input.autoGeneratePassword && !input.password)
       throw new ORPCError("BAD_REQUEST", {
         message: `If not autogenerating password can't be blank!`,
+        defined: true,
         data: {
           bmhkIntErr: "PASSWORD_IS_BLANK",
         },
@@ -107,6 +110,7 @@ export const addUser = adminProcedure
       if (!psp.success) {
         throw new ORPCError("BAD_REQUEST", {
           message: `If not autogenerating password can't be blank!`,
+          defined: true,
           data: {
             bmhkIntErr: "PASSWORD_IS_BLANK",
           },
@@ -142,10 +146,23 @@ export const editUser = adminProcedure
   .handler(async ({ input }) => {
     const [u] = await db.select().from(user).where(eq(user.id, input.id)).limit(1)
 
-    if (!u) throw new Error(`User not found!`)
+    if (!u)
+      throw new ORPCError("NOT_FOUND", {
+        message: `Specified user not found! User may already been deleted.`,
+        defined: true,
+        data: {
+          bmhkIntErr: "USER_NOT_FOUND",
+        },
+      })
 
-    console.log("Edit user input")
-    console.log(JSON.stringify(input, null, 2))
+    if (u.role === Roles.SUPER_ADMIN)
+      throw new ORPCError("FORBIDDEN", {
+        message: `Specified user is superadmin!`,
+        defined: true,
+        data: {
+          bmhkIntErr: "EDITING_SUPERADMIN_NOT_ALLOWED",
+        },
+      })
 
     let data: Omit<z.infer<typeof editUserSchema>, "id"> = {}
 
@@ -154,10 +171,10 @@ export const editUser = adminProcedure
     if (input.role) data.role = input.role
     if (input.username) data.username = input.username
     if (input.password)
-      await auth.api.setUserPassword({ body: { userId: input.id, newPassword: input.password } })
-
-    console.log("Data to commit")
-    console.log(JSON.stringify(data, null, 2))
+      await auth.api.setUserPassword({
+        body: { userId: input.id, newPassword: input.password },
+        headers: await headers(),
+      })
 
     if (data && Object.keys(data).length !== 0) await db.update(user).set(data).where(eq(user.id, input.id))
   })
@@ -167,24 +184,30 @@ export const editUser = adminProcedure
 
 export const deleteUser = adminProcedure
   .input(deleteUserSchema)
-  .handler(async ({ input }) => {
+  .handler(async ({ input, context }) => {
     console.log(`Deleting ${input.id}`)
+    console.log(`Acting user: ${context.session.user.email} ${context.session.user.role}`)
     const [u] = await db.select().from(user).where(eq(user.id, input.id)).limit(1)
     console.log(u)
-    if (!u) throw new Error(`User not exist!`)
-
-    const h = await headers()
-
-    console.dir(h, { depth: null })
-
-    await auth.api
-      .removeUser({
-        body: {
-          userId: input.id,
+    if (!u)
+      throw new ORPCError("NOT_FOUND", {
+        message: `Specified user not found! User may already been deleted.`,
+        defined: true,
+        data: {
+          bmhkIntErr: "USER_NOT_EXIST",
         },
-        headers: h,
       })
-      .catch((err) => console.dir(err, { depth: null }))
+
+    if (u.role === Roles.SUPER_ADMIN)
+      throw new ORPCError("FORBIDDEN", {
+        message: `Specified user is superadmin!`,
+        defined: true,
+        data: {
+          bmhkIntErr: "DELETING_SUPERADMIN_NOT_ALLOWED",
+        },
+      })
+
+    await db.delete(user).where(eq(user.id, u.id))
   })
   .actionable({
     context: adminActionContext,

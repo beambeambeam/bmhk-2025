@@ -13,7 +13,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { authClient } from "@/lib/auth-client"
-import { isDefinedError, onError, onSuccess } from "@orpc/client"
+import { isDefinedError, onError, onSuccess, ORPCError } from "@orpc/client"
 import { useServerAction } from "@orpc/react/hooks"
 import { TrashIcon } from "lucide-react"
 import { useContext, useState } from "react"
@@ -30,13 +30,20 @@ const DropdownMenuDeleteStaff = () => {
   const { execute, isPending } = useServerAction(deleteUser, {
     interceptors: [
       onError((err) => {
-        console.log(err)
-        toast("Error!", {
-          description: err?.message,
-        })
-        if (isDefinedError(err)) {
-          console.error(err)
+        if (err instanceof ORPCError && isDefinedError(err)) {
+          if (err.data.bmhkIntError) {
+            if (err.data.bmhkIntError === "USER_NOT_FOUND") {
+              toast.error("Error!", {
+                description: err?.message,
+              })
+            }
+          } else {
+            console.error(err)
+          }
         }
+        toast.error("Error!", {
+          description: err?.message ?? "Unknown Error Occured.",
+        })
       }),
       onSuccess(() => window.location.reload()),
     ],
@@ -49,7 +56,9 @@ const DropdownMenuDeleteStaff = () => {
   return (
     <Dialog>
       <DialogTrigger asChild disabled={user.id == data?.user.id && user.role === "super_admin"}>
-        <Button variant="ghost" className="text-destructive hover:text-destructive w-full justify-start">
+        <Button
+          variant="ghost"
+          className={`text-destructive hover:text-destructive w-full justify-start ${user.id == data?.user.id && user.role === "super_admin" ? "cursor-not-allowed" : ""}`}>
           <TrashIcon /> Delete Staff Account
         </Button>
       </DialogTrigger>
@@ -68,7 +77,7 @@ const DropdownMenuDeleteStaff = () => {
               <Button
                 type="button"
                 variant="destructive"
-                onClick={() => {
+                onClick={async () => {
                   execute({
                     id: user.id,
                   })

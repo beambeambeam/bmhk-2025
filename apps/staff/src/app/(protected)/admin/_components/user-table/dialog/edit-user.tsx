@@ -14,7 +14,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { isDefinedError, onError, onSuccess } from "@orpc/client"
+import { isDefinedError, onError, onSuccess, ORPCError } from "@orpc/client"
 import { useServerAction } from "@orpc/react/hooks"
 import { Edit2Icon } from "lucide-react"
 import { useContext } from "react"
@@ -69,26 +69,36 @@ const DropdownMenuEditStaff = () => {
   const { execute, isPending } = useServerAction(editUser, {
     interceptors: [
       onError((err) => {
-        console.log(err)
-        toast("Error!", {
-          description: err?.message,
-        })
-        if (isDefinedError(err)) {
-          console.error(err)
+        if (err instanceof ORPCError && isDefinedError(err)) {
+          if (err.data.bmhkIntError) {
+            if (err.data.bmhkIntError === "USER_NOT_FOUND") {
+              toast.error("Error!", {
+                description: err?.message,
+              })
+            }
+          } else {
+            console.error(err)
+          }
         }
+        toast.error("Error!", {
+          description: err?.message ?? "Unknown Error Occured.",
+        })
       }),
       onSuccess(() => window.location.reload()),
     ],
   })
 
-  const onSubmit = (data: z.infer<typeof editFormSchema>) => {
-    execute({ ...data, id: user.id, password: data.password ?? "" })
+  const onSubmit = async (data: z.infer<typeof editFormSchema>) => {
+    await execute({ ...data, id: user.id, password: data.password ?? "" })
   }
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="w-full justify-start">
+        <Button
+          variant="ghost"
+          className={`w-full justify-start ${user.role === "super_admin" ? "cursor-not-allowed" : ""}`}
+          disabled={user.role === "super_admin"}>
           <Edit2Icon /> Edit
         </Button>
       </DialogTrigger>
