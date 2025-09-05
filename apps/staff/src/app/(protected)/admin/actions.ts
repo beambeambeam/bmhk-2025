@@ -2,6 +2,7 @@
 
 import { adminActionContext } from "@/lib/orpc/actionable"
 import { adminProcedure } from "@/lib/orpc/procedures"
+import { ORPCError } from "@orpc/client"
 import { auth, StaffRolesEnum } from "@workspace/auth"
 import { db } from "@workspace/db"
 import { eq } from "@workspace/db/orm"
@@ -23,12 +24,32 @@ const passwordSchema = z
     message: "Password must contain at least 1 special character",
   })
 
+const optionalPasswordSchema = z
+  .string()
+  .max(0)
+  .or(
+    z
+      .string()
+      .min(6, { message: "Password must be longer than 6 characters" })
+      .regex(/[A-Z]/, {
+        message: "Password must contain at least 1 uppercase letter",
+      })
+      .regex(/[a-z]/, {
+        message: "Password must contain at least 1 lowercase letter",
+      })
+      .regex(/[0-9]/, { message: "Password must contain at least 1 number" })
+      .regex(/[!@#$%^&*]/, {
+        message: "Password must contain at least 1 special character",
+      })
+  )
+
 const addUserSchema = z.object({
   name: z.string(),
   email: z.email(),
   username: z.string(),
-  password: passwordSchema,
+  password: optionalPasswordSchema,
   role: StaffRolesEnum,
+  autoGeneratePassword: z.boolean(),
 })
 
 const editUserSchema = addUserSchema.partial().extend({
@@ -45,23 +66,80 @@ export const addUser = adminProcedure
   .handler(async ({ input }) => {
     const [existingEmail] = await db.select().from(user).where(eq(user.email, input.email)).limit(1)
 
-    if (existingEmail) throw new Error(`User with email ${input.email} already existed!`)
+    console.log(existingEmail)
+
+    if (existingEmail)
+      throw new ORPCError("BAD_REQUEST", {
+        message: `User with email ${input.email} already existed!`,
+        data: {
+          bmhkIntErr: "EMAIL_EXISTED",
+        },
+      })
 
     const [existingUser] = await db.select().from(user).where(eq(user.username, input.username)).limit(1)
+    console.log(existingUser)
 
-    if (existingUser) throw new Error(`User ${input.username} already existed!`)
+    if (existingUser)
+      throw new ORPCError("BAD_REQUEST", {
+        message: `User ${input.username} already existed!`,
+        data: {
+          bmhkIntErr: "USERNAME_EXISTED",
+        },
+      })
+    if (!input.autoGeneratePassword && !input.password)
+      throw new ORPCError("BAD_REQUEST", {
+        message: `If not autogenerating password can't be blank!`,
+        data: {
+          bmhkIntErr: "PASSWORD_IS_BLANK",
+        },
+      })
+
+    let password = ""
+
+    if (input.autoGeneratePassword) {
+      const allChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*_"
+      let tr = ""
+      for (let i = 0; i < 16; i++) {
+        const randomIndex = Math.floor(Math.random() * allChars.length)
+        tr += allChars[randomIndex]
+      }
+      password = tr
+    } else {
+      const psp = passwordSchema.safeParse(input.password)
+
+      if (!psp.success) {
+        throw new ORPCError("BAD_REQUEST", {
+          message: `If not autogenerating password can't be blank!`,
+          data: {
+            bmhkIntErr: "PASSWORD_IS_BLANK",
+          },
+        })
+      }
+
+      password = psp.data
+    }
+
+    console.log("1")
+    console.log(password)
 
     const res = await auth.api.signUpEmail({
       body: {
         name: input.name,
         email: input.email,
-        password: input.password,
+        password: password,
         username: input.username,
       },
+      headers: await headers(),
       asResponse: false,
     })
 
+    console.log(res)
+
     await db.update(user).set({ role: input.role }).where(eq(user.id, res.user.id))
+    return {
+      email: res.user.email,
+      password: password,
+    }
   })
   .actionable({
     context: adminActionContext,
