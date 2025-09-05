@@ -66,8 +66,6 @@ export const addUser = adminProcedure
   .handler(async ({ input }) => {
     const [existingEmail] = await db.select().from(user).where(eq(user.email, input.email)).limit(1)
 
-    console.log(existingEmail)
-
     if (existingEmail)
       throw new ORPCError("BAD_REQUEST", {
         message: `User with email ${input.email} already existed!`,
@@ -77,7 +75,6 @@ export const addUser = adminProcedure
       })
 
     const [existingUser] = await db.select().from(user).where(eq(user.username, input.username)).limit(1)
-    console.log(existingUser)
 
     if (existingUser)
       throw new ORPCError("BAD_REQUEST", {
@@ -119,9 +116,6 @@ export const addUser = adminProcedure
       password = psp.data
     }
 
-    console.log("1")
-    console.log(password)
-
     const res = await auth.api.signUpEmail({
       body: {
         name: input.name,
@@ -132,8 +126,6 @@ export const addUser = adminProcedure
       headers: await headers(),
       asResponse: false,
     })
-
-    console.log(res)
 
     await db.update(user).set({ role: input.role }).where(eq(user.id, res.user.id))
     return {
