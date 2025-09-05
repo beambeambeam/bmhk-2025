@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Spinner } from "@/components/ui/spinner"
 import { authClient } from "@/lib/auth-client"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import z from "zod"
 
@@ -31,11 +32,22 @@ function SignInForm() {
   })
 
   const onSubmit = async (values: SignInSchemaType) => {
-    authClient.signIn.email({
+    const res = await authClient.signIn.email({
       email: values.email,
       password: values.password,
       callbackURL: "/dashboard",
     })
+
+    if (res.error) {
+      if (res.error.code === "INVALID_EMAIL_OR_PASSWORD") {
+        form.setError("email", {
+          message: res.error.message ?? "Invalid email or password",
+        })
+        form.setError("password", {
+          message: res.error.message ?? "Invalid email or password",
+        })
+      }
+    }
   }
 
   return (
@@ -75,7 +87,10 @@ function SignInForm() {
                 )}
               />
             </div>
-            <Button type="submit" className="mt-4">
+            <Button
+              type="submit"
+              className="mt-4"
+              disabled={form.formState.isSubmitting || form.formState.isSubmitSuccessful}>
               <Spinner show={form.formState.isSubmitting} size="small" className="text-white" />
               Sign In
             </Button>
