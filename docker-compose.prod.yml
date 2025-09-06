@@ -25,6 +25,38 @@ services:
         reservations:
           memory: 512M
 
+  pgbackrest:
+    image: ghcr.io/pgbackrest/pgbackrest:latest
+    env_file: ".env"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - postgres_data:/var/lib/postgresql/data:ro
+      - pgbackrest_repo:/var/lib/pgbackrest
+      - ./pgbackrest:/etc/pgbackrest
+      - ./pgbackrest-logs:/var/log/pgbackrest
+    environment:
+      PGBACKREST_STANZA: db
+    networks:
+      - app_network
+    command: >
+      sh -c "
+        if [ ! -f /etc/pgbackrest/pgbackrest.conf ]; then
+          echo '[global]' > /etc/pgbackrest/pgbackrest.conf &&
+          echo 'repo1-type=s3' >> /etc/pgbackrest/pgbackrest.conf &&
+          echo 'repo1-path=/var/lib/pgbackrest' >> /etc/pgbackrest/pgbackrest.conf &&
+          echo 'repo1-s3-bucket=${S3_BUCKET_NAME_PGBACKREST}' >> /etc/pgbackrest/pgbackrest.conf &&
+          echo 'repo1-s3-endpoint=${S3_ENDPOINT}' >> /etc/pgbackrest/pgbackrest.conf &&
+          echo 'repo1-s3-region=auto' >> /etc/pgbackrest/pgbackrest.conf &&
+          echo 'repo1-s3-key=${S3_ACCESS_KEY_ID_PGBACKREST}' >> /etc/pgbackrest/pgbackrest.conf &&
+          echo 'repo1-s3-key-secret=${S3_SECRET_KEY_PGBACKREST}' >> /etc/pgbackrest/pgbackrest.conf &&
+          echo '[db]' >> /etc/pgbackrest/pgbackrest.conf &&
+          echo 'pg1-path=/var/lib/postgresql/data' >> /etc/pgbackrest/pgbackrest.conf ;
+        fi &&
+        tail -f /dev/null
+      "
+
   watchtower:
     image: containrrr/watchtower
     env_file: ".env"
@@ -85,6 +117,8 @@ services:
 
 volumes:
   postgres_data:
+    driver: local
+  pgbackrest_repo:
     driver: local
 
 networks:
