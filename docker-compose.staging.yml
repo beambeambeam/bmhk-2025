@@ -30,7 +30,7 @@ services:
     networks:
       - app_network
     environment:
-      SCHEDULE: "@daily"
+      SCHEDULE: "@hourly"
       BACKUP_KEEP_DAYS: 7
       PASSPHRASE: ${PG_BACKUP_PASSPHRASE}
       CLOUDFLARE_R2_REGION: auto
