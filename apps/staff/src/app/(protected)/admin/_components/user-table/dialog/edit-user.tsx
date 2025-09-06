@@ -50,18 +50,14 @@ const editFormSchema = z.object({
 const DropdownMenuEditStaff = () => {
   const { user } = useContext(UserDataContext)
 
-  if (!user) {
-    return null
-  }
-
   const form = useForm<z.infer<typeof editFormSchema>>({
     resolver: zodResolver(editFormSchema),
     defaultValues: {
-      role: user.role as never,
+      role: user?.role as never,
       password: "",
-      name: user.name,
-      email: user.email,
-      username: user.username || "",
+      name: user?.name || "",
+      email: user?.email || "",
+      username: user?.username || "",
     },
     mode: "onChange",
   })
@@ -87,6 +83,10 @@ const DropdownMenuEditStaff = () => {
       onSuccess(() => window.location.reload()),
     ],
   })
+
+  if (!user) {
+    return null
+  }
 
   const onSubmit = async (data: z.infer<typeof editFormSchema>) => {
     await execute({ ...data, id: user.id, password: data.password ?? "" })

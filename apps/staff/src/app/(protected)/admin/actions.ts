@@ -164,7 +164,7 @@ export const editUser = adminProcedure
         },
       })
 
-    let data: Omit<z.infer<typeof editUserSchema>, "id"> = {}
+    const data: Omit<z.infer<typeof editUserSchema>, "id"> = {}
 
     if (input.email) data.email = input.email
     if (input.name) data.name = input.name

@@ -16,7 +16,7 @@ import { authClient } from "@/lib/auth-client"
 import { isDefinedError, onError, onSuccess, ORPCError } from "@orpc/client"
 import { useServerAction } from "@orpc/react/hooks"
 import { TrashIcon } from "lucide-react"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { toast } from "sonner"
 
 import { deleteUser } from "../../../actions"

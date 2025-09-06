@@ -8,7 +8,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { authClient } from "@/lib/auth-client"
-import { UserWithRole } from "better-auth/plugins/admin"
 import { MoreHorizontal } from "lucide-react"
 import { createContext } from "react"
 
