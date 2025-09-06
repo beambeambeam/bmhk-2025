@@ -7,6 +7,8 @@ import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 import { useDataTable } from "@/hooks/use-data-table"
 import { use } from "react"
 
+import { AddStaffDialog } from "./dialog/add-user"
+
 interface UserTableProps {
   promises: Promise<[Awaited<ReturnType<typeof getUsers>>]>
 }
@@ -28,7 +30,9 @@ function UserTable({ promises }: UserTableProps) {
 
   return (
     <DataTable table={table}>
-      <DataTableToolbar table={table} />
+      <DataTableToolbar table={table}>
+        <AddStaffDialog />
+      </DataTableToolbar>
     </DataTable>
   )
 }

@@ -1,5 +1,5 @@
 import { Context, ORPCError, os } from "@orpc/server"
-import { StaffRoles } from "@workspace/auth"
+import { StaffRoles, Roles } from "@workspace/auth"
 
 export const o = os.$context<Context>()
 
@@ -25,3 +25,24 @@ export const requireAuth = o.middleware(async ({ context, next }) => {
 })
 
 export const protectedProcedure = publicProcedure.use(requireAuth)
+
+export const adminOnly = o.middleware(async ({ context, next }) => {
+  if (!context.session?.user) {
+    throw new ORPCError("UNAUTHORIZED")
+  }
+
+  if (
+    !context.session?.user?.role ||
+    (context.session.user.role !== Roles.ADMIN && context.session.user.role !== Roles.SUPER_ADMIN)
+  ) {
+    throw new ORPCError("UNAUTHORIZED")
+  }
+
+  return next({
+    context: {
+      session: context.session,
+    },
+  })
+})
+
+export const adminProcedure = protectedProcedure.use(adminOnly)

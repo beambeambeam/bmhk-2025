@@ -1,6 +1,6 @@
 "use client"
 
-import Component from "@/app/(protected)/_components/navbar"
+import NavBar from "@/app/(protected)/_components/navbar"
 import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
 import { useEffect, type ReactNode } from "react"
@@ -25,7 +25,7 @@ function ProtectedLayout(props: { children: ReactNode }) {
 
   return (
     <div className="h-full w-full overflow-x-hidden">
-      <Component />
+      <NavBar />
       {props.children}
     </div>
   )
