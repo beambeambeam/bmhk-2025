@@ -28,6 +28,8 @@ services:
   backup:
     image: dcalsky/postgres-backup-r2:15
     env_file: ".env"
+    networks:
+      - app_network
     environment:
       SCHEDULE: "@daily"
       BACKUP_KEEP_DAYS: 7
