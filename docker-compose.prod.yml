@@ -49,6 +49,7 @@ services:
           echo 'repo1-s3-bucket=${S3_BUCKET_NAME_PGBACKREST}' >> /etc/pgbackrest/pgbackrest.conf &&
           echo 'repo1-s3-endpoint=${S3_ENDPOINT}' >> /etc/pgbackrest/pgbackrest.conf &&
           echo 'repo1-s3-region=auto' >> /etc/pgbackrest/pgbackrest.conf &&
+          echo 'repo1-s3-uri-style=path' /etc/pgbackrest/pgbackrest.conf &&
           echo 'repo1-s3-key=${S3_ACCESS_KEY_ID_PGBACKREST}' >> /etc/pgbackrest/pgbackrest.conf &&
           echo 'repo1-s3-key-secret=${S3_SECRET_KEY_PGBACKREST}' >> /etc/pgbackrest/pgbackrest.conf &&
           echo '[db]' >> /etc/pgbackrest/pgbackrest.conf &&
