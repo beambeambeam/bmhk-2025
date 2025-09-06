@@ -206,3 +206,33 @@ export const registerStatus = pgTable(
     teamIdUnique: uniqueIndex("register_status_team_id_unique").on(table.teamId),
   })
 )
+
+export const round1VerificationStatusEnum = pgEnum("round1_verification_status_enum", ["DONE", "NOT_DONE"])
+
+export const round1Verification = pgTable(
+  "round1_verification",
+  {
+    id: uuid("id").defaultRandom().notNull().primaryKey(),
+    teamId: uuid("team_id")
+      .notNull()
+      .references(() => teams.id, { onDelete: "cascade" }),
+    adviser: text("adviser_problems").array().default([]), // Array of problem codes
+    member1: text("member1_problems").array().default([]), // Array of problem codes
+    member2: text("member2_problems").array().default([]), // Array of problem codes
+    member3: text("member3_problems").array().default([]), // Array of problem codes
+    notes: text("notes"),
+    status: round1VerificationStatusEnum("status").notNull().default("NOT_DONE"),
+    verifiedBy: text("verified_by").references(() => user.id, { onDelete: "set null" }),
+    verifiedAt: timestamp("verified_at"),
+    createdAt: timestamp("created_at")
+      .$defaultFn(() => /* @__PURE__ */ new Date())
+      .notNull(),
+    updatedAt: timestamp("updated_at")
+      .$defaultFn(() => /* @__PURE__ */ new Date())
+      .notNull(),
+  },
+  (table) => ({
+    // Ensure one verification per team
+    teamIdUnique: uniqueIndex("round1_verification_team_id_unique").on(table.teamId),
+  })
+)

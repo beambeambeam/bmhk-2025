@@ -16,7 +16,7 @@ env:
   CI: true
 
 jobs:
-  build-api-image:
+  build-web-image:
     name: Build Web Docker image
     runs-on: ubuntu-latest
     permissions:
