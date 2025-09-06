@@ -4,11 +4,11 @@ on:
   push:
     branches: [main, staging]
     paths:
-      - 'apps/staff/**/*'
-      - 'packages/**/*'
-      - '.github/workflows/build-staffapp-image.yml'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
+      - "apps/staff/**/*"
+      - "packages/**/*"
+      - ".github/workflows/build-staffapp-image.yml"
+      - "package.json"
+      - "pnpm-lock.yaml"
 
 env:
   REGISTRY: ghcr.io
@@ -60,7 +60,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            NEXT_PUBLIC_STAFFAPP_URL='https://kirin.bangmodhackathon.com'
+            NEXT_PUBLIC_STAFFAPP_URL=${{ github.ref_name == 'main' && 'https://kirin.bangmodhackathon.com' || 'https://kirin-staging.bangmodhackathon.com' }}
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
