@@ -114,6 +114,8 @@ services:
 volumes:
   postgres_data:
     driver: local
+  pgbackrest_repo:
+    driver: local
 
 networks:
   app_network:
