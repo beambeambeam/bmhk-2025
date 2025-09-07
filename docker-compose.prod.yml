@@ -108,8 +108,8 @@ services:
     image: ghcr.io/beambeambeam/bmhk-2025-kirin:main
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.web.rule=Host(`kirin.bangmodhackathon.com`)"
-      - "traefik.http.services.web.loadbalancer.server.port=3002"
+      - "traefik.http.routers.staff.rule=Host(`kirin.bangmodhackathon.com`)"
+      - "traefik.http.services.staff.loadbalancer.server.port=3002"
       - "com.centurylinklabs.watchtower.enable=true"
     env_file: ".env"
     environment:
