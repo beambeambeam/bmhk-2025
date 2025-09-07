@@ -98,6 +98,21 @@ services:
     networks:
       - app_network
 
+  staff:
+    image: ghcr.io/beambeambeam/bmhk-2025-kirin:staging
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`kirin-staging.bangmodhackathon.com`)"
+      - "traefik.http.services.web.loadbalancer.server.port=3000"
+      - "com.centurylinklabs.watchtower.enable=true"
+    env_file: ".env"
+    deploy:
+      mode: replicated
+      replicas: 2
+    restart: unless-stopped
+    networks:
+      - app_network
+
 volumes:
   postgres_data:
     driver: local
