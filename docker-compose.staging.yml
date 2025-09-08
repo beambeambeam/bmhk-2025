@@ -24,6 +24,26 @@ services:
         reservations:
           memory: 512M
 
+  backup:
+    image: dcalsky/postgres-backup-r2:15
+    env_file: ".env"
+    networks:
+      - app_network
+    environment:
+      SCHEDULE: "@weekly"
+      BACKUP_KEEP_DAYS: 7
+      PASSPHRASE: ${PG_BACKUP_PASSPHRASE}
+      CLOUDFLARE_R2_REGION: auto
+      CLOUDFLARE_R2_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID_PGBACKREST}
+      CLOUDFLARE_R2_SECRET_ACCESS_KEY: ${S3_SECRET_KEY_PGBACKREST}
+      CLOUDFLARE_R2_BUCKET: ${S3_BUCKET_NAME_PGBACKREST}
+      CLOUDFLARE_R2_ENDPOINT: ${S3_ENDPOINT}
+      R2_PREFIX: staging
+      POSTGRES_HOST: ${DATABASE_HOST}
+      POSTGRES_DATABASE: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PW}
+
   watchtower:
     image: containrrr/watchtower
     env_file: ".env"
@@ -71,6 +91,23 @@ services:
       - "traefik.http.services.server.loadbalancer.server.port=3001"
       - "com.centurylinklabs.watchtower.enable=true"
     env_file: ".env"
+    deploy:
+      mode: replicated
+      replicas: 2
+    restart: unless-stopped
+    networks:
+      - app_network
+
+  staff:
+    image: ghcr.io/beambeambeam/bmhk-2025-kirin:staging
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.staff.rule=Host(`kirin-staging.bangmodhackathon.com`)"
+      - "traefik.http.services.staff.loadbalancer.server.port=3002"
+      - "com.centurylinklabs.watchtower.enable=true"
+    env_file: ".env"
+    environment:
+      PORT: 3002
     deploy:
       mode: replicated
       replicas: 2
