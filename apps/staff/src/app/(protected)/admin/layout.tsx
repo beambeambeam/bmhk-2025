@@ -1,14 +1,27 @@
-import { auth, StaffRoles } from "@workspace/auth"
-import { headers } from "next/headers"
-import { redirect } from "next/navigation"
-import { ReactNode } from "react"
+"use client"
 
-async function AdminLayout(props: { children: ReactNode }) {
-  const u = await auth.api.getSession({ headers: await headers() })
+import { authClient } from "@/lib/auth-client"
+import { useRouter } from "next/navigation"
+import { useEffect, type ReactNode } from "react"
 
-  if (!u || StaffRoles.includes(u.user.role as "super_admin" | "admin" | "staff")) {
-    redirect("/dashboard")
-  }
+const { useSession } = authClient
+
+function AdminLayout(props: { children: ReactNode }) {
+  const { data: session, isPending } = useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!isPending) {
+      type AdminRole = "super_admin" | "admin"
+      const ALLOWED_ROLES: readonly AdminRole[] = ["super_admin", "admin"] as const
+      const role = session?.user?.role as AdminRole | undefined
+      const isAdmin = role ? ALLOWED_ROLES.includes(role) : false
+      if (!session?.user || !isAdmin) {
+        router.push("/dashboard")
+      }
+    }
+  }, [session, isPending, router])
+
   return <>{props.children}</>
 }
 
