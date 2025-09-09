@@ -16,9 +16,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { isDefinedError, onError, ORPCError } from "@orpc/client"
+import { isDefinedError, onError, onSuccess, ORPCError } from "@orpc/client"
 import { useServerAction } from "@orpc/react/hooks"
 import { UserPlus } from "lucide-react"
+import { parseAsString, useQueryState } from "nuqs"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
@@ -74,7 +75,7 @@ const formSchema = z.object({
 })
 
 export function AddStaffDialog() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useQueryState("user", parseAsString.withDefault(""))
   const [autoGenPw, setAutoGenPw] = useState(true)
   const [showSuccessDialog, setShowSuccessDialog] = useState(false)
   const [successData, setSuccessData] = useState<{
@@ -82,6 +83,9 @@ export function AddStaffDialog() {
     email: string
     loginDetails: string
   } | null>(null)
+
+  const isOpen = open === "new"
+
   const { execute, isPending } = useServerAction(addUser, {
     interceptors: [
       onError((err) => {
@@ -91,6 +95,21 @@ export function AddStaffDialog() {
         if (isDefinedError(err)) {
           console.error(err)
         }
+      }),
+      onSuccess((data) => {
+        setOpen(null)
+        toast.success("Success!", {
+          description: "User added.",
+          action: {
+            label: "Copy login",
+            onClick: async () => {
+              await navigator.clipboard.writeText(`${data.email} ${data.password}`)
+              toast.success("Copied login details to clipboard!", {
+                description: `Email: ${data.email}@kmutt.ac.th\nPassword: ${data.password}`,
+              })
+            },
+          },
+        })
       }),
     ],
   })
@@ -106,43 +125,18 @@ export function AddStaffDialog() {
   })
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    const { data: res, error } = await execute({
+    execute({
       ...data,
       email: `${data.email}@kmutt.ac.th`,
       username: data.email,
       password: data.password ?? undefined,
       autoGeneratePassword: autoGenPw,
     })
-
-    if (error) {
-      if (error instanceof ORPCError) {
-        if (error.data === "EMAIL_EXISTED") {
-          form.setError("email", {
-            message: error.message,
-          })
-        } else {
-          toast.error("Error!", {
-            description: error.message,
-          })
-        }
-      }
-      return
-    }
-
-    toast.success("Success!", {
-      description: "User added.",
-    })
-    setSuccessData({
-      email: res.email,
-      name: data.name,
-      loginDetails: `Email: ${res.email}\nPassword: ${res.password}`,
-    })
-    setShowSuccessDialog(true)
   }
 
   return (
     <>
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={isOpen} onOpenChange={(isOpen) => setOpen(isOpen ? "new" : "")}>
         <DialogTrigger asChild>
           <Button>
             <UserPlus /> Add
@@ -259,7 +253,7 @@ export function AddStaffDialog() {
       <AddUserSuccessDialog
         open={showSuccessDialog}
         setOpen={setShowSuccessDialog}
-        setMainDialogOpen={setOpen}
+        setMainDialogOpen={() => setOpen("")}
         data={successData}
       />
     </>

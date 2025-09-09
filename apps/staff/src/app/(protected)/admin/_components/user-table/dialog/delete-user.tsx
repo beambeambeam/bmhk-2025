@@ -48,7 +48,11 @@ const DropdownMenuDeleteStaff = () => {
           description: err?.message ?? "Unknown Error Occured.",
         })
       }),
-      onSuccess(() => window.location.reload()),
+      onSuccess(() => {
+        toast.success("Success!", {
+          description: "User deleted.",
+        })
+      }),
     ],
   })
 
