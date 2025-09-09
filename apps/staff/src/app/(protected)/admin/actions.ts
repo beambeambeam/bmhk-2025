@@ -7,6 +7,7 @@ import { auth, Roles, StaffRolesEnum } from "@workspace/auth"
 import { db } from "@workspace/db"
 import { eq } from "@workspace/db/orm"
 import { user } from "@workspace/db/schema"
+import { revalidateTag } from "next/cache"
 import { headers } from "next/headers"
 import { z } from "zod"
 
@@ -132,6 +133,9 @@ export const addUser = adminProcedure
     })
 
     await db.update(user).set({ role: input.role }).where(eq(user.id, res.user.id))
+
+    revalidateTag("users")
+
     return {
       email: res.user.email,
       password: password,
@@ -177,6 +181,8 @@ export const editUser = adminProcedure
       })
 
     if (data && Object.keys(data).length !== 0) await db.update(user).set(data).where(eq(user.id, input.id))
+
+    revalidateTag("users")
   })
   .actionable({
     context: adminActionContext,
@@ -208,6 +214,8 @@ export const deleteUser = adminProcedure
       })
 
     await db.delete(user).where(eq(user.id, u.id))
+
+    revalidateTag("users")
   })
   .actionable({
     context: adminActionContext,
