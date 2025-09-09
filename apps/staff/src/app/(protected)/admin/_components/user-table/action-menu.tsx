@@ -29,7 +29,7 @@ export const UserDataContext = createContext<ActionMenuProps>({
 const { useSession } = authClient
 
 export function ActionMenu(props: ActionMenuProps) {
-  const [open, setOpen] = useQueryState("user", parseAsString.withDefault(""))
+  const [, setOpen] = useQueryState("user", parseAsString.withDefault(""))
 
   const { isPending, data } = useSession()
 
@@ -66,8 +66,9 @@ export function ActionMenu(props: ActionMenuProps) {
             onSelect={(e) => {
               e.preventDefault()
               setOpen(`d-${props.user?.id}`)
-            }}>
-            <TrashIcon /> Delete Staff Account
+            }}
+            disabled={props.user?.id == data?.user.id}>
+            <TrashIcon /> Delete Account
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
