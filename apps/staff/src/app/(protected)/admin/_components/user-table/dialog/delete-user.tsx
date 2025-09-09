@@ -10,12 +10,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import { authClient } from "@/lib/auth-client"
 import { isDefinedError, onError, onSuccess, ORPCError } from "@orpc/client"
 import { useServerAction } from "@orpc/react/hooks"
-import { TrashIcon } from "lucide-react"
 import { parseAsString, useQueryState } from "nuqs"
 import { useContext } from "react"
 import { toast } from "sonner"
@@ -28,7 +26,7 @@ const DropdownMenuDeleteStaff = () => {
 
   const [open, setOpen] = useQueryState("user", parseAsString.withDefault(""))
 
-  const { data } = authClient.useSession()
+  authClient.useSession()
 
   const { execute, isPending } = useServerAction(deleteUser, {
     interceptors: [

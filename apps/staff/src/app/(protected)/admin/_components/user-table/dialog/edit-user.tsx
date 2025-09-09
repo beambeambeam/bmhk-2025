@@ -15,7 +15,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { isDefinedError, onError, onSuccess, ORPCError } from "@orpc/client"
 import { useServerAction } from "@orpc/react/hooks"
-import { Edit2Icon } from "lucide-react"
 import { parseAsString, useQueryState } from "nuqs"
 import { useContext } from "react"
 import { useForm } from "react-hook-form"

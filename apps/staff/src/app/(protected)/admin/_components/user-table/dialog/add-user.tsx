@@ -16,7 +16,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { isDefinedError, onError, onSuccess, ORPCError } from "@orpc/client"
+import { isDefinedError, onError, onSuccess } from "@orpc/client"
 import { useServerAction } from "@orpc/react/hooks"
 import { UserPlus } from "lucide-react"
 import { parseAsString, useQueryState } from "nuqs"
@@ -78,7 +78,7 @@ export function AddStaffDialog() {
   const [open, setOpen] = useQueryState("user", parseAsString.withDefault(""))
   const [autoGenPw, setAutoGenPw] = useState(true)
   const [showSuccessDialog, setShowSuccessDialog] = useState(false)
-  const [successData, setSuccessData] = useState<{
+  const [successData] = useState<{
     name: string
     email: string
     loginDetails: string
