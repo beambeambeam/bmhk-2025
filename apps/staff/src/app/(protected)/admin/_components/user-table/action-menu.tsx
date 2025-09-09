@@ -5,10 +5,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Spinner } from "@/components/ui/spinner"
 import { authClient } from "@/lib/auth-client"
-import { MoreHorizontal } from "lucide-react"
+import { Edit2Icon, MoreHorizontal, TrashIcon } from "lucide-react"
+import { parseAsString, useQueryState } from "nuqs"
 import { createContext } from "react"
 
 import DropdownMenuDeleteStaff from "./dialog/delete-user"
@@ -22,7 +26,21 @@ export const UserDataContext = createContext<ActionMenuProps>({
   user: undefined,
 })
 
+const { useSession } = authClient
+
 export function ActionMenu(props: ActionMenuProps) {
+  const [, setOpen] = useQueryState("user", parseAsString.withDefault(""))
+
+  const { isPending, data } = useSession()
+
+  if (isPending) {
+    return (
+      <Button variant="ghost" size="icon">
+        <Spinner className="h-5 w-5" />
+      </Button>
+    )
+  }
+
   return (
     <UserDataContext.Provider value={props}>
       <DropdownMenu>
@@ -32,15 +50,30 @@ export function ActionMenu(props: ActionMenuProps) {
             <span className="sr-only">Open menu</span>
           </Button>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-            <DropdownMenuEditStaff />
+          <DropdownMenuLabel>Edit Accounts</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onSelect={(e) => {
+              e.preventDefault()
+              setOpen(`e-${props.user?.id}`)
+            }}>
+            <Edit2Icon /> Edit
           </DropdownMenuItem>
-          <DropdownMenuItem variant="destructive" onSelect={(e) => e.preventDefault()}>
-            <DropdownMenuDeleteStaff />
+          <DropdownMenuItem
+            variant="destructive"
+            onSelect={(e) => {
+              e.preventDefault()
+              setOpen(`d-${props.user?.id}`)
+            }}
+            disabled={props.user?.id == data?.user.id}>
+            <TrashIcon /> Delete Account
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      <DropdownMenuDeleteStaff />
+      <DropdownMenuEditStaff />
     </UserDataContext.Provider>
   )
 }

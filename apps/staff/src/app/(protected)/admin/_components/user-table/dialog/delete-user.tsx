@@ -10,12 +10,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import { authClient } from "@/lib/auth-client"
 import { isDefinedError, onError, onSuccess, ORPCError } from "@orpc/client"
 import { useServerAction } from "@orpc/react/hooks"
-import { TrashIcon } from "lucide-react"
+import { parseAsString, useQueryState } from "nuqs"
 import { useContext } from "react"
 import { toast } from "sonner"
 
@@ -25,7 +24,9 @@ import { UserDataContext } from "../action-menu"
 const DropdownMenuDeleteStaff = () => {
   const { user } = useContext(UserDataContext)
 
-  const { data } = authClient.useSession()
+  const [open, setOpen] = useQueryState("user", parseAsString.withDefault(""))
+
+  authClient.useSession()
 
   const { execute, isPending } = useServerAction(deleteUser, {
     interceptors: [
@@ -45,7 +46,11 @@ const DropdownMenuDeleteStaff = () => {
           description: err?.message ?? "Unknown Error Occured.",
         })
       }),
-      onSuccess(() => window.location.reload()),
+      onSuccess(() => {
+        toast.success("Success!", {
+          description: "User deleted.",
+        })
+      }),
     ],
   })
 
@@ -54,14 +59,7 @@ const DropdownMenuDeleteStaff = () => {
   }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild disabled={user.id == data?.user.id && user.role === "super_admin"}>
-        <Button
-          variant="ghost"
-          className={`text-destructive hover:text-destructive w-full justify-start ${user.id == data?.user.id && user.role === "super_admin" ? "cursor-not-allowed" : ""}`}>
-          <TrashIcon /> Delete Staff Account
-        </Button>
-      </DialogTrigger>
+    <Dialog open={open === `d-${user.id}`} onOpenChange={(isOpen) => setOpen(isOpen ? `d-${user.id}` : "")}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>
