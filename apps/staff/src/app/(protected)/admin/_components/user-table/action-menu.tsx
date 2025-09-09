@@ -5,11 +5,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Spinner } from "@/components/ui/spinner"
 import { authClient } from "@/lib/auth-client"
-import { MoreHorizontal, TrashIcon } from "lucide-react"
+import { Edit2Icon, MoreHorizontal, TrashIcon } from "lucide-react"
 import { parseAsString, useQueryState } from "nuqs"
 import { createContext } from "react"
 
@@ -48,9 +50,16 @@ export function ActionMenu(props: ActionMenuProps) {
             <span className="sr-only">Open menu</span>
           </Button>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-            <DropdownMenuEditStaff />
+          <DropdownMenuLabel>Edit Accounts</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onSelect={(e) => {
+              e.preventDefault()
+              setOpen(`e-${props.user?.id}`)
+            }}>
+            <Edit2Icon /> Edit
           </DropdownMenuItem>
           <DropdownMenuItem
             variant="destructive"
@@ -63,6 +72,7 @@ export function ActionMenu(props: ActionMenuProps) {
         </DropdownMenuContent>
       </DropdownMenu>
       <DropdownMenuDeleteStaff />
+      <DropdownMenuEditStaff />
     </UserDataContext.Provider>
   )
 }

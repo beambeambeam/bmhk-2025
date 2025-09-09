@@ -8,7 +8,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
@@ -17,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { isDefinedError, onError, onSuccess, ORPCError } from "@orpc/client"
 import { useServerAction } from "@orpc/react/hooks"
 import { Edit2Icon } from "lucide-react"
+import { parseAsString, useQueryState } from "nuqs"
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
@@ -49,6 +49,9 @@ const editFormSchema = z.object({
 
 const DropdownMenuEditStaff = () => {
   const { user } = useContext(UserDataContext)
+  const [open, setOpen] = useQueryState("user", parseAsString.withDefault(""))
+
+  const isOpen = open === `e-${user?.id}`
 
   const form = useForm<z.infer<typeof editFormSchema>>({
     resolver: zodResolver(editFormSchema),
@@ -93,119 +96,116 @@ const DropdownMenuEditStaff = () => {
   }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          className={`w-full justify-start ${user.role === "super_admin" ? "cursor-not-allowed" : ""}`}
-          disabled={user.role === "super_admin"}>
-          <Edit2Icon /> Edit
-        </Button>
-      </DialogTrigger>
-
-      <DialogContent className="sm:max-w-[425px]">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <DialogHeader>
-              <DialogTitle>Edit staff</DialogTitle>
-              <DialogDescription>
-                {user.name} - {user.username}
-              </DialogDescription>
-            </DialogHeader>
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input placeholder="************" type="password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="role"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Role</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+    <>
+      <Dialog open={isOpen} onOpenChange={(isOpen) => setOpen(isOpen ? `e-${user.id}` : "")}>
+        <DialogContent
+          className="sm:max-w-[425px]"
+          onInteractOutside={(e) => {
+            e.preventDefault()
+          }}>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <DialogHeader>
+                <DialogTitle>Edit staff</DialogTitle>
+                <DialogDescription>
+                  {user.name} - {user.username}
+                </DialogDescription>
+              </DialogHeader>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
+                      <Input {...field} />
                     </FormControl>
-                    <SelectContent>
-                      <SelectItem value="super_admin" disabled>
-                        Super Admin
-                      </SelectItem>
-                      <SelectItem value="admin">Admin</SelectItem>
-                      <SelectItem value="staff">Staff</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <DialogFooter>
-              {isPending ? (
-                <LoadingSpinner className="size-4" />
-              ) : (
-                <>
-                  <Button type="submit">Confirm</Button>
-                  <DialogClose asChild>
-                    <Button type="button" variant="outline">
-                      Cancel
-                    </Button>
-                  </DialogClose>
-                </>
-              )}
-            </DialogFooter>
-          </form>
-        </Form>
-      </DialogContent>
-    </Dialog>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input placeholder="************" type="password" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="role"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Role</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="super_admin" disabled>
+                          Super Admin
+                        </SelectItem>
+                        <SelectItem value="admin">Admin</SelectItem>
+                        <SelectItem value="staff">Staff</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <DialogFooter>
+                {isPending ? (
+                  <LoadingSpinner className="size-4" />
+                ) : (
+                  <>
+                    <Button type="submit">Confirm</Button>
+                    <DialogClose asChild>
+                      <Button type="button" variant="outline">
+                        Cancel
+                      </Button>
+                    </DialogClose>
+                  </>
+                )}
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }
 export default DropdownMenuEditStaff
