@@ -15,7 +15,20 @@ const sarabunSans = Sarabun({
 
 export const metadata: Metadata = {
   title: "BMHK 2025 Staff",
-  description: "Staff pages.",
+  description: "Internal staff pages - not for public access.",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "none",
+      "max-snippet": -1,
+    },
+  },
 }
 
 export default function RootLayout({
