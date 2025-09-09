@@ -7,8 +7,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Spinner } from "@/components/ui/spinner"
 import { authClient } from "@/lib/auth-client"
-import { MoreHorizontal } from "lucide-react"
+import { MoreHorizontal, TrashIcon } from "lucide-react"
+import { parseAsString, useQueryState } from "nuqs"
 import { createContext } from "react"
 
 import DropdownMenuDeleteStaff from "./dialog/delete-user"
@@ -22,7 +24,21 @@ export const UserDataContext = createContext<ActionMenuProps>({
   user: undefined,
 })
 
+const { useSession } = authClient
+
 export function ActionMenu(props: ActionMenuProps) {
+  const [open, setOpen] = useQueryState("user", parseAsString.withDefault(""))
+
+  const { isPending, data } = useSession()
+
+  if (isPending) {
+    return (
+      <Button variant="ghost" size="icon">
+        <Spinner className="h-5 w-5" />
+      </Button>
+    )
+  }
+
   return (
     <UserDataContext.Provider value={props}>
       <DropdownMenu>
@@ -36,11 +52,17 @@ export function ActionMenu(props: ActionMenuProps) {
           <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
             <DropdownMenuEditStaff />
           </DropdownMenuItem>
-          <DropdownMenuItem variant="destructive" onSelect={(e) => e.preventDefault()}>
-            <DropdownMenuDeleteStaff />
+          <DropdownMenuItem
+            variant="destructive"
+            onSelect={(e) => {
+              e.preventDefault()
+              setOpen(`d-${props.user?.id}`)
+            }}>
+            <TrashIcon /> Delete Staff Account
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      <DropdownMenuDeleteStaff />
     </UserDataContext.Provider>
   )
 }
