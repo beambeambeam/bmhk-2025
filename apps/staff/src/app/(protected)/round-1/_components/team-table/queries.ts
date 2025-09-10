@@ -1,6 +1,7 @@
 "use server"
 
 import { GetRound1TeamsSchema } from "@/app/(protected)/round-1/_components/team-table/validations"
+import { shouldColorSchoolRed } from "@/lib/school-utils"
 import { unstable_cache } from "@/lib/unstable-cache"
 import { db, teams, registerStatus, round1Verification, user } from "@workspace/db"
 import { and, asc, count, ilike, eq, or, lte, gte, isNotNull, isNull, sql } from "@workspace/db/orm"
@@ -125,9 +126,12 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
             .where(baseWhere)
             .orderBy(...orderBy)
 
+          const allSchoolNames = allTeams.map((team) => team.school)
+
           const teamsWithRanks = allTeams.map((team, index) => ({
             ...team,
             submissionRank: index + 1,
+            rowShouldBeRed: shouldColorSchoolRed(team.school, allSchoolNames),
           }))
 
           const filteredData = input.submissionRank?.trim()

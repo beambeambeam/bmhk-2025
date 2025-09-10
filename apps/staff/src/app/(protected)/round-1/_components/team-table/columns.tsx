@@ -27,6 +27,7 @@ export type Team = Pick<
   verificationTime: Date | null
   verifiedByUsername: string | null
   submissionRank: number
+  rowShouldBeRed: boolean
 }
 
 const columnHelper = createColumnHelper<Team>()
@@ -87,12 +88,17 @@ export const columns = [
   columnHelper.accessor("school", {
     id: "school",
     header: "School",
-    cell: (info) => (
-      <div className="flex items-center gap-2">
-        <School className="text-muted-foreground h-4 w-4" />
-        {info.getValue()}
-      </div>
-    ),
+    cell: (info) => {
+      const schoolName = info.getValue()
+      const shouldBeRed = info.row.original.rowShouldBeRed
+
+      return (
+        <div className="flex items-center gap-2">
+          <School className={cn("h-4 w-4", shouldBeRed ? "text-red-500" : "text-muted-foreground")} />
+          <span className={cn(shouldBeRed && "font-medium text-red-500")}>{schoolName}</span>
+        </div>
+      )
+    },
     enableSorting: false,
     enableColumnFilter: true,
     meta: {

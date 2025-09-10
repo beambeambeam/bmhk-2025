@@ -35,7 +35,7 @@ function Round1TeamTable({ promises }: Round1TeamTableProps) {
     clearOnDefault: true,
     meta: {
       getRowStyles: (row: Row<Team>): CSSProperties => ({
-        background: 1 === 1 ? "red" : "transparent",
+        background: row.original.rowShouldBeRed ? "rgba(239, 68, 68, 0.1)" : "transparent",
       }),
     },
   })
