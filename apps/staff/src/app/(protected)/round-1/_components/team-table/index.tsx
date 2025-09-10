@@ -1,11 +1,12 @@
 "use client"
 
-import { columns } from "@/app/(protected)/round-1/_components/team-table/columns"
+import { columns, Team } from "@/app/(protected)/round-1/_components/team-table/columns"
 import { getRound1Teams } from "@/app/(protected)/round-1/_components/team-table/queries"
 import { DataTable } from "@/components/data-table/data-table"
 import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 import { useDataTable } from "@/hooks/use-data-table"
-import { use } from "react"
+import { Row } from "@tanstack/react-table"
+import { CSSProperties, use } from "react"
 
 interface Round1TeamTableProps {
   promises: Promise<[Awaited<ReturnType<typeof getRound1Teams>>]>
@@ -32,6 +33,11 @@ function Round1TeamTable({ promises }: Round1TeamTableProps) {
     },
     shallow: false,
     clearOnDefault: true,
+    meta: {
+      getRowStyles: (row: Row<Team>): CSSProperties => ({
+        background: 1 === 1 ? "red" : "transparent",
+      }),
+    },
   })
 
   return (

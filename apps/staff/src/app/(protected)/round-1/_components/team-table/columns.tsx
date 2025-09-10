@@ -13,7 +13,7 @@ import { teams, registerStatusEnum } from "@workspace/db/schema"
 import { Building2, Users, School, CircleOffIcon, CheckIcon } from "lucide-react"
 import { Text } from "lucide-react"
 
-type Team = Pick<
+export type Team = Pick<
   typeof teams.$inferSelect,
   "id" | "name" | "school" | "memberCount" | "createdAt" | "index"
 > & {
