@@ -61,12 +61,24 @@ export function MemberLayout(props: MemberLayoutProps) {
                 <Label>Face Picture</Label>
                 <div className="rounded-lg border p-2">
                   {member.facePic ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src={member.facePic.url}
-                      alt={member.facePic.name}
-                      className="h-[240px] w-full rounded object-contain md:h-[200px] lg:h-[180px] lg:w-[160px]"
-                    />
+                    isImage(member.facePic.type) ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={member.facePic.url}
+                        alt={member.facePic.name}
+                        className="h-[240px] w-full rounded object-contain md:h-[200px] lg:h-[180px] lg:w-[160px]"
+                      />
+                    ) : isPdf(member.facePic.type) ? (
+                      <iframe
+                        src={member.facePic.url}
+                        className="h-[240px] w-full rounded md:h-[200px] lg:h-[180px] lg:w-[160px]"
+                        title={member.facePic.name}
+                      />
+                    ) : (
+                      <a href={member.facePic.url} target="_blank" rel="noreferrer" className="underline">
+                        View file: {member.facePic.name}
+                      </a>
+                    )
                   ) : (
                     <div className="text-muted-foreground">No face picture</div>
                   )}

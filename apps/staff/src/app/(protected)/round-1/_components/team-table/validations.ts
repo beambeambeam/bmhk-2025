@@ -10,6 +10,7 @@ export const searchParamsCache = createSearchParamsCache({
   school: parseAsString.withDefault(""),
   memberCount: parseAsArrayOf(z.enum(["2", "3"])).withDefault([]),
   submitRegister: parseAsString.withDefault(""),
+  submissionRank: parseAsString.withDefault(""),
   regisStatusTeam: parseAsArrayOf(z.enum(["DONE", "NOT_DONE", "NOT_HAVE"])).withDefault([]),
   regisStatusAdviser: parseAsArrayOf(z.enum(["DONE", "NOT_DONE", "NOT_HAVE"])).withDefault([]),
   regisStatusMember1: parseAsArrayOf(z.enum(["DONE", "NOT_DONE", "NOT_HAVE"])).withDefault([]),
