@@ -14,8 +14,6 @@ interface Round1TeamTableProps {
 function Round1TeamTable({ promises }: Round1TeamTableProps) {
   const [{ data, pageCount }] = use(promises)
 
-  console.log(data)
-
   const { table } = useDataTable({
     data,
     columns,
@@ -29,6 +27,7 @@ function Round1TeamTable({ promises }: Round1TeamTableProps) {
         regisStatusMember1: false,
         regisStatusMember2: false,
         regisStatusMember3: false,
+        allStatus: false,
       },
     },
     shallow: false,
