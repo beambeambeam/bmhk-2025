@@ -31,7 +31,7 @@ async function Round1Page(props: Round1PageProps) {
           fallback={
             <DataTableSkeleton
               columnCount={5}
-              filterCount={4}
+              filterCount={5}
               cellWidths={["20rem", "20rem", "10rem", "12rem", "6rem"]}
               shrinkZero
             />

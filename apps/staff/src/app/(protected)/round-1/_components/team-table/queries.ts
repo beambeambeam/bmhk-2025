@@ -11,6 +11,10 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
       try {
         const offset = (input.page - 1) * input.perPage
 
+        // No advancedWhere; filtering handled in the query logic below
+
+        const orderBy = [asc(registerStatus.submitRegister)]
+
         const baseWhere = and(
           isNotNull(registerStatus.submitRegister),
           input.name ? ilike(teams.name, `%${input.name}%`) : undefined,
@@ -94,12 +98,8 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
           })()
         )
 
-        // No advancedWhere; filtering handled in baseWhere or direct params
-
-        const orderBy = [asc(registerStatus.submitRegister)]
-
         const { data, total } = await db.transaction(async (tx) => {
-          const data = await tx
+          const allTeams = await tx
             .select({
               id: teams.id,
               name: teams.name,
@@ -117,27 +117,28 @@ export async function getRound1Teams(input: GetRound1TeamsSchema) {
               verificationTime: round1Verification.verifiedAt,
               verifiedBy: round1Verification.verifiedBy,
               verifiedByUsername: user.name,
-              submissionRank: sql<number>`ROW_NUMBER() OVER (ORDER BY ${registerStatus.submitRegister} ASC)`,
             })
             .from(teams)
             .leftJoin(registerStatus, eq(registerStatus.teamId, teams.id))
             .leftJoin(round1Verification, eq(round1Verification.teamId, teams.id))
             .leftJoin(user, eq(user.id, round1Verification.verifiedBy))
-            .limit(input.perPage)
-            .offset(offset)
             .where(baseWhere)
             .orderBy(...orderBy)
 
-          const total = await tx
-            .select({
-              count: count(),
-            })
-            .from(teams)
-            .leftJoin(registerStatus, eq(registerStatus.teamId, teams.id))
-            .leftJoin(round1Verification, eq(round1Verification.teamId, teams.id))
-            .where(baseWhere)
-            .execute()
-            .then((res) => res[0]?.count ?? 0)
+          const teamsWithRanks = allTeams.map((team, index) => ({
+            ...team,
+            submissionRank: index + 1,
+          }))
+
+          const filteredData = input.submissionRank?.trim()
+            ? teamsWithRanks.filter((team) => {
+                const rankNumber = parseInt(input.submissionRank!.trim(), 10)
+                return !isNaN(rankNumber) && team.submissionRank === rankNumber
+              })
+            : teamsWithRanks
+
+          const data = filteredData.slice(offset, offset + input.perPage)
+          const total = filteredData.length
 
           return {
             data,

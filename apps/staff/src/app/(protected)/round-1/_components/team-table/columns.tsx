@@ -37,9 +37,16 @@ export const columns = [
     header: "Rank",
     cell: (info) => {
       const rank = info.getValue<number>()
-      return rank != null ? rank.toString().padStart(3, "0") : ""
+      return rank != null ? rank.toString() : ""
     },
     enableSorting: false,
+    enableColumnFilter: true,
+    meta: {
+      label: "Rank",
+      placeholder: "Search by rank...",
+      variant: "text",
+      icon: Text,
+    },
   }),
   columnHelper.accessor("index", {
     id: "codeName",
