@@ -1,6 +1,5 @@
 "use client"
 
-import ArrowIcon from "@/components/ArrowIcon"
 import Link from "next/link"
 
 export default function Requirement() {
@@ -10,9 +9,10 @@ export default function Requirement() {
         <h1 className="text-[1.5rem] font-medium md:text-[2rem] 2xl:text-[3rem]">ลงทะเบียนเข้าแข่งขัน</h1>
         <Link
           href="/register/team"
-          className="liquid flex w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
-          <span className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[2rem]">เริ่มลงทะเบียน</span>
-          <ArrowIcon className="h-6 w-6 md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
+          className="flex h-fit w-full items-center justify-between gap-4 rounded-[32px] bg-[radial-gradient(105.85%_133.12%_at_50%_100%,#DFDFDF_0%,rgba(223,223,223,0)_100%)] px-6 py-3 md:w-auto md:w-fit md:px-8 2xl:px-10 2xl:py-4">
+          <span className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[2rem]">
+            เลยกำหนดรับสมัคร
+          </span>
         </Link>
       </div>
 

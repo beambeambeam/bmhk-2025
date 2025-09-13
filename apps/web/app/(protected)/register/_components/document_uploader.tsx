@@ -1,4 +1,3 @@
-import { Button } from "@workspace/ui/components/button"
 import { useFileUpload, formatBytes } from "@workspace/ui/hooks/use-file-upload"
 import type { FileMetadata } from "@workspace/ui/hooks/use-file-upload"
 import { cn } from "@workspace/ui/lib/utils"

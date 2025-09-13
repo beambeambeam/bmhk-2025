@@ -7,7 +7,7 @@ import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
 import { cn } from "@workspace/ui/lib/utils"
 
-import { TeamNavMobileLinks, TeamNavMenu } from "../../_components/team-nav"
+import { TeamNavMobileLinks } from "../../_components/team-nav"
 
 function AdviserRegisterPage() {
   const query = useQuery(orpc.register.adviser.get.queryOptions())

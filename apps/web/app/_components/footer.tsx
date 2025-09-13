@@ -23,6 +23,7 @@ function Sponsor() {
       <div className="flex flex-wrap items-center gap-6 self-stretch max-lg:justify-center">
         {SPONSOR_LIST.map((s) => (
           <GlassCard
+            key={s.name}
             className="min-w-15 min-h-15 px-2 py-1 2xl:min-h-20 2xl:min-w-20"
             style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}>
             <img src={s.image_path} />

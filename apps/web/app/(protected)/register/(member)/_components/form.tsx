@@ -5,17 +5,6 @@ import { useMember3Status } from "@/app/(protected)/_components/status/context"
 import DocumentUploader from "@/app/(protected)/register/_components/document_uploader"
 import { ExternalFormProps } from "@/types/form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@workspace/ui/components/alert-dialog"
 import { Button } from "@workspace/ui/components/button"
 import {
   Form,

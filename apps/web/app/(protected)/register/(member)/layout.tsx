@@ -2,7 +2,7 @@ import { Navbar } from "@/app/_components/navbar"
 import { cn } from "@workspace/ui/lib/utils"
 import { ReactNode } from "react"
 
-import { TeamNavMobileLinks, TeamNavMenu } from "../../_components/team-nav"
+import { TeamNavMobileLinks } from "../../_components/team-nav"
 
 interface MemberLayoutProps {
   readonly children: ReactNode

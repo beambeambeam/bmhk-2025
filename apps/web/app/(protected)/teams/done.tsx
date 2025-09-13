@@ -1,5 +1,4 @@
 import { useSubmitRegister } from "@/app/(protected)/_components/status/context"
-import ArrowIcon from "@/components/ArrowIcon"
 import CheckIcon from "@/components/CheckIcon"
 import DocumentIcon from "@/components/DocumentIcon"
 import EducationIcon from "@/components/EducationIcon"
@@ -214,14 +213,6 @@ function TeamDone() {
 
   return (
     <div className="md:px-15 z-50 w-full px-6 pt-8 md:pt-0 lg:px-20 2xl:px-40">
-      {!isSubmit && (
-        <Link
-          href="/register/team"
-          className="liquid mb-8 flex h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:hidden md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
-          <span className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[2rem]">ลงทะเบียนต่อ</span>
-          <ArrowIcon className="h-6 w-6 md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
-        </Link>
-      )}
       <div
         className="liquid flex flex-col items-center gap-8 rounded-[24px] p-4 md:gap-10 md:rounded-[40px] md:p-8 lg:gap-8 2xl:gap-10 2xl:p-10"
         style={{
@@ -238,63 +229,65 @@ function TeamDone() {
                   )
                 `,
         }}>
-        <div className="flex w-full flex-col gap-5 md:flex-row md:gap-10">
-          <div className="flex flex-col gap-3 md:items-center md:justify-center">
-            {teamData.teamImage ? (
-              <img
-                className="h-[68px] min-h-[68px] w-[68px] min-w-[68px] rounded-full md:h-[75px] md:min-h-[75px] md:w-[75px] md:min-w-[75px] lg:h-[95px] lg:min-h-[95px] lg:w-[95px] lg:min-w-[95px] 2xl:h-[100px] 2xl:min-h-[100px] 2xl:w-[100px] 2xl:min-w-[100px]"
-                src={teamData.teamImage}
-                alt={teamData.teamName}
-              />
-            ) : (
-              <img
-                src="/static/icon/UserCircleFilled.svg"
-                alt="Team Image"
-                className="size-[68px] md:size-[75px] lg:size-[95px] 2xl:size-[100px]"
-              />
-            )}
-            <div className="hidden text-[0.875rem] font-normal text-gray-50 md:block 2xl:hidden">
-              {teamData.teamCode}
-            </div>
-          </div>
-          <div className="flex w-full flex-col md:flex-row md:justify-between">
-            <div className="flex flex-col gap-2.5 md:gap-3 2xl:gap-4">
-              <div className="flex flex-col gap-2.5 md:gap-4 2xl:flex-row 2xl:items-center">
-                <div className="xmd:text-[1.5rem] text-[1.25rem] font-medium lg:text-[1.875rem] 2xl:text-[2.25rem]">
-                  {teamData.teamName}
-                </div>
-                <div className="block text-[0.875rem] font-normal text-gray-50 md:hidden 2xl:block 2xl:text-[1.75rem]">
-                  {teamData.teamCode}
-                </div>
-              </div>
-              <div className="flex flex-col flex-wrap gap-2.5 2xl:flex-row 2xl:gap-6">
-                <div className="flex items-center gap-2.5">
-                  <EducationIcon className="h-[16px] w-[16px] text-gray-50 md:h-[20px] md:w-[20px] lg:h-[24px] lg:w-[24px] 2xl:h-[32px] 2xl:w-[32px]" />
-                  <div className="text-[0.875rem] font-normal text-gray-50 md:text-[1rem] lg:text-[1.5rem]">
-                    {teamData.school}
-                  </div>
-                </div>
-                {teamData.message.length > 1 && (
-                  <div className="flex items-center gap-2.5">
-                    <MessageIcon className="h-[16px] w-[16px] text-gray-50 md:h-[20px] md:w-[20px] lg:h-[24px] lg:w-[24px] 2xl:h-[32px] 2xl:w-[32px]" />
-                    <div className="text-[0.875rem] font-normal text-gray-50 md:text-[1rem] lg:text-[1.5rem]">
-                      {teamData.message}
-                    </div>
-                  </div>
-                )}
+        <div className="flex w-full flex-col gap-5">
+          {/* Top row: Team image and button */}
+          <div className="flex w-full flex-row items-center justify-between">
+            <div className="flex flex-col gap-3 md:items-center md:justify-center">
+              {teamData.teamImage ? (
+                <img
+                  className="h-[68px] min-h-[68px] w-[68px] min-w-[68px] rounded-full md:h-[75px] md:min-h-[75px] md:w-[75px] md:min-w-[75px] lg:h-[95px] lg:min-h-[95px] lg:w-[95px] lg:min-w-[95px] 2xl:h-[100px] 2xl:min-h-[100px] 2xl:w-[100px] 2xl:min-w-[100px]"
+                  src={teamData.teamImage}
+                  alt={teamData.teamName}
+                />
+              ) : (
+                <img
+                  src="/static/icon/UserCircleFilled.svg"
+                  alt="Team Image"
+                  className="size-[68px] md:size-[75px] lg:size-[95px] 2xl:size-[100px]"
+                />
+              )}
+              <div className="hidden text-[0.875rem] font-normal text-gray-50 md:block 2xl:hidden">
+                {teamData.teamCode}
               </div>
             </div>
 
             {!isSubmit && (
               <Link
                 href="/register/team"
-                className="liquid hidden h-fit w-full items-center justify-between gap-4 rounded-[32px] py-3 pl-6 pr-3 md:flex md:w-auto md:pl-8 md:pr-4 2xl:py-4 2xl:pl-10 2xl:pr-6">
+                className="flex h-fit w-fit items-center justify-between gap-4 rounded-[32px] bg-[radial-gradient(105.85%_133.12%_at_50%_100%,#DFDFDF_0%,rgba(223,223,223,0)_100%)] px-6 py-3 md:w-auto md:px-8 2xl:px-10 2xl:py-4">
                 <span className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[2rem]">
-                  ลงทะเบียนต่อ
+                  เลยกำหนดรับสมัคร
                 </span>
-                <ArrowIcon className="h-6 w-6 md:h-8 md:w-8 2xl:h-10 2xl:w-10" />
               </Link>
             )}
+          </div>
+
+          {/* Bottom row: Team information */}
+          <div className="flex w-full flex-col gap-2.5 md:gap-3 2xl:gap-4">
+            <div className="flex flex-col gap-2.5 md:gap-4 2xl:flex-row 2xl:items-center">
+              <div className="xmd:text-[1.5rem] text-[1.25rem] font-medium lg:text-[1.875rem] 2xl:text-[2.25rem]">
+                {teamData.teamName}
+              </div>
+              <div className="block text-[0.875rem] font-normal text-gray-50 md:hidden 2xl:block 2xl:text-[1.75rem]">
+                {teamData.teamCode}
+              </div>
+            </div>
+            <div className="flex flex-col flex-wrap gap-2.5 2xl:flex-row 2xl:gap-6">
+              <div className="flex items-center gap-2.5">
+                <EducationIcon className="h-[16px] w-[16px] text-gray-50 md:h-[20px] md:w-[20px] lg:h-[24px] lg:w-[24px] 2xl:h-[32px] 2xl:w-[32px]" />
+                <div className="text-[0.875rem] font-normal text-gray-50 md:text-[1rem] lg:text-[1.5rem]">
+                  {teamData.school}
+                </div>
+              </div>
+              {teamData.message.length > 1 && (
+                <div className="flex items-center gap-2.5">
+                  <MessageIcon className="h-[16px] w-[16px] text-gray-50 md:h-[20px] md:w-[20px] lg:h-[24px] lg:w-[24px] 2xl:h-[32px] 2xl:w-[32px]" />
+                  <div className="text-[0.875rem] font-normal text-gray-50 md:text-[1rem] lg:text-[1.5rem]">
+                    {teamData.message}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -377,8 +370,14 @@ function TeamDone() {
               {/* General info */}
               <div className="flex w-full flex-col justify-center gap-5 md:gap-6">
                 <div className="flex flex-col gap-3 md:gap-6">
-                  <div className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[1.75rem]">
+                  <div className="flex items-center gap-2 text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[1.75rem]">
                     1. ข้อมูลทั่วไป
+                    {member.info.general.nameTH[0] &&
+                      member.info.general.nameTH[1] &&
+                      member.info.general.nameEN[0] &&
+                      member.info.general.nameEN[1] && (
+                        <CheckIcon className="h-[16px] w-[16px] text-[#00C951] md:h-[20px] md:w-[20px] 2xl:h-[24px] 2xl:w-[24px]" />
+                      )}
                   </div>
                   <div className="flex flex-col gap-3 md:flex-row md:gap-6">
                     <div className="flex min-w-0 flex-1 flex-col gap-2.5 md:gap-3">
@@ -439,8 +438,11 @@ function TeamDone() {
                 </div>
 
                 <div className="flex flex-col gap-3 md:gap-6">
-                  <div className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[1.75rem]">
+                  <div className="flex items-center gap-2 text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[1.75rem]">
                     2. ข้อมูลติดต่อ
+                    {member.info.contact.email && member.info.contact.phone && (
+                      <CheckIcon className="h-[16px] w-[16px] text-[#00C951] md:h-[20px] md:w-[20px] 2xl:h-[24px] 2xl:w-[24px]" />
+                    )}
                   </div>
                   <div className="flex flex-col gap-3 md:flex-row md:gap-6">
                     <div className="flex min-w-0 flex-col gap-2.5 md:gap-3 lg:flex-1">
@@ -471,8 +473,11 @@ function TeamDone() {
                 </div>
 
                 <div className="flex flex-col gap-5 md:gap-6">
-                  <div className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[1.75rem]">
+                  <div className="flex items-center gap-2 text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[1.75rem]">
                     3. เอกสาร
+                    {member.info.documents.length > 0 && (
+                      <CheckIcon className="h-[16px] w-[16px] text-[#00C951] md:h-[20px] md:w-[20px] 2xl:h-[24px] 2xl:w-[24px]" />
+                    )}
                   </div>
                   {member.info.documents.map((doc, i) => (
                     <div
