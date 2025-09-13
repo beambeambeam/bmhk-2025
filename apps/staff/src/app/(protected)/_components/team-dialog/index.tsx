@@ -44,46 +44,46 @@ function TeamDialog(props: TeamDialogProps) {
           )}
         </DialogTrigger>
         <DialogContent className="h-[90vh] !max-w-fit">
-          <DialogHeader className="h-full min-h-0">
+          <DialogHeader className="h-full min-h-0" hidden>
             <DialogTitle hidden>Team Verification</DialogTitle>
             <DialogDescription hidden>Verify team information and member details.</DialogDescription>
-            <div
-              className={`grid h-full min-h-0 w-[98vw] overflow-y-auto transition-all md:w-[85vw] ${
-                props.children ? "grid-rows-2 md:grid-cols-[2fr_1fr]" : "grid-rows-1"
-              }`}>
-              <Tabs defaultValue="team" value={tab} onValueChange={onTabChange} className="h-full">
-                <TabsList className="h-fit w-fit">
-                  <TabsTrigger value="team">Team</TabsTrigger>
-                  <TabsTrigger value="adviser">Adviser</TabsTrigger>
-                  <TabsTrigger value="member 1">
-                    <UserIcon /> 1
-                  </TabsTrigger>
-                  <TabsTrigger value="member 2">
-                    <UserIcon /> 2
-                  </TabsTrigger>
-                  <TabsTrigger value="member 3">
-                    <UserIcon /> 3
-                  </TabsTrigger>
-                </TabsList>
-                <TabsContent value="team" className="mt-0">
-                  <TeamDisplay />
-                </TabsContent>
-                <TabsContent value="adviser" className="mt-0">
-                  <AdviserDisplay />
-                </TabsContent>
-                <TabsContent value="member 1" className="mt-0">
-                  <Member1Display />
-                </TabsContent>
-                <TabsContent value="member 2" className="mt-0">
-                  <Member2Display />
-                </TabsContent>
-                <TabsContent value="member 3" className="mt-0">
-                  <Member3Display />
-                </TabsContent>
-              </Tabs>
-              {props.children && <div className="h-full pt-20 lg:p-4 lg:pt-0">{props.children}</div>}
-            </div>
           </DialogHeader>
+          <div
+            className={`grid h-full min-h-0 w-[98vw] overflow-y-auto transition-all md:w-[85vw] ${
+              props.children ? "grid-rows-2 md:grid-cols-[2fr_1fr]" : "grid-rows-1"
+            }`}>
+            <Tabs defaultValue="team" value={tab} onValueChange={onTabChange} className="h-full">
+              <TabsList className="h-fit w-fit">
+                <TabsTrigger value="team">Team</TabsTrigger>
+                <TabsTrigger value="adviser">Adviser</TabsTrigger>
+                <TabsTrigger value="member 1">
+                  <UserIcon /> 1
+                </TabsTrigger>
+                <TabsTrigger value="member 2">
+                  <UserIcon /> 2
+                </TabsTrigger>
+                <TabsTrigger value="member 3">
+                  <UserIcon /> 3
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="team" className="mt-0">
+                <TeamDisplay />
+              </TabsContent>
+              <TabsContent value="adviser" className="mt-0">
+                <AdviserDisplay />
+              </TabsContent>
+              <TabsContent value="member 1" className="mt-0">
+                <Member1Display />
+              </TabsContent>
+              <TabsContent value="member 2" className="mt-0">
+                <Member2Display />
+              </TabsContent>
+              <TabsContent value="member 3" className="mt-0">
+                <Member3Display />
+              </TabsContent>
+            </Tabs>
+            {props.children && <div className="h-full pt-20 lg:p-4 lg:pt-0">{props.children}</div>}
+          </div>
         </DialogContent>
       </Dialog>
     </TeamDialogContext.Provider>
