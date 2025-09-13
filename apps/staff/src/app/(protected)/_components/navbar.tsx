@@ -37,6 +37,7 @@ function Navbar() {
     { href: "/dashboard", label: "Overview" },
     { href: "/round-1", label: "Round 1 Verification" },
     { href: "/round-1-comp", label: "Round 1 Competition" },
+    { href: "/team-award", label: "Team Award" },
     ...(data?.user && typeof data.user.role === "string" && ["super_admin", "admin"].includes(data.user.role)
       ? [{ href: "/admin", label: "Admin" }]
       : []),
