@@ -15,11 +15,13 @@ export function EachAwardForTopRow({ data }: TopRowAwardProps) {
     return (
       <div
         className="group relative isolate flex max-h-[530px] flex-col items-center gap-10 p-2.5 before:absolute before:-inset-14 before:-z-10 before:rounded-[48px] before:opacity-0 before:blur-3xl before:transition before:duration-500 before:ease-out before:content-[''] hover:before:scale-105 hover:before:opacity-65"
-        style={{
-          // radial glow with supplied color
-          ["--glow-color" as any]: glowColor,
-          background: "transparent",
-        }}>
+        style={
+          {
+            // radial glow with supplied color
+            ["--glow-color"]: glowColor,
+            background: "transparent",
+          } as React.CSSProperties & { "--glow-color": string }
+        }>
         <img
           src={data.imageSrc}
           width={data.imageDimension.width}
@@ -44,9 +46,11 @@ export function EachAwardForTopRow({ data }: TopRowAwardProps) {
     return (
       <div
         className="group relative isolate flex max-h-[441px] w-[325px] flex-col items-center gap-10 py-2.5 before:absolute before:-inset-12 before:-z-10 before:rounded-[48px] before:opacity-0 before:blur-3xl before:transition before:duration-500 before:ease-out before:content-[''] hover:before:scale-105 hover:before:opacity-60 2xl:w-[480px]"
-        style={{
-          ["--glow-color" as any]: glowColor,
-        }}>
+        style={
+          {
+            ["--glow-color"]: glowColor,
+          } as React.CSSProperties & { "--glow-color": string }
+        }>
         <img
           src={data.imageSrc}
           width={data.imageDimension.width}
@@ -82,9 +86,11 @@ export function EachAwardForBottomRow({ data }: EachAwardProps) {
     <div className="group flex w-[325px] items-center gap-10 lg:w-[380px] 2xl:w-[480px]">
       <div
         className="group relative isolate before:absolute before:-inset-10 before:-z-10 before:rounded-[32px] before:opacity-0 before:blur-3xl before:transition before:duration-500 before:ease-out before:content-[''] hover:before:scale-105 group-hover:before:opacity-45"
-        style={{
-          ["--glow-color" as any]: glowColor,
-        }}>
+        style={
+          {
+            ["--glow-color"]: glowColor,
+          } as React.CSSProperties & { "--glow-color": string }
+        }>
         <img
           src={data.imageSrc}
           width={data.imageDimension.width}

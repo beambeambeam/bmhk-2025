@@ -41,7 +41,7 @@ interface NavbarProps {
 }
 
 type Actions = {
-  [key: string]: (...args: any[]) => any
+  [key: string]: (...args: unknown[]) => void
 }
 
 function signOutWithBA() {
@@ -74,7 +74,7 @@ export function Navbar({ links, CTAId, sections }: NavbarProps) {
     })
 
     return () => observer.disconnect()
-  }, [])
+  }, [sections])
 
   const isActive = (href: string) => active === href
   return (

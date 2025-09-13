@@ -9,8 +9,6 @@ export function AccordionItem({
   value,
   isOpen = false,
   onToggle,
-  longTitle,
-  shortTitle,
   lqClassName = "liquid",
   colorTheme,
   data,

@@ -3,7 +3,7 @@
 import GlassCard from "@/components/glassCard"
 import IconCircle from "@/components/iconCircle"
 import { Star, StarLarge } from "@/components/star"
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 import storyData from "../../../public/static/story/story.json"
 
@@ -15,7 +15,7 @@ function Story() {
 
   const currentStory = stories[currentIndex]
 
-  const startInterval = () => {
+  const startInterval = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current)
 
     intervalRef.current = setInterval(() => {
@@ -25,14 +25,14 @@ function Story() {
         setFade(true) // fade-in after change
       }, 200) // match fade-out duration
     }, 60000) // auto switch every 1 minute
-  }
+  }, [stories.length])
 
   useEffect(() => {
     startInterval()
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
     }
-  }, [stories.length])
+  }, [stories.length, startInterval])
 
   useEffect(() => {
     stories.forEach((story) => {

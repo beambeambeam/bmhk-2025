@@ -10,7 +10,6 @@ interface RequirementProps {
 function Requirement({ title, items, imgSrc }: RequirementProps) {
   return (
     <div className="group relative isolate flex w-[313px] flex-col justify-center gap-y-12 before:absolute before:-inset-10 before:-z-10 before:rounded-[48px] before:bg-[radial-gradient(80%_80%_at_50%_40%,rgba(159,131,220,0.55)_0%,rgba(159,131,220,0.25)_40%,transparent_70%)] before:opacity-0 before:blur-3xl before:transition before:duration-500 before:ease-out before:content-[''] hover:before:scale-105 hover:before:opacity-100 lg:w-[437px] 2xl:w-[643px]">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={imgSrc}
         height={378}
@@ -33,7 +32,7 @@ function Requirement({ title, items, imgSrc }: RequirementProps) {
           {/* list items */}
           <ul className="text-body-2 m-0 mx-auto flex h-full flex-1 list-outside list-disc flex-col pl-6">
             {items.map((item, i) => (
-              <li key={i} className="break-words">
+              <li key={`${title}-item-${i}`} className="break-words">
                 {item}
               </li>
             ))}
@@ -48,7 +47,7 @@ const req: RequirementProps[] = [
   {
     title: "สำหรับนักเรียนผู้เข้าแข่งขัน",
     items: [
-      <span>
+      <span key="student-id">
         สำเนาบัตรประชาชน หรือบัตรประจำตัวสำหรับบุคคลที่ไม่ใช่สัญชาติไทย <br />
         (เฉพาะด้านหน้า)
       </span>,
@@ -60,7 +59,7 @@ const req: RequirementProps[] = [
   {
     title: "สำหรับอาจารย์ที่ปรึกษา",
     items: [
-      <span>
+      <span key="teacher-id">
         สำเนาบัตรประชาชน หรือบัตรประจำตัวสำหรับบุคคลที่ไม่ใช่สัญชาติไทย <br />
         (เฉพาะด้านหน้า)
       </span>,
