@@ -1,6 +1,6 @@
 "use client"
 
-import { columns, TeamAward } from "@/app/(protected)/team-award/_components/team-award-table/columns"
+import { columns } from "@/app/(protected)/team-award/_components/team-award-table/columns"
 import { getTeamAwards } from "@/app/(protected)/team-award/_components/team-award-table/queries"
 import { DataTable } from "@/components/data-table/data-table"
 import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"

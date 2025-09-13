@@ -3,7 +3,7 @@
 import { GetTeamAwardsSchema } from "@/app/(protected)/team-award/_components/team-award-table/validations"
 import { unstable_cache } from "@/lib/unstable-cache"
 import { db, teams, round1Verification } from "@workspace/db"
-import { and, asc, ilike, eq, isNotNull } from "@workspace/db/orm"
+import { and, asc, ilike, eq } from "@workspace/db/orm"
 
 export async function getTeamAwards(input: GetTeamAwardsSchema) {
   return await unstable_cache(

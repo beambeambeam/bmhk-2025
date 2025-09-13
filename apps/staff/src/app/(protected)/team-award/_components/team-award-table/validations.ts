@@ -1,6 +1,5 @@
 import { getFiltersStateParser } from "@/lib/parsers"
-import { createSearchParamsCache, parseAsArrayOf, parseAsInteger, parseAsString } from "nuqs/server"
-import * as z from "zod"
+import { createSearchParamsCache, parseAsInteger, parseAsString } from "nuqs/server"
 
 export const searchParamsCache = createSearchParamsCache({
   page: parseAsInteger.withDefault(1),

@@ -10,7 +10,10 @@ export interface CSVExportOptions {
 /**
  * Converts an array of objects to CSV format
  */
-export function arrayToCSV<T extends Record<string, any>>(data: T[], options: CSVExportOptions = {}): string {
+export function arrayToCSV<T extends Record<string, unknown>>(
+  data: T[],
+  options: CSVExportOptions = {}
+): string {
   if (data.length === 0) return ""
 
   const { includeHeaders = true } = options
@@ -41,7 +44,7 @@ export function arrayToCSV<T extends Record<string, any>>(data: T[], options: CS
 /**
  * Escapes a field value for CSV format
  */
-function escapeCSVField(value: any): string {
+function escapeCSVField(value: unknown): string {
   if (value === null || value === undefined) {
     return ""
   }
@@ -78,7 +81,7 @@ export function downloadCSV(csvContent: string, filename: string = "export.csv")
 /**
  * Exports table data to CSV and downloads it
  */
-export function exportTableToCSV<T extends Record<string, any>>(
+export function exportTableToCSV<T extends Record<string, unknown>>(
   data: T[],
   options: CSVExportOptions = {}
 ): void {

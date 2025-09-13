@@ -1,5 +1,5 @@
+import TeamDialog from "@/app/(protected)/_components/team-dialog"
 import { formatCodeName } from "@/app/(protected)/round-1/_components/team-table/format"
-import { Button } from "@/components/ui/button"
 import { createColumnHelper } from "@tanstack/react-table"
 import { teams } from "@workspace/db/schema"
 import { Building2, School, Trophy, Text } from "lucide-react"
@@ -89,5 +89,10 @@ export const columns = [
       variant: "text",
       icon: Trophy,
     },
+  }),
+  columnHelper.display({
+    id: "action",
+    header: "Action",
+    cell: ({ row }) => <TeamDialog id={row.original.id} />,
   }),
 ]

@@ -4,7 +4,7 @@ import { GetRound1CompTeamsSchema } from "@/app/(protected)/round-1-comp/_compon
 import { shouldColorSchoolRed } from "@/lib/school-utils"
 import { unstable_cache } from "@/lib/unstable-cache"
 import { db, teams, round1Verification, member } from "@workspace/db"
-import { and, asc, ilike, eq, or, isNotNull } from "@workspace/db/orm"
+import { and, asc, ilike, eq, or } from "@workspace/db/orm"
 
 export async function getRound1CompTeams(input: GetRound1CompTeamsSchema) {
   return await unstable_cache(
