@@ -4,9 +4,12 @@ import { columns, Team } from "@/app/(protected)/round-1-comp/_components/team-t
 import { getRound1CompTeams } from "@/app/(protected)/round-1-comp/_components/team-table/queries"
 import { DataTable } from "@/components/data-table/data-table"
 import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
+import { Button } from "@/components/ui/button"
 import { useDataTable } from "@/hooks/use-data-table"
+import { exportTableToCSV } from "@/lib/csv-export"
 import { Row } from "@tanstack/react-table"
-import { CSSProperties, use } from "react"
+import { Download } from "lucide-react"
+import { CSSProperties, use, useCallback } from "react"
 
 interface Round1CompTeamTableProps {
   promises: Promise<[Awaited<ReturnType<typeof getRound1CompTeams>>]>
@@ -33,9 +36,32 @@ function Round1CompTeamTable({ promises }: Round1CompTeamTableProps) {
     },
   })
 
+  const handleExportCSV = useCallback(() => {
+    // Get all filtered data from the table
+    const filteredData = table.getFilteredRowModel().rows.map((row) => {
+      const team = row.original
+      return {
+        "Code Name": `BMHK${team.index.toString().padStart(3, "0")}`,
+        "Team Name": team.name,
+        School: team.school,
+        "First Member Email": team.firstMemberEmail || "",
+        Notes: team.notes || "",
+      }
+    })
+
+    exportTableToCSV(filteredData, {
+      filename: `round-1-competition-teams-${new Date().toISOString().split("T")[0]}.csv`,
+    })
+  }, [table])
+
   return (
     <DataTable table={table}>
-      <DataTableToolbar table={table} />
+      <DataTableToolbar table={table}>
+        <Button onClick={handleExportCSV} variant="outline" size="sm">
+          <Download className="mr-2 h-4 w-4" />
+          Export CSV
+        </Button>
+      </DataTableToolbar>
     </DataTable>
   )
 }

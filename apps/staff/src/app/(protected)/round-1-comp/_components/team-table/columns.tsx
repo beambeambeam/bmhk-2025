@@ -144,14 +144,4 @@ export const columns = [
     enableSorting: false,
     enableColumnFilter: false,
   }),
-  columnHelper.accessor("createdAt", {
-    id: "createdAt",
-    header: "Created",
-    cell: (info) => {
-      const date = new Date(info.getValue())
-      return <RelativeTimeCard date={date} className="text-muted-foreground" />
-    },
-    enableSorting: false,
-    enableColumnFilter: false,
-  }),
 ]
