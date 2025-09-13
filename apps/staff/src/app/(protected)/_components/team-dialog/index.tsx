@@ -47,10 +47,10 @@ function TeamDialog(props: TeamDialogProps) {
             <DialogDescription hidden>Verify team information and member details.</DialogDescription>
           </DialogHeader>
           <div
-            className={`grid h-full min-h-0 w-[98vw] overflow-y-auto transition-all md:w-[85vw] ${
+            className={`grid h-full min-h-0 w-[98vw] overflow-auto transition-all md:w-[85vw] ${
               props.children ? "grid-rows-2 md:grid-cols-[2fr_1fr]" : "grid-rows-1"
             }`}>
-            <Tabs defaultValue="team" value={tab} onValueChange={onTabChange} className="h-full">
+            <Tabs defaultValue="team" value={tab} onValueChange={onTabChange} className="h-[90vh] md:h-full">
               <TabsList className="h-fit w-fit">
                 <TabsTrigger value="team">Team</TabsTrigger>
                 <TabsTrigger value="adviser">Adviser</TabsTrigger>
@@ -80,7 +80,9 @@ function TeamDialog(props: TeamDialogProps) {
                 <Member3Display />
               </TabsContent>
             </Tabs>
-            {props.children && <div className="h-full pt-20 lg:p-4 lg:pt-0">{props.children}</div>}
+            {props.children && (
+              <div className="mt-[50%] h-full pt-20 md:mt-0 lg:p-4 lg:pt-0">{props.children}</div>
+            )}
           </div>
         </DialogContent>
       </Dialog>
