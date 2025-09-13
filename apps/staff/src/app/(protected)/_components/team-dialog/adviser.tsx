@@ -2,7 +2,7 @@
 
 import { useTeamDialogContext } from "@/app/(protected)/_components/team-dialog/context"
 import MemberLayout, { MemberSkeleton } from "@/app/(protected)/_components/team-dialog/member-layout"
-import { getAdviser } from "@/app/(protected)/round-1/_components/verifly-dialog/queries"
+import { getAdviser } from "@/app/(protected)/_components/team-dialog/queries"
 import { useQuery } from "@tanstack/react-query"
 import { UserIcon } from "lucide-react"
 

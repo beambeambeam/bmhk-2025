@@ -2,8 +2,8 @@
 
 import { useTeamDialogContext } from "@/app/(protected)/_components/team-dialog/context"
 import { MemberSkeleton } from "@/app/(protected)/_components/team-dialog/member-layout"
+import { getTeam } from "@/app/(protected)/_components/team-dialog/queries"
 import { formatCodeName } from "@/app/(protected)/round-1/_components/team-table/format"
-import { getTeam } from "@/app/(protected)/round-1/_components/verifly-dialog/queries"
 import { Label } from "@/components/ui/label"
 import { useQuery } from "@tanstack/react-query"
 import { UsersIcon } from "lucide-react"
