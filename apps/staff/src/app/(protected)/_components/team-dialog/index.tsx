@@ -37,11 +37,9 @@ function TeamDialog(props: TeamDialogProps) {
           setTab(null)
         }}>
         <DialogTrigger asChild>
-          {props.children ?? (
-            <Button variant="outline" size="icon">
-              <SearchCheckIcon />
-            </Button>
-          )}
+          <Button variant="outline" size="icon">
+            <SearchCheckIcon />
+          </Button>
         </DialogTrigger>
         <DialogContent className="h-[90vh] !max-w-fit">
           <DialogHeader className="h-full min-h-0" hidden>

@@ -4,6 +4,7 @@ import {
   RegsiterStatusToIcon,
   RegisterStatusToColorClass,
 } from "@/app/(protected)/round-1/_components/team-table/format"
+import { VerifyFormParent } from "@/app/(protected)/round-1/_components/verification/form"
 import { Button } from "@/components/ui/button"
 import { RelativeTimeCard } from "@/components/ui/relative-time-card"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
@@ -231,7 +232,11 @@ export const columns = [
   columnHelper.display({
     id: "verifyAction",
     header: "Action",
-    cell: ({ row }) => <TeamDialog id={row.original.id} />,
+    cell: ({ row }) => (
+      <TeamDialog id={row.original.id}>
+        <VerifyFormParent id={row.original.id} />
+      </TeamDialog>
+    ),
   }),
 ]
 
