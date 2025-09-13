@@ -370,8 +370,14 @@ function TeamDone() {
               {/* General info */}
               <div className="flex w-full flex-col justify-center gap-5 md:gap-6">
                 <div className="flex flex-col gap-3 md:gap-6">
-                  <div className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[1.75rem]">
+                  <div className="flex items-center gap-2 text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[1.75rem]">
                     1. ข้อมูลทั่วไป
+                    {member.info.general.nameTH[0] &&
+                      member.info.general.nameTH[1] &&
+                      member.info.general.nameEN[0] &&
+                      member.info.general.nameEN[1] && (
+                        <CheckIcon className="h-[16px] w-[16px] text-[#00C951] md:h-[20px] md:w-[20px] 2xl:h-[24px] 2xl:w-[24px]" />
+                      )}
                   </div>
                   <div className="flex flex-col gap-3 md:flex-row md:gap-6">
                     <div className="flex min-w-0 flex-1 flex-col gap-2.5 md:gap-3">
@@ -432,8 +438,11 @@ function TeamDone() {
                 </div>
 
                 <div className="flex flex-col gap-3 md:gap-6">
-                  <div className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[1.75rem]">
+                  <div className="flex items-center gap-2 text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[1.75rem]">
                     2. ข้อมูลติดต่อ
+                    {member.info.contact.email && member.info.contact.phone && (
+                      <CheckIcon className="h-[16px] w-[16px] text-[#00C951] md:h-[20px] md:w-[20px] 2xl:h-[24px] 2xl:w-[24px]" />
+                    )}
                   </div>
                   <div className="flex flex-col gap-3 md:flex-row md:gap-6">
                     <div className="flex min-w-0 flex-col gap-2.5 md:gap-3 lg:flex-1">
@@ -464,8 +473,11 @@ function TeamDone() {
                 </div>
 
                 <div className="flex flex-col gap-5 md:gap-6">
-                  <div className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[1.75rem]">
+                  <div className="flex items-center gap-2 text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[1.75rem]">
                     3. เอกสาร
+                    {member.info.documents.length > 0 && (
+                      <CheckIcon className="h-[16px] w-[16px] text-[#00C951] md:h-[20px] md:w-[20px] 2xl:h-[24px] 2xl:w-[24px]" />
+                    )}
                   </div>
                   {member.info.documents.map((doc, i) => (
                     <div
