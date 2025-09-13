@@ -37,14 +37,14 @@ function Round1CompTeamTable({ promises }: Round1CompTeamTableProps) {
   })
 
   const handleExportCSV = useCallback(() => {
-    // Get all filtered data from the table
-    const filteredData = table.getFilteredRowModel().rows.map((row) => {
+    const filteredData = table.getFilteredRowModel().rows.map((row, index) => {
       const team = row.original
       return {
-        "Code Name": `BMHK${team.index.toString().padStart(3, "0")}`,
-        "Team Name": team.name,
+        Index: `${index + 1}`,
+        CodeName: `BMHK${team.index.toString().padStart(3, "0")}`,
+        TeamName: team.name,
         School: team.school,
-        "First Member Email": team.firstMemberEmail || "",
+        FirstMemberEmail: team.firstMemberEmail || "",
         Notes: team.notes || "",
       }
     })
@@ -58,7 +58,7 @@ function Round1CompTeamTable({ promises }: Round1CompTeamTableProps) {
     <DataTable table={table}>
       <DataTableToolbar table={table}>
         <Button onClick={handleExportCSV} variant="outline" size="sm">
-          <Download className="mr-2 h-4 w-4" />
+          <Download className="h-4 w-4" />
           Export CSV
         </Button>
       </DataTableToolbar>
