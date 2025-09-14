@@ -46,6 +46,18 @@ export async function getAllRound1CompTeamsForExport() {
                   thaiFirstname: member.thaiFirstname,
                   thaiMiddlename: member.thaiMiddlename,
                   thaiLastname: member.thaiLastname,
+                  firstName: member.firstName,
+                  middleName: member.middleName,
+                  lastname: member.lastname,
+                  email: member.email,
+                  phoneNumber: member.phoneNumber,
+                  lineId: member.lineId,
+                  parent: member.parent,
+                  parentPhoneNumber: member.parentPhoneNumber,
+                  foodAllergy: member.foodAllergy,
+                  foodType: member.foodType,
+                  drugAllergy: member.drugAllergy,
+                  chronicDisease: member.chronicDisease,
                 })
                 .from(member)
                 .where(eq(member.teamId, team.id))
@@ -142,6 +154,18 @@ export async function getRound1CompTeams(input: GetRound1CompTeamsSchema) {
                   thaiFirstname: member.thaiFirstname,
                   thaiMiddlename: member.thaiMiddlename,
                   thaiLastname: member.thaiLastname,
+                  firstName: member.firstName,
+                  middleName: member.middleName,
+                  lastname: member.lastname,
+                  email: member.email,
+                  phoneNumber: member.phoneNumber,
+                  lineId: member.lineId,
+                  parent: member.parent,
+                  parentPhoneNumber: member.parentPhoneNumber,
+                  foodAllergy: member.foodAllergy,
+                  foodType: member.foodType,
+                  drugAllergy: member.drugAllergy,
+                  chronicDisease: member.chronicDisease,
                 })
                 .from(member)
                 .where(eq(member.teamId, team.id))
