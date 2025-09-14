@@ -7,6 +7,7 @@ import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 import { Button } from "@/components/ui/button"
 import { useDataTable } from "@/hooks/use-data-table"
 import { exportTableToCSV } from "@/lib/csv-export"
+import { mapPrefixToThai } from "@/lib/format"
 import { Row } from "@tanstack/react-table"
 import { Download } from "lucide-react"
 import { CSSProperties, use, useCallback } from "react"
@@ -39,11 +40,24 @@ function Round1CompTeamTable({ promises }: Round1CompTeamTableProps) {
   const handleExportCSV = useCallback(() => {
     const filteredData = table.getFilteredRowModel().rows.map((row, index) => {
       const team = row.original
+
+      const formatThaiName = (member: (typeof team.members)[0]) => {
+        const middleName = member.thaiMiddlename ? ` ${member.thaiMiddlename}` : ""
+        return `${mapPrefixToThai(member.prefix)}${member.thaiFirstname}${middleName} ${member.thaiLastname}`
+      }
+
+      const member1 = team.members.find((m) => m.index === 1)
+      const member2 = team.members.find((m) => m.index === 2)
+      const member3 = team.members.find((m) => m.index === 3)
+
       return {
         Index: `${index + 1}`,
-        CodeName: `BMHK${team.index.toString().padStart(3, "0")}`,
+        CodeName: `BH${team.index.toString().padStart(3, "0")}`,
         TeamName: team.name,
         School: team.school,
+        "สมาชิกคนที่ 1": member1 ? formatThaiName(member1) : "",
+        "สมาชิกคนที่ 2": member2 ? formatThaiName(member2) : "",
+        "สมาชิกคนที่ 3": member3 ? formatThaiName(member3) : "",
         FirstMemberEmail: team.firstMemberEmail || "",
         Notes: team.notes || "",
       }

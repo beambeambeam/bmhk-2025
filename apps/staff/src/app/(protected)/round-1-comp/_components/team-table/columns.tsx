@@ -13,6 +13,13 @@ export type Team = Pick<
   notes: string | null
   firstMemberEmail: string | null
   rowShouldBeRed: boolean
+  members: {
+    index: number
+    prefix: string
+    thaiFirstname: string
+    thaiMiddlename: string | null
+    thaiLastname: string
+  }[]
 }
 
 const columnHelper = createColumnHelper<Team>()
@@ -23,7 +30,7 @@ export const columns = [
     header: "Code Name",
     cell: (info) => {
       const code = formatCodeName(info.row.original.index)
-      const prefix = "BMHK"
+      const prefix = "BH"
       const suffix = code.replace(prefix, "")
       return (
         <div className="font-mono">

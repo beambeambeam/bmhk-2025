@@ -55,7 +55,7 @@ export const columns = [
     header: "Code Name",
     cell: (info) => {
       const code = formatCodeName(info.row.original.index)
-      const prefix = "BMHK"
+      const prefix = "BH"
       const suffix = code.replace(prefix, "")
       return (
         <div className="font-mono">

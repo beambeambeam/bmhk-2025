@@ -56,9 +56,31 @@ export async function getRound1CompTeams(input: GetRound1CompTeamsSchema) {
             .where(baseWhere)
             .orderBy(...orderBy)
 
-          const allSchoolNames = allTeams.map((team) => team.school)
+          // Fetch all members for each team
+          const teamsWithMembers = await Promise.all(
+            allTeams.map(async (team) => {
+              const members = await tx
+                .select({
+                  index: member.index,
+                  prefix: member.prefix,
+                  thaiFirstname: member.thaiFirstname,
+                  thaiMiddlename: member.thaiMiddlename,
+                  thaiLastname: member.thaiLastname,
+                })
+                .from(member)
+                .where(eq(member.teamId, team.id))
+                .orderBy(asc(member.index))
 
-          const teamsWithRedFlag = allTeams.map((team) => ({
+              return {
+                ...team,
+                members,
+              }
+            })
+          )
+
+          const allSchoolNames = teamsWithMembers.map((team) => team.school)
+
+          const teamsWithRedFlag = teamsWithMembers.map((team) => ({
             ...team,
             rowShouldBeRed: shouldColorSchoolRed(team.school, allSchoolNames),
           }))
