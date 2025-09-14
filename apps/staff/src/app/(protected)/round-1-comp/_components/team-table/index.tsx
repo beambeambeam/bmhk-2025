@@ -49,11 +49,14 @@ function Round1CompTeamTable({ promises }: Round1CompTeamTableProps) {
         const member2 = team.members.find((m: (typeof team.members)[0]) => m.index === 2)
         const member3 = team.members.find((m: (typeof team.members)[0]) => m.index === 3)
 
+        // Remove "โรงเรียน" prefix from school name
+        const cleanSchoolName = team.school.replace(/^โรงเรียน/, "").trim()
+
         return {
           index: `${index + 1}`,
           code_name: `BH${team.index.toString().padStart(3, "0")}`,
           team_name: team.name,
-          school: team.school,
+          school: cleanSchoolName,
           // Member 1 - Thai Names
           prefix_1_thai: member1 ? mapPrefixToThai(member1.prefix) : "",
           first_name_1_thai: member1 ? member1.thaiFirstname : "",
@@ -116,6 +119,25 @@ function Round1CompTeamTable({ promises }: Round1CompTeamTableProps) {
           food_type_3: member3 ? member3.foodType || "" : "",
           drug_allergy_3: member3 ? member3.drugAllergy || "" : "",
           chronic_disease_3: member3 ? member3.chronicDisease || "" : "",
+
+          // Advisor - Thai Names
+          advisor_prefix_thai: team.advisor ? mapPrefixToThai(team.advisor.prefix) : "",
+          advisor_first_name_thai: team.advisor ? team.advisor.thaiFirstname : "",
+          advisor_middle_name_thai: team.advisor ? team.advisor.thaiMiddlename || "" : "",
+          advisor_last_name_thai: team.advisor ? team.advisor.thaiLastname : "",
+          // Advisor - English Names
+          advisor_prefix_eng: team.advisor ? team.advisor.prefix : "",
+          advisor_first_name_eng: team.advisor ? team.advisor.firstName : "",
+          advisor_middle_name_eng: team.advisor ? team.advisor.middleName || "" : "",
+          advisor_last_name_eng: team.advisor ? team.advisor.lastname : "",
+          // Advisor - Contact & Info
+          advisor_email: team.advisor ? team.advisor.email : "",
+          advisor_phone: team.advisor ? team.advisor.phoneNumber : "",
+          advisor_line_id: team.advisor ? team.advisor.lineId || "" : "",
+          advisor_food_allergy: team.advisor ? team.advisor.foodAllergy || "" : "",
+          advisor_food_type: team.advisor ? team.advisor.foodType || "" : "",
+          advisor_drug_allergy: team.advisor ? team.advisor.drugAllergy || "" : "",
+          advisor_chronic_disease: team.advisor ? team.advisor.chronicDisease || "" : "",
 
           // Team Info
           notes: team.notes || "",

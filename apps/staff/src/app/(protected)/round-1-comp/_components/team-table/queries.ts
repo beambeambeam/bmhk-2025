@@ -3,7 +3,7 @@
 import { GetRound1CompTeamsSchema } from "@/app/(protected)/round-1-comp/_components/team-table/validations"
 import { shouldColorSchoolRed } from "@/lib/school-utils"
 import { unstable_cache } from "@/lib/unstable-cache"
-import { db, teams, round1Verification, member } from "@workspace/db"
+import { db, teams, round1Verification, member, advisor } from "@workspace/db"
 import { and, asc, ilike, eq, or } from "@workspace/db/orm"
 
 export async function getAllRound1CompTeamsForExport() {
@@ -36,7 +36,7 @@ export async function getAllRound1CompTeamsForExport() {
             .where(baseWhere)
             .orderBy(asc(teams.index))
 
-          // Fetch all members for each team
+          // Fetch all members and advisor for each team
           const teamsWithMembers = await Promise.all(
             allTeams.map(async (team) => {
               const members = await tx
@@ -63,9 +63,31 @@ export async function getAllRound1CompTeamsForExport() {
                 .where(eq(member.teamId, team.id))
                 .orderBy(asc(member.index))
 
+              const teamAdvisor = await tx
+                .select({
+                  prefix: advisor.prefix,
+                  thaiFirstname: advisor.thaiFirstname,
+                  thaiMiddlename: advisor.thaiMiddlename,
+                  thaiLastname: advisor.thaiLastname,
+                  firstName: advisor.firstName,
+                  middleName: advisor.middleName,
+                  lastname: advisor.lastname,
+                  email: advisor.email,
+                  phoneNumber: advisor.phoneNumber,
+                  lineId: advisor.lineId,
+                  foodAllergy: advisor.foodAllergy,
+                  foodType: advisor.foodType,
+                  drugAllergy: advisor.drugAllergy,
+                  chronicDisease: advisor.chronicDisease,
+                })
+                .from(advisor)
+                .where(eq(advisor.teamId, team.id))
+                .limit(1)
+
               return {
                 ...team,
                 members,
+                advisor: teamAdvisor[0] || null,
               }
             })
           )
@@ -144,7 +166,7 @@ export async function getRound1CompTeams(input: GetRound1CompTeamsSchema) {
             .where(baseWhere)
             .orderBy(...orderBy)
 
-          // Fetch all members for each team
+          // Fetch all members and advisor for each team
           const teamsWithMembers = await Promise.all(
             allTeams.map(async (team) => {
               const members = await tx
@@ -171,9 +193,31 @@ export async function getRound1CompTeams(input: GetRound1CompTeamsSchema) {
                 .where(eq(member.teamId, team.id))
                 .orderBy(asc(member.index))
 
+              const teamAdvisor = await tx
+                .select({
+                  prefix: advisor.prefix,
+                  thaiFirstname: advisor.thaiFirstname,
+                  thaiMiddlename: advisor.thaiMiddlename,
+                  thaiLastname: advisor.thaiLastname,
+                  firstName: advisor.firstName,
+                  middleName: advisor.middleName,
+                  lastname: advisor.lastname,
+                  email: advisor.email,
+                  phoneNumber: advisor.phoneNumber,
+                  lineId: advisor.lineId,
+                  foodAllergy: advisor.foodAllergy,
+                  foodType: advisor.foodType,
+                  drugAllergy: advisor.drugAllergy,
+                  chronicDisease: advisor.chronicDisease,
+                })
+                .from(advisor)
+                .where(eq(advisor.teamId, team.id))
+                .limit(1)
+
               return {
                 ...team,
                 members,
+                advisor: teamAdvisor[0] || null,
               }
             })
           )
