@@ -29,5 +29,5 @@ export function RegisterStatusToColorClass(status: "DONE" | "NOT_DONE" | "NOT_HA
 
 export function formatCodeName(index: number) {
   const number = String(index).padStart(3, "0")
-  return `BMHK${number}`
+  return `BH${number}`
 }
