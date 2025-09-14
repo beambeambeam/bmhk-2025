@@ -1,15 +1,15 @@
 "use client"
 
+import { useTeamDialogContext } from "@/app/(protected)/_components/team-dialog/context"
+import { MemberSkeleton } from "@/app/(protected)/_components/team-dialog/member-layout"
+import { getTeam } from "@/app/(protected)/_components/team-dialog/queries"
 import { formatCodeName } from "@/app/(protected)/round-1/_components/team-table/format"
-import { useVerifyDialogContext } from "@/app/(protected)/round-1/_components/verifly-dialog/context"
-import { MemberSkeleton } from "@/app/(protected)/round-1/_components/verifly-dialog/member-layout"
-import { getTeam } from "@/app/(protected)/round-1/_components/verifly-dialog/queries"
 import { Label } from "@/components/ui/label"
 import { useQuery } from "@tanstack/react-query"
 import { UsersIcon } from "lucide-react"
 
 function TeamDisplay() {
-  const { id } = useVerifyDialogContext()
+  const { id } = useTeamDialogContext()
   const { data, isPending } = useQuery({
     queryKey: [id, "team"],
     queryFn: async () => {

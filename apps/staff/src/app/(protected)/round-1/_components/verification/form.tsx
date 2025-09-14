@@ -3,7 +3,7 @@
 import {
   submitRound1Verification,
   getRound1Verification,
-} from "@/app/(protected)/round-1/_components/verifly-dialog/action"
+} from "@/app/(protected)/round-1/_components/verification/action"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import MultipleSelector from "@/components/ui/multiselect"
