@@ -1,7 +1,10 @@
 "use client"
 
 import { columns, Team } from "@/app/(protected)/round-1-comp/_components/team-table/columns"
-import { getRound1CompTeams } from "@/app/(protected)/round-1-comp/_components/team-table/queries"
+import {
+  getRound1CompTeams,
+  getAllRound1CompTeamsForExport,
+} from "@/app/(protected)/round-1-comp/_components/team-table/queries"
 import { DataTable } from "@/components/data-table/data-table"
 import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 import { Button } from "@/components/ui/button"
@@ -37,36 +40,41 @@ function Round1CompTeamTable({ promises }: Round1CompTeamTableProps) {
     },
   })
 
-  const handleExportCSV = useCallback(() => {
-    const filteredData = table.getFilteredRowModel().rows.map((row, index) => {
-      const team = row.original
+  const handleExportCSV = useCallback(async () => {
+    try {
+      // Get all data without pagination
+      const { data: allTeams } = await getAllRound1CompTeamsForExport()
 
-      const formatThaiName = (member: (typeof team.members)[0]) => {
-        const middleName = member.thaiMiddlename ? ` ${member.thaiMiddlename}` : ""
-        return `${mapPrefixToThai(member.prefix)}${member.thaiFirstname}${middleName} ${member.thaiLastname}`
-      }
+      const csvData = allTeams.map((team: Team, index: number) => {
+        const formatThaiName = (member: (typeof team.members)[0]) => {
+          const middleName = member.thaiMiddlename ? ` ${member.thaiMiddlename}` : ""
+          return `${mapPrefixToThai(member.prefix)}${member.thaiFirstname}${middleName} ${member.thaiLastname}`
+        }
 
-      const member1 = team.members.find((m) => m.index === 1)
-      const member2 = team.members.find((m) => m.index === 2)
-      const member3 = team.members.find((m) => m.index === 3)
+        const member1 = team.members.find((m: (typeof team.members)[0]) => m.index === 1)
+        const member2 = team.members.find((m: (typeof team.members)[0]) => m.index === 2)
+        const member3 = team.members.find((m: (typeof team.members)[0]) => m.index === 3)
 
-      return {
-        Index: `${index + 1}`,
-        CodeName: `BH${team.index.toString().padStart(3, "0")}`,
-        TeamName: team.name,
-        School: team.school,
-        "สมาชิกคนที่ 1": member1 ? formatThaiName(member1) : "",
-        "สมาชิกคนที่ 2": member2 ? formatThaiName(member2) : "",
-        "สมาชิกคนที่ 3": member3 ? formatThaiName(member3) : "",
-        FirstMemberEmail: team.firstMemberEmail || "",
-        Notes: team.notes || "",
-      }
-    })
+        return {
+          Index: `${index + 1}`,
+          CodeName: `BH${team.index.toString().padStart(3, "0")}`,
+          TeamName: team.name,
+          School: team.school,
+          "สมาชิกคนที่ 1": member1 ? formatThaiName(member1) : "",
+          "สมาชิกคนที่ 2": member2 ? formatThaiName(member2) : "",
+          "สมาชิกคนที่ 3": member3 ? formatThaiName(member3) : "",
+          FirstMemberEmail: team.firstMemberEmail || "",
+          Notes: team.notes || "",
+        }
+      })
 
-    exportTableToCSV(filteredData, {
-      filename: `round-1-competition-teams-${new Date().toISOString().split("T")[0]}.csv`,
-    })
-  }, [table])
+      exportTableToCSV(csvData, {
+        filename: `round-1-competition-teams-${new Date().toISOString().split("T")[0]}.csv`,
+      })
+    } catch (error) {
+      console.error("Error exporting CSV:", error)
+    }
+  }, [])
 
   return (
     <DataTable table={table}>
