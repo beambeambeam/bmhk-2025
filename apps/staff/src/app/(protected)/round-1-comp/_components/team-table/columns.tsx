@@ -19,6 +19,7 @@ export type Team = Pick<
     thaiFirstname: string
     thaiMiddlename: string | null
     thaiLastname: string
+  }[]
   advisor: {
     prefix: string
     thaiFirstname: string
