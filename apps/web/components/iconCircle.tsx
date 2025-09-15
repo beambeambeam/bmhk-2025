@@ -8,7 +8,7 @@ type IconCircleProps = {
 }
 
 const IconCircle: React.FC<IconCircleProps> = ({ style, children, className, onClick }) => {
-  const baseStyle: React.CSSProperties & { [key: string]: any } = {
+  const baseStyle: React.CSSProperties & Record<string, unknown> = {
     userSelect: "none",
     WebkitUserDrag: "none",
     ...style,
@@ -16,7 +16,7 @@ const IconCircle: React.FC<IconCircleProps> = ({ style, children, className, onC
 
   const renderChildren = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
-      const element = child as React.ReactElement<any>
+      const element = child as React.ReactElement
       return React.cloneElement(element, {
         draggable: false,
         style: { ...element.props.style, userSelect: "none", WebkitUserDrag: "none" },

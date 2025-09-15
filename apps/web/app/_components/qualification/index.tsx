@@ -29,7 +29,6 @@ function QualificationSector() {
             className="flex w-[345px] flex-col items-center justify-center gap-4 lg:w-[323.33px] lg:gap-6 2xl:w-[415px]">
             <div className="relative">
               <div className="relative size-[160px] overflow-hidden rounded-full bg-[rgba(0,0,0,0.001)] lg:size-[240px] 2xl:size-[330px]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={item.imageSrc}
                   alt=""

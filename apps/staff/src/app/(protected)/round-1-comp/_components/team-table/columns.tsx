@@ -19,18 +19,6 @@ export type Team = Pick<
     thaiFirstname: string
     thaiMiddlename: string | null
     thaiLastname: string
-    firstName: string
-    middleName: string | null
-    lastname: string
-    email: string
-    phoneNumber: string
-    lineId: string | null
-    parent: string
-    parentPhoneNumber: string
-    foodAllergy: string | null
-    foodType: string | null
-    drugAllergy: string | null
-    chronicDisease: string | null
   }[]
   advisor: {
     prefix: string

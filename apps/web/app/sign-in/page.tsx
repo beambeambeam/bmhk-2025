@@ -1,7 +1,6 @@
 "use client"
 
 import GlassCard from "@/components/glassCard"
-import { showToast } from "@/components/toast"
 import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
@@ -168,7 +167,9 @@ function SignInPage() {
       </div>
 
       {/* keyframes */}
-      <style jsx>{`
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
         @keyframes fadeInOut {
           0%,
           100% {
@@ -180,7 +181,9 @@ function SignInPage() {
             transform: scale(1);
           }
         }
-      `}</style>
+        `,
+        }}
+      />
     </div>
   )
 }

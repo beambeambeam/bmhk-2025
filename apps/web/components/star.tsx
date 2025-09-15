@@ -1,15 +1,12 @@
 import React from "react"
 
-const useUniqueId = () => React.useId().replace(/[^a-zA-Z0-9]/g, "")
-
-const baseStyle: React.CSSProperties & { [key: string]: any } = {
+const baseStyle: React.CSSProperties & Record<string, unknown> = {
   userSelect: "none",
   pointerEvents: "auto",
   WebkitUserDrag: "none",
 }
 
 export const StarLarge: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = (props) => {
-  const id = useUniqueId()
   return (
     <img
       src="/static/icon/Star_bright.svg"
@@ -22,7 +19,6 @@ export const StarLarge: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = (p
 }
 
 export const Star: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = (props) => {
-  const id = useUniqueId()
   return (
     <img
       src="/static/icon/Star.svg"

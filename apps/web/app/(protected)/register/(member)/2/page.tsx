@@ -86,8 +86,6 @@ function MemberPage2() {
   )
 
   const isReadyForSubmit = useIsReadyForFinalSubmit(2)
-  const showFinalSubmit =
-    teamQuery.data?.success && teamQuery.data.team?.memberCount === 2 && isReadyForSubmit
 
   // Only show register button for 2-member teams (final page)
   const shouldShowRegisterButton = teamQuery.data?.team?.memberCount === 2

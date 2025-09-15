@@ -1,5 +1,3 @@
-import Link from "next/link"
-
 function Stat({ title, description }: { title: string; description: string | React.ReactElement }) {
   return (
     <div className="max-w-[372.54px]">
@@ -191,7 +189,6 @@ function LandingSection() {
       </div>
 
       <div className="z-10 h-[312px] w-[340px] shrink-0 lg:h-[420px] lg:w-[477px] 2xl:h-[650px] 2xl:w-[563px]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/static/hero/landing/landinglogo-compressed.webp"
           alt="logo"
@@ -217,11 +214,12 @@ function LandingSection() {
 
           <p className="text-body-2 hidden whitespace-nowrap text-gray-50 2xl:block">{descriptions.xl2}</p>
 
-          <Link href="/sign-in">
+          {/* <Link href="/sign-in">
             <button className="text-button-1 h-[54px] cursor-pointer rounded-full bg-[linear-gradient(0deg,rgba(38,38,38,0.002),rgba(38,38,38,0.002)),radial-gradient(78.68%_99.36%_at_50%_0%,rgba(255,135,237,0.5)_0%,rgba(255,135,237,0)_100%),radial-gradient(79.19%_100%_at_50.05%_100%,#9f83dc_0%,rgba(159,131,220,0)_100%),linear-gradient(106.52deg,rgba(255,204,247,0.09)_-2.48%,rgba(159,131,220,0.09)_29.08%)] px-8 py-0 text-white shadow-[0px_0px_20px_rgba(0,0,0,0.25),inset_-1px_-1px_30px_rgba(255,204,247,0.6)] lg:h-[76px] 2xl:h-[87px] 2xl:px-12">
               ลงทะเบียน
             </button>
-          </Link>
+          </Link> */}
+          <h1 className="text-button-1">หมดเขตรับสมัครแล้ว</h1>
         </div>
       </div>
 
