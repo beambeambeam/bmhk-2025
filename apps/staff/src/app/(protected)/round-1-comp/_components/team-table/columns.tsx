@@ -19,7 +19,22 @@ export type Team = Pick<
     thaiFirstname: string
     thaiMiddlename: string | null
     thaiLastname: string
-  }[]
+  advisor: {
+    prefix: string
+    thaiFirstname: string
+    thaiMiddlename: string | null
+    thaiLastname: string
+    firstName: string
+    middleName: string | null
+    lastname: string
+    email: string
+    phoneNumber: string
+    lineId: string | null
+    foodAllergy: string | null
+    foodType: string | null
+    drugAllergy: string | null
+    chronicDisease: string | null
+  } | null
 }
 
 const columnHelper = createColumnHelper<Team>()

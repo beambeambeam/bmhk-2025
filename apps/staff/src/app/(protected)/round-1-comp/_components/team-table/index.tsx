@@ -1,7 +1,10 @@
 "use client"
 
 import { columns, Team } from "@/app/(protected)/round-1-comp/_components/team-table/columns"
-import { getRound1CompTeams } from "@/app/(protected)/round-1-comp/_components/team-table/queries"
+import {
+  getRound1CompTeams,
+  getAllRound1CompTeamsForExport,
+} from "@/app/(protected)/round-1-comp/_components/team-table/queries"
 import { DataTable } from "@/components/data-table/data-table"
 import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 import { Button } from "@/components/ui/button"
@@ -37,36 +40,117 @@ function Round1CompTeamTable({ promises }: Round1CompTeamTableProps) {
     },
   })
 
-  const handleExportCSV = useCallback(() => {
-    const filteredData = table.getFilteredRowModel().rows.map((row, index) => {
-      const team = row.original
+  const handleExportCSV = useCallback(async () => {
+    try {
+      const { data: allTeams } = await getAllRound1CompTeamsForExport()
 
-      const formatThaiName = (member: (typeof team.members)[0]) => {
-        const middleName = member.thaiMiddlename ? ` ${member.thaiMiddlename}` : ""
-        return `${mapPrefixToThai(member.prefix)}${member.thaiFirstname}${middleName} ${member.thaiLastname}`
-      }
+      const csvData = allTeams.map((team: Team, index: number) => {
+        const member1 = team.members.find((m: (typeof team.members)[0]) => m.index === 1)
+        const member2 = team.members.find((m: (typeof team.members)[0]) => m.index === 2)
+        const member3 = team.members.find((m: (typeof team.members)[0]) => m.index === 3)
 
-      const member1 = team.members.find((m) => m.index === 1)
-      const member2 = team.members.find((m) => m.index === 2)
-      const member3 = team.members.find((m) => m.index === 3)
+        // Remove "โรงเรียน" prefix from school name
+        const cleanSchoolName = team.school.replace(/^โรงเรียน/, "").trim()
 
-      return {
-        Index: `${index + 1}`,
-        CodeName: `BH${team.index.toString().padStart(3, "0")}`,
-        TeamName: team.name,
-        School: team.school,
-        "สมาชิกคนที่ 1": member1 ? formatThaiName(member1) : "",
-        "สมาชิกคนที่ 2": member2 ? formatThaiName(member2) : "",
-        "สมาชิกคนที่ 3": member3 ? formatThaiName(member3) : "",
-        FirstMemberEmail: team.firstMemberEmail || "",
-        Notes: team.notes || "",
-      }
-    })
+        return {
+          index: `${index + 1}`,
+          code_name: `BH${team.index.toString().padStart(3, "0")}`,
+          team_name: team.name,
+          school: cleanSchoolName,
+          // Member 1 - Thai Names
+          prefix_1_thai: member1 ? mapPrefixToThai(member1.prefix) : "",
+          first_name_1_thai: member1 ? member1.thaiFirstname : "",
+          middle_name_1_thai: member1 ? member1.thaiMiddlename || "" : "",
+          last_name_1_thai: member1 ? member1.thaiLastname : "",
+          // Member 1 - English Names
+          prefix_1_eng: member1 ? member1.prefix : "",
+          first_name_1_eng: member1 ? member1.firstName : "",
+          middle_name_1_eng: member1 ? member1.middleName || "" : "",
+          last_name_1_eng: member1 ? member1.lastname : "",
+          // Member 1 - Contact & Info
+          email_1: member1 ? member1.email : "",
+          phone_1: member1 ? member1.phoneNumber : "",
+          line_id_1: member1 ? member1.lineId || "" : "",
+          parent_1: member1 ? member1.parent : "",
+          parent_phone_1: member1 ? member1.parentPhoneNumber : "",
+          food_allergy_1: member1 ? member1.foodAllergy || "" : "",
+          food_type_1: member1 ? member1.foodType || "" : "",
+          drug_allergy_1: member1 ? member1.drugAllergy || "" : "",
+          chronic_disease_1: member1 ? member1.chronicDisease || "" : "",
 
-    exportTableToCSV(filteredData, {
-      filename: `round-1-competition-teams-${new Date().toISOString().split("T")[0]}.csv`,
-    })
-  }, [table])
+          // Member 2 - Thai Names
+          prefix_2_thai: member2 ? mapPrefixToThai(member2.prefix) : "",
+          first_name_2_thai: member2 ? member2.thaiFirstname : "",
+          middle_name_2_thai: member2 ? member2.thaiMiddlename || "" : "",
+          last_name_2_thai: member2 ? member2.thaiLastname : "",
+          // Member 2 - English Names
+          prefix_2_eng: member2 ? member2.prefix : "",
+          first_name_2_eng: member2 ? member2.firstName : "",
+          middle_name_2_eng: member2 ? member2.middleName || "" : "",
+          last_name_2_eng: member2 ? member2.lastname : "",
+          // Member 2 - Contact & Info
+          email_2: member2 ? member2.email : "",
+          phone_2: member2 ? member2.phoneNumber : "",
+          line_id_2: member2 ? member2.lineId || "" : "",
+          parent_2: member2 ? member2.parent : "",
+          parent_phone_2: member2 ? member2.parentPhoneNumber : "",
+          food_allergy_2: member2 ? member2.foodAllergy || "" : "",
+          food_type_2: member2 ? member2.foodType || "" : "",
+          drug_allergy_2: member2 ? member2.drugAllergy || "" : "",
+          chronic_disease_2: member2 ? member2.chronicDisease || "" : "",
+
+          // Member 3 - Thai Names
+          prefix_3_thai: member3 ? mapPrefixToThai(member3.prefix) : "",
+          first_name_3_thai: member3 ? member3.thaiFirstname : "",
+          middle_name_3_thai: member3 ? member3.thaiMiddlename || "" : "",
+          last_name_3_thai: member3 ? member3.thaiLastname : "",
+          // Member 3 - English Names
+          prefix_3_eng: member3 ? member3.prefix : "",
+          first_name_3_eng: member3 ? member3.firstName : "",
+          middle_name_3_eng: member3 ? member3.middleName || "" : "",
+          last_name_3_eng: member3 ? member3.lastname : "",
+          // Member 3 - Contact & Info
+          email_3: member3 ? member3.email : "",
+          phone_3: member3 ? member3.phoneNumber : "",
+          line_id_3: member3 ? member3.lineId || "" : "",
+          parent_3: member3 ? member3.parent : "",
+          parent_phone_3: member3 ? member3.parentPhoneNumber : "",
+          food_allergy_3: member3 ? member3.foodAllergy || "" : "",
+          food_type_3: member3 ? member3.foodType || "" : "",
+          drug_allergy_3: member3 ? member3.drugAllergy || "" : "",
+          chronic_disease_3: member3 ? member3.chronicDisease || "" : "",
+
+          // Advisor - Thai Names
+          advisor_prefix_thai: team.advisor ? mapPrefixToThai(team.advisor.prefix) : "",
+          advisor_first_name_thai: team.advisor ? team.advisor.thaiFirstname : "",
+          advisor_middle_name_thai: team.advisor ? team.advisor.thaiMiddlename || "" : "",
+          advisor_last_name_thai: team.advisor ? team.advisor.thaiLastname : "",
+          // Advisor - English Names
+          advisor_prefix_eng: team.advisor ? team.advisor.prefix : "",
+          advisor_first_name_eng: team.advisor ? team.advisor.firstName : "",
+          advisor_middle_name_eng: team.advisor ? team.advisor.middleName || "" : "",
+          advisor_last_name_eng: team.advisor ? team.advisor.lastname : "",
+          // Advisor - Contact & Info
+          advisor_email: team.advisor ? team.advisor.email : "",
+          advisor_phone: team.advisor ? team.advisor.phoneNumber : "",
+          advisor_line_id: team.advisor ? team.advisor.lineId || "" : "",
+          advisor_food_allergy: team.advisor ? team.advisor.foodAllergy || "" : "",
+          advisor_food_type: team.advisor ? team.advisor.foodType || "" : "",
+          advisor_drug_allergy: team.advisor ? team.advisor.drugAllergy || "" : "",
+          advisor_chronic_disease: team.advisor ? team.advisor.chronicDisease || "" : "",
+
+          // Team Info
+          notes: team.notes || "",
+        }
+      })
+
+      exportTableToCSV(csvData, {
+        filename: `round-1-competition-teams-${new Date().toISOString().split("T")[0]}.csv`,
+      })
+    } catch (error) {
+      console.error("Error exporting CSV:", error)
+    }
+  }, [])
 
   return (
     <DataTable table={table}>
