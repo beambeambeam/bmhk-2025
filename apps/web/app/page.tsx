@@ -12,6 +12,8 @@ import Scope from "@/app/_components/scope"
 import Story from "@/app/_components/story"
 import Head from "next/head"
 
+import Sponsors from "./_components/sponsors"
+
 export default function Page() {
   return (
     <>
@@ -100,6 +102,9 @@ export default function Page() {
         </div>
         <div id="story" className="flex min-h-screen items-center justify-center">
           <Story />
+        </div>
+        <div className="flex items-center justify-center">
+          <Sponsors />
         </div>
         <div className="flex items-center justify-center">
           <Footer />
