@@ -8,6 +8,7 @@ import Footer from "@/app/_components/footer"
 import LandingSection from "@/app/_components/landing"
 import { Navbar } from "@/app/_components/navbar"
 import QualificationSector from "@/app/_components/qualification"
+import Sponsors from "@/app/_components/sponsors"
 import Scope from "@/app/_components/scope"
 import Story from "@/app/_components/story"
 import Head from "next/head"
@@ -117,6 +118,9 @@ export default function Page() {
         </div>
         <div id="story" className="flex min-h-screen items-center justify-center">
           <Story />
+        </div>
+        <div className="flex items-center justify-center">
+          <Sponsors />
         </div>
         <div className="flex items-center justify-center">
           <Footer />
