@@ -26,7 +26,7 @@ function DateAndContest() {
     timelineKey = "timeline-competition-2"
   } else if (today >= mkDate(25, 9, 2025) && today < mkDate(11, 10, 2025)) {
     timelineKey = "timeline-competition-3"
-  } else if (today.getTime() === mkDate(11, 10, 2025).getTime()) {
+  } else if (today.getTime() === mkDate(11, 10, 2025).setHours(13, 0, 0, 0)) {
     timelineKey = "timeline-competition-4"
   } else {
     timelineKey = "timeline-competition-5"
