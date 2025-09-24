@@ -7,8 +7,16 @@ import { Hono } from "hono"
 import { cors } from "hono/cors"
 import { logger } from "hono/logger"
 import { requestId } from "hono/request-id"
+import { NtpTimeSync, type NtpTimeSyncConstructorOptions } from "ntp-time-sync"
+import type { RecursivePartial } from "ntp-time-sync/dist/RecursivePartial"
 
 const app = new Hono()
+
+const timeOptions: RecursivePartial<NtpTimeSyncConstructorOptions> = {
+  servers: ["time.navy.mi.th", "time2.navy.mi.th"],
+}
+
+const timeSync = NtpTimeSync.getInstance(timeOptions)
 
 app.use("*", requestId())
 app.use(logger())
@@ -40,6 +48,13 @@ app.use("/rpc/*", async (c, next) => {
 
 app.get("/", (c) => {
   return c.text("OK")
+})
+
+app.get("/time", async (c) => {
+  const time = await timeSync.getTime()
+  return c.json({
+    c: time.now,
+  })
 })
 
 serve(
