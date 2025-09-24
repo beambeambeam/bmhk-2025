@@ -96,6 +96,9 @@ importers:
       hono:
         specifier: ^4.9.4
         version: 4.9.4
+      ntp-time-sync:
+        specifier: ^0.5.0
+        version: 0.5.0
       tsx:
         specifier: ^4.20.4
         version: 4.20.4
@@ -4943,6 +4946,14 @@ packages:
   npm-run-path@4.0.1:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
     engines: {node: '>=8'}
+
+  ntp-packet-parser@0.5.0:
+    resolution: {integrity: sha512-W18iLyaV17jH4inpvSu2gPep2f1Gs3oABra5NXXzG7MXhLcdHqJrJBO23bTMLkRf4HP9SWHL7FEwwtUf6R1q+g==}
+    engines: {node: ^18 || ^20 || ^22}
+
+  ntp-time-sync@0.5.0:
+    resolution: {integrity: sha512-ztb/P8wf6vwyJS2FPJ8i4nnDfbvMqVxs5+WoeVMbGkSGe0TiTsBhsV6qsFDiKXoNFwsBt+MUauwk2pKlgVLLmw==}
+    engines: {node: ^18 || ^20 || ^22}
 
   number-flow@0.5.8:
     resolution: {integrity: sha512-FPr1DumWyGi5Nucoug14bC6xEz70A1TnhgSHhKyfqjgji2SOTz+iLJxKtv37N5JyJbteGYCm6NQ9p1O4KZ7iiA==}
@@ -11474,6 +11485,12 @@ snapshots:
   npm-run-path@4.0.1:
     dependencies:
       path-key: 3.1.1
+
+  ntp-packet-parser@0.5.0: {}
+
+  ntp-time-sync@0.5.0:
+    dependencies:
+      ntp-packet-parser: 0.5.0
 
   number-flow@0.5.8:
     dependencies:
