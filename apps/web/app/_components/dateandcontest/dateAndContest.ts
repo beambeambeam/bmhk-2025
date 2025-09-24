@@ -298,7 +298,7 @@ export const dateAndContestData: Record<string, SectionItem[]> = {
           themeColor: "#9F83DC",
           lineColor: "#DFDFDF4D",
           NameList: true,
-          pathNameList: "https://0thqyc8x27.ufs.sh/f/8kE01lgsYOMPtzeHBArQxIJZ71R0uqwkcoPBhC2eVTFUlgmL",
+          pathNameList: "https://0thqyc8x27.ufs.sh/f/8kE01lgsYOMPaeP9nCNpWDw8ne39fMQVCBI4zbRy0KTvoF5O",
         },
         {
           card: { textFull: "11 ตุลาคม 2025", textShort: "11  ต.ค. 2025", textColor: "#FFFF" },
@@ -338,7 +338,7 @@ export const dateAndContestData: Record<string, SectionItem[]> = {
           themeColor: "#DFDFDF",
           lineColor: "#DFDFDF4D",
           NameList: true,
-          pathNameList: "https://0thqyc8x27.ufs.sh/f/8kE01lgsYOMPtzeHBArQxIJZ71R0uqwkcoPBhC2eVTFUlgmL",
+          pathNameList: "https://0thqyc8x27.ufs.sh/f/8kE01lgsYOMPaeP9nCNpWDw8ne39fMQVCBI4zbRy0KTvoF5O",
         },
         {
           card: { textFull: "11 ตุลาคม 2025", textShort: "11  ต.ค. 2025", textColor: "#FFFF" },
