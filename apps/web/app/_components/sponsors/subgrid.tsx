@@ -20,7 +20,7 @@ export default function SponsorSubgrid({ data, tier }: SponsorSubgridProps) {
 
   return (
     <div className="flex w-full flex-col gap-y-4">
-      <span className="text-body-1 text-center text-gray-100">
+      <span className="text-body-1 text-center !font-medium text-gray-100">
         {getTierName(tier)} Sponsor{amt > 1 ? "s" : ""}
       </span>
       <div className={`grid grid-cols-1 ${gridClass} gap-x-4 gap-y-4`}>
