@@ -17,7 +17,8 @@ function AwardHistory(props: AwardHistoryProps) {
       const data = await getAwardAuditHistory({
         teamId: props.teamId,
       })
-      return data[1]?.auditHistory || []
+      const history = data[1]?.auditHistory || []
+      return history.slice().sort((a, b) => new Date(a.changedAt).getTime() - new Date(b.changedAt).getTime())
     },
   })
 
@@ -38,7 +39,7 @@ function AwardHistory(props: AwardHistoryProps) {
   return (
     <div className="space-y-4">
       <div className="space-y-3">
-        {data.map((change, index) => (
+        {data.map((change) => (
           <div key={change.id} className="bg-card text-card-foreground rounded-lg border p-4 shadow-sm">
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1 space-y-2">

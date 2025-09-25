@@ -21,7 +21,7 @@ type AwardChangeDialogProps = {
 }
 
 function AwardChangeDialog(props: AwardChangeDialogProps) {
-  const [award, setAward] = useQueryState("award", parseAsString.withDefault(""))
+  const [award, setAward] = useQueryState("award-team", parseAsString.withDefault(""))
 
   const isOpen = award === props.teamId
 
