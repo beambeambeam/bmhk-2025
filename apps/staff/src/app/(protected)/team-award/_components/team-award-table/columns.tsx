@@ -1,5 +1,6 @@
 import TeamDialog from "@/app/(protected)/_components/team-dialog"
 import { formatCodeName } from "@/app/(protected)/round-1/_components/team-table/format"
+import { getAwardDisplay } from "@/app/(protected)/team-award/_components/award-change/constants"
 import AwardChangeDialog from "@/app/(protected)/team-award/_components/award-change/dialog"
 import { createColumnHelper } from "@tanstack/react-table"
 import { teams } from "@workspace/db/schema"
@@ -75,10 +76,11 @@ export const columns = [
     header: "Award",
     cell: (info) => {
       const award = info.getValue()
+      const awardDisplay = getAwardDisplay(award)
       return (
         <div className="flex items-center gap-2">
           <Trophy className="h-4 w-4 text-yellow-500" />
-          <span className="font-medium">{award}</span>
+          <span className="font-medium">{awardDisplay.label}</span>
         </div>
       )
     },

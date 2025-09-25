@@ -51,9 +51,6 @@ function AwardHistory(props: AwardHistoryProps) {
                       <span>→</span>
                       <span>{getAwardDisplay(change.newAward).label}</span>
                     </div>
-                    <div className="text-muted-foreground text-xs">
-                      {getAwardDisplay(change.oldAward).english} → {getAwardDisplay(change.newAward).english}
-                    </div>
                   </div>
                 </div>
 
