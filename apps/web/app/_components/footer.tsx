@@ -17,9 +17,9 @@ function Sponsor() {
         {SponsorList.map((s) => (
           <GlassCard
             key={s.name}
-            className="min-w-15 min-h-15 px-4 py-4 2xl:min-h-20 2xl:min-w-20"
+            className="min-w-15 min-h-15 flex aspect-square items-center justify-center px-6 py-6 2xl:min-h-20 2xl:min-w-20"
             style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}>
-            <img src={s.image_path} className="h-[60px] w-auto" />
+            <img src={s.image_path} className="max-h-[60px] w-auto object-contain" />
           </GlassCard>
         ))}
       </div>
