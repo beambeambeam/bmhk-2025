@@ -12,15 +12,13 @@ function DateAndContest(props: DateAndContestProps) {
   // Helper to create a date without time (year, month, day)
   const mkDate = (d: number, m: number, y: number) => new Date(y, m - 1, d)
 
+  if (props.c === "0") return <></>
+
   let today: Date
-  console.log(props.c)
   if (props.c && new Date(props.c) > mkDate(1, 1, 2025)) today = new Date(props.c)
   else today = new Date() // fallback to client date
 
   let timelineKey = "timeline-registration-1"
-  console.log(today)
-  console.log(mkDate(25, 9, 2025).getTime())
-  console.log(mkDate(11, 10, 2025).setHours(13, 0, 0, 0))
 
   if (today < mkDate(27, 8, 2025)) {
     timelineKey = "timeline-registration-1"
