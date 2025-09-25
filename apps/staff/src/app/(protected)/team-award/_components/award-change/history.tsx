@@ -37,7 +37,6 @@ function AwardHistory(props: AwardHistoryProps) {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold">Award Change History</h3>
       <div className="space-y-3">
         {data.map((change, index) => (
           <div key={change.id} className="bg-card text-card-foreground rounded-lg border p-4 shadow-sm">

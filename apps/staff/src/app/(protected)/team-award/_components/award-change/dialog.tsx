@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Trophy } from "lucide-react"
-import { useState } from "react"
+import { parseAsString, useQueryState } from "nuqs"
 
 type AwardChangeDialogProps = {
   teamId: string
@@ -21,22 +21,24 @@ type AwardChangeDialogProps = {
 }
 
 function AwardChangeDialog(props: AwardChangeDialogProps) {
-  const [open, setOpen] = useState(false)
+  const [award, setAward] = useQueryState("award", parseAsString.withDefault(""))
+
+  const isOpen = award === props.teamId
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={isOpen} onOpenChange={(open) => setAward(open ? props.teamId : "")}>
       <DialogTrigger asChild>
         <Button variant="outline" size="icon">
           <Trophy className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="h-[90vh] !max-w-fit">
-        <DialogHeader className="h-full min-h-0" hidden>
-          <DialogTitle hidden>Change Award</DialogTitle>
-          <DialogDescription hidden>Update team award and view change history.</DialogDescription>
+      <DialogContent className="h-[90vh] max-w-[98vw] p-0 md:max-w-[85vw]">
+        <DialogHeader className="px-4 pt-4" hidden>
+          <DialogTitle>Change Award</DialogTitle>
+          <DialogDescription>Update team award and view change history.</DialogDescription>
         </DialogHeader>
-        <div className="grid h-full min-h-0 w-[98vw] grid-rows-2 overflow-auto transition-all md:w-[85vw] md:grid-cols-[2fr_1fr]">
-          <div className="h-[90vh] border-r p-4 md:h-full">
+        <div className="grid h-[calc(90vh-80px)] min-h-0 w-full grid-rows-2 transition-all md:grid-cols-[2fr_1fr] md:grid-rows-1">
+          <div className="min-h-0 border-r p-4 md:h-full md:overflow-y-auto">
             <div className="mb-4">
               <h2 className="text-lg font-semibold">Change Award</h2>
               <p className="text-muted-foreground text-sm">Update award for team: {props.teamName}</p>
@@ -44,11 +46,14 @@ function AwardChangeDialog(props: AwardChangeDialogProps) {
             <AwardChangeFormParent
               teamId={props.teamId}
               currentAward={props.currentAward}
-              closeDialog={() => setOpen(false)}
+              closeDialog={() => setAward("")}
             />
           </div>
-          <div className="mt-[50%] h-full pt-20 md:mt-0 lg:p-4 lg:pt-0">
-            <AwardHistory teamId={props.teamId} />
+          <div className="min-h-0 px-4 md:h-full lg:p-4">
+            <h3 className="px-1 pb-2 text-lg font-semibold">Award Change History</h3>
+            <div className="h-[calc(100%-32px)] overflow-y-auto pr-2 md:h-[calc(100%-40px)]">
+              <AwardHistory teamId={props.teamId} />
+            </div>
           </div>
         </div>
       </DialogContent>

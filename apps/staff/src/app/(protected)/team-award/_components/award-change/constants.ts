@@ -1,5 +1,6 @@
 // Award options with English values in UPPER case
 export const awardOptions = [
+  { value: "NONE", label: "None", english: "None" },
   { value: "REGISTERED", label: "Registered", english: "Registered" },
   { value: "ROUND_1_PARTICIPANT", label: "Round 1 Participant", english: "Round 1 Participant" },
   { value: "ROUND_2_PARTICIPANT", label: "Round 2 Participant", english: "Round 2 Participant" },
