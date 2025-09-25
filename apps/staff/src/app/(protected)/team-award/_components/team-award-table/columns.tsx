@@ -1,5 +1,6 @@
 import TeamDialog from "@/app/(protected)/_components/team-dialog"
 import { formatCodeName } from "@/app/(protected)/round-1/_components/team-table/format"
+import AwardChangeDialog from "@/app/(protected)/team-award/_components/award-change/dialog"
 import { createColumnHelper } from "@tanstack/react-table"
 import { teams } from "@workspace/db/schema"
 import { Building2, School, Trophy, Text } from "lucide-react"
@@ -93,6 +94,15 @@ export const columns = [
   columnHelper.display({
     id: "action",
     header: "Action",
-    cell: ({ row }) => <TeamDialog id={row.original.id} />,
+    cell: ({ row }) => (
+      <div className="flex items-center gap-2">
+        <AwardChangeDialog
+          teamId={row.original.id}
+          currentAward={row.original.award}
+          teamName={row.original.name}
+        />
+        <TeamDialog id={row.original.id} />
+      </div>
+    ),
   }),
 ]
