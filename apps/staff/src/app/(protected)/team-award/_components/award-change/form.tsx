@@ -131,13 +131,20 @@ function AwardChangeForm(props: AwardChangeFormProps) {
           />
         </div>
 
-        <Button
-          type="submit"
-          className="mt-4"
-          disabled={!form.formState.isValid || !form.formState.isDirty || isPending}
-          variant="outline">
-          Update Award
-        </Button>
+        <div className="flex w-full justify-end">
+          <Button
+            type="submit"
+            className="mt-4"
+            disabled={
+              !form.formState.isValid ||
+              !form.formState.isDirty ||
+              isPending ||
+              form.getValues("newAward") === props.currentAward
+            }
+            variant="outline">
+            Update Award
+          </Button>
+        </div>
       </form>
     </Form>
   )
