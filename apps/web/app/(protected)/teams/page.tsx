@@ -2,7 +2,6 @@
 
 import { useSubmitRegister, useAllRegisterStatus } from "@/app/(protected)/_components/status/context"
 import { TeamNavMobileLinks } from "@/app/(protected)/_components/team-nav"
-import CertPreviewPage from "@/app/(protected)/teams/cert"
 import TeamDone from "@/app/(protected)/teams/done"
 import Requirement from "@/app/(protected)/teams/requirement"
 import { Navbar } from "@/app/_components/navbar"
@@ -34,7 +33,6 @@ export default function TeamPage() {
         }>
         {!shouldShowTeamDone ? <Requirement key="landing" /> : <TeamDone />}
       </div>
-      <CertPreviewPage />
     </div>
   )
 }
