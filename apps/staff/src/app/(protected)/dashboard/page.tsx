@@ -1,7 +1,6 @@
 import { TeamsLineChart } from "@/app/(protected)/dashboard/_components/teams-line-chart"
 import TeamNumberCard from "@/app/(protected)/dashboard/_components/teams-number-chart"
 import { TeamsPieChart } from "@/app/(protected)/dashboard/_components/teams-pie-chart"
-import TimeLeftCard from "@/app/(protected)/dashboard/_components/time-left-card"
 import { teamsData } from "@/app/(protected)/dashboard/_lib/user-v-done"
 
 async function Dashboard() {

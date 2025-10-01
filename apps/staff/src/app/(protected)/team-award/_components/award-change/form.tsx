@@ -11,7 +11,6 @@ import {
 import { useAwardChangeContext } from "@/app/(protected)/team-award/_components/award-change/context"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { RelativeTimeCard } from "@/components/ui/relative-time-card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { cacheUtils } from "@/lib/cache"
@@ -161,7 +160,7 @@ function AwardChangeForm(props: AwardChangeFormProps) {
 
 function AwardChangeFormParent(props: AwardChangeFormProps) {
   const { teamId } = useAwardChangeContext()
-  const { data, isPending } = useQuery({
+  const { isPending } = useQuery({
     queryKey: [teamId, "award-audit"],
     queryFn: async () => {
       const data = await getAwardAuditHistory({
