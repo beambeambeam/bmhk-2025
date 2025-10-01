@@ -26,7 +26,7 @@ async function Dashboard() {
           <TeamsPieChart data={data} />
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-[1fr_1fr_0.6fr]">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-[1fr_1fr]">
           <TeamNumberCard
             number={data.summary.totalRegistered}
             title="Overall Registered Teams"
@@ -39,7 +39,6 @@ async function Dashboard() {
             description={`${data.summary.submissionRate}% submission rate`}
             variant="submitted"
           />
-          <TimeLeftCard date={new Date("2025-09-15T23:59:00")} />
         </div>
       </div>
     </div>
