@@ -236,3 +236,22 @@ export const round1Verification = pgTable(
     teamIdUnique: uniqueIndex("round1_verification_team_id_unique").on(table.teamId),
   })
 )
+
+export const awardAudit = pgTable("award_audit", {
+  id: uuid("id").defaultRandom().notNull().primaryKey(),
+  teamId: uuid("team_id")
+    .notNull()
+    .references(() => teams.id, { onDelete: "cascade" }),
+  oldAward: text("old_award").notNull(),
+  newAward: text("new_award").notNull(),
+  changedBy: text("changed_by")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  changedAt: timestamp("changed_at")
+    .$defaultFn(() => new Date())
+    .notNull(),
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  reason: text("reason"),
+  sessionId: text("session_id").references(() => session.id, { onDelete: "set null" }),
+})
