@@ -1,7 +1,10 @@
 import { createContext } from "@/lib/context"
 import { appRouter } from "@/routers"
 import { serve } from "@hono/node-server"
+import { OpenAPIGenerator } from "@orpc/openapi"
 import { RPCHandler } from "@orpc/server/fetch"
+import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4"
+import { Scalar } from "@scalar/hono-api-reference"
 import { auth } from "@workspace/auth"
 import { Hono } from "hono"
 import { cors } from "hono/cors"
@@ -56,6 +59,29 @@ app.get("/time", async (c) => {
     c: time.now,
   })
 })
+
+// Only generate OpenAPI spec in development environment
+const isDevelopment = process.env.NODE_ENV === "development" || process.env.NODE_ENV !== "production"
+
+if (isDevelopment) {
+  const generator = new OpenAPIGenerator({
+    schemaConverters: [new ZodToJsonSchemaConverter()],
+  })
+
+  const spec = await generator.generate(appRouter, {
+    info: {
+      title: "BMHK 2025 API",
+      version: "1.0.0",
+    },
+  })
+
+  app.use(
+    "/reference",
+    Scalar({
+      content: spec,
+    })
+  )
+}
 
 serve(
   {
