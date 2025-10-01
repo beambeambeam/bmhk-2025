@@ -8,6 +8,7 @@ import {
   awardOptions,
   getAwardDisplay,
 } from "@/app/(protected)/team-award/_components/award-change/constants"
+import { useAwardChangeContext } from "@/app/(protected)/team-award/_components/award-change/context"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { RelativeTimeCard } from "@/components/ui/relative-time-card"
@@ -31,13 +32,12 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>
 
 type AwardChangeFormProps = {
-  teamId: string
-  currentAward: string
   defaultValues?: FormValues
   closeDialog?: () => void
 }
 
 function AwardChangeForm(props: AwardChangeFormProps) {
+  const { teamId, currentAward, teamName } = useAwardChangeContext()
   const { execute, isPending } = useServerAction(submitAwardChange, {
     interceptors: [
       onError((error) => {
@@ -48,7 +48,7 @@ function AwardChangeForm(props: AwardChangeFormProps) {
       }),
       onSuccess(async (success) => {
         // Invalidate the award audit query so fresh data is fetched next time
-        cacheUtils.invalidateQueries([props.teamId, "award-audit"])
+        cacheUtils.invalidateQueries([teamId, "award-audit"])
         cacheUtils.invalidateQueries(["team-awards"])
 
         props.closeDialog?.()
@@ -60,7 +60,7 @@ function AwardChangeForm(props: AwardChangeFormProps) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      newAward: props.defaultValues?.newAward ?? props.currentAward,
+      newAward: props.defaultValues?.newAward ?? currentAward,
       reason: props.defaultValues?.reason ?? "",
     },
     mode: "onChange",
@@ -70,7 +70,7 @@ function AwardChangeForm(props: AwardChangeFormProps) {
 
   async function onSubmit(values: FormValues) {
     execute({
-      teamId: props.teamId,
+      teamId: teamId,
       newAward: values.newAward,
       reason: values.reason,
     })
@@ -79,18 +79,23 @@ function AwardChangeForm(props: AwardChangeFormProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        {/* Current Award Display */}
-        <div className="text-muted-foreground bg-muted/50 mb-4 space-y-2 rounded-lg border p-3 text-sm">
-          <div className="flex items-center gap-2">
-            <Trophy className="h-4 w-4 text-yellow-500" />
-            <div>
-              <div className="font-medium">Current Award:</div>
-              <div>{getAwardDisplay(props.currentAward).label}</div>
+        <div className="mb-2 grid w-full gap-3 md:grid-cols-[1fr_3fr]">
+          <div className="bg-muted/50 text-muted-foreground w-full rounded-lg border p-3 text-sm">
+            <div className="font-medium">Team</div>
+            <div className="truncate">{teamName}</div>
+          </div>
+          <div className="text-muted-foreground bg-muted/50 w-full space-y-2 rounded-lg border p-3 text-sm">
+            <div className="flex items-center gap-2">
+              <Trophy className="h-4 w-4 text-yellow-500" />
+              <div>
+                <div className="font-medium">Current Award:</div>
+                <div>{getAwardDisplay(currentAward).label}</div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 px-2">
+        <div className="grid gap-4 px-2 md:grid-cols-[1fr_3fr]">
           <FormField
             control={form.control}
             name="newAward"
@@ -120,10 +125,14 @@ function AwardChangeForm(props: AwardChangeFormProps) {
             control={form.control}
             name="reason"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormLabel>Reason (Optional)</FormLabel>
                 <FormControl>
-                  <Textarea className="h-20" placeholder="Enter reason for award change..." {...field} />
+                  <Textarea
+                    className="h-20 w-full"
+                    placeholder="Enter reason for award change..."
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -139,7 +148,7 @@ function AwardChangeForm(props: AwardChangeFormProps) {
               !form.formState.isValid ||
               !form.formState.isDirty ||
               isPending ||
-              form.getValues("newAward") === props.currentAward
+              form.getValues("newAward") === currentAward
             }
             variant="outline">
             Update Award
@@ -151,11 +160,12 @@ function AwardChangeForm(props: AwardChangeFormProps) {
 }
 
 function AwardChangeFormParent(props: AwardChangeFormProps) {
+  const { teamId } = useAwardChangeContext()
   const { data, isPending } = useQuery({
-    queryKey: [props.teamId, "award-audit"],
+    queryKey: [teamId, "award-audit"],
     queryFn: async () => {
       const data = await getAwardAuditHistory({
-        teamId: props.teamId,
+        teamId: teamId,
       })
       return data[1]?.auditHistory || []
     },

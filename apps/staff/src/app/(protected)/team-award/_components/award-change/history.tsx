@@ -2,20 +2,18 @@
 
 import { getAwardAuditHistory } from "@/app/(protected)/team-award/_components/award-change/action"
 import { getAwardDisplay } from "@/app/(protected)/team-award/_components/award-change/constants"
+import { useAwardChangeContext } from "@/app/(protected)/team-award/_components/award-change/context"
 import { RelativeTimeCard } from "@/components/ui/relative-time-card"
 import { useQuery } from "@tanstack/react-query"
 import { Trophy } from "lucide-react"
 
-type AwardHistoryProps = {
-  teamId: string
-}
-
-function AwardHistory(props: AwardHistoryProps) {
+function AwardHistory() {
+  const { teamId } = useAwardChangeContext()
   const { data, isPending } = useQuery({
-    queryKey: [props.teamId, "award-audit"],
+    queryKey: [teamId, "award-audit"],
     queryFn: async () => {
       const data = await getAwardAuditHistory({
-        teamId: props.teamId,
+        teamId: teamId,
       })
       const history = data[1]?.auditHistory || []
       return history.slice().sort((a, b) => new Date(a.changedAt).getTime() - new Date(b.changedAt).getTime())
