@@ -12,6 +12,7 @@ import { logger } from "hono/logger"
 import { requestId } from "hono/request-id"
 import { NtpTimeSync, type NtpTimeSyncConstructorOptions } from "ntp-time-sync"
 import type { RecursivePartial } from "ntp-time-sync/dist/RecursivePartial"
+import { PDFDocument, StandardFonts, rgb } from "pdf-lib"
 
 const app = new Hono()
 
@@ -60,7 +61,39 @@ app.get("/time", async (c) => {
   })
 })
 
-// Only generate OpenAPI spec in development environment
+app.get("/cert/generate", async (c) => {
+  const pdfDoc = await PDFDocument.create()
+  const page = pdfDoc.addPage([600, 600])
+
+  const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold)
+  const fontSize = 48
+  const text = "BMHK2025"
+
+  const textWidth = font.widthOfTextAtSize(text, fontSize)
+  const textHeight = font.heightAtSize(fontSize)
+
+  const x = (600 - textWidth) / 2
+  const y = (600 - textHeight) / 2
+
+  page.drawText(text, {
+    x,
+    y,
+    size: fontSize,
+    font,
+    color: rgb(0, 0, 0),
+  })
+
+  const bytes = await pdfDoc.save()
+  const out = new Uint8Array(bytes.byteLength)
+  out.set(bytes)
+  return c.newResponse(out, {
+    headers: {
+      "Content-Type": "application/pdf",
+      "Content-Disposition": "inline; filename=cert.pdf",
+    },
+  })
+})
+
 const isDevelopment = process.env.NODE_ENV === "development" || process.env.NODE_ENV !== "production"
 
 if (isDevelopment) {
