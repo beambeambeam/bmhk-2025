@@ -153,15 +153,7 @@ function LandingSection() {
         </svg>
 
         <div className="flex flex-col gap-[118px]">
-          <Stat
-            title="เปิดรับสมัครแล้ว"
-            description={
-              <>
-                ระยะเวลาการรับสมัคร
-                <br /> 27 สิงหาคม - 15 กันยายน 2568
-              </>
-            }
-          />
+          <Stat title="ปิดรับสมัครแล้ว" description={<>พบกันใหม่ในปีหน้า</>} />
           <Stat
             title="เขียนโปรแกรมภาษาซี"
             description={
