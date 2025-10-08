@@ -14,7 +14,7 @@ interface TeamInfo {
 
 export async function generateCertificatePdf(memberInfo: MemberInfo, team: TeamInfo): Promise<string> {
   const pdfDoc = await PDFDocument.create()
-  const page = pdfDoc.addPage([600, 600])
+  const page = pdfDoc.addPage([595, 842])
 
   const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold)
   const regularFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
