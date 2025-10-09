@@ -1,5 +1,34 @@
 /** @jsxImportSource react */
-import { Document, Page, Text, View, StyleSheet, pdf } from "@react-pdf/renderer"
+import { Document, Page, View, Image, StyleSheet, Font, pdf } from "@react-pdf/renderer"
+import path from "path"
+import { fileURLToPath } from "url"
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+Font.register({
+  family: "Poppins",
+  fonts: [
+    { src: path.join(__dirname, "poppins/Poppins-Regular.ttf"), fontWeight: 400 },
+    { src: path.join(__dirname, "poppins/Poppins-Medium.ttf"), fontWeight: 500 },
+    { src: path.join(__dirname, "poppins/Poppins-SemiBold.ttf"), fontWeight: 600 },
+    { src: path.join(__dirname, "poppins/Poppins-Bold.ttf"), fontWeight: 700 },
+    { src: path.join(__dirname, "poppins/Poppins-ExtraBold.ttf"), fontWeight: 800 },
+    { src: path.join(__dirname, "poppins/Poppins-Black.ttf"), fontWeight: 900 },
+  ],
+})
+
+Font.register({
+  family: "Prompt",
+  fonts: [
+    { src: path.join(__dirname, "prompt/Prompt-Regular.ttf"), fontWeight: 400 },
+    { src: path.join(__dirname, "prompt/Prompt-Medium.ttf"), fontWeight: 500 },
+    { src: path.join(__dirname, "prompt/Prompt-SemiBold.ttf"), fontWeight: 600 },
+    { src: path.join(__dirname, "prompt/Prompt-Bold.ttf"), fontWeight: 700 },
+    { src: path.join(__dirname, "prompt/Prompt-ExtraBold.ttf"), fontWeight: 800 },
+    { src: path.join(__dirname, "prompt/Prompt-Black.ttf"), fontWeight: 900 },
+  ],
+})
 
 interface MemberInfo {
   thaiFirstname: string | null
@@ -15,30 +44,40 @@ interface TeamInfo {
 
 const styles = StyleSheet.create({
   page: {
+    flexDirection: "row",
+    gap: 49,
+  },
+  left: {
+    width: 379,
     flexDirection: "column",
-    backgroundColor: "#ffffff",
-    padding: 40,
+    alignItems: "flex-start",
+    flexShrink: 0,
+    alignSelf: "stretch",
   },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  right: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    flex: "1 0 0",
+    alignSelf: "stretch",
   },
-  title: {
-    fontSize: 48,
-    fontWeight: "bold",
-    marginBottom: 40,
+  topLeft: {
+    padding: 30,
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 10,
+    flex: "1 0 0",
+    alignSelf: "stretch",
   },
-  name: {
-    fontSize: 24,
-    marginBottom: 20,
+  bottomLeft: {
+    height: 283,
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 10,
+    alignSelf: "stretch",
   },
-  team: {
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  school: {
-    fontSize: 16,
+  orgsIcon: {
+    width: 319,
+    height: "auto",
   },
 })
 
@@ -48,20 +87,21 @@ interface CertificateDocumentProps {
 }
 
 const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => {
-  const memberName =
-    memberInfo.thaiFirstname && memberInfo.thaiLastname
-      ? `${memberInfo.thaiFirstname} ${memberInfo.thaiLastname}`
-      : `${memberInfo.firstName} ${memberInfo.lastname}`
+  void memberInfo
+  void team
+
+  const orgsIconPath = path.join(__dirname, "imgs/orgs-icon.png")
 
   return (
     <Document>
       <Page size="A4" orientation="landscape" style={styles.page}>
-        <View style={styles.container}>
-          <Text style={styles.title}>BMHK2025</Text>
-          <Text style={styles.name}>{memberName}</Text>
-          <Text style={styles.team}>Team: {team.name}</Text>
-          <Text style={styles.school}>School: {team.school}</Text>
+        <View style={styles.left}>
+          <View style={styles.topLeft}>
+            <Image src={orgsIconPath} style={styles.orgsIcon} />
+          </View>
+          <View style={styles.bottomLeft}></View>
         </View>
+        <View style={styles.right}></View>
       </Page>
     </Document>
   )

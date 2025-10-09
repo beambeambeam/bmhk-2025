@@ -3,7 +3,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "tsc && pnpm copy-assets",
+    "copy-assets": "mkdir -p dist/routers/cert && cp -r src/routers/cert/poppins src/routers/cert/prompt src/routers/cert/imgs dist/routers/cert/",
     "start": "node dist/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
