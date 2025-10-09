@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   signatureContaienr: {
+    flexDirection: "row",
     alignItems: "flex-start",
     alignSelf: "stretch",
   },
@@ -191,6 +192,51 @@ const styles = StyleSheet.create({
     fontWeight: 500,
     lineHeight: 1.6,
   },
+  signatureProfContainer: {
+    height: 100,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    flex: 1,
+    width: "50%",
+  },
+  profSignature1: {
+    width: 100,
+    height: 68,
+    flexShrink: 0,
+  },
+  profSignature2: {
+    width: 81,
+    height: 67,
+    flexShrink: 0,
+  },
+  debugText: {
+    fontSize: 10,
+    color: "#ff0000",
+    fontFamily: "Poppins",
+  },
+  profInfoContainer: {
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    gap: 8,
+    flex: "1 0 0",
+    alignSelf: "stretch",
+  },
+  profName: {
+    color: "#282828",
+    fontFamily: "Prompt",
+    fontSize: 12,
+    fontWeight: 500,
+    lineHeight: 1.2,
+  },
+  profDetail: {
+    color: "#282828",
+    fontFamily: "Prompt",
+    fontSize: 10,
+    fontWeight: 300,
+    lineHeight: 1.2,
+  },
 })
 
 interface CertificateDocumentProps {
@@ -205,6 +251,8 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
   const orgsIconPath = path.join(__dirname, "imgs/orgs-icon.png")
   const bottomLeftArtPath = path.join(__dirname, "imgs/bottom-left-art.png")
   const topRightArtPath = path.join(__dirname, "imgs/top-right-art.png")
+  const profSignature1 = path.join(__dirname, "imgs/prof1.png")
+  const profSignature2 = path.join(__dirname, "imgs/prof2.png")
 
   return (
     <Document>
@@ -241,7 +289,24 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
                 2568{" "}
               </Text>
             </View>
-            <View style={styles.signatureContaienr}></View>
+            <View style={styles.signatureContaienr}>
+              <View style={styles.signatureProfContainer}>
+                <Image style={styles.profSignature1} src={profSignature1} />
+                <View style={styles.profInfoContainer}>
+                  <Text style={styles.profName}>รศ. ดร.ณัฐชา เดชดำรง</Text>
+                  <Text style={styles.profDetail}>
+                    ที่ปรึกษาโครงการ และประธานหลักสูตร วิศวกรรมคอมพิวเตอร์ (นานาชาติ)
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.signatureProfContainer}>
+                <Image style={styles.profSignature2} src={profSignature2} />
+                <View style={styles.profInfoContainer}>
+                  <Text style={styles.profName}>ผศ. ดร.สันติธรรม พรหมอ่อน</Text>
+                  <Text style={styles.profDetail}>หัวหน้าภาควิชาวิศวกรรมคอมพิวเตอร์</Text>
+                </View>
+              </View>
+            </View>
           </View>
         </View>
       </Page>
