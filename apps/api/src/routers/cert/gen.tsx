@@ -1,5 +1,5 @@
 /** @jsxImportSource react */
-import { Document, Page, View, Image, StyleSheet, Font, pdf } from "@react-pdf/renderer"
+import { Document, Page, View, Image, StyleSheet, Font, pdf, Text } from "@react-pdf/renderer"
 import path from "path"
 import { fileURLToPath } from "url"
 
@@ -79,6 +79,49 @@ const styles = StyleSheet.create({
     width: 319,
     height: "auto",
   },
+  certContainer: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    gap: 10,
+    flex: "1 0 0",
+  },
+  certTextContainer: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    gap: 10,
+  },
+  certText1: {
+    color: "#282828",
+    fontFamily: "Prompt",
+    fontSize: 18,
+    fontWeight: 400,
+    lineHeight: 1.2,
+    letterSpacing: 0.54,
+  },
+  certText2: {
+    color: "#000",
+    fontFamily: "Poppins",
+    fontSize: 55,
+    fontWeight: 700,
+    lineHeight: 1.4,
+    letterSpacing: 1.2,
+  },
+  certText3: {
+    color: "#000",
+    fontFamily: "Poppins",
+    fontSize: 20,
+    fontWeight: 400,
+    lineHeight: 1.4,
+    letterSpacing: 3,
+    textTransform: "uppercase",
+  },
+  certLine: {
+    width: 349,
+    height: 1,
+    backgroundColor: "#282828",
+  },
 })
 
 interface CertificateDocumentProps {
@@ -91,6 +134,7 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
   void team
 
   const orgsIconPath = path.join(__dirname, "imgs/orgs-icon.png")
+  const bottomLeftArtPath = path.join(__dirname, "imgs/bottom-left-art.png")
 
   return (
     <Document>
@@ -98,8 +142,16 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
         <View style={styles.left}>
           <View style={styles.topLeft}>
             <Image src={orgsIconPath} style={styles.orgsIcon} />
+            <View style={styles.certContainer}>
+              <View style={styles.certTextContainer}>
+                <Text style={styles.certText1}>ประกาศนียบัตร</Text>
+                <Text style={styles.certText2}>Certificate</Text>
+                <Text style={styles.certText3}>OF XXXXXXXXXX</Text>
+              </View>
+              <View style={styles.certLine} />
+            </View>
           </View>
-          <View style={styles.bottomLeft}></View>
+          <Image style={styles.bottomLeft} src={bottomLeftArtPath} />
         </View>
         <View style={styles.right}></View>
       </Page>
