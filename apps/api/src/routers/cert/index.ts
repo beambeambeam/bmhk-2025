@@ -4,7 +4,7 @@ import { teams, member } from "@workspace/db/schema"
 import { eq, and } from "drizzle-orm"
 import z from "zod"
 
-import { generateCertificatePdf } from "./gen"
+import { generateCertificatePdf } from "./gen.js"
 
 export const certRouter = {
   generate: protectedProcedure
@@ -65,7 +65,7 @@ export const certRouter = {
         .limit(1)
 
       if (memberData.length === 0) {
-        const availableIndices = allMembers.map((m) => m.index).sort()
+        const availableIndices = allMembers.map((m: (typeof allMembers)[number]) => m.index).sort()
         throw new Error(
           `No member${memberIndex} found for team. Available member indices: [${availableIndices.join(", ")}]. Team has memberCount: ${team.memberCount}.`
         )
