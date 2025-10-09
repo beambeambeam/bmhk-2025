@@ -122,6 +122,75 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: "#282828",
   },
+  topRight: {
+    height: 170,
+    flexDirection: "column",
+    alignItems: "flex-end",
+    alignSelf: "stretch",
+  },
+  bottomRight: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-start",
+    gap: 10,
+    flex: "1 0 0",
+    alignSelf: "stretch",
+  },
+  nameContainer: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 10,
+  },
+  awardCotainer: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 10,
+  },
+  signatureContaienr: {
+    alignItems: "flex-start",
+    alignSelf: "stretch",
+  },
+  nameText1: {
+    color: "#282828",
+    fontFamily: "Prompt",
+    fontSize: 14,
+    fontWeight: 400,
+    lineHeight: 1.2,
+  },
+  nameText2: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "flex-start",
+    gap: 20,
+  },
+  nameText2Text: {
+    color: "#282828",
+    fontFamily: "Prompt",
+    fontSize: 40,
+    fontWeight: 700,
+    lineHeight: 1.2,
+    letterSpacing: 2,
+  },
+  nameText3: {
+    color: "#282828",
+    fontFamily: "Prompt",
+    fontSize: 18,
+    fontWeight: 400,
+    lineHeight: 1.2,
+  },
+  awardText1: {
+    fontFamily: "Prompt",
+    fontSize: 24,
+    fontWeight: 600,
+    lineHeight: 1.6,
+  },
+  awardText2: {
+    color: "#282828",
+    fontFamily: "Prompt",
+    fontSize: 12,
+    fontWeight: 500,
+    lineHeight: 1.6,
+  },
 })
 
 interface CertificateDocumentProps {
@@ -135,6 +204,7 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
 
   const orgsIconPath = path.join(__dirname, "imgs/orgs-icon.png")
   const bottomLeftArtPath = path.join(__dirname, "imgs/bottom-left-art.png")
+  const topRightArtPath = path.join(__dirname, "imgs/top-right-art.png")
 
   return (
     <Document>
@@ -153,7 +223,27 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
           </View>
           <Image style={styles.bottomLeft} src={bottomLeftArtPath} />
         </View>
-        <View style={styles.right}></View>
+        <View style={styles.right}>
+          <Image style={styles.topRight} src={topRightArtPath} />
+          <View style={styles.bottomRight}>
+            <View style={styles.nameContainer}>
+              <Text style={styles.nameText1}>ประกาศนียบัตรฉบับนี้ ให้ไว้เพื่อแสดงว่า</Text>
+              <View style={styles.nameText2}>
+                <Text style={styles.nameText2Text}>อนุทิน</Text>
+                <Text style={styles.nameText2Text}>ชาญวีรกุล</Text>
+              </View>
+              <Text style={styles.nameText3}>จากทีมภูมิใจไทย</Text>
+            </View>
+            <View style={styles.awardCotainer}>
+              <Text style={styles.awardText1}>ได้รับรางวัลชนะเลิศ</Text>
+              <Text style={styles.awardText2}>
+                โครงการแข่งขันแก้ไขปัญหา ด้วยการเขียนโปรแกรมคอมพิวเตอร์ ระดับมัธยมศึกษาตอนปลาย ปีการศึกษา
+                2568{" "}
+              </Text>
+            </View>
+            <View style={styles.signatureContaienr}></View>
+          </View>
+        </View>
       </Page>
     </Document>
   )
