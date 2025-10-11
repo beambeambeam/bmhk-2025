@@ -31,10 +31,9 @@ Font.register({
 })
 
 interface MemberInfo {
+  type: "member" | "adviser"
   thaiFirstname: string | null
   thaiLastname: string | null
-  firstName: string
-  lastname: string
 }
 
 interface TeamInfo {

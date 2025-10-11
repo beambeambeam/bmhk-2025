@@ -1,6 +1,6 @@
 import { protectedProcedure } from "@/lib/orpc"
 import { db } from "@workspace/db"
-import { teams, member } from "@workspace/db/schema"
+import { teams, member, advisor } from "@workspace/db/schema"
 import { eq, and } from "drizzle-orm"
 import z from "zod"
 
@@ -12,7 +12,7 @@ export const certRouter = {
       z
         .object({
           memberIndex: z.number().int().min(1).max(3).optional(),
-          member: z.enum(["member1", "member2", "member3"]).optional(),
+          member: z.enum(["member1", "member2", "member3", "adviser"]).optional(),
         })
         .refine((v) => v.memberIndex !== undefined || v.member !== undefined, {
           message: "Either memberIndex or member is required",
@@ -38,6 +38,33 @@ export const certRouter = {
         throw new Error("No team found for user")
       }
       const team = userTeam[0]
+
+      const isAdviser = input.member === "adviser"
+
+      if (isAdviser) {
+        const adviserData = await db.select().from(advisor).where(eq(advisor.teamId, team.id)).limit(1)
+
+        if (adviserData.length === 0) {
+          throw new Error("No adviser found for team")
+        }
+
+        const adviserInfo = adviserData[0]
+
+        const base64 = await generateCertificatePdf(
+          {
+            type: "adviser",
+            thaiFirstname: adviserInfo.thaiFirstname,
+            thaiLastname: adviserInfo.thaiLastname,
+          },
+          team
+        )
+
+        return {
+          success: true,
+          message: "Certificate generated for adviser",
+          data: base64,
+        }
+      }
 
       const memberIndex: number =
         input.memberIndex !== undefined
@@ -73,7 +100,14 @@ export const certRouter = {
 
       const memberInfo = memberData[0]
 
-      const base64 = await generateCertificatePdf(memberInfo, team)
+      const base64 = await generateCertificatePdf(
+        {
+          type: "member",
+          thaiFirstname: memberInfo.thaiFirstname,
+          thaiLastname: memberInfo.thaiLastname,
+        },
+        team
+      )
 
       return {
         success: true,

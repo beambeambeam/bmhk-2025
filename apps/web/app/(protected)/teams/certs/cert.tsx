@@ -5,13 +5,13 @@ import { useQuery } from "@tanstack/react-query"
 import { useEffect, useMemo } from "react"
 
 interface CertPreviewPageProps {
-  memberIndex: 1 | 2 | 3
+  member: "member1" | "member2" | "member3" | "adviser"
 }
 
-export default function CertPreviewPage({ memberIndex }: CertPreviewPageProps) {
+export default function CertPreviewPage({ member }: CertPreviewPageProps) {
   const { data, isLoading, isError } = useQuery(
     orpc.cert.generate.queryOptions({
-      input: { memberIndex },
+      input: { member },
     })
   )
 
@@ -32,8 +32,8 @@ export default function CertPreviewPage({ memberIndex }: CertPreviewPageProps) {
   if (isError) return <div>Failed to load certificate</div>
 
   return (
-    <div className="flex w-full items-center justify-center p-4">
-      <object data={url} type="application/pdf" width={600} height={600}>
+    <div>
+      <object data={url} type="application/pdf" width={842} height={595}>
         <a href={url} target="_blank" rel="noreferrer">
           Open PDF
         </a>
