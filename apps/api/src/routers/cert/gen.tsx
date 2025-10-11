@@ -3,6 +3,8 @@ import { Document, Page, View, Image, StyleSheet, Font, pdf, Text } from "@react
 import path from "path"
 import { fileURLToPath } from "url"
 
+import { adviser } from "./constants.js"
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
@@ -245,10 +247,16 @@ interface CertificateDocumentProps {
 
 const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => {
   const orgsIconPath = path.join(__dirname, "imgs/orgs-icon.png")
-  const bottomLeftArtPath = path.join(__dirname, "imgs/bottom-left-art.png")
   const topRightArtPath = path.join(__dirname, "imgs/top-right-art.png")
   const profSignature1 = path.join(__dirname, "imgs/prof1.png")
   const profSignature2 = path.join(__dirname, "imgs/prof2.png")
+
+  const isAdviser = memberInfo.type === "adviser"
+  const certificateType = isAdviser ? adviser.of : "XXXXXXXXXX"
+  const teamPrefix = isAdviser ? adviser.teamPrefix : "จากทีม"
+  const bottomLeftArtPath = isAdviser
+    ? path.join(__dirname, "imgs", adviser.lowerImage)
+    : path.join(__dirname, "imgs/bottom-left-art.png")
 
   return (
     <Document>
@@ -260,7 +268,7 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
               <View style={styles.certTextContainer}>
                 <Text style={styles.certText1}>ประกาศนียบัตร</Text>
                 <Text style={styles.certText2}>Certificate</Text>
-                <Text style={styles.certText3}>OF XXXXXXXXXX</Text>
+                <Text style={styles.certText3}>OF {certificateType}</Text>
               </View>
               <View style={styles.certLine} />
             </View>
@@ -276,10 +284,13 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
                 <Text style={styles.nameText2Text}>{memberInfo.thaiFirstname}</Text>
                 <Text style={styles.nameText2Text}>{memberInfo.thaiLastname}</Text>
               </View>
-              <Text style={styles.nameText3}>จากทีม{team.name}</Text>
+              <Text style={styles.nameText3}>
+                {teamPrefix}
+                {team.name}
+              </Text>
             </View>
             <View style={styles.awardCotainer}>
-              <Text style={styles.awardText1}>ได้รับรางวัลชนะเลิศ</Text>
+              {!isAdviser && <Text style={styles.awardText1}>ได้รับรางวัลชนะเลิศ</Text>}
               <Text style={styles.awardText2}>
                 โครงการแข่งขันแก้ไขปัญหา ด้วยการเขียนโปรแกรมคอมพิวเตอร์ ระดับมัธยมศึกษาตอนปลาย ปีการศึกษา
                 2568{" "}
