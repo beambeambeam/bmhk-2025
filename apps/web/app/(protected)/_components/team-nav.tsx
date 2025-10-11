@@ -27,7 +27,7 @@ export const TeamNavMobileLinks: NavLink[] = [
     mobileOnly: true,
   },
   {
-    label: "ใบประกาศนียบัตร",
+    label: "ประกาศนียบัตร",
     type: "normal",
     href: "/teams/certs",
     mobileOnly: true,

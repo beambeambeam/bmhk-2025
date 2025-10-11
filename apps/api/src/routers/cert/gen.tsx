@@ -261,7 +261,6 @@ interface CertificateDocumentProps {
 
 const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => {
   const orgsIconPath = path.join(__dirname, "imgs/orgs-icon.png")
-  const topRightArtPath = path.join(__dirname, "imgs/top-right-art.png")
   const profSignature1 = path.join(__dirname, "imgs/prof1.png")
   const profSignature2 = path.join(__dirname, "imgs/prof2.png")
 
@@ -276,6 +275,8 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
   const certificateType = config.of
   const teamPrefix = config.teamPrefix
   const bottomLeftArtPath = path.join(__dirname, "imgs", config.lowerImage)
+  const topRightArtPath = path.join(__dirname, "imgs", config.topImage)
+  const awardFontSize = config.of === "ACHIEVEMENT" ? 24 : 20
 
   return (
     <Document>
@@ -319,12 +320,18 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
                         <Stop offset="100%" stopColor={config.gradient.end} />
                       </LinearGradient>
                     </Defs>
-                    <Text x="0" y="35" fill="url(#awardGradient)" style={styles.awardText1}>
+                    <Text
+                      x="0"
+                      y="35"
+                      fill="url(#awardGradient)"
+                      style={[styles.awardText1, { fontSize: awardFontSize }]}>
                       {config.award}
                     </Text>
                   </Svg>
                 ) : (
-                  <Text style={[styles.awardText1, config.awardTextCSS]}>{config.award}</Text>
+                  <Text style={[styles.awardText1, config.awardTextCSS, { fontSize: awardFontSize }]}>
+                    {config.award}
+                  </Text>
                 ))}
               <Text style={styles.awardText2}>
                 โครงการแข่งขันแก้ไขปัญหา ด้วยการเขียนโปรแกรมคอมพิวเตอร์ ระดับมัธยมศึกษาตอนปลาย ปีการศึกษา

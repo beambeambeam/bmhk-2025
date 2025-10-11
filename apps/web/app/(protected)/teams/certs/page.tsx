@@ -49,7 +49,7 @@ function CertPage() {
         }>
         <div className="md:px-15 flex w-full flex-col items-center gap-8 px-6 pt-8 md:pt-0 lg:px-20 2xl:gap-10 2xl:px-40">
           <div className="flex w-full flex-col items-center justify-between gap-6 md:flex-row md:gap-0">
-            <h1 className="text-[1.5rem] font-medium md:text-[2rem] 2xl:text-[3rem]">ใบประกาศนียบัตร</h1>
+            <h1 className="text-[1.5rem] font-medium md:text-[2rem] 2xl:text-[3rem]">ประกาศนียบัตร</h1>
           </div>
 
           <div className="liquid flex w-full flex-col items-center gap-5 rounded-[24px] p-4 backdrop-blur-sm md:items-start md:rounded-[32px] md:p-6 2xl:gap-10 2xl:rounded-[40px] 2xl:p-8">
@@ -73,7 +73,7 @@ function CertPage() {
               {selectedMember && <CertPreview member={selectedMember} />}
               {!selectedMember && (
                 <p className="py-8 text-center text-[1rem] opacity-70 md:text-[1.125rem]">
-                  กรุณาเลือกสมาชิกเพื่อดูใบประกาศนียบัตร
+                  กรุณาเลือกสมาชิกเพื่อดูประกาศนียบัตร
                 </p>
               )}
             </div>

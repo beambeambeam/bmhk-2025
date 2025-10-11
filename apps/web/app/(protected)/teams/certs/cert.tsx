@@ -33,7 +33,7 @@ export default function CertPreviewPage({ member }: CertPreviewPageProps) {
       <div className="flex w-full items-center justify-center py-12">
         <div className="flex flex-col items-center gap-3">
           <div className="size-8 animate-spin rounded-full border-4 border-white/30 border-t-white" />
-          <p className="text-[1rem] opacity-70">กำลังโหลดใบประกาศนียบัตร...</p>
+          <p className="text-[1rem] opacity-70">กำลังโหลดประกาศนียบัตร...</p>
         </div>
       </div>
     )
@@ -43,7 +43,7 @@ export default function CertPreviewPage({ member }: CertPreviewPageProps) {
     return (
       <div className="flex w-full items-center justify-center py-12">
         <div className="flex flex-col items-center gap-3">
-          <p className="text-[1rem] text-red-400">ไม่สามารถโหลดใบประกาศนียบัตรได้</p>
+          <p className="text-[1rem] text-red-400">ไม่สามารถโหลดประกาศนียบัตรได้</p>
           <p className="text-[0.875rem] opacity-70">กรุณาลองใหม่อีกครั้ง</p>
         </div>
       </div>
