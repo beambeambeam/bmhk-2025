@@ -326,7 +326,7 @@ export const registerRouter = {
               school: input.school_name,
               memberCount: input.member_count,
               quote: input.quote,
-              award: AWARD_ENUM.FIRST_ROUND,
+              award: AWARD_ENUM.NONE,
               ...(fileId && { imageId: fileId }),
             })
             .where(eq(teams.userId, userId))
@@ -343,7 +343,7 @@ export const registerRouter = {
               school: input.school_name,
               memberCount: input.member_count,
               quote: input.quote,
-              award: AWARD_ENUM.FIRST_ROUND,
+              award: AWARD_ENUM.NONE,
             })
             .returning()
 

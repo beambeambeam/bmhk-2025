@@ -260,6 +260,15 @@ function TeamDone() {
                 </span>
               </Link>
             )}
+            {isSubmit && query.data?.team?.award && query.data?.team?.award !== "NONE" && (
+              <Link
+                href="/teams/certs"
+                className="flex h-fit w-fit items-center justify-between gap-4 rounded-[32px] bg-[radial-gradient(105.85%_133.12%_at_50%_100%,#DFDFDF_0%,rgba(223,223,223,0)_100%)] px-6 py-3 md:w-auto md:px-8 2xl:px-10 2xl:py-4">
+                <span className="text-[1.125rem] font-medium md:text-[1.5rem] 2xl:text-[2rem]">
+                  สร้างใบประกาศนียบัตร
+                </span>
+              </Link>
+            )}
           </div>
 
           {/* Bottom row: Team information */}

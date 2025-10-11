@@ -27,6 +27,12 @@ export const TeamNavMobileLinks: NavLink[] = [
     mobileOnly: true,
   },
   {
+    label: "ใบประกาศนียบัตร",
+    type: "normal",
+    href: "/teams/certs",
+    mobileOnly: true,
+  },
+  {
     label: "ออกจากระบบ",
     type: "action",
     action: "signout",
