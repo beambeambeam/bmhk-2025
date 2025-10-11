@@ -4,6 +4,7 @@ import { teams, member, advisor } from "@workspace/db/schema"
 import { eq, and } from "drizzle-orm"
 import z from "zod"
 
+import type { AwardKeys } from "./constants.js"
 import { generateCertificatePdf } from "./gen.js"
 
 export const certRouter = {
@@ -105,6 +106,7 @@ export const certRouter = {
           type: "member",
           thaiFirstname: memberInfo.thaiFirstname,
           thaiLastname: memberInfo.thaiLastname,
+          award: team.award as AwardKeys,
         },
         team
       )

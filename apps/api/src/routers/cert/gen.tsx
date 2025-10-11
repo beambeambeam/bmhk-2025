@@ -1,9 +1,22 @@
 /** @jsxImportSource react */
-import { Document, Page, View, Image, StyleSheet, Font, pdf, Text } from "@react-pdf/renderer"
+import {
+  Document,
+  Page,
+  View,
+  Image,
+  StyleSheet,
+  Font,
+  pdf,
+  Text,
+  Svg,
+  Defs,
+  LinearGradient,
+  Stop,
+} from "@react-pdf/renderer"
 import path from "path"
 import { fileURLToPath } from "url"
 
-import { adviser } from "./constants.js"
+import { adviser, awardCertificates, type AwardKeys } from "./constants.js"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -36,6 +49,7 @@ interface MemberInfo {
   type: "member" | "adviser"
   thaiFirstname: string | null
   thaiLastname: string | null
+  award?: AwardKeys
 }
 
 interface TeamInfo {
@@ -252,11 +266,16 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
   const profSignature2 = path.join(__dirname, "imgs/prof2.png")
 
   const isAdviser = memberInfo.type === "adviser"
-  const certificateType = isAdviser ? adviser.of : "XXXXXXXXXX"
-  const teamPrefix = isAdviser ? adviser.teamPrefix : "จากทีม"
-  const bottomLeftArtPath = isAdviser
-    ? path.join(__dirname, "imgs", adviser.lowerImage)
-    : path.join(__dirname, "imgs/bottom-left-art.png")
+
+  const config = isAdviser
+    ? adviser
+    : memberInfo.award
+      ? awardCertificates[memberInfo.award]
+      : awardCertificates["REGISTERED"]
+
+  const certificateType = config.of
+  const teamPrefix = config.teamPrefix
+  const bottomLeftArtPath = path.join(__dirname, "imgs", config.lowerImage)
 
   return (
     <Document>
@@ -290,7 +309,23 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
               </Text>
             </View>
             <View style={styles.awardCotainer}>
-              {!isAdviser && <Text style={styles.awardText1}>ได้รับรางวัลชนะเลิศ</Text>}
+              {!isAdviser &&
+                config.award &&
+                (config.gradient ? (
+                  <Svg width="400" height="50">
+                    <Defs>
+                      <LinearGradient id="awardGradient" x1="0" y1="0" x2="1" y2="0">
+                        <Stop offset="0%" stopColor={config.gradient.start} />
+                        <Stop offset="100%" stopColor={config.gradient.end} />
+                      </LinearGradient>
+                    </Defs>
+                    <Text x="0" y="35" fill="url(#awardGradient)" style={styles.awardText1}>
+                      {config.award}
+                    </Text>
+                  </Svg>
+                ) : (
+                  <Text style={[styles.awardText1, config.awardTextCSS]}>{config.award}</Text>
+                ))}
               <Text style={styles.awardText2}>
                 โครงการแข่งขันแก้ไขปัญหา ด้วยการเขียนโปรแกรมคอมพิวเตอร์ ระดับมัธยมศึกษาตอนปลาย ปีการศึกษา
                 2568{" "}
