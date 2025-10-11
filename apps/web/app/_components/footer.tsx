@@ -9,25 +9,43 @@ import Link from "next/link"
 function Sponsor() {
   if (SponsorList.length < 1) return <></>
   return (
-    <div className="flex flex-[1_0_0] flex-col items-start gap-7 self-stretch max-lg:items-center">
+    <div className="flex flex-[1_0_0] flex-col items-start gap-4 self-stretch max-lg:items-center 2xl:gap-10">
       <div className="text-body-1 text-[var(--color-gray-50)] max-2xl:text-[20px] max-lg:text-[18px]">
         สนับสนุนโดย
       </div>
-      <div className="flex flex-wrap items-center gap-6 self-stretch max-lg:justify-center">
-        {SponsorList.map((s) => (
+      {SponsorList.map((s) => (
+        <div className="flex flex-col items-center gap-[12px] self-stretch max-lg:justify-center lg:flex-row lg:gap-6">
           <GlassCard
             key={s.name}
-            className="min-w-15 min-h-15 flex aspect-square items-center justify-center px-6 py-6 2xl:min-h-20 2xl:min-w-20"
+            className="2xl:min-h-30 2xl:min-w-30 flex aspect-square min-h-[70px] min-w-[70px] items-center justify-center px-6 py-6 lg:min-h-[90px] lg:min-w-[90px]"
             style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}>
-            <img src={s.image_path} className="max-h-[60px] w-auto object-contain" />
+            <img
+              src={s.image_path}
+              className="max-h-[48px] w-auto object-contain lg:max-h-[60px] 2xl:max-h-[80px]"
+            />
           </GlassCard>
-        ))}
-      </div>
-      <div className="hidden flex-col items-start gap-3 self-stretch 2xl:flex">
-        <div className="text-body-3 text-[var(--color-gray-50)]">
-          เราขอขอบคุณ <span>{SponsorList.map((s) => s.name).join(", ")}</span>
+          <div className="flex flex-col items-center justify-start gap-1 lg:items-start lg:gap-[12px] 2xl:gap-5">
+            <div className="text-[20px] font-normal text-[var(--color-gray-50)] lg:text-[22px] 2xl:text-[24px]">
+              {s.name}
+            </div>
+            <div className="text-[16px] font-light text-[var(--color-gray-50)] lg:text-[20px]">
+              เราขอขอบคุณ{" "}
+              {(() => {
+                switch (s.tier) {
+                  case 3:
+                    return "Diamond Sponsor"
+                  case 2:
+                    return "Platinum Sponsor"
+                  case 1:
+                    return "Gold Sponsor"
+                  default:
+                    return "Sponsor"
+                }
+              })()}
+            </div>
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   )
 }
@@ -59,23 +77,14 @@ function Footer() {
         borderTop: "none",
         borderLeft: "none",
       }}>
-      <div className="flex flex-col items-center justify-center gap-10 self-stretch border-b-[0.5px] border-solid border-[#666] pb-10">
-        <div className="flex flex-col items-start gap-10 self-stretch 2xl:flex-row">
-          <div className="flex flex-[1_0_0] flex-col items-start gap-10">
+      <div className="flex flex-col items-center justify-center gap-6 self-stretch border-b-[0.5px] border-solid border-[#666] pb-10 lg:gap-10">
+        <div className="flex flex-col items-start gap-8 self-stretch 2xl:flex-row 2xl:gap-10">
+          <div className="flex w-full flex-[1_0_0] flex-col items-start gap-6 lg:gap-8 2xl:gap-10">
             <div className="hidden w-full items-center justify-between lg:flex">
-              <div className="flex h-[70px] items-center gap-10 2xl:h-[75px]">
-                {" "}
-                {/* Icon */}
-                <img
-                  src="/static/logo/Logo.webp"
-                  alt="Bangmod Hackathon Logo"
-                  className="ml-[-24px] h-[100px] 2xl:ml-[-32px] 2xl:h-[140px]"
-                />
-                <img
-                  src="/static/logo/KMUTT_CPE.webp"
-                  alt="KMUTT CPE Logo"
-                  className="max-h-[72px] max-w-[220px] object-contain"
-                />
+              {/* Icon */}
+              <div className="flex items-center">
+                <img src="/static/logo/LOGOS Desktop Footer.svg" className="hidden 2xl:block" />
+                <img src="/static/logo/LOGOS Tablet Footer.svg" className="hidden lg:block 2xl:hidden" />
               </div>
               <div className="flex items-center gap-6 2xl:hidden">
                 {" "}
@@ -98,25 +107,33 @@ function Footer() {
               <img
                 src="/static/logo/Logo.webp"
                 alt="Bangmod Hackathon Logo"
-                className="ml-[-24px] h-[100px]"
+                className="h-auto w-full max-w-[200px]"
               />
-              <div className="flex h-10 items-center">
-                <img
-                  src="/static/logo/KMUTT_CPE.webp"
-                  alt="KMUTT CPE Logo"
-                  className="max-h-[45px] max-w-[220px] object-contain"
-                />
+              <div className="flex w-full items-center">
+                <img src="/static/logo/LOGOS Mobile Footer.svg" className="h-auto w-full" />
               </div>
             </div>
-            <div className="flex flex-col items-start gap-6 self-stretch max-lg:items-center">
-              <div className="text-body-1 text-[var(--color-gray-50)] max-2xl:text-[20px] max-lg:text-center max-lg:text-[18px]">
-                การแข่งขันเขียนโปรแกรมคอมพิวเตอร์ BangMod Hackathon 2025
+            <div className="flex flex-col items-start gap-4 self-stretch max-lg:items-center 2xl:gap-6">
+              <div className="whitespace-nowrap text-center text-[18px] font-normal text-[var(--color-gray-50)] lg:text-left lg:text-[24px]">
+                โครงการแข่งขันแก้ไขปัญหาด้วยการเขียน
+                <span className="block lg:hidden"></span>
+                โปรแกรมคอมพิวเตอร์ ประจำปี 2568
               </div>
-              <div className="flex flex-col items-start gap-3 self-stretch">
-                <div className="text-body-3 text-[var(--color-gray-100)] max-lg:text-center max-lg:text-[14px]">
-                  ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี
-                  อาคารวิศววัฒนะ ชั้น 10-11 เลขที่ 126 ถ.ประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพฯ 10140
-                </div>
+              <div className="hidden text-[20px] font-light text-[var(--color-gray-50)] lg:block">
+                จัดโดยภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี
+              </div>
+              <div className="hidden text-[20px] font-light text-[#9E9E9E] lg:block">
+                อาคารวิศววัฒนะ ชั้น 10-11 เลขที่ 126 ถ.ประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพฯ 10140
+              </div>
+
+              <div className="block whitespace-nowrap text-center text-[14px] font-light text-[#9E9E9E] lg:hidden">
+                ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์
+                <span className="block lg:hidden"></span>
+                มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี อาคารวิศววัฒนะ
+                <span className="block lg:hidden"></span>
+                ชั้น 10-11 เลขที่ 126 ถ.ประชาอุทิศ แขวงบางมด เขตทุ่งครุ
+                <span className="block lg:hidden"></span>
+                กรุงเทพฯ 10140
               </div>
             </div>
           </div>
