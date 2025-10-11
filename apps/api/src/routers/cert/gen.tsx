@@ -245,9 +245,6 @@ interface CertificateDocumentProps {
 }
 
 const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => {
-  void memberInfo
-  void team
-
   const orgsIconPath = path.join(__dirname, "imgs/orgs-icon.png")
   const bottomLeftArtPath = path.join(__dirname, "imgs/bottom-left-art.png")
   const topRightArtPath = path.join(__dirname, "imgs/top-right-art.png")
@@ -277,10 +274,10 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
             <View style={styles.nameContainer}>
               <Text style={styles.nameText1}>ประกาศนียบัตรฉบับนี้ ให้ไว้เพื่อแสดงว่า</Text>
               <View style={styles.nameText2}>
-                <Text style={styles.nameText2Text}>อนุทิน</Text>
-                <Text style={styles.nameText2Text}>ชาญวีรกุล</Text>
+                <Text style={styles.nameText2Text}>{memberInfo.thaiFirstname}</Text>
+                <Text style={styles.nameText2Text}>{memberInfo.thaiLastname}</Text>
               </View>
-              <Text style={styles.nameText3}>จากทีมภูมิใจไทย</Text>
+              <Text style={styles.nameText3}>จากทีม{team.name}</Text>
             </View>
             <View style={styles.awardCotainer}>
               <Text style={styles.awardText1}>ได้รับรางวัลชนะเลิศ</Text>
