@@ -3,7 +3,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "tsc && pnpm copy-assets",
+    "copy-assets": "mkdir -p dist/routers/cert && cp -r src/routers/cert/poppins src/routers/cert/prompt src/routers/cert/imgs dist/routers/cert/",
     "start": "node dist/index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
@@ -12,17 +13,24 @@
     "@aws-sdk/client-s3": "^3.873.0",
     "@aws-sdk/s3-request-presigner": "^3.873.0",
     "@hono/node-server": "^1.19.0",
+    "@orpc/openapi": "^1.9.2",
     "@orpc/server": "^1.8.4",
+    "@orpc/zod": "^1.9.2",
+    "@react-pdf/renderer": "^4.3.1",
+    "@scalar/hono-api-reference": "^0.9.19",
     "@workspace/auth": "workspace:*",
     "@workspace/db": "workspace:*",
     "drizzle-orm": "^0.36.4",
     "hono": "^4.9.4",
     "ntp-time-sync": "^0.5.0",
+    "pdf-lib": "^1.17.1",
+    "react": "^19.2.0",
     "tsx": "^4.20.4",
     "zod": "^4.0.17"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
+    "@types/react": "^19.2.2",
     "@workspace/eslint-config": "workspace:*",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.8.3"
