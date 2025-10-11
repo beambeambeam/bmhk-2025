@@ -84,7 +84,7 @@ export const awardCertificates: Record<AwardKeys, CertificateTemplate> = {
     awardTextCSS: { color: "rgba(140, 48, 97, 0.65)" },
     gradient: { start: "rgba(140, 48, 97, 0.65)", end: "rgba(212, 0, 113, 0.65)" },
     teamPrefix: "จากทีม",
-    lowerImage: "lower-2nd.png",
+    lowerImage: "lower-2.png",
   },
   [Awards.FirstPlace]: {
     of: "ACHIEVEMENT",
