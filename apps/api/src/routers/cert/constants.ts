@@ -39,7 +39,7 @@ export const adviser: CertificateTemplate = {
   },
   teamPrefix: "อาจารย์ที่ปรึกษา จากทีม",
   lowerImage: "lower-default.png",
-  topImage: "top-right-art.png",
+  topImage: "top-right-art-no-icon.png",
 }
 
 export const awardCertificates: Record<AwardKeys, CertificateTemplate> = {
@@ -49,7 +49,7 @@ export const awardCertificates: Record<AwardKeys, CertificateTemplate> = {
     awardTextCSS: { color: "#9F83DC" },
     teamPrefix: "จากทีม",
     lowerImage: "lower-default.png",
-    topImage: "top-right-art.png",
+    topImage: "top-right-art-no-icon.png",
   },
   [Awards.Round1Participant]: {
     of: "PARTICIPATION",
@@ -57,7 +57,7 @@ export const awardCertificates: Record<AwardKeys, CertificateTemplate> = {
     awardTextCSS: { color: "#9F83DC" },
     teamPrefix: "จากทีม",
     lowerImage: "lower-default.png",
-    topImage: "top-right-art.png",
+    topImage: "top-right-art-no-icon.png",
   },
   [Awards.Round2Participant]: {
     of: "PARTICIPATION",
@@ -65,7 +65,7 @@ export const awardCertificates: Record<AwardKeys, CertificateTemplate> = {
     awardTextCSS: { color: "#9F83DC" },
     teamPrefix: "จากทีม",
     lowerImage: "lower-default.png",
-    topImage: "top-right-art.png",
+    topImage: "top-right-art-no-icon.png",
   },
   [Awards.HonorableMention]: {
     of: "ACHIEVEMENT",
@@ -74,7 +74,7 @@ export const awardCertificates: Record<AwardKeys, CertificateTemplate> = {
     gradient: { start: "#9B9B9B", end: "#BCBCBC" },
     teamPrefix: "จากทีม",
     lowerImage: "lower-special.png",
-    topImage: "top-right-art-no-icon.png",
+    topImage: "top-right-art.png",
   },
   [Awards.ThirdPlace]: {
     of: "ACHIEVEMENT",
@@ -83,7 +83,7 @@ export const awardCertificates: Record<AwardKeys, CertificateTemplate> = {
     gradient: { start: "#C63C51", end: "#601D27" },
     teamPrefix: "จากทีม",
     lowerImage: "lower-3rd.png",
-    topImage: "top-right-art-no-icon.png",
+    topImage: "top-right-art.png",
   },
   [Awards.SecondPlace]: {
     of: "ACHIEVEMENT",
@@ -92,7 +92,7 @@ export const awardCertificates: Record<AwardKeys, CertificateTemplate> = {
     gradient: { start: "rgba(140, 48, 97, 0.65)", end: "rgba(212, 0, 113, 0.65)" },
     teamPrefix: "จากทีม",
     lowerImage: "lower-2.png",
-    topImage: "top-right-art-no-icon.png",
+    topImage: "top-right-art.png",
   },
   [Awards.FirstPlace]: {
     of: "ACHIEVEMENT",
@@ -101,6 +101,6 @@ export const awardCertificates: Record<AwardKeys, CertificateTemplate> = {
     gradient: { start: "#9F83DC", end: "#FFCCF7" },
     teamPrefix: "จากทีม",
     lowerImage: "lower-1st.png",
-    topImage: "top-right-art-no-icon.png",
+    topImage: "top-right-art.png",
   },
 }
