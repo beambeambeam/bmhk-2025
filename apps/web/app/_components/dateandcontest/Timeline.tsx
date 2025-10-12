@@ -2,6 +2,7 @@
 
 import { EyeOpenedIcon } from "@/components/EyeOpenedIcon"
 import { Heading } from "@/components/heading"
+import Image from "next/image"
 
 export type cardItem = { textFull: string; textShort: string; textColor: string }
 export type labelItem = { text: string; textColor: string }
@@ -17,6 +18,7 @@ export type ContentItem = {
 export type SectionItem = {
   header: string
   content: ContentItem[]
+  image?: string
 }
 
 type TimelineProps = {
@@ -24,6 +26,7 @@ type TimelineProps = {
 }
 
 export default function Timeline({ data }: TimelineProps) {
+  console.log(data)
   return (
     <div className="gap-y-25 2xl:gap-y-50 flex flex-col items-center justify-center">
       {data.map((section, sectionIndex) => (
@@ -32,6 +35,16 @@ export default function Timeline({ data }: TimelineProps) {
           className="z-10 flex w-full max-w-[393px] flex-col lg:max-w-[1034px] 2xl:max-w-[1600px]">
           {/* Header */}
           <Heading text={section.header} className="2xl:mb-15 mb-8 lg:mb-10" />
+
+          {section.image && (
+            <Image
+              src={section.image}
+              width={596}
+              height={328}
+              alt={"Team icon"}
+              className="mx-auto h-[141px] w-[256px] md:mb-10 md:mb-8 md:h-[250px] md:w-[454px] 2xl:h-[328px] 2xl:w-[596px]"
+            />
+          )}
 
           {/* Timeline items */}
           <div className="gap-15 mx-auto flex flex-col lg:w-full lg:flex-row lg:gap-8 2xl:gap-10">
