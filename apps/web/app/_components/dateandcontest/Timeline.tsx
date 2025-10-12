@@ -173,9 +173,13 @@ export default function Timeline({ data }: TimelineProps) {
                         href={content.pathNameList}
                         className={`flex items-center gap-x-3 lg:gap-x-4 lg:px-0 ${section.content.length > 1 ? (sectionIndex % 2 ? "pr-16" : "pl-16") : "px-0"}`}>
                         <EyeOpenedIcon className="text-hover-100 h-5 w-5 lg:h-8 lg:w-8 2xl:h-9 2xl:w-9" />
-                        <p className="text-hover-100 text-[1rem] font-medium underline lg:text-[1.5rem] 2xl:text-[1.75rem]">
+                        <a
+                          className="text-hover-100 text-[1rem] font-medium underline lg:text-[1.5rem] 2xl:text-[1.75rem]"
+                          href="https://www.facebook.com/BangmodHackathon/posts/pfbid02Mgt8rNF6xFrvSRfihVSErztR4SStTRjUtHzFkun7YmGi56444A2gXHGSvcvkRFvUl"
+                          target="_blank"
+                          rel="noopener,noreferrer">
                           ดูรายชื่อ
-                        </p>
+                        </a>
                       </a>
                     )}
                   </div>
