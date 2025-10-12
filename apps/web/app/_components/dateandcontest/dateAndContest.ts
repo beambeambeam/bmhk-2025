@@ -368,9 +368,11 @@ export const dateAndContestData: Record<string, SectionItem[]> = {
           themeColor: "#9F83DC",
           lineColor: "#DFDFDF4D",
           NameList: true,
-          pathNameList: "",
+          pathNameList:
+            "https://www.facebook.com/BangmodHackathon/posts/pfbid02Mgt8rNF6xFrvSRfihVSErztR4SStTRjUtHzFkun7YmGi56444A2gXHGSvcvkRFvUl",
         },
       ],
+      image: "/static/timeline/t1.webp",
     },
   ],
 }
