@@ -39,14 +39,23 @@ function LandingSection() {
   return (
     <div className="relative mt-[143px] flex h-[852px] w-full flex-col items-center justify-center lg:h-[834px] 2xl:h-[1080px]">
       <div className="lg:absolute lg:right-[30px] lg:top-[30px] 2xl:right-[40px] 2xl:top-[40px]">
-        <img src="/static/hero/landing/LOGOS Desktop Hero.svg" className="hidden 2xl:block" />
-        <img src="/static/hero/landing/LOGOS Tablet Hero.svg" className="hidden lg:block 2xl:hidden" />
-        <img src="/static/hero/landing/LOGOS Mobile Hero.svg" className="mb-10 block lg:hidden" />
+        <img
+          src="/static/hero/landing/kmutt-eng-smovidva-engoph-cpe-desktop.webp"
+          className="hidden 2xl:block"
+        />
+        <img
+          src="/static/hero/landing/kmutt-eng-smovidva-engoph-cpe-tablet.webp"
+          className="hidden lg:block 2xl:hidden"
+        />
+        <img
+          src="/static/hero/landing/kmutt-eng-smovidva-engoph-cpe-mobile.webp"
+          className="mb-10 block lg:hidden"
+        />
       </div>
 
       <div className="mt-[-91.26px] size-[370.7310485839844px] lg:mt-[-104.37px] lg:size-[606.8907470703125px] 2xl:mt-[-135px] 2xl:size-[785px]">
         <img
-          src="/static/hero/landing/SVG Logo.svg"
+          src="/static/hero/landing/logo-final.webp"
           alt="logo"
           className="mx-auto h-full w-full object-cover object-bottom"
         />

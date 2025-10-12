@@ -83,8 +83,14 @@ function Footer() {
             <div className="hidden w-full items-center justify-between lg:flex">
               {/* Icon */}
               <div className="flex items-center">
-                <img src="/static/logo/LOGOS Desktop Footer.svg" className="hidden 2xl:block" />
-                <img src="/static/logo/LOGOS Tablet Footer.svg" className="hidden lg:block 2xl:hidden" />
+                <img
+                  src="/static/logo/kmutt-eng-smo-engoph-cpe-bmh-desktop-footer.webp"
+                  className="hidden 2xl:block"
+                />
+                <img
+                  src="/static/logo/kmutt-eng-smo-engoph-cpe-bmh-tablet-footer.webp"
+                  className="hidden lg:block 2xl:hidden"
+                />
               </div>
               <div className="flex items-center gap-6 2xl:hidden">
                 {" "}
@@ -110,7 +116,10 @@ function Footer() {
                 className="h-auto w-full max-w-[200px]"
               />
               <div className="flex w-full items-center">
-                <img src="/static/logo/LOGOS Mobile Footer.svg" className="h-auto w-full" />
+                <img
+                  src="/static/logo/kmutt-eng-smo-engoph-cpe-bmh-mobile-footer.webp"
+                  className="h-auto w-full"
+                />
               </div>
             </div>
             <div className="flex flex-col items-start gap-4 self-stretch max-lg:items-center 2xl:gap-6">
