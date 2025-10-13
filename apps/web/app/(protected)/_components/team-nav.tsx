@@ -19,11 +19,49 @@ export function TeamNavMenu() {
   return <TeamNavMenuClient teamData={teamData} />
 }
 
+export function useTeamNavMobileLinks(): NavLink[] {
+  const query = useQuery(orpc.register.all.get.queryOptions())
+  const statusQuery = useQuery(orpc.register.status.get.queryOptions())
+
+  const canAccessCerts =
+    query.data?.team && statusQuery.data?.registerStatus?.submitRegister && query.data.team.award !== "NONE"
+
+  return [
+    {
+      label: "ทีมของคุณ",
+      type: "normal",
+      href: "/teams",
+      mobileOnly: true,
+    },
+    ...(canAccessCerts
+      ? [
+          {
+            label: "ประกาศนียบัตร",
+            type: "normal",
+            href: "/teams/certs",
+            mobileOnly: true,
+          } as NavLink,
+        ]
+      : []),
+    {
+      label: "ออกจากระบบ",
+      type: "action",
+      action: "signout" as const,
+    },
+  ]
+}
+
 export const TeamNavMobileLinks: NavLink[] = [
   {
     label: "ทีมของคุณ",
     type: "normal",
     href: "/teams",
+    mobileOnly: true,
+  },
+  {
+    label: "ประกาศนียบัตร",
+    type: "normal",
+    href: "/teams/certs",
     mobileOnly: true,
   },
   {

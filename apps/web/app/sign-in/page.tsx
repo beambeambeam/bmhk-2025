@@ -91,11 +91,21 @@ function SignInPage() {
       }}>
       {/* background image */}
       <div className="absolute inset-0 z-0">
-        <img
-          src="/static/background-image/log_in_background_desktop_1x.webp"
-          alt="Login background"
-          className="h-full w-full object-cover"
-        />
+        <picture>
+          <source
+            srcSet="/static/background-image/log_in_background_desktop_2x.webp"
+            media="(min-width: 1536px)"
+          />
+          <source
+            srcSet="/static/background-image/log_in_background_tablet_2x.webp"
+            media="(min-width: 768px)"
+          />
+          <img
+            src="/static/background-image/log_in_background_mobile_2x.webp"
+            alt="Login background"
+            className="h-full w-full object-cover"
+          />
+        </picture>
       </div>
 
       {/* Random Stars */}
@@ -160,7 +170,7 @@ function SignInPage() {
         </div>
 
         <img
-          src="/static/logo/KMUTT_CPE.webp"
+          src="/static/logo/LOGOS Desktop Log In.svg"
           alt="KMUTT CPE Logo"
           className={`h-[50px] lg:h-[60px] ${isTall ? "2xl:h-[90px]" : ""}`}
         />

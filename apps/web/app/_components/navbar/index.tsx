@@ -87,7 +87,7 @@ export function Navbar({ links, CTAId, sections }: NavbarProps) {
                 style={{ width: "100%", height: "auto", objectFit: "cover" }}
                 width={500}
                 height={242}
-                src="/static/logo/Logo.webp"
+                src="/static/logo/logo-squooshed.webp"
                 alt="Bangmod Hackathon"
               />
             </NavLink>

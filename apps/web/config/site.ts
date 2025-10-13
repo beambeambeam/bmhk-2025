@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Bangmod Hackathon 2025 ได้เปิดรับสมัครเป็นที่เรียบร้อยแล้ว",
+  name: "Bangmod Hackathon 2025",
   url: "https://bangmodhackathon.com",
   ogImage: "https://bangmodhackathon.com/static/og.png",
   description:
