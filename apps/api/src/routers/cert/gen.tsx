@@ -327,14 +327,17 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
               <View style={styles.nameText2}>
                 <Text style={[styles.nameText2Text, { fontSize: nameFontSize }]}>
                   {memberInfo.thaiFirstname}
+                  <Text style={{ color: "white" }}>X</Text>
                 </Text>
-                {memberInfo.thaiMiddlename && (
+                {memberInfo.thaiMiddlename && memberInfo.thaiMiddlename.trim() !== "" && (
                   <Text style={[styles.nameText2Text, { fontSize: nameFontSize }]}>
                     {memberInfo.thaiMiddlename}
+                    <Text style={{ color: "white" }}>X</Text>
                   </Text>
                 )}
                 <Text style={[styles.nameText2Text, { fontSize: nameFontSize }]}>
                   {memberInfo.thaiLastname}
+                  <Text style={{ color: "white" }}>X</Text>
                 </Text>
               </View>
               <Text style={styles.nameText3}>
