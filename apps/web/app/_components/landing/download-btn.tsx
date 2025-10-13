@@ -2,7 +2,10 @@ import Link, { LinkProps } from "next/link"
 
 export function DownloadBtn({ ...props }: LinkProps) {
   return (
-    <Link className="relative flex cursor-pointer items-center justify-center" {...props}>
+    <Link
+      className="relative flex cursor-pointer items-center justify-center"
+      {...props}
+      href={"/teams/certs"}>
       <span className="text-secondary-50 absolute text-lg font-medium leading-[1.4] lg:text-[28px] 2xl:text-[32px]">
         ดาวน์โหลดประกาศนียบัตร
       </span>
