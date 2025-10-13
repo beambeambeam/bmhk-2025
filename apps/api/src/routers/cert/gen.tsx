@@ -48,6 +48,7 @@ Font.register({
 interface MemberInfo {
   type: "member" | "adviser"
   thaiFirstname: string | null
+  thaiMiddlename: string | null
   thaiLastname: string | null
   award?: AwardKeys
 }
@@ -254,6 +255,20 @@ const styles = StyleSheet.create({
   },
 })
 
+function calculateNameFontSize(firstname: string | null, lastname: string | null): number {
+  const combinedLength = (firstname?.length || 0) + (lastname?.length || 0)
+  const MIN_SIZE = 20
+  const MAX_SIZE = 40
+  const SHORT_NAME_THRESHOLD = 10
+  const LONG_NAME_THRESHOLD = 30
+
+  if (combinedLength <= SHORT_NAME_THRESHOLD) return MAX_SIZE
+  if (combinedLength >= LONG_NAME_THRESHOLD) return MIN_SIZE
+
+  const ratio = (combinedLength - SHORT_NAME_THRESHOLD) / (LONG_NAME_THRESHOLD - SHORT_NAME_THRESHOLD)
+  return MAX_SIZE - ratio * (MAX_SIZE - MIN_SIZE)
+}
+
 interface CertificateDocumentProps {
   memberInfo: MemberInfo
   team: TeamInfo
@@ -277,6 +292,7 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
   const bottomLeftArtPath = path.join(__dirname, "imgs", config.lowerImage)
   const topRightArtPath = path.join(__dirname, "imgs", config.topImage)
   const awardFontSize = config.of === "ACHIEVEMENT" ? 24 : 20
+  const nameFontSize = calculateNameFontSize(memberInfo.thaiFirstname, memberInfo.thaiLastname)
 
   return (
     <Document>
@@ -301,8 +317,17 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
             <View style={styles.nameContainer}>
               <Text style={styles.nameText1}>ประกาศนียบัตรฉบับนี้ ให้ไว้เพื่อแสดงว่า</Text>
               <View style={styles.nameText2}>
-                <Text style={styles.nameText2Text}>{memberInfo.thaiFirstname}</Text>
-                <Text style={styles.nameText2Text}>{memberInfo.thaiLastname}</Text>
+                <Text style={[styles.nameText2Text, { fontSize: nameFontSize }]}>
+                  {memberInfo.thaiFirstname}
+                </Text>
+                {memberInfo.thaiMiddlename && (
+                  <Text style={[styles.nameText2Text, { fontSize: nameFontSize }]}>
+                    {memberInfo.thaiMiddlename}
+                  </Text>
+                )}
+                <Text style={[styles.nameText2Text, { fontSize: nameFontSize }]}>
+                  {memberInfo.thaiLastname}
+                </Text>
               </View>
               <Text style={styles.nameText3}>
                 {teamPrefix}
