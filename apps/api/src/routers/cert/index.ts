@@ -40,6 +40,10 @@ export const certRouter = {
       }
       const team = userTeam[0]
 
+      if (team.award === "NONE") {
+        throw new Error("Team has not received any award yet")
+      }
+
       const isAdviser = input.member === "adviser"
 
       if (isAdviser) {
