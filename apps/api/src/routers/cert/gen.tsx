@@ -378,7 +378,9 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
               <View style={styles.signatureProfContainer}>
                 <Image style={styles.profSignature1} src={profSignature1} />
                 <View style={styles.profInfoContainer}>
-                  <Text style={styles.profName}>รศ. ดร.ณัฐชา เดชดำรง</Text>
+                  <Text style={styles.profName}>
+                    รศ. ดร.ณัฐชา เดชดำรง<Text style={{ color: "white" }}>X</Text>
+                  </Text>
                   <Text style={styles.profDetail}>
                     ที่ปรึกษาโครงการ และประธานหลักสูตร วิศวกรรมคอมพิวเตอร์ (นานาชาติ)
                   </Text>
