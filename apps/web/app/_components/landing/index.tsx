@@ -78,7 +78,7 @@ function LandingSection() {
         <p className="hidden whitespace-nowrap text-base font-light leading-[1.5] text-gray-50 lg:text-xl 2xl:block 2xl:text-[26px]">
           {descriptions.xl2}
         </p>
-        <DownloadBtn href="/" />
+        <DownloadBtn href="/teams/certs" />
       </div>
     </div>
   )
