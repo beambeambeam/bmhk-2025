@@ -6,7 +6,8 @@ import { Navbar } from "@/app/_components/navbar"
 import { orpc } from "@/utils/orpc"
 import { useQuery } from "@tanstack/react-query"
 import { cn } from "@workspace/ui/lib/utils"
-import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
 
 const BACKGROUND_CLASS =
   "bg-[url(/static/background-image/my-team/xs.webp)] md:bg-[url(/static/background-image/my-team/md.webp)] lg:bg-[url(/static/background-image/my-team/lg.webp)] 2xl:bg-[url(/static/background-image/my-team/2xl.webp)] bg-cover bg-center bg-no-repeat bg-scroll bg-black"
@@ -15,9 +16,69 @@ type MemberType = "adviser" | "member1" | "member2" | "member3"
 
 function CertPage() {
   const [selectedMember, setSelectedMember] = useState<MemberType | null>(null)
+  const router = useRouter()
   const query = useQuery(orpc.register.all.get.queryOptions())
+  const statusQuery = useQuery(orpc.register.status.get.queryOptions())
 
-  if (query.isPending) {
+  useEffect(() => {
+    if (query.data && statusQuery.data) {
+      if (!query.data.team) {
+        router.push("/teams")
+        return
+      }
+
+      if (!statusQuery.data.registerStatus?.submitRegister) {
+        router.push("/teams")
+        return
+      }
+
+      if (query.data.team.award === "NONE") {
+        router.push("/teams")
+        return
+      }
+    }
+  }, [query.data, statusQuery.data, router])
+
+  if (query.data && statusQuery.data) {
+    if (
+      !query.data.team ||
+      !statusQuery.data.registerStatus?.submitRegister ||
+      query.data.team.award === "NONE"
+    ) {
+      return (
+        <div
+          className={cn("flex min-h-screen w-full flex-col items-center justify-center", BACKGROUND_CLASS)}>
+          <div className="flex flex-col items-center gap-3">
+            <div className="size-8 animate-spin rounded-full border-4 border-white/30 border-t-white" />
+            <p className="text-[1rem] text-white opacity-70">กำลังเปลี่ยนหน้า...</p>
+          </div>
+        </div>
+      )
+    }
+  }
+
+  if (query.isError || statusQuery.isError) {
+    return (
+      <div className={cn("flex min-h-screen w-full flex-col items-center", BACKGROUND_CLASS)}>
+        <Navbar links={TeamNavMobileLinks} CTAId={"regis"} sections={[]} />
+        <div className="flex w-full flex-1 items-center justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <p className="text-[1rem] text-red-400">เกิดข้อผิดพลาดในการโหลดข้อมูล</p>
+            <button
+              onClick={() => {
+                query.refetch()
+                statusQuery.refetch()
+              }}
+              className="mt-4 rounded-lg bg-white/20 px-6 py-2 text-white hover:bg-white/30">
+              ลองใหม่อีกครั้ง
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (query.isPending || statusQuery.isPending) {
     return (
       <div className={cn("flex min-h-screen w-full flex-col items-center", BACKGROUND_CLASS)}>
         <Navbar links={TeamNavMobileLinks} CTAId={"regis"} sections={[]} />

@@ -14,9 +14,10 @@ function Sponsor() {
         สนับสนุนโดย
       </div>
       {SponsorList.map((s) => (
-        <div className="flex flex-col items-center gap-[12px] self-stretch max-lg:justify-center lg:flex-row lg:gap-6">
+        <div
+          key={s.name}
+          className="flex flex-col items-center gap-[12px] self-stretch max-lg:justify-center lg:flex-row lg:gap-6">
           <GlassCard
-            key={s.name}
             className="2xl:min-h-30 2xl:min-w-30 flex aspect-square min-h-[70px] min-w-[70px] items-center justify-center px-6 py-6 lg:min-h-[90px] lg:min-w-[90px]"
             style={{ borderRadius: 24, border: "1.5px solid rgba(255, 255, 255, 0.10)" }}>
             <img
