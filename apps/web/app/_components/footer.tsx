@@ -4,6 +4,7 @@ import GlassCard from "@/components/glassCard"
 import IconCircle from "@/components/iconCircle"
 import { siteConfig } from "@/config/site"
 import { SponsorList, SponsorTiers } from "@/config/sponsors"
+import Image from "next/image"
 import Link from "next/link"
 
 function Sponsor() {
@@ -84,13 +85,21 @@ function Footer() {
             <div className="hidden w-full items-center justify-between lg:flex">
               {/* Icon */}
               <div className="flex items-center">
-                <img
-                  src="/static/logo/kmutt-eng-smo-engoph-cpe-bmh-desktop-footer.webp"
+                <Image
+                  src="/static/logo/LOGOS Desktop Footer.svg"
                   className="hidden 2xl:block"
+                  alt="Organizers logo"
+                  loading="lazy"
+                  width={749}
+                  height={66}
                 />
-                <img
-                  src="/static/logo/kmutt-eng-smo-engoph-cpe-bmh-tablet-footer.webp"
+                <Image
+                  src="/static/logo/LOGOS Tablet Footer.svg"
                   className="hidden lg:block 2xl:hidden"
+                  alt="Organizers logo"
+                  loading="lazy"
+                  width={749}
+                  height={66}
                 />
               </div>
               <div className="flex items-center gap-6 2xl:hidden">
@@ -117,9 +126,13 @@ function Footer() {
                 className="h-auto w-full max-w-[200px]"
               />
               <div className="flex w-full items-center">
-                <img
-                  src="/static/logo/kmutt-eng-smo-engoph-cpe-bmh-mobile-footer.webp"
+                <Image
+                  src="/static/logo/LOGOS Mobile Footer.svg"
                   className="h-auto w-full"
+                  alt="Organizers logo"
+                  loading="lazy"
+                  width={345}
+                  height={34}
                 />
               </div>
             </div>
