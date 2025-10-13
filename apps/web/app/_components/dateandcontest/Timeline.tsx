@@ -26,7 +26,6 @@ type TimelineProps = {
 }
 
 export default function Timeline({ data }: TimelineProps) {
-  console.log(data)
   return (
     <div className="gap-y-25 2xl:gap-y-50 flex flex-col items-center justify-center">
       {data.map((section, sectionIndex) => (
@@ -77,13 +76,13 @@ export default function Timeline({ data }: TimelineProps) {
                         style={{
                           background: `
                           radial-gradient(
-                            66.31% 84.48% at 52.63% 121.84%, 
-                            ${content.themeColor} 0%, 
+                            66.31% 84.48% at 52.63% 121.84%,
+                            ${content.themeColor} 0%,
                             rgba(2, 6, 3, 0) 50%
                           ),
                           linear-gradient(
-                            106.52deg, 
-                            rgba(255, 204, 247, 0.09) 0.48%, 
+                            106.52deg,
+                            rgba(255, 204, 247, 0.09) 0.48%,
                             rgba(159, 131, 220, 0.09) 0.08%
                           )
                         `,
@@ -94,13 +93,13 @@ export default function Timeline({ data }: TimelineProps) {
                           style={{
                             background: `
                             radial-gradient(
-                              66.31% 84.48% at 52.63% 121.84%, 
-                              ${content.themeColor} 0%, 
+                              66.31% 84.48% at 52.63% 121.84%,
+                              ${content.themeColor} 0%,
                               rgba(2, 6, 3, 0) 90%
                             ),
                             linear-gradient(
-                              106.52deg, 
-                              rgba(255, 204, 247, 0.09) -2.48%, 
+                              106.52deg,
+                              rgba(255, 204, 247, 0.09) -2.48%,
                               rgba(159, 131, 220, 0.09) 29.08%
                             )
                           `,
@@ -140,13 +139,13 @@ export default function Timeline({ data }: TimelineProps) {
                       color: content.card.textColor,
                       background: `
                         radial-gradient(
-                          66.31% 84.48% at 52.63% 121.84%, 
-                          ${content.themeColor} 0%, 
+                          66.31% 84.48% at 52.63% 121.84%,
+                          ${content.themeColor} 0%,
                           rgba(2, 6, 3, 0) 70%
                         ),
                         linear-gradient(
-                          106.52deg, 
-                          rgba(255, 204, 247, 0.09) -2.48%, 
+                          106.52deg,
+                          rgba(255, 204, 247, 0.09) -2.48%,
                           rgba(159, 131, 220, 0.09) 29.08%
                         )
                       `,
