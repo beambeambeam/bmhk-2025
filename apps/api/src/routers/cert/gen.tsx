@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "flex-start",
-    gap: 20,
+    gap: 8,
   },
   nameText2Text: {
     color: "#282828",
@@ -261,16 +261,16 @@ function calculateNameFontSize(
   lastname: string | null
 ): number {
   const combinedLength = (firstname?.length || 0) + (middlename?.length || 0) + (lastname?.length || 0)
-  const MIN_SIZE = 20
+  const MIN_SIZE = 8
   const MAX_SIZE = 40
   const SHORT_NAME_THRESHOLD = 10
-  const LONG_NAME_THRESHOLD = 30
+  const LONG_NAME_THRESHOLD = 40
 
   if (combinedLength <= SHORT_NAME_THRESHOLD) return MAX_SIZE
   if (combinedLength >= LONG_NAME_THRESHOLD) return MIN_SIZE
 
   const ratio = (combinedLength - SHORT_NAME_THRESHOLD) / (LONG_NAME_THRESHOLD - SHORT_NAME_THRESHOLD)
-  return MAX_SIZE - ratio * (MAX_SIZE - MIN_SIZE)
+  return Math.max(MIN_SIZE, Math.round(MAX_SIZE - ratio * (MAX_SIZE - MIN_SIZE)))
 }
 
 interface CertificateDocumentProps {
