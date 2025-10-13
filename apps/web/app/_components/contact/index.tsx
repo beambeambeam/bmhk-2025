@@ -71,9 +71,8 @@ function Contact() {
               </div>
             </div>
           </div>
-          <MapEmbed className="hidden flex-shrink-0 lg:w-[384px] 2xl:block 2xl:w-[506px]" />{" "}
-          {/* Right Section */}
         </div>
+        <MapEmbed className="mt-8 hidden md:block md:h-[396px] md:w-full lg:h-[462px]" />{" "}
       </div>
     </div>
   )
