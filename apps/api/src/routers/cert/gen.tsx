@@ -255,8 +255,12 @@ const styles = StyleSheet.create({
   },
 })
 
-function calculateNameFontSize(firstname: string | null, lastname: string | null): number {
-  const combinedLength = (firstname?.length || 0) + (lastname?.length || 0)
+function calculateNameFontSize(
+  firstname: string | null,
+  middlename: string | null,
+  lastname: string | null
+): number {
+  const combinedLength = (firstname?.length || 0) + (middlename?.length || 0) + (lastname?.length || 0)
   const MIN_SIZE = 20
   const MAX_SIZE = 40
   const SHORT_NAME_THRESHOLD = 10
@@ -292,7 +296,11 @@ const CertificateDocument = ({ memberInfo, team }: CertificateDocumentProps) => 
   const bottomLeftArtPath = path.join(__dirname, "imgs", config.lowerImage)
   const topRightArtPath = path.join(__dirname, "imgs", config.topImage)
   const awardFontSize = config.of === "ACHIEVEMENT" ? 24 : 20
-  const nameFontSize = calculateNameFontSize(memberInfo.thaiFirstname, memberInfo.thaiLastname)
+  const nameFontSize = calculateNameFontSize(
+    memberInfo.thaiFirstname,
+    memberInfo.thaiMiddlename,
+    memberInfo.thaiLastname
+  )
 
   return (
     <Document>

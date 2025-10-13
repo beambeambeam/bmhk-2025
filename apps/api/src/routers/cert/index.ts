@@ -59,6 +59,7 @@ export const certRouter = {
           {
             type: "adviser",
             thaiFirstname: adviserInfo.thaiFirstname,
+            thaiMiddlename: adviserInfo.thaiMiddlename,
             thaiLastname: adviserInfo.thaiLastname,
           },
           team
@@ -109,6 +110,7 @@ export const certRouter = {
         {
           type: "member",
           thaiFirstname: memberInfo.thaiFirstname,
+          thaiMiddlename: memberInfo.thaiMiddlename,
           thaiLastname: memberInfo.thaiLastname,
           award: team.award as AwardKeys,
         },
